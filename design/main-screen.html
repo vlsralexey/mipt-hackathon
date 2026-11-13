@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="ru" data-palette="mono">
+<html lang="ru">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -8,8 +8,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
-/* ── Палитры: 60 % фон, 30 % второй цвет, 10 % акцент ───
-   Переключаются панелью «Палитра» в правом нижнем углу (только в макете). */
+/* ── Палитра «Графит»: 60 % фон, 30 % второй цвет, 10 % акцент ─── */
 :root {
   --paper: #ffffff;      /* 60 %: фон отчёта и чата */
   --second: #f4f4f2;     /* 30 %: навигация, сообщения, поле ввода, вопросы */
@@ -26,9 +25,9 @@
   --accent-wash: color-mix(in srgb, var(--accent) 12%, var(--paper));
   --data-wash: color-mix(in srgb, var(--data) 10%, var(--paper));
 
-  /* навигация: по умолчанию — второй цвет */
-  --nav-bg: var(--second); --nav-ink: var(--ink); --nav-muted: var(--muted);
-  --nav-hover: var(--hover); --nav-active: var(--paper);
+  /* навигация: белая */
+  --nav-bg: var(--paper); --nav-ink: var(--ink); --nav-muted: var(--muted);
+  --nav-hover: color-mix(in srgb, var(--second) 60%, var(--paper)); --nav-active: var(--second);
 
   --warn: #93560a;       /* честное «недостаточно данных» */
   --warn-wash: #fbf4e8;
@@ -38,32 +37,6 @@
   --t-xs: 12px; --t-sm: 13px; --t-md: 15px; --t-lg: 19px; --t-xl: 24px; --t-total: 36px;
   --r-sm: 8px; --r-md: 12px; --r-lg: 18px;
 }
-/* Оранжевые: яркий оранжевый слишком светлый для белого текста,
-   поэтому на кнопке тёмный текст, ссылки — тёмно-оранжевые, точки цен — графит
-   (чтобы оранжевый не путался с жёлтым «недостаточно данных»). */
-[data-palette="orange"] {
-  --second: #f5f3f0; --accent: #ff5a1f; --on-accent: #1c1917; --link: #c2410c; --data: #1c1917;
-  --ink: #1c1917; --muted: #645f59;
-}
-/* Оранжевый Strava с белым текстом: контраст 3.4:1 — норма только для крупного
-   жирного текста, поэтому текст на кнопках здесь жирнее. */
-[data-palette="strava"] {
-  --second: #f5f3f0; --accent: #fc4c02; --on-accent: #ffffff; --link: #c2410c; --data: #1c1917;
-  --ink: #1c1917; --muted: #645f59;
-}
-/* Тот же оттенок, затемнённый до 4.5:1 с белым текстом — проходит норму целиком. */
-[data-palette="orange-aa"] {
-  --second: #f5f3f0; --accent: #d64200; --on-accent: #ffffff; --link: #c2410c; --data: #1c1917;
-  --ink: #1c1917; --muted: #645f59;
-}
-[data-palette="terracotta"] {
-  --paper: #fcfaf7; --second: #f3eee7; --accent: #c2410c; --link: #b23a0a; --data: #1f1b17;
-  --ink: #1f1b17; --muted: #68615a;
-}
-
-/* Навигация: белая (по умолчанию), цветная (второй цвет) или тёмная */
-[data-nav="white"] { --nav-bg: var(--paper); --nav-active: var(--second); --nav-hover: color-mix(in srgb, var(--second) 60%, var(--paper)); }
-[data-nav="dark"]  { --nav-bg: #1c1c1e; --nav-ink: #f4f3f1; --nav-muted: #a19e99; --nav-hover: #2a2a2c; --nav-active: #353538; }
 
 * { box-sizing: border-box; }
 html, body { height: 100%; }
@@ -106,10 +79,7 @@ a:hover { text-decoration-color: currentColor; }
   transition: border-color .15s ease-out, background-color .15s ease-out;
 }
 .btn-new:hover { border-color: var(--line-strong); }
-[data-nav="white"] .nav { border-right: 1px solid var(--line); }
-[data-nav="dark"] .btn-new { background: var(--accent); color: var(--on-accent); border-color: var(--accent); }
-[data-nav="dark"] .btn-new:hover { background: color-mix(in srgb, var(--accent) 88%, white); }
-[data-palette="strava"] .btn.primary, [data-palette="strava"] .btn-new { font-weight: 600; }
+.nav { border-right: 1px solid var(--line); }
 .nav-list { flex: 1; overflow: auto; margin: 16px -4px 0; padding: 0 4px; display: flex; flex-direction: column; gap: 2px; }
 .nav-item {
   display: block; width: 100%; text-align: left; border: 0; background: none;
@@ -129,7 +99,6 @@ a:hover { text-decoration-color: currentColor; }
   font-size: var(--t-sm); color: var(--nav-muted); text-align: left;
 }
 .nav-link:hover { background: var(--nav-hover); color: var(--nav-ink); }
-[data-nav="dark"] .nav .dot.warn { background: #e9a23b; }
 
 /* ── Чат ──────────────────────────────────────────────── */
 .chat { display: flex; flex-direction: column; min-width: 0; min-height: 0; border-right: 1px solid var(--line); }
@@ -351,29 +320,6 @@ a:hover { text-decoration-color: currentColor; }
 .captcha .box { width: 22px; height: 22px; border: 2px solid var(--line-strong); border-radius: 5px; }
 .captcha .t { font-weight: 600; }
 .captcha .s { color: var(--muted); font-size: var(--t-xs); }
-
-/* ── Переключатель палитры (только в макете) ─────────── */
-.pal {
-  position: fixed; right: 16px; bottom: 16px; z-index: 10;
-  display: flex; align-items: center; gap: 2px; padding: 4px;
-  background: #fff; color: #18191b; border: 1px solid #e3e3e0; border-radius: 999px;
-  box-shadow: 0 6px 20px -8px rgba(0, 0, 0, .18);
-  font: 400 12px/1 var(--font);
-}
-.pal .lbl { padding: 0 8px 0 10px; color: #62666d; white-space: nowrap; }
-.pal .lbl b { color: #18191b; font-weight: 500; }
-.pal button {
-  display: inline-flex; align-items: center; gap: 6px; border: 0; background: none;
-  padding: 5px; border-radius: 999px;
-}
-.pal button:hover { background: #f4f4f2; }
-.pal button[aria-pressed="true"] { box-shadow: inset 0 0 0 2px #18191b; }
-.pal i { display: inline-flex; border-radius: 999px; overflow: hidden; box-shadow: 0 0 0 1px rgba(0,0,0,.12); }
-.pal i b { width: 6px; height: 18px; }
-.pal .sep { width: 1px; height: 20px; background: #e3e3e0; margin: 0 4px 0 8px; }
-.pal .seg { display: inline-flex; gap: 2px; }
-.pal .seg button { padding: 6px 10px; font-size: 12px; color: #62666d; }
-.pal .seg button[aria-pressed="true"] { box-shadow: none; background: #18191b; color: #fff; }
 
 @media (max-width: 1100px) {
   .app { grid-template-columns: 216px minmax(320px, 1fr) minmax(420px, 1.1fr); }
@@ -672,23 +618,6 @@ a:hover { text-decoration-color: currentColor; }
   </section>
 </div>
 
-<!-- Только для макета: сравнение палитр -->
-<div class="pal" role="group" aria-label="Палитра макета">
-  <span class="lbl">Палитра: <b id="pal-name"></b></span>
-  <button type="button" data-p="mono" title="Графит" aria-label="Графит"><i><b style="background:#fff"></b><b style="background:#f4f4f2"></b><b style="background:#18181b"></b></i></button>
-  <button type="button" data-p="orange" title="Оранжевый" aria-label="Оранжевый"><i><b style="background:#fff"></b><b style="background:#f5f3f0"></b><b style="background:#ff5a1f"></b></i></button>
-  <button type="button" data-p="strava" title="Оранжевый Strava" aria-label="Оранжевый Strava"><i><b style="background:#fff"></b><b style="background:#f5f3f0"></b><b style="background:#fc4c02"></b></i></button>
-  <button type="button" data-p="orange-aa" title="Оранжевый тёмный" aria-label="Оранжевый тёмный"><i><b style="background:#fff"></b><b style="background:#f5f3f0"></b><b style="background:#d64200"></b></i></button>
-  <button type="button" data-p="terracotta" title="Терракота" aria-label="Терракота"><i><b style="background:#fcfaf7"></b><b style="background:#f3eee7"></b><b style="background:#c2410c"></b></i></button>
-  <span class="sep"></span>
-  <span class="lbl">Навигация:</span>
-  <span class="seg" role="group" aria-label="Навигация">
-    <button type="button" data-nav-opt="white">белая</button>
-    <button type="button" data-nav-opt="tint">цветная</button>
-    <button type="button" data-nav-opt="dark">тёмная</button>
-  </span>
-</div>
-
 <script>
   const fmt = v => v.toLocaleString('ru-RU', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 
@@ -722,34 +651,6 @@ a:hover { text-decoration-color: currentColor; }
 
   const params = new URLSearchParams(location.search);
   if (params.get('tab') === 'browser') showTab('browser');
-
-  // Навигация макета: ?nav=white|tint|dark
-  const setNav = n => {
-    if (!['white', 'tint', 'dark'].includes(n)) n = 'white';
-    document.documentElement.dataset.nav = n;
-    document.querySelectorAll('[data-nav-opt]').forEach(b => b.setAttribute('aria-pressed', b.dataset.navOpt === n));
-    try { localStorage.setItem('nav', n); } catch (e) {}
-  };
-  let savedNav = null;
-  try { savedNav = localStorage.getItem('nav'); } catch (e) {}
-  setNav(params.get('nav') || savedNav || 'white');
-  document.querySelectorAll('[data-nav-opt]').forEach(b => b.addEventListener('click', () => setNav(b.dataset.navOpt)));
-
-  // Палитра макета: ?palette=mono|orange|strava|orange-aa|terracotta, выбор запоминается
-  const palettes = [...document.querySelectorAll('.pal [data-p]')].map(b => b.dataset.p);
-  const setPalette = p => {
-    if (!palettes.includes(p)) p = 'mono';
-    document.documentElement.dataset.palette = p;
-    document.querySelectorAll('.pal [data-p]').forEach(b => {
-      b.setAttribute('aria-pressed', b.dataset.p === p);
-      if (b.dataset.p === p) document.getElementById('pal-name').textContent = b.title;
-    });
-    try { localStorage.setItem('palette', p); } catch (e) {}
-  };
-  let saved = null;
-  try { saved = localStorage.getItem('palette'); } catch (e) {}
-  setPalette(params.get('palette') || saved || 'mono');
-  document.querySelectorAll('.pal [data-p]').forEach(b => b.addEventListener('click', () => setPalette(b.dataset.p)));
 
   // Чат открыт на последнем сообщении
   const thread = document.querySelector('.thread');
