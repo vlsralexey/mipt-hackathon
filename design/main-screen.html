@@ -1,0 +1,759 @@
+<!doctype html>
+<html lang="ru" data-palette="mono">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Экран закупки — макет</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+/* ── Палитры: 60 % фон, 30 % второй цвет, 10 % акцент ───
+   Переключаются панелью «Палитра» в правом нижнем углу (только в макете). */
+:root {
+  --paper: #ffffff;      /* 60 %: фон отчёта и чата */
+  --second: #f4f4f2;     /* 30 %: навигация, сообщения, поле ввода, вопросы */
+  --accent: #18181b;     /* 10 %: главная кнопка, отправка, активное */
+  --on-accent: #ffffff;  /* текст на акценте */
+  --link: var(--accent); /* ссылки: должны читаться на белом (4.5:1) */
+  --data: var(--accent); /* точки цен на линейке */
+  --ink: #18191b;        /* текст и логотип */
+  --muted: #62666d;
+
+  --line: color-mix(in srgb, var(--ink) 9%, var(--paper));
+  --line-strong: color-mix(in srgb, var(--ink) 17%, var(--paper));
+  --hover: color-mix(in srgb, var(--ink) 5%, var(--second));
+  --accent-wash: color-mix(in srgb, var(--accent) 12%, var(--paper));
+  --data-wash: color-mix(in srgb, var(--data) 10%, var(--paper));
+
+  /* навигация: по умолчанию — второй цвет */
+  --nav-bg: var(--second); --nav-ink: var(--ink); --nav-muted: var(--muted);
+  --nav-hover: var(--hover); --nav-active: var(--paper);
+
+  --warn: #93560a;       /* честное «недостаточно данных» */
+  --warn-wash: #fbf4e8;
+  --cut: #b3261e;        /* исключённое */
+
+  --font: "Golos Text", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --t-xs: 12px; --t-sm: 13px; --t-md: 15px; --t-lg: 19px; --t-xl: 24px; --t-total: 36px;
+  --r-sm: 8px; --r-md: 12px; --r-lg: 18px;
+}
+/* Оранжевые: яркий оранжевый слишком светлый для белого текста,
+   поэтому на кнопке тёмный текст, ссылки — тёмно-оранжевые, точки цен — графит
+   (чтобы оранжевый не путался с жёлтым «недостаточно данных»). */
+[data-palette="orange"] {
+  --second: #f5f3f0; --accent: #ff5a1f; --on-accent: #1c1917; --link: #c2410c; --data: #1c1917;
+  --ink: #1c1917; --muted: #645f59;
+}
+/* Оранжевый Strava с белым текстом: контраст 3.4:1 — норма только для крупного
+   жирного текста, поэтому текст на кнопках здесь жирнее. */
+[data-palette="strava"] {
+  --second: #f5f3f0; --accent: #fc4c02; --on-accent: #ffffff; --link: #c2410c; --data: #1c1917;
+  --ink: #1c1917; --muted: #645f59;
+}
+/* Тот же оттенок, затемнённый до 4.5:1 с белым текстом — проходит норму целиком. */
+[data-palette="orange-aa"] {
+  --second: #f5f3f0; --accent: #d64200; --on-accent: #ffffff; --link: #c2410c; --data: #1c1917;
+  --ink: #1c1917; --muted: #645f59;
+}
+[data-palette="terracotta"] {
+  --paper: #fcfaf7; --second: #f3eee7; --accent: #c2410c; --link: #b23a0a; --data: #1f1b17;
+  --ink: #1f1b17; --muted: #68615a;
+}
+
+/* Навигация: белая (по умолчанию), цветная (второй цвет) или тёмная */
+[data-nav="white"] { --nav-bg: var(--paper); --nav-active: var(--second); --nav-hover: color-mix(in srgb, var(--second) 60%, var(--paper)); }
+[data-nav="dark"]  { --nav-bg: #1c1c1e; --nav-ink: #f4f3f1; --nav-muted: #a19e99; --nav-hover: #2a2a2c; --nav-active: #353538; }
+
+* { box-sizing: border-box; }
+html, body { height: 100%; }
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font: 400 var(--t-md)/1.55 var(--font);
+  font-variant-numeric: tabular-nums;
+  -webkit-font-smoothing: antialiased;
+}
+::selection { background: var(--accent-wash); color: var(--ink); }
+* { scrollbar-width: thin; scrollbar-color: var(--line-strong) transparent; }
+button { font: inherit; color: inherit; cursor: pointer; }
+a { color: var(--link); text-decoration: underline; text-decoration-color: color-mix(in srgb, var(--link) 30%, transparent); text-underline-offset: 3px; }
+a:hover { text-decoration-color: currentColor; }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: var(--r-sm); }
+.icon, .mark { stroke: currentColor; fill: none; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
+.icon { width: 18px; height: 18px; flex: none; }
+.num { font-variant-numeric: tabular-nums; white-space: nowrap; }
+
+/* ── Каркас: навигация | чат | отчёт ─────────────────── */
+.app {
+  display: grid; height: 100vh; min-width: 1024px; overflow: hidden;
+  grid-template-columns: 248px minmax(360px, 1fr) minmax(520px, 1.2fr);
+}
+
+/* ── Навигация ────────────────────────────────────────── */
+.nav {
+  display: flex; flex-direction: column; min-height: 0;
+  background: var(--nav-bg); color: var(--nav-ink); padding: 20px 12px 12px;
+}
+.lockup { display: flex; align-items: baseline; gap: 8px; padding: 0 10px 22px; font-size: 17px; font-weight: 600; letter-spacing: -0.01em; white-space: nowrap; }
+.lockup .x { font-weight: 400; color: var(--nav-muted); }
+.btn-new {
+  display: flex; align-items: center; gap: 10px; width: 100%;
+  padding: 9px 14px; border-radius: 999px;
+  background: var(--nav-active); border: 1px solid var(--line);
+  font-weight: 500; text-align: left;
+  transition: border-color .15s ease-out, background-color .15s ease-out;
+}
+.btn-new:hover { border-color: var(--line-strong); }
+[data-nav="white"] .nav { border-right: 1px solid var(--line); }
+[data-nav="dark"] .btn-new { background: var(--accent); color: var(--on-accent); border-color: var(--accent); }
+[data-nav="dark"] .btn-new:hover { background: color-mix(in srgb, var(--accent) 88%, white); }
+[data-palette="strava"] .btn.primary, [data-palette="strava"] .btn-new { font-weight: 600; }
+.nav-list { flex: 1; overflow: auto; margin: 16px -4px 0; padding: 0 4px; display: flex; flex-direction: column; gap: 2px; }
+.nav-item {
+  display: block; width: 100%; text-align: left; border: 0; background: none;
+  padding: 8px 12px; border-radius: var(--r-md);
+}
+.nav-item:hover { background: var(--nav-hover); }
+.nav-item[aria-current="page"] { background: var(--nav-active); }
+.nav-item .t { display: block; font-size: var(--t-sm); font-weight: 500; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.nav-item .s { display: flex; align-items: center; gap: 6px; font-size: var(--t-xs); color: var(--nav-muted); }
+.dot { width: 6px; height: 6px; border-radius: 50%; background: var(--accent); flex: none; }
+.dot.live { animation: pulse 1.6s ease-in-out infinite; }
+.dot.warn { background: var(--warn); }
+@keyframes pulse { 50% { opacity: .3; } }
+.nav-link {
+  display: flex; align-items: center; gap: 10px; width: 100%;
+  border: 0; background: none; padding: 9px 12px; border-radius: var(--r-md);
+  font-size: var(--t-sm); color: var(--nav-muted); text-align: left;
+}
+.nav-link:hover { background: var(--nav-hover); color: var(--nav-ink); }
+[data-nav="dark"] .nav .dot.warn { background: #e9a23b; }
+
+/* ── Чат ──────────────────────────────────────────────── */
+.chat { display: flex; flex-direction: column; min-width: 0; min-height: 0; border-right: 1px solid var(--line); }
+.head {
+  display: flex; align-items: center; gap: 8px;
+  height: 56px; padding: 0 24px; flex: none;
+}
+.chat .head h1 { font-size: var(--t-md); font-weight: 500; margin: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+.thread { flex: 1; overflow: auto; padding: 12px 24px 16px; }
+.thread-inner { max-width: 620px; margin: 0 auto; display: flex; flex-direction: column; gap: 28px; }
+
+.msg-user { align-self: flex-end; max-width: 85%; display: flex; flex-direction: column; align-items: flex-end; gap: 6px; }
+.bubble { background: var(--second); border-radius: var(--r-lg); padding: 10px 16px; }
+.attach {
+  display: flex; align-items: center; gap: 10px;
+  border: 1px solid var(--line); border-radius: var(--r-md); padding: 8px 14px 8px 10px;
+}
+.attach .icon { color: var(--muted); }
+.attach .n { display: block; font-size: var(--t-sm); font-weight: 500; }
+.attach .m { font-size: var(--t-xs); color: var(--muted); }
+
+.msg-agent { display: flex; flex-direction: column; gap: 12px; }
+.msg-agent p { margin: 0; }
+
+.positions { margin: 0; padding: 0; list-style: none; font-size: var(--t-sm); }
+.positions li { display: grid; grid-template-columns: 20px 1fr auto; gap: 8px; padding: 5px 0; }
+.positions .i, .positions .q { color: var(--muted); }
+
+/* Ход поиска свёрнут в одну строку, подробности по клику */
+.trace summary {
+  display: inline-flex; align-items: center; gap: 6px; list-style: none;
+  font-size: var(--t-sm); color: var(--muted); cursor: pointer; border-radius: var(--r-sm);
+}
+.trace summary::-webkit-details-marker { display: none; }
+.trace summary:hover { color: var(--ink); }
+.trace summary .icon { width: 14px; height: 14px; transition: transform .2s ease-out; }
+.trace[open] summary .icon { transform: rotate(180deg); }
+.steps { margin-top: 8px; padding-left: 2px; font-size: var(--t-sm); }
+.step { display: grid; grid-template-columns: 16px 1fr auto; gap: 10px; align-items: center; padding: 3px 0; }
+.step .r { color: var(--muted); font-size: var(--t-xs); }
+.mark { width: 14px; height: 14px; stroke-width: 2; }
+.mark.ok { color: var(--ink); }
+.mark.empty { color: var(--muted); }
+.mark.err { color: var(--cut); }
+.mark.wait { color: var(--warn); }
+.mark.run { color: var(--accent); animation: spin 1.1s linear infinite; }
+@keyframes spin { to { transform: rotate(360deg); } }
+
+.ask {
+  background: var(--second); border-radius: var(--r-md); padding: 16px 18px;
+  display: flex; flex-direction: column; gap: 14px;
+}
+.ask .q { font-weight: 500; }
+.ask .hint { font-size: var(--t-sm); color: var(--muted); margin-top: 2px; }
+.actions { display: flex; flex-wrap: wrap; gap: 8px; }
+.btn {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 7px 16px; border-radius: 999px;
+  border: 1px solid var(--line-strong); background: var(--paper); font-size: var(--t-sm); font-weight: 500;
+  transition: border-color .15s ease-out, background-color .15s ease-out;
+}
+.btn:hover { border-color: var(--ink); }
+.btn.primary { background: var(--accent); color: var(--on-accent); border-color: var(--accent); }
+.btn.primary:hover { background: color-mix(in srgb, var(--accent) 85%, black); }
+.btn.chosen { border-color: var(--ink); }
+.btn.ghost { border-color: transparent; background: none; color: var(--muted); }
+.btn.ghost:hover { color: var(--ink); background: var(--second); }
+.btn .icon { width: 16px; height: 16px; }
+
+.composer-wrap { flex: none; padding: 8px 24px 20px; }
+.composer {
+  max-width: 620px; margin: 0 auto;
+  background: var(--second); border-radius: var(--r-lg);
+  padding: 12px 10px 10px 18px;
+}
+.composer textarea {
+  width: 100%; border: 0; resize: none; outline: none; background: none;
+  font: inherit; color: var(--ink); min-height: 44px; caret-color: var(--accent);
+}
+.composer textarea::placeholder { color: var(--muted); }
+.composer-row { display: flex; align-items: center; gap: 6px; }
+.composer-row .spacer { flex: 1; }
+.icon-btn {
+  width: 34px; height: 34px; display: grid; place-items: center;
+  border-radius: 50%; border: 0; background: none; color: var(--muted);
+}
+.icon-btn:hover { background: var(--hover); color: var(--ink); }
+.send { background: var(--accent); color: var(--on-accent); }
+.send:hover { background: color-mix(in srgb, var(--accent) 85%, black); color: var(--on-accent); }
+
+/* ── Правая панель: отчёт / браузер ───────────────────── */
+.side { display: flex; flex-direction: column; min-width: 0; min-height: 0; }
+.side .head { padding: 0 16px 0 14px; }
+.tabs { display: flex; gap: 2px; }
+.tab {
+  display: inline-flex; align-items: center; gap: 8px;
+  border: 0; background: none; padding: 6px 14px; border-radius: 999px;
+  font-size: var(--t-sm); font-weight: 500; color: var(--muted);
+}
+.tab:hover { color: var(--ink); }
+.tab[aria-selected="true"] { color: var(--ink); background: var(--second); }
+.tab .badge { width: 6px; height: 6px; border-radius: 50%; background: var(--warn); }
+.side .head .spacer { flex: 1; }
+
+.panel { flex: 1; overflow: auto; min-height: 0; }
+.panel[hidden] { display: none; }
+
+/* ── Отчёт ────────────────────────────────────────────── */
+.report { max-width: 720px; margin: 0 auto; padding: 28px 40px 72px; }
+.r-title { font-size: var(--t-xl); line-height: 1.3; font-weight: 600; letter-spacing: -0.015em; margin: 0; max-width: 34ch; text-wrap: balance; }
+.r-meta { margin: 8px 0 0; font-size: var(--t-sm); color: var(--muted); }
+
+.total { margin: 36px 0 0; }
+.total-label { font-size: var(--t-sm); color: var(--muted); }
+.total-value { font-size: var(--t-total); font-weight: 600; letter-spacing: -0.025em; line-height: 1.15; margin: 2px 0 8px; }
+.total-value .cur { color: var(--muted); font-weight: 400; margin-left: 6px; }
+.total-note { font-size: var(--t-sm); color: var(--muted); max-width: 54ch; margin: 0; }
+
+.warning {
+  margin-top: 24px; display: grid; grid-template-columns: 18px 1fr; gap: 12px;
+  background: var(--warn-wash); border-radius: var(--r-md); padding: 14px 18px; font-size: var(--t-sm);
+}
+.warning .icon { color: var(--warn); margin-top: 2px; }
+.warning b { font-weight: 600; color: var(--warn); }
+.warning p { margin: 0; }
+
+.r-section { margin-top: 48px; }
+.r-section h2 { font-size: var(--t-lg); font-weight: 600; letter-spacing: -0.01em; margin: 0 0 12px; }
+
+/* Позиции и линейка цен — главный элемент отчёта */
+.pos { padding: 18px 0 20px; border-top: 1px solid var(--line); }
+.pos-head { display: grid; grid-template-columns: 1fr auto; gap: 16px; align-items: baseline; }
+.pos-name { font-weight: 500; }
+.pos-qty { display: block; font-size: var(--t-sm); color: var(--muted); }
+.pos-sum { text-align: right; font-weight: 600; }
+.pos-sum small { display: block; font-weight: 400; font-size: var(--t-xs); color: var(--muted); }
+.pos.is-weak .pos-sum, .pos.is-weak .pos-sum small { color: var(--warn); }
+
+.ruler { position: relative; height: 52px; margin: 14px 0 0; }
+.ruler .axis { position: absolute; left: 0; right: 0; top: 22px; height: 1px; background: var(--line-strong); }
+.ruler .band { position: absolute; top: 13px; height: 19px; background: var(--data-wash); border-radius: 999px; }
+.pos.is-weak .ruler .band { background: var(--warn-wash); }
+.ruler .pt {
+  position: absolute; top: 17px; width: 11px; height: 11px; margin-left: -5.5px;
+  border-radius: 50%; background: var(--data); box-shadow: 0 0 0 2px var(--paper);
+}
+.pos.is-weak .ruler .pt { background: var(--warn); }
+.ruler .pt.ex { background: var(--paper); box-shadow: inset 0 0 0 2px var(--cut); }
+.ruler .mean { position: absolute; top: 8px; height: 29px; width: 2px; margin-left: -1px; border-radius: 1px; background: var(--ink); }
+.ruler .lbl { position: absolute; top: 36px; font-size: 11px; color: var(--muted); transform: translateX(-50%); white-space: nowrap; }
+.ruler .lbl.mean-l { color: var(--ink); font-weight: 500; }
+.ruler .lbl.start { transform: none; }
+.ruler .lbl.end { transform: translateX(-100%); }
+.pos-stats { margin: 8px 0 0; font-size: var(--t-xs); color: var(--muted); }
+
+/* Таблицы предложений */
+.tbl { width: 100%; border-collapse: collapse; font-size: var(--t-sm); }
+.tbl th { text-align: left; font-weight: 400; color: var(--muted); font-size: var(--t-xs); padding: 0 8px 8px 0; border-bottom: 1px solid var(--line); }
+.tbl td { padding: 11px 8px 11px 0; border-bottom: 1px solid var(--line); vertical-align: top; }
+.tbl .r { text-align: right; padding-right: 0; }
+.tbl .sub { display: block; color: var(--muted); font-size: var(--t-xs); margin-top: 2px; }
+.tbl tr.excluded .price { text-decoration: line-through; text-decoration-color: var(--cut); color: var(--muted); }
+.reason { color: var(--cut); font-size: var(--t-xs); display: block; margin-top: 2px; }
+.pos-filter { display: flex; gap: 4px; margin: 0 0 12px; }
+.chip {
+  border: 0; background: none; border-radius: 999px; padding: 5px 12px; font-size: var(--t-xs); color: var(--muted);
+}
+.chip:hover { color: var(--ink); }
+.chip[aria-pressed="true"] { background: var(--second); color: var(--ink); font-weight: 500; }
+
+/* Второстепенные разделы свёрнуты */
+.r-more { border-top: 1px solid var(--line); }
+.r-more:last-child { border-bottom: 1px solid var(--line); }
+.r-section.more { margin-top: 48px; }
+.r-more summary {
+  display: flex; align-items: center; gap: 10px; padding: 14px 0; list-style: none; cursor: pointer;
+  font-weight: 500;
+}
+.r-more summary::-webkit-details-marker { display: none; }
+.r-more summary .cnt { color: var(--muted); font-weight: 400; font-size: var(--t-sm); }
+.r-more summary .icon { margin-left: auto; width: 16px; height: 16px; color: var(--muted); transition: transform .2s ease-out; }
+.r-more[open] summary .icon { transform: rotate(180deg); }
+.r-more .body { padding: 0 0 20px; }
+
+.sources { list-style: none; margin: 0; padding: 0; font-size: var(--t-sm); }
+.sources li { display: grid; grid-template-columns: 16px 1fr auto; gap: 10px; align-items: center; padding: 7px 0; }
+.sources .lvl, .sources .res { font-size: var(--t-xs); color: var(--muted); }
+.sources .res { text-align: right; }
+
+.subject { font-size: var(--t-sm); color: var(--muted); }
+.subject p { margin: 0 0 8px; }
+.subject b { color: var(--ink); font-weight: 500; }
+
+/* ── Живое окно браузера ──────────────────────────────── */
+.browser { display: flex; flex-direction: column; height: 100%; padding: 8px 16px 16px; gap: 12px; }
+.b-notice {
+  display: grid; grid-template-columns: 18px 1fr auto; gap: 12px; align-items: center;
+  background: var(--warn-wash); border-radius: var(--r-md); padding: 12px 16px; font-size: var(--t-sm);
+}
+.b-notice .icon { color: var(--warn); }
+.b-notice p { margin: 0; }
+.b-notice .sub { color: var(--muted); font-size: var(--t-xs); }
+.b-frame { flex: 1; display: flex; flex-direction: column; border: 1px solid var(--line-strong); border-radius: var(--r-md); overflow: hidden; min-height: 360px; }
+.b-bar { display: flex; align-items: center; gap: 4px; padding: 8px 10px; background: var(--second); }
+.b-url {
+  flex: 1; display: flex; align-items: center; gap: 8px; min-width: 0;
+  background: var(--paper); border-radius: 999px; padding: 5px 14px; font-size: var(--t-xs); color: var(--muted);
+}
+.b-url span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.b-url .icon { width: 13px; height: 13px; }
+.b-live { display: inline-flex; align-items: center; gap: 6px; font-size: var(--t-xs); color: var(--muted); padding: 0 6px; white-space: nowrap; }
+.b-view { flex: 1; display: grid; place-items: center; background: var(--paper); position: relative; }
+.captcha {
+  position: relative; width: min(340px, 86%); background: var(--paper); border: 1px solid var(--line-strong); border-radius: var(--r-md);
+  padding: 18px; font-size: var(--t-sm);
+}
+.captcha .row { display: flex; align-items: center; gap: 12px; margin-top: 12px; padding: 12px; border: 1px solid var(--line); border-radius: var(--r-sm); }
+.captcha .box { width: 22px; height: 22px; border: 2px solid var(--line-strong); border-radius: 5px; }
+.captcha .t { font-weight: 600; }
+.captcha .s { color: var(--muted); font-size: var(--t-xs); }
+
+/* ── Переключатель палитры (только в макете) ─────────── */
+.pal {
+  position: fixed; right: 16px; bottom: 16px; z-index: 10;
+  display: flex; align-items: center; gap: 2px; padding: 4px;
+  background: #fff; color: #18191b; border: 1px solid #e3e3e0; border-radius: 999px;
+  box-shadow: 0 6px 20px -8px rgba(0, 0, 0, .18);
+  font: 400 12px/1 var(--font);
+}
+.pal .lbl { padding: 0 8px 0 10px; color: #62666d; white-space: nowrap; }
+.pal .lbl b { color: #18191b; font-weight: 500; }
+.pal button {
+  display: inline-flex; align-items: center; gap: 6px; border: 0; background: none;
+  padding: 5px; border-radius: 999px;
+}
+.pal button:hover { background: #f4f4f2; }
+.pal button[aria-pressed="true"] { box-shadow: inset 0 0 0 2px #18191b; }
+.pal i { display: inline-flex; border-radius: 999px; overflow: hidden; box-shadow: 0 0 0 1px rgba(0,0,0,.12); }
+.pal i b { width: 6px; height: 18px; }
+.pal .sep { width: 1px; height: 20px; background: #e3e3e0; margin: 0 4px 0 8px; }
+.pal .seg { display: inline-flex; gap: 2px; }
+.pal .seg button { padding: 6px 10px; font-size: 12px; color: #62666d; }
+.pal .seg button[aria-pressed="true"] { box-shadow: none; background: #18191b; color: #fff; }
+
+@media (max-width: 1100px) {
+  .app { grid-template-columns: 216px minmax(320px, 1fr) minmax(420px, 1.1fr); }
+  .report { padding: 24px 24px 64px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .dot.live, .mark.run { animation: none; }
+  * { transition: none !important; }
+}
+</style>
+</head>
+<body>
+
+<!-- Иконки -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
+  <symbol id="i-gear" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/></symbol>
+  <symbol id="i-doc" viewBox="0 0 24 24"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5M9 13h6M9 17h4"/></symbol>
+  <symbol id="i-clip" viewBox="0 0 24 24"><path d="m21 11-8.6 8.6a5 5 0 0 1-7-7L14 4a3.3 3.3 0 0 1 4.7 4.7l-8.6 8.6a1.7 1.7 0 0 1-2.4-2.4L15.6 7"/></symbol>
+  <symbol id="i-up" viewBox="0 0 24 24"><path d="M12 19V5M5 12l7-7 7 7"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></symbol>
+  <symbol id="i-dash" viewBox="0 0 24 24"><path d="M6 12h12"/></symbol>
+  <symbol id="i-x" viewBox="0 0 24 24"><path d="M18 6 6 18M6 6l12 12"/></symbol>
+  <symbol id="i-spin" viewBox="0 0 24 24"><path d="M21 12a9 9 0 1 1-6.2-8.6"/></symbol>
+  <symbol id="i-alert" viewBox="0 0 24 24"><path d="M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"/><path d="M12 9v4M12 17h.01"/></symbol>
+  <symbol id="i-chev" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></symbol>
+  <symbol id="i-down" viewBox="0 0 24 24"><path d="M12 4v12M6 10l6 6 6-6M5 20h14"/></symbol>
+  <symbol id="i-lock" viewBox="0 0 24 24"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></symbol>
+  <symbol id="i-back" viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6"/></symbol>
+  <symbol id="i-fwd" viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"/></symbol>
+  <symbol id="i-reload" viewBox="0 0 24 24"><path d="M21 12a9 9 0 1 1-3-6.7L21 8M21 3v5h-5"/></symbol>
+  <symbol id="i-globe" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/></symbol>
+</svg>
+
+<div class="app">
+
+  <!-- Навигация -->
+  <nav class="nav" aria-label="Закупки">
+    <div class="lockup">Co7 <span class="x">×</span> МФТИ</div>
+    <button class="btn-new" type="button"><svg class="icon"><use href="#i-plus"/></svg>Новая закупка</button>
+
+    <div class="nav-list">
+      <button class="nav-item" type="button" aria-current="page">
+        <span class="t">Бумага для офисной техники</span>
+        <span class="s"><span class="dot live"></span>Идёт поиск</span>
+      </button>
+      <button class="nav-item" type="button">
+        <span class="t">Цитокины для клеточных культур</span>
+        <span class="s"><span class="dot warn"></span>2 позиции без обоснования</span>
+      </button>
+      <button class="nav-item" type="button">
+        <span class="t">3D-принтер</span>
+        <span class="s">11 ноября</span>
+      </button>
+      <button class="nav-item" type="button">
+        <span class="t">Картриджи для лабораторных МФУ</span>
+        <span class="s">6 ноября</span>
+      </button>
+      <button class="nav-item" type="button">
+        <span class="t">Перчатки нитриловые</span>
+        <span class="s">29 октября</span>
+      </button>
+    </div>
+
+    <button class="nav-link" type="button" title="Ключ OpenRouter, модель, источники и правила расчёта"><svg class="icon"><use href="#i-gear"/></svg>Настройки</button>
+  </nav>
+
+  <!-- Чат -->
+  <section class="chat" aria-label="Чат с агентом">
+    <div class="head">
+      <h1>Бумага для офисной техники</h1>
+    </div>
+
+    <div class="thread">
+      <div class="thread-inner">
+
+        <div class="msg-user">
+          <div class="attach">
+            <svg class="icon"><use href="#i-doc"/></svg>
+            <span><span class="n">ТЗ поставка бумаги.docx</span><span class="m">42 КБ</span></span>
+          </div>
+          <div class="bubble">Обоснуй НМЦК по этому ТЗ.</div>
+        </div>
+
+        <div class="msg-agent">
+          <p>В ТЗ три позиции. Первые две — конкретная марка SvetoCopy, третью сравниваю по характеристикам.</p>
+          <ul class="positions">
+            <li><span class="i">1</span><span>Бумага А4 SvetoCopy, 80 г/м²</span><span class="q num">2 500 пачек</span></li>
+            <li><span class="i">2</span><span>Бумага А3 SvetoCopy, 80 г/м²</span><span class="q num">25 пачек</span></li>
+            <li><span class="i">3</span><span>Бумага писчая офсетная А4, 65 г/м²</span><span class="q num">50 пачек</span></li>
+          </ul>
+        </div>
+
+        <div class="msg-agent">
+          <details class="trace">
+            <summary>Проверено 4 источника, подходят 8 цен<svg class="icon"><use href="#i-chev"/></svg></summary>
+            <div class="steps">
+              <div class="step"><svg class="mark ok"><use href="#i-check"/></svg><span>ЕИС Закупки, контракты за 3 года</span><span class="r">5 из 9</span></div>
+              <div class="step"><svg class="mark ok"><use href="#i-check"/></svg><span>Каталоги дистрибьюторов</span><span class="r">3 из 4</span></div>
+              <div class="step"><svg class="mark empty"><use href="#i-dash"/></svg><span>Сайт производителя</span><span class="r">цены не публикуются</span></div>
+              <div class="step"><svg class="mark err"><use href="#i-x"/></svg><span>ГИСП</span><span class="r">не отвечает</span></div>
+            </div>
+          </details>
+          <p>Позиции 1 и 2 посчитаны. По позиции 3 нашлось только 2 сопоставимые цены, а нужно не меньше 3.</p>
+          <div class="ask">
+            <div>
+              <div class="q">Искать цены позиции 3 на маркетплейсах?</div>
+              <div class="hint">Яндекс Маркет может попросить пройти проверку «я не робот». Если не ответить, подключу маркетплейсы без проверки.</div>
+            </div>
+            <div class="actions">
+              <button class="btn chosen" type="button"><svg class="icon"><use href="#i-check"/></svg>Да, искать</button>
+              <button class="btn" type="button">Нет, оставить 2 цены</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="msg-user">
+          <div class="bubble">Да, ищи. Капчу пройду сам.</div>
+        </div>
+
+        <div class="msg-agent">
+          <details class="trace">
+            <summary>Маркетплейсы: 1 цена найдена, поиск продолжается<svg class="icon"><use href="#i-chev"/></svg></summary>
+            <div class="steps">
+              <div class="step"><svg class="mark ok"><use href="#i-check"/></svg><span>Комус</span><span class="r">1 подходит</span></div>
+              <div class="step"><svg class="mark run"><use href="#i-spin"/></svg><span>ВсеИнструменты</span><span class="r">ищу</span></div>
+              <div class="step"><svg class="mark wait"><use href="#i-alert"/></svg><span>Яндекс Маркет</span><span class="r">ждёт проверки</span></div>
+            </div>
+          </details>
+          <p>Яндекс Маркет просит подтвердить, что вы не робот. Пройдите проверку во вкладке «Браузер», дальше я продолжу сам.</p>
+          <div class="actions">
+            <button class="btn primary" type="button" data-open-tab="browser"><svg class="icon"><use href="#i-globe"/></svg>Открыть браузер</button>
+            <button class="btn ghost" type="button">Пропустить источник</button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="composer-wrap">
+      <div class="composer">
+        <textarea rows="2" placeholder="Уточните требования или спросите про расчёт" aria-label="Сообщение агенту"></textarea>
+        <div class="composer-row">
+          <button class="icon-btn" type="button" aria-label="Приложить файл"><svg class="icon"><use href="#i-clip"/></svg></button>
+          <span class="spacer"></span>
+          <button class="icon-btn send" type="button" aria-label="Отправить"><svg class="icon"><use href="#i-up"/></svg></button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Отчёт / браузер -->
+  <section class="side" aria-label="Отчёт">
+    <div class="head">
+      <div class="tabs" role="tablist">
+        <button class="tab" role="tab" type="button" aria-selected="true" data-tab="report">Отчёт</button>
+        <button class="tab" role="tab" type="button" aria-selected="false" data-tab="browser">Браузер<span class="badge" title="Нужна проверка"></span></button>
+      </div>
+      <span class="spacer"></span>
+      <button class="btn ghost" type="button">Версия 3<svg class="icon"><use href="#i-chev"/></svg></button>
+      <button class="btn" type="button"><svg class="icon"><use href="#i-down"/></svg>DOCX</button>
+    </div>
+
+    <!-- Отчёт -->
+    <div class="panel" id="panel-report" role="tabpanel">
+      <article class="report">
+        <h2 class="r-title">Поставка бумаги для офисной техники и писчей (офсетной) бумаги</h2>
+        <p class="r-meta">Метод сопоставимых рыночных цен · версия 3, 13 ноября 2026 · цены в макете условные</p>
+
+        <div class="total">
+          <div class="total-label">НМЦК по обоснованным позициям</div>
+          <div class="total-value num">793 990,00<span class="cur">₽</span></div>
+          <p class="total-note">Позиция 3 пока не обоснована: её цена 13 737,50 ₽ приведена справочно и в итог не входит.</p>
+        </div>
+
+        <div class="warning" role="note">
+          <svg class="icon"><use href="#i-alert"/></svg>
+          <p><b>Позиция 3: 2 цены из 3.</b> Агент ищет на маркетплейсах, отчёт пересчитается, когда найдётся третья цена.</p>
+        </div>
+
+        <!-- Расчёт вынесен наверх как главное; в выгружаемом DOCX порядок разделов как в проектном документе, 5.7 -->
+        <section class="r-section">
+          <h2>Расчёт по позициям</h2>
+
+          <div class="pos" data-ruler='{"min":260,"max":430,"band":[277.56,355.66],"mean":310.98,"pts":[290,305,312.4,318.5,329],"ex":[412]}'>
+            <div class="pos-head">
+              <span><span class="pos-name">1. Бумага А4 SvetoCopy</span><span class="pos-qty num">310,98 ₽ × 2 500 пачек</span></span>
+              <span class="pos-sum num">777 450,00 ₽<small>обоснована</small></span>
+            </div>
+            <div class="ruler"></div>
+            <p class="pos-stats">5 цен, 1 исключена как выброс · разброс 4,71 % · межквартильный размах</p>
+          </div>
+
+          <div class="pos" data-ruler='{"min":300,"max":1010,"band":[327.9,983.7],"mean":661.6,"pts":[640,655.8,689],"ex":[]}'>
+            <div class="pos-head">
+              <span><span class="pos-name">2. Бумага А3 SvetoCopy</span><span class="pos-qty num">661,60 ₽ × 25 пачек</span></span>
+              <span class="pos-sum num">16 540,00 ₽<small>обоснована</small></span>
+            </div>
+            <div class="ruler"></div>
+            <p class="pos-stats">3 цены · разброс 3,78 % · ±50 % от медианы</p>
+          </div>
+
+          <div class="pos is-weak" data-ruler='{"min":120,"max":430,"band":[137.38,412.13],"mean":274.75,"pts":[268,281.5],"ex":[]}'>
+            <div class="pos-head">
+              <span><span class="pos-name">3. Бумага писчая офсетная А4</span><span class="pos-qty num">274,75 ₽ × 50 пачек</span></span>
+              <span class="pos-sum num">13 737,50 ₽<small>справочно</small></span>
+            </div>
+            <div class="ruler"></div>
+            <p class="pos-stats">2 цены из 3 нужных · разброс 3,47 % · ±50 % от медианы</p>
+          </div>
+        </section>
+
+        <section class="r-section">
+          <h2>Включённые предложения</h2>
+          <div class="pos-filter" role="group" aria-label="Позиция">
+            <button class="chip" type="button" aria-pressed="true">Позиция 1</button>
+            <button class="chip" type="button" aria-pressed="false">Позиция 2</button>
+            <button class="chip" type="button" aria-pressed="false">Позиция 3</button>
+          </div>
+          <table class="tbl">
+            <thead><tr><th>Источник</th><th>Дата цены</th><th class="r">Цена за пачку</th></tr></thead>
+            <tbody>
+              <tr><td><a href="#">ЕИС, контракт № 2770…0148</a><span class="sub">Все характеристики совпадают с ТЗ</span></td><td>12.08.2026</td><td class="r num">305,00 ₽</td></tr>
+              <tr><td><a href="#">ЕИС, контракт № 1501…0093</a><span class="sub">Все характеристики совпадают с ТЗ</span></td><td>03.06.2026</td><td class="r num">318,50 ₽</td></tr>
+              <tr><td><a href="#">ЕИС, контракт № 5009…0021</a><span class="sub">Доставка и НДС включены</span></td><td>21.02.2026</td><td class="r num">329,00 ₽</td></tr>
+              <tr><td><a href="#">Дистрибьютор «Регион», каталог</a><span class="sub">Коробка 5 пачек: 1 450,00 ₽ ÷ 5</span></td><td>13.11.2026</td><td class="r num">290,00 ₽</td></tr>
+              <tr><td><a href="#">Дистрибьютор «Северная бумага», каталог</a><span class="sub">НДС не указан</span></td><td>13.11.2026</td><td class="r num">312,40 ₽</td></tr>
+            </tbody>
+          </table>
+        </section>
+
+        <div class="r-section more">
+          <details class="r-more">
+            <summary>Исключённые предложения <span class="cnt">3</span><svg class="icon"><use href="#i-chev"/></svg></summary>
+            <div class="body">
+              <table class="tbl">
+                <thead><tr><th>Источник и причина</th><th class="r">Цена за пачку</th></tr></thead>
+                <tbody>
+                  <tr class="excluded"><td><a href="#">ЕИС, контракт № 3810…0007</a><span class="reason">Выброс: выше верхней границы коридора 355,66 ₽</span></td><td class="r num price">412,00 ₽</td></tr>
+                  <tr class="excluded"><td><a href="#">Дистрибьютор «Регион», SvetoCopy Eco</a><span class="reason">Не совпадает белизна: 60 % CIE вместо 146 % по ТЗ</span></td><td class="r num price">264,00 ₽</td></tr>
+                  <tr class="excluded"><td><a href="#">ЕИС, контракт № 7714…0362</a><span class="reason">Дубль контракта № 2770…0148</span></td><td class="r num price">305,00 ₽</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </details>
+          <details class="r-more">
+            <summary>Где искали <span class="cnt">5 источников</span><svg class="icon"><use href="#i-chev"/></svg></summary>
+            <div class="body">
+              <ul class="sources">
+                <li><svg class="mark ok"><use href="#i-check"/></svg><span>ЕИС Закупки <span class="lvl">уровень 1</span></span><span class="res">5 из 9 контрактов</span></li>
+                <li><svg class="mark ok"><use href="#i-check"/></svg><span>Каталоги дистрибьюторов <span class="lvl">уровень 1</span></span><span class="res">3 из 4 предложений</span></li>
+                <li><svg class="mark empty"><use href="#i-dash"/></svg><span>Сайт производителя <span class="lvl">уровень 1</span></span><span class="res">цены не публикуются</span></li>
+                <li><svg class="mark err"><use href="#i-x"/></svg><span>ГИСП <span class="lvl">уровень 1</span></span><span class="res">не отвечает</span></li>
+                <li><svg class="mark run"><use href="#i-spin"/></svg><span>Маркетплейсы <span class="lvl">уровень 2, позиция 3</span></span><span class="res">идёт поиск</span></li>
+              </ul>
+            </div>
+          </details>
+          <details class="r-more">
+            <summary>Предмет закупки <span class="cnt">3 позиции</span><svg class="icon"><use href="#i-chev"/></svg></summary>
+            <div class="body subject">
+              <p><b>1. Бумага А4 SvetoCopy</b>, ОКПД2 17.12.14.160. Существенные: формат А4, 80 ± 3 г/м², 500 листов, белизна CIE 146 ± 3 %, ГОСТ Р 57641-2017.</p>
+              <p><b>2. Бумага А3 SvetoCopy</b>, ОКПД2 17.12.14.160. Те же характеристики, формат А3.</p>
+              <p><b>3. Бумага писчая офсетная А4</b>, ОКПД2 17.12.14.112. Существенные: 65 г/м², 500 листов, белизна 142–148 %.</p>
+            </div>
+          </details>
+        </div>
+      </article>
+    </div>
+
+    <!-- Живое окно браузера -->
+    <div class="panel" id="panel-browser" role="tabpanel" hidden>
+      <div class="browser">
+        <div class="b-notice">
+          <svg class="icon"><use href="#i-alert"/></svg>
+          <div><p>Сайт просит подтвердить, что вы не робот</p><p class="sub">Пройдите проверку ниже, агент продолжит сам. Вход сохранится для следующих закупок.</p></div>
+          <button class="btn" type="button">Пропустить</button>
+        </div>
+        <div class="b-frame">
+          <div class="b-bar">
+            <button class="icon-btn" type="button" aria-label="Назад"><svg class="icon"><use href="#i-back"/></svg></button>
+            <button class="icon-btn" type="button" aria-label="Вперёд"><svg class="icon"><use href="#i-fwd"/></svg></button>
+            <button class="icon-btn" type="button" aria-label="Обновить"><svg class="icon"><use href="#i-reload"/></svg></button>
+            <div class="b-url"><svg class="icon"><use href="#i-lock"/></svg><span>market.yandex.ru/search?text=бумага+офсетная+А4+65+г</span></div>
+            <span class="b-live"><span class="dot live"></span>Управляет агент</span>
+          </div>
+          <div class="b-view">
+            <div class="captcha">
+              <div class="t">Подтвердите, что запросы отправляли вы</div>
+              <div class="s">Здесь будет живая страница сайта</div>
+              <div class="row"><span class="box"></span><span>Я не робот</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- Только для макета: сравнение палитр -->
+<div class="pal" role="group" aria-label="Палитра макета">
+  <span class="lbl">Палитра: <b id="pal-name"></b></span>
+  <button type="button" data-p="mono" title="Графит" aria-label="Графит"><i><b style="background:#fff"></b><b style="background:#f4f4f2"></b><b style="background:#18181b"></b></i></button>
+  <button type="button" data-p="orange" title="Оранжевый" aria-label="Оранжевый"><i><b style="background:#fff"></b><b style="background:#f5f3f0"></b><b style="background:#ff5a1f"></b></i></button>
+  <button type="button" data-p="strava" title="Оранжевый Strava" aria-label="Оранжевый Strava"><i><b style="background:#fff"></b><b style="background:#f5f3f0"></b><b style="background:#fc4c02"></b></i></button>
+  <button type="button" data-p="orange-aa" title="Оранжевый тёмный" aria-label="Оранжевый тёмный"><i><b style="background:#fff"></b><b style="background:#f5f3f0"></b><b style="background:#d64200"></b></i></button>
+  <button type="button" data-p="terracotta" title="Терракота" aria-label="Терракота"><i><b style="background:#fcfaf7"></b><b style="background:#f3eee7"></b><b style="background:#c2410c"></b></i></button>
+  <span class="sep"></span>
+  <span class="lbl">Навигация:</span>
+  <span class="seg" role="group" aria-label="Навигация">
+    <button type="button" data-nav-opt="white">белая</button>
+    <button type="button" data-nav-opt="tint">цветная</button>
+    <button type="button" data-nav-opt="dark">тёмная</button>
+  </span>
+</div>
+
+<script>
+  const fmt = v => v.toLocaleString('ru-RU', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+
+  // Линейки цен: положение точек строго в масштабе
+  document.querySelectorAll('[data-ruler]').forEach(pos => {
+    const d = JSON.parse(pos.dataset.ruler);
+    const x = v => ((v - d.min) / (d.max - d.min) * 100).toFixed(3) + '%';
+    const el = pos.querySelector('.ruler');
+    const all = [...d.pts, ...d.ex];
+    let html = `<div class="axis"></div>
+      <div class="band" style="left:${x(d.band[0])};width:calc(${x(d.band[1])} - ${x(d.band[0])})"></div>
+      <div class="mean" style="left:${x(d.mean)}"></div>`;
+    d.pts.forEach(v => html += `<span class="pt" style="left:${x(v)}" title="${fmt(v)} ₽"></span>`);
+    d.ex.forEach(v => html += `<span class="pt ex" style="left:${x(v)}" title="${fmt(v)} ₽, исключена как выброс"></span>`);
+    html += `<span class="lbl start" style="left:${x(d.band[0])}">${fmt(d.band[0])}</span>`;
+    html += `<span class="lbl mean-l" style="left:${x(d.mean)}">среднее ${fmt(d.mean)}</span>`;
+    html += `<span class="lbl end" style="left:${x(d.band[1])}">${fmt(d.band[1])}</span>`;
+    el.innerHTML = html;
+    el.setAttribute('role', 'img');
+    el.setAttribute('aria-label', `Цены: ${all.map(fmt).join(', ')} ₽. Среднее ${fmt(d.mean)} ₽, допустимый коридор ${fmt(d.band[0])}–${fmt(d.band[1])} ₽.`);
+  });
+
+  // Вкладки отчёт / браузер
+  const showTab = name => {
+    document.querySelectorAll('[data-tab]').forEach(t => t.setAttribute('aria-selected', t.dataset.tab === name));
+    document.getElementById('panel-report').hidden = name !== 'report';
+    document.getElementById('panel-browser').hidden = name !== 'browser';
+  };
+  document.querySelectorAll('[data-tab]').forEach(t => t.addEventListener('click', () => showTab(t.dataset.tab)));
+  document.querySelectorAll('[data-open-tab]').forEach(b => b.addEventListener('click', () => showTab(b.dataset.openTab)));
+
+  const params = new URLSearchParams(location.search);
+  if (params.get('tab') === 'browser') showTab('browser');
+
+  // Навигация макета: ?nav=white|tint|dark
+  const setNav = n => {
+    if (!['white', 'tint', 'dark'].includes(n)) n = 'white';
+    document.documentElement.dataset.nav = n;
+    document.querySelectorAll('[data-nav-opt]').forEach(b => b.setAttribute('aria-pressed', b.dataset.navOpt === n));
+    try { localStorage.setItem('nav', n); } catch (e) {}
+  };
+  let savedNav = null;
+  try { savedNav = localStorage.getItem('nav'); } catch (e) {}
+  setNav(params.get('nav') || savedNav || 'white');
+  document.querySelectorAll('[data-nav-opt]').forEach(b => b.addEventListener('click', () => setNav(b.dataset.navOpt)));
+
+  // Палитра макета: ?palette=mono|orange|strava|orange-aa|terracotta, выбор запоминается
+  const palettes = [...document.querySelectorAll('.pal [data-p]')].map(b => b.dataset.p);
+  const setPalette = p => {
+    if (!palettes.includes(p)) p = 'mono';
+    document.documentElement.dataset.palette = p;
+    document.querySelectorAll('.pal [data-p]').forEach(b => {
+      b.setAttribute('aria-pressed', b.dataset.p === p);
+      if (b.dataset.p === p) document.getElementById('pal-name').textContent = b.title;
+    });
+    try { localStorage.setItem('palette', p); } catch (e) {}
+  };
+  let saved = null;
+  try { saved = localStorage.getItem('palette'); } catch (e) {}
+  setPalette(params.get('palette') || saved || 'mono');
+  document.querySelectorAll('.pal [data-p]').forEach(b => b.addEventListener('click', () => setPalette(b.dataset.p)));
+
+  // Чат открыт на последнем сообщении
+  const thread = document.querySelector('.thread');
+  thread.scrollTop = thread.scrollHeight;
+</script>
+</body>
+</html>
