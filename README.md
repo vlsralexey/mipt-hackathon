@@ -27,8 +27,10 @@ docker compose up --build --wait
 curl --fail http://localhost:8000/api/health
 ```
 
-Ответ: `{"status":"ok"}`. Документация API: <http://localhost:8000/docs>.
-Фронтенд пока не подключён; порт 8000 обслуживает только бэкенд.
+Приложение: <http://localhost:8000>. Интерфейс и API работают на одном порте.
+Ответ health: `{"status":"ok"}`. Документация API: <http://localhost:8000/docs>.
+Ключ OpenRouter и модель можно задать на странице «Настройки»; без ключа
+доступны загрузка ТЗ и сохранённые закупки, а запуск поиска покажет подсказку.
 
 ```bash
 docker compose logs -f backend
@@ -72,6 +74,7 @@ uv run --project backend --locked uvicorn app.main:app --reload --reload-dir bac
 | `OPENROUTER_MODEL` | `openai/gpt-4.1-mini` | Модель OpenRouter; пустое значение выбирает модель по умолчанию |
 | `DATA_DIR` | `./data` локально, `/data` в Docker | Постоянные данные |
 | `CONFIG_DIR` | `<DATA_DIR>/config` | Локальный путь к методическим конфигам |
+| `FRONTEND_DIR` | не задан локально, `/app/frontend` в Docker | Каталог сборки интерфейса для раздачи через FastAPI |
 | `BACKEND_PORT` | `8000` | Порт Docker на хосте |
 
 Запуск и расчётное ядро не обращаются к внешним сервисам. Клиент OpenRouter
@@ -117,10 +120,15 @@ curl --fail "http://localhost:8000/api/procurements/$PROCUREMENT_ID/reports/late
 Кнопки ответа и отмены работают по тому же пути. Чат доступен во время поиска.
 Примеры запросов и правила SSE: [контракт API](docs/api.md).
 
-Фронтенд запускается отдельно через `make frontend-dev`, Vite проксирует `/api`
-на порт 8000. В текущем каркасе включены MSW-моки: подключение UI к реальному API
-остаётся отдельной задачей фронтенда.
-Для отключения моков: `VITE_MOCKS=off npm run dev --prefix frontend`.
+Для разработки фронтенда нужны Node.js 24 и npm. В двух терминалах запустите
+`make dev` и `make frontend-dev` (после `make frontend-setup`). Откройте
+<http://localhost:5173>: Vite проксирует `/api` и SSE на порт 8000.
+Реальный API используется по умолчанию. Демонстрация с MSW без бэкенда:
+`VITE_MOCKS=on npm run dev --prefix frontend`.
+
+Собранный интерфейс можно запустить локально на одном порте без Vite:
+`npm run build --prefix frontend`, затем `FRONTEND_DIR=frontend/dist make dev`.
+Прямые ссылки на закупку и настройки работают после перезагрузки страницы.
 
 ## CLI
 
@@ -174,6 +182,7 @@ uv run --project backend --locked python -m app.pipeline.preview \
 
 ```bash
 make check
+make frontend-check
 ```
 
 Без Make:

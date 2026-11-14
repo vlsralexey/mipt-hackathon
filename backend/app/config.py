@@ -171,6 +171,7 @@ class Settings(BaseSettings):
     )
     data_dir: Path = Path("data")
     config_dir: Path | None = None
+    frontend_dir: Path | None = None
     openrouter_api_key: SecretStr | None = None
     openrouter_model: str = DEFAULT_MODEL
 

@@ -2,6 +2,7 @@ import type {
   ApiErrorBody,
   Edit,
   Message,
+  OpenRouterModel,
   Procurement,
   ProcurementSummary,
   Report,
@@ -56,6 +57,7 @@ export interface NewProcurementInput {
 
 export const api = {
   getSettings: () => request<Settings>('/settings'),
+  listModels: () => request<OpenRouterModel[]>('/settings/models'),
   putSettings: (patch: { openrouter_api_key?: string; model?: string }) =>
     request<Settings>('/settings', json('PUT', patch)),
 

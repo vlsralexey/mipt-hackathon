@@ -26,6 +26,9 @@ export function useProcurementEvents(id: string) {
 
     source.addEventListener('open', () => {
       void queryClient.invalidateQueries({ queryKey: procurementKey(id) })
+      // Во время обрыва могли появиться новые версии уже открытого отчёта.
+      void queryClient.invalidateQueries({ queryKey: ['reports', id] })
+      void queryClient.invalidateQueries({ queryKey: ['procurements'] })
     })
     source.addEventListener('message', (e) => {
       const message = data<Message>(e)

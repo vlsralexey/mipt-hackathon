@@ -21,6 +21,11 @@ export interface Settings {
   model: string
 }
 
+export interface OpenRouterModel {
+  id: string
+  name: string
+}
+
 export type ProcurementStatus = 'new' | 'running' | 'needs_user' | 'ready' | 'failed'
 
 export interface ProcurementSummary {

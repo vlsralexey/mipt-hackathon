@@ -51,6 +51,7 @@
 | 413 | Файл ТЗ больше 20 МБ |
 | 422 | Тело запроса не по схеме |
 | 500 | Внутренняя ошибка; `detail` — «Внутренняя ошибка сервера», подробности в логах бэкенда |
+| 502 | Не удалось получить каталог моделей OpenRouter |
 
 ## 2. Как фронтенд пользуется API
 
@@ -89,6 +90,7 @@ SSE — замена по `id`, не дубль). Ответ агента при
 |---|---|---|---|
 | P0 | `GET /api/health` | Проверка, что бэкенд жив | `{"status": "ok"}` |
 | P0 | `GET /api/settings` | Настройки: есть ли ключ, модель | `Settings` |
+| P0 | `GET /api/settings/models` | Актуальный каталог текстовых моделей OpenRouter | `OpenRouterModel[]` |
 | P0 | `PUT /api/settings` | Сохранить ключ и/или модель | `Settings` |
 | P1 | `POST /api/settings/check` | Проверить ключ запросом к OpenRouter | `{"ok": bool, "detail": str \| null}` |
 | P0 | `GET /api/procurements` | Список закупок, новые сверху | `ProcurementSummary[]` |
@@ -133,6 +135,21 @@ SSE — замена по `id`, не дубль). Ответ агента при
 
 `openrouter_api_key: ""` удаляет сохранённый ключ (тогда действует `OPENROUTER_API_KEY` из
 окружения, если задан). Ответ — `Settings` после сохранения.
+
+`GET /api/settings/models` загружает публичный каталог через
+[`GET https://openrouter.ai/api/v1/models`](https://openrouter.ai/docs/api/api-reference/models/list-all-models-and-their-properties).
+Ключ не нужен. Ответ: массив `{"id": str, "name": str}`, отсортированный по названию,
+только модели с текстовым входом и выходом для Chat Completions. Пример:
+
+```json
+[{"id": "openai/gpt-4.1-mini", "name": "OpenAI: GPT-4.1 Mini"}]
+```
+
+При недоступности OpenRouter или некорректном ответе: `502` с безопасным `detail`.
+Фронтенд предлагает повторить загрузку, сохраняет текущую модель и позволяет
+ввести ID вручную. Выбранный ID сохраняется прежним `PUT /api/settings`.
+Каталог не гарантирует доступность модели для конкретного ключа и поддержку
+всех возможностей агента (структурированные ответы и инструменты).
 
 ### 3.2 Закупки (P0)
 
@@ -266,6 +283,11 @@ interface Settings {
   has_api_key: boolean;     // ключ есть в настройках или в env
   key_source: "settings" | "env" | null;
   model: string;            // идентификатор модели OpenRouter
+}
+
+interface OpenRouterModel {
+  id: string;
+  name: string;
 }
 
 type ProcurementStatus =

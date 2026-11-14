@@ -6,12 +6,18 @@ import App from './App.tsx'
 import './styles/tokens.css'
 import './styles/global.css'
 
-// Пока бэкенд не готов, в разработке отвечают моки из docs/api-examples.
-// Отключить: VITE_MOCKS=off npm run dev.
+// Реальный API по умолчанию. Демонстрация без бэкенда: VITE_MOCKS=on npm run dev.
 async function enableMocks() {
-  if (import.meta.env.DEV && import.meta.env.VITE_MOCKS !== 'off') {
+  if (import.meta.env.DEV && import.meta.env.VITE_MOCKS === 'on') {
     const { worker } = await import('./mocks/browser')
     await worker.start({ onUnhandledFrame: 'bypass', quiet: true })
+  } else if ('serviceWorker' in navigator) {
+    // После демонстрации старый MSW не должен перехватывать реальные запросы.
+    const registrations = await navigator.serviceWorker.getRegistrations()
+    await Promise.all(registrations.filter((registration) => {
+      const worker = registration.active ?? registration.waiting ?? registration.installing
+      return worker && new URL(worker.scriptURL).pathname === '/mockServiceWorker.js'
+    }).map((registration) => registration.unregister()))
   }
 }
 

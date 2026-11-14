@@ -4,6 +4,7 @@ from pathlib import Path
 from typing import Annotated
 from urllib.parse import quote
 
+import httpx
 from fastapi import APIRouter, Depends, File, Form, Request, UploadFile
 from fastapi.responses import Response, StreamingResponse
 
@@ -14,6 +15,7 @@ from app.api.models import (
     FileMessage,
     Message,
     MessageInput,
+    OpenRouterModel,
     Procurement,
     ProcurementSummary,
     SettingsUpdate,
@@ -21,6 +23,7 @@ from app.api.models import (
     TextMessage,
     VersionInfo,
 )
+from app.llm.catalog import CatalogError, fetch_models
 from app.models import Edit, Report
 from app.pipeline.extract_text import MAX_FILE_BYTES, extract_text
 from app.service import ActionError, Service
@@ -39,6 +42,19 @@ Dep = Annotated[Service, Depends(get_service)]
 @router.get("/settings", response_model=SettingsView)
 async def settings(service: Dep):
     return service.credentials()[1]
+
+
+async def get_catalog_http():
+    async with httpx.AsyncClient(timeout=httpx.Timeout(15, connect=5)) as http:
+        yield http
+
+
+@router.get("/settings/models", response_model=list[OpenRouterModel])
+async def models(http: Annotated[httpx.AsyncClient, Depends(get_catalog_http)]):
+    try:
+        return await fetch_models(http)
+    except CatalogError as exc:
+        raise ActionError(str(exc), 502) from exc
 
 
 @router.put("/settings", response_model=SettingsView)

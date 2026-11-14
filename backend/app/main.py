@@ -3,11 +3,12 @@
 from collections.abc import AsyncIterator
 from contextlib import asynccontextmanager
 
-from fastapi import FastAPI
+from fastapi import FastAPI, Request
 from fastapi.exceptions import RequestValidationError
 from fastapi.responses import JSONResponse
 from pydantic import BaseModel
 from starlette.exceptions import HTTPException
+from starlette.staticfiles import StaticFiles
 
 from app.api.limits import UploadLimitMiddleware
 from app.api.routes import router
@@ -26,6 +27,11 @@ def create_app(settings: Settings | None = None, *, runtime_factory=open_runtime
         current_settings = settings if settings is not None else Settings()
         current_settings.prepare_directories()
         application.state.settings = current_settings
+        application.state.frontend = (
+            StaticFiles(directory=current_settings.frontend_dir)
+            if current_settings.frontend_dir is not None
+            else None
+        )
         service = Service(Repo(current_settings.database_path), current_settings, runtime_factory)
         application.state.service = service
         await service.start()
@@ -62,6 +68,18 @@ def create_app(settings: Settings | None = None, *, runtime_factory=open_runtime
     @application.get("/api/health", tags=["Сервис"])
     async def health() -> HealthResponse:
         return HealthResponse()
+
+    @application.get("/{path:path}", include_in_schema=False)
+    async def frontend(path: str, request: Request):
+        files = request.app.state.frontend
+        if files is None or path == "api" or path.startswith("api/"):
+            raise HTTPException(status_code=404)
+        # Маршруты React Router открываются напрямую и после перезагрузки.
+        if path in ("", "new", "settings") or path.startswith("p/"):
+            response = await files.get_response("index.html", request.scope)
+            response.headers["Cache-Control"] = "no-cache"
+            return response
+        return await files.get_response(path, request.scope)
 
     return application
 

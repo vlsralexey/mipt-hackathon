@@ -14,6 +14,10 @@ export const handlers = [
   http.get('/api/health', () => HttpResponse.json({ status: 'ok' })),
 
   http.get('/api/settings', () => HttpResponse.json(db.settings)),
+  http.get('/api/settings/models', () => HttpResponse.json([
+    { id: 'anthropic/claude-sonnet-4', name: 'Anthropic: Claude Sonnet 4' },
+    { id: 'openai/gpt-4.1-mini', name: 'OpenAI: GPT-4.1 Mini' },
+  ])),
   http.put('/api/settings', async ({ request }) => {
     const patch = (await request.json()) as { openrouter_api_key?: string; model?: string }
     if (patch.openrouter_api_key !== undefined) {

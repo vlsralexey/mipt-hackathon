@@ -1,3 +1,12 @@
+FROM node:24-slim AS frontend
+
+WORKDIR /frontend
+COPY frontend/package.json frontend/package-lock.json ./
+RUN npm ci
+COPY frontend/ ./
+COPY docs/api-examples/ /docs/api-examples/
+RUN npm run build && rm -f dist/mockServiceWorker.js
+
 FROM python:3.12-slim
 
 COPY --from=ghcr.io/astral-sh/uv:0.13.5 /uv /usr/local/bin/uv
@@ -8,15 +17,17 @@ ENV PYTHONDONTWRITEBYTECODE=1 \
     UV_LINK_MODE=copy \
     UV_PYTHON_DOWNLOADS=never \
     PATH="/app/.venv/bin:$PATH" \
-    DATA_DIR=/data
+    DATA_DIR=/data \
+    FRONTEND_DIR=/app/frontend
 
 WORKDIR /app
 
-COPY pyproject.toml uv.lock ./
+COPY backend/pyproject.toml backend/uv.lock ./
 RUN uv sync --frozen --no-dev --no-install-project
 
-COPY app ./app
-COPY config ./config
+COPY backend/app ./app
+COPY backend/config ./config
+COPY --from=frontend /frontend/dist ./frontend
 RUN uv sync --frozen --no-dev --no-editable \
     && groupadd --gid 10001 nmck \
     && useradd --uid 10001 --gid nmck --no-create-home nmck \

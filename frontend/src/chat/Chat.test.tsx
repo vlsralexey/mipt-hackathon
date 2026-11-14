@@ -1,4 +1,4 @@
-import { screen, waitFor, within } from '@testing-library/react'
+import { act, screen, waitFor, within } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { http, HttpResponse } from 'msw'
 import { beforeEach, describe, expect, it, vi } from 'vitest'
@@ -200,6 +200,22 @@ describe('события SSE', () => {
     await screen.findByText('Версия 1')
     // загрузка при открытии и повторный запрос по событию open потока
     await waitFor(() => expect(get.mock.calls.length).toBeGreaterThanOrEqual(2))
+  })
+
+  it('после обрыва SSE получает пропущенную версию уже открытого отчёта', async () => {
+    const source = Object.assign(new EventTarget(), { close: vi.fn() })
+    vi.spyOn(globalThis, 'EventSource').mockImplementation(function () {
+      return source as unknown as EventSource
+    })
+    const id = exampleId()
+    renderApp(`/p/${id}`)
+    await screen.findByRole('option', { name: 'Версия 1' })
+    // Сервер закончил правку, пока клиент не получал события.
+    db.reports.get(id)!.push({ ...structuredClone(db.reports.get(id)![0]), version: 2 })
+    db.procurements.get(id)!.latest_version = 2
+    act(() => source.dispatchEvent(new Event('open')))
+    await waitFor(() => expect(screen.getByRole('combobox', { name: 'Версия отчёта' })).toHaveValue('2'))
+    expect(screen.getByRole('option', { name: 'Версия 2' })).toBeInTheDocument()
   })
 
   it('сообщение неизвестного вида и ошибка прогона не ломают чат', async () => {

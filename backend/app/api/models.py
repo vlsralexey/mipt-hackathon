@@ -21,6 +21,11 @@ class SettingsView(DomainModel):
     model: str
 
 
+class OpenRouterModel(DomainModel):
+    id: str = Field(min_length=1, pattern=r"\S")
+    name: str = Field(min_length=1, pattern=r"\S")
+
+
 class SettingsUpdate(DomainModel):
     openrouter_api_key: str | None = None
     model: str | None = Field(default=None, min_length=1, max_length=200)
