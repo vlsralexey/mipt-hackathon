@@ -39,7 +39,7 @@ docker compose down
 
 Данные хранятся в именованном томе `nmck-data`, в контейнере — `/data`.
 Обычный `down` сохраняет том. `docker compose down -v` удаляет данные.
-Порт доступен только с локальной машины. При занятом порте:
+Порт доступен только с локальной машины (выкладка на сервер: [docs/deploy.md](docs/deploy.md)). При занятом порте:
 
 ```bash
 BACKEND_PORT=8001 docker compose up --build --wait
@@ -76,6 +76,7 @@ uv run --project backend --locked uvicorn app.main:app --reload --reload-dir bac
 | `CONFIG_DIR` | `<DATA_DIR>/config` | Локальный путь к методическим конфигам |
 | `FRONTEND_DIR` | не задан локально, `/app/frontend` в Docker | Каталог сборки интерфейса для раздачи через FastAPI |
 | `BACKEND_PORT` | `8000` | Порт Docker на хосте |
+| `BACKEND_HOST` | `127.0.0.1` | Адрес привязки порта; `0.0.0.0` открывает доступ снаружи |
 
 Запуск и расчётное ядро не обращаются к внешним сервисам. Клиент OpenRouter
 использует сеть только при явном LLM-запросе. Поисковый прогон обращается к
