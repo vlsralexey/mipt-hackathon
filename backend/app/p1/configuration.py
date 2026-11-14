@@ -505,27 +505,21 @@ class Configuration:
         raise ActionError("Эту настройку нельзя менять локально", 400)
 
     async def rebase(self, pid):
-        from app.agent.chat import Turn
+        if self.service.require(pid)["snapshot"] is None:
+            raise ActionError("Сначала запустите расчёт")
+        # Кнопка идёт в ту же очередь, что и остальные правки. Иначе старый
+        # LLM-ход может сохранить несовместимый набор правок и повторный seq.
+        await self.service.enqueue(pid, "rebase", {})
 
-        async with self.service.locks[pid]:
-            turn = Turn(self.service, pid, None, {}, origin="button")
-            if turn.state["snapshot"] is None:
-                raise ActionError("Сначала запустите расчёт")
-            turn.add(
-                "rebase_settings",
-                None,
-                "base",
-                {"rules": self.document["rules"], "cpi": self.document["cpi"]},
-                "Пересчитать по общим настройкам",
-                "База обновлена по общим настройкам",
-            )
-            await self.service.commit(
-                pid,
-                turn.edits,
-                turn.current_runs(),
-                "; ".join(turn.causes),
-                create_version=self.repo.get_report(pid) is not None,
-            )
+    def perform_rebase(self, turn):
+        turn.add(
+            "rebase_settings",
+            None,
+            "base",
+            {"rules": self.document["rules"], "cpi": self.document["cpi"]},
+            "Пересчитать по общим настройкам",
+            "База обновлена по общим настройкам",
+        )
 
 
 def configuration_for(service):

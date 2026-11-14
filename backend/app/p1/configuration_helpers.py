@@ -77,6 +77,8 @@ def effective_snapshot(snapshot, edits):
         if edit.kind == "rebase_settings":
             data = copy.deepcopy(edit.payload.rules)
             result.cpi = copy.deepcopy(edit.payload.cpi)
+            if getattr(edit.payload, "calc_date", None) is not None:
+                result.calc_date = edit.payload.calc_date
     # Локальные правила остаются поверх новой базы независимо от порядка rebase.
     for edit in ordered(edits):
         if edit.kind == "local_setting" and edit.payload.key.startswith("rules."):

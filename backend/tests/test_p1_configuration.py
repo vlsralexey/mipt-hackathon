@@ -1,6 +1,7 @@
 """Настройки меняются только после подтверждения и переживают перезапуск."""
 
 import asyncio
+from datetime import date
 from decimal import Decimal
 
 import httpx
@@ -8,7 +9,7 @@ import pytest
 from fakes import FakeLLM
 from fastapi import FastAPI, Request
 from fastapi.responses import JSONResponse
-from test_api import api, call, ready
+from test_api import api, call, idle, ready
 
 from app.config import Rules, load_rules
 from app.p1.configuration import Configuration, configuration_for, execute
@@ -167,6 +168,7 @@ async def test_local_rules_are_independent_rebase_and_reset(tmp_path, monkeypatc
         assert service.require(pid)["snapshot"].rules.min_prices == 3
         assert config.local_settings(pid)["base_outdated"]
         await config.rebase(pid)
+        await idle(service, pid)
         actual = effective_snapshot(snapshot, service.repo.edits(pid))
         assert actual.rules.min_prices == 5 and actual.rules.cv_threshold == Decimal(".4")
         assert not config.local_settings(pid)["base_outdated"]
@@ -249,3 +251,74 @@ async def test_agent_undo_always_needs_confirmation(tmp_path, monkeypatch):
             await config.decide(pending["id"], True, turn_id="second")
         await config.decide(pending["id"], True, turn_id="third")
         assert config.document["rules"]["min_prices"] == 3
+
+
+async def test_rebase_waits_for_chat_and_preserves_both_edits_without_key(tmp_path, monkeypatch):
+    async with api(tmp_path, monkeypatch) as (client, service, llm, _):
+        pid = await ready(client, service)
+        config = configuration_for(service)
+        proposal = await config.propose("rules.min_prices", 5, "Новые общие", "t1")
+        await config.decide(proposal["id"], True)
+        entered, release = asyncio.Event(), asyncio.Event()
+        llm.chat_responses = iter(
+            [
+                {
+                    "role": "assistant",
+                    "tool_calls": [
+                        call("exclude_offer", offer_id="o0", reason="б/у", reason_kind="other"),
+                    ],
+                },
+                {"role": "assistant", "content": "Исключено"},
+            ]
+        )
+        original = llm.chat
+
+        async def delayed(messages, tools):
+            entered.set()
+            await release.wait()
+            return await original(messages, tools)
+
+        monkeypatch.setattr(llm, "chat", delayed)
+        await client.post(f"/api/procurements/{pid}/messages", json={"text": "Исключи o0: б/у"})
+        await asyncio.wait_for(entered.wait(), 2)
+        service.settings.openrouter_api_key = None
+        await config.rebase(pid)
+        assert not service.repo.edits(pid)
+        release.set()
+        await idle(service, pid)
+        edits = service.repo.edits(pid)
+        assert [e.kind for e in edits] == ["exclude", "rebase_settings"]
+        assert [e.seq for e in edits] == [1, 2]
+        report = service.repo.get_report(pid)
+        assert report.version == 3
+        assert len(report.edits) == 2
+        assert any(entry.offer.id == "o0" for entry in report.positions[0].excluded)
+        snapshot = effective_snapshot(service.require(pid)["snapshot"], edits)
+        assert snapshot.rules.min_prices == 5
+        assert not any(m.kind == "error" for m in service.repo.list_messages(pid))
+
+
+async def test_restart_date_is_an_edit_and_cancel_restores_original_snapshot(tmp_path, monkeypatch):
+    from app.agent.chat import Turn
+
+    async with api(tmp_path, monkeypatch) as (client, service, llm, _):
+        pid = await ready(client, service)
+        snapshot = service.require(pid)["snapshot"].model_copy(deep=True)
+        snapshot.calc_date = date(2020, 1, 1)
+        turn = Turn(service, pid, llm, {})
+        turn.add(
+            "rebase_settings",
+            None,
+            "base",
+            {
+                "rules": snapshot.rules.model_dump(mode="json"),
+                "cpi": snapshot.cpi,
+                "calc_date": date(2026, 11, 14),
+            },
+            "Новый полный поиск",
+            "Дата обновлена после подтверждения полного поиска",
+        )
+        assert effective_snapshot(snapshot, turn.edits).calc_date == date(2026, 11, 14)
+        turn.edits[0].status = "cancelled"
+        assert effective_snapshot(snapshot, turn.edits).calc_date == date(2020, 1, 1)
+        assert snapshot.calc_date == date(2020, 1, 1)
