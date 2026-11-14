@@ -30,6 +30,23 @@ const shapes = {
   spin: <path d="M21 12a9 9 0 1 1-6.2-8.6" />,
   down: <path d="M12 4v12M6 10l6 6 6-6M5 20h14" />,
   chev: <path d="m6 9 6 6 6-6" />,
+  left: <path d="m15 6-6 6 6 6" />,
+  right: <path d="m9 6 6 6-6 6" />,
+  search: (
+    <>
+      <circle cx="11" cy="11" r="7" />
+      <path d="m20 20-4-4" />
+    </>
+  ),
+  lock: (
+    <>
+      <rect x="5" y="11" width="14" height="10" rx="2" />
+      <path d="M8 11V8a4 4 0 0 1 8 0v3" />
+    </>
+  ),
+  pointer: <path d="M5 3l14 8-6 2-2 6z" />,
+  expand: <path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5" />,
+  shrink: <path d="M9 4v5H4M15 4v5h5M9 20v-5H4M15 20v-5h5" />,
 } satisfies Record<string, ReactNode>
 
 export type IconName = keyof typeof shapes

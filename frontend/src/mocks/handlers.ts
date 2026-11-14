@@ -1,6 +1,6 @@
 import { HttpResponse, http, sse } from 'msw'
-import type { Message, Procurement } from '../api/types'
-import { db, summaryOf } from './db'
+import type { Message, Procurement, Proposal } from '../api/types'
+import { CONFIG_CHANNEL, db, summaryOf } from './db'
 import { mockTiming, startMockRun } from './scenario'
 
 export { mockTiming }
@@ -28,6 +28,29 @@ export const handlers = [
     if (patch.model !== undefined) db.settings.model = patch.model
     return HttpResponse.json(db.settings)
   }),
+
+  http.post('/api/settings/check', () => HttpResponse.json(
+    db.settings.has_api_key ? { ok: true, detail: null } : { ok: false, detail: 'Ключ не задан' },
+  )),
+
+  ...configHandlers(),
+
+  http.get('/api/procurements/:id/settings', ({ params }) => {
+    if (!db.procurements.has(String(params.id))) return notFound('Закупка не найдена')
+    const local = db.config.rules.filter((r) => !TECHNICAL_RULES.has(r.key))
+    return HttpResponse.json({
+      items: [
+        ...local.map((r) => ({ key: `rules.${r.key}`, group: 'rules', title: r.title, display: r.display, global_display: r.display, changed: false, edit_id: null })),
+        ...db.config.sources.flatMap((s) => [
+          { key: `sources.${s.id}.enabled`, group: 'sources', title: `${s.name}: включён`, display: s.enabled ? 'Да' : 'Нет', global_display: s.enabled ? 'Да' : 'Нет', changed: false, edit_id: null },
+          { key: `sources.${s.id}.sites`, group: 'sources', title: `${s.name}: сайты`, display: s.sites.join(', ') || 'Список пуст', global_display: s.sites.join(', ') || 'Список пуст', changed: false, edit_id: null },
+        ]),
+      ],
+      base_outdated: [],
+    })
+  }),
+
+  http.post('/api/procurements/:id/settings/rebase', () => HttpResponse.json({}, { status: 202 })),
 
   http.get('/api/procurements', () => {
     const list = [...db.procurements.values()].map(summaryOf)
@@ -199,3 +222,89 @@ export const handlers = [
 
   http.post('/api/procurements/:id/edits/cancel', () => HttpResponse.json({}, { status: 202 })),
 ]
+
+// ── Агент общих настроек ─────────────────────────────────────────────
+// Заглушка: на любое сообщение с числом предлагает новый порог разброса.
+
+const TECHNICAL_RULES = new Set(['methodology_note', 'max_pages_per_source', 'page_text_limit', 'spread_hint_min_gap', 'marketplace_hosts'])
+const proposalPaths = new Map<string, { key: string; after: string; before: string; reason: string }>()
+
+function emptyDiff(rule: { key: string; title: string; before: string; after: string }) {
+  return {
+    from_version: null, to_version: 0,
+    total: { before: null, after: null }, total_justified: { before: null, after: null },
+    positions: [], offers_moved: [], edits_added: [], edits_cancelled: [], rules_changed: [rule],
+  }
+}
+
+function setRule(key: string, display: string) {
+  const rule = db.config.rules.find((r) => r.key === key)
+  if (rule) rule.display = display
+  db.publish(CONFIG_CHANNEL, { event: 'config', data: {} })
+}
+
+function configHandlers() {
+  return [
+    http.get('/api/config', () => HttpResponse.json(db.config)),
+    http.get('/api/config/changes', () => HttpResponse.json(db.configChanges)),
+    http.get('/api/config/messages', () => HttpResponse.json(db.configMessages)),
+    sse('/api/config/events', ({ client }) => {
+      client.send({ retry: 3000 })
+      const unsubscribe = db.subscribe(CONFIG_CHANNEL, (e) => {
+        try {
+          client.send({ event: e.event, data: e.data } as never)
+        } catch {
+          unsubscribe()
+        }
+      })
+    }),
+    http.post('/api/config/messages', async ({ request }) => {
+      const body = (await request.json()) as { text?: string }
+      if (!body.text?.trim()) return HttpResponse.json({ detail: 'Пустое сообщение' }, { status: 400 })
+      const user: Message = { id: db.nextId('m'), created_at: new Date().toISOString(), role: 'user', kind: 'text', text: body.text, data: null }
+      db.addConfigMessage(user)
+      db.publish(CONFIG_CHANNEL, { event: 'agent', data: { busy: true } })
+      const config = db.config
+      setTimeout(() => {
+        if (db.config !== config) return // база сброшена (тесты)
+        const rule = config.rules.find((r) => r.key === 'cv_threshold')!
+        const number = /\d+/.exec(body.text ?? '')?.[0] ?? '25'
+        const after = `${number} %`
+        const id = db.nextId('cp')
+        const title = 'Порог разброса'
+        proposalPaths.set(id, { key: rule.key, after, before: rule.display, reason: body.text ?? '' })
+        const data: Proposal = {
+          id, status: 'pending',
+          text: `${title}: ${rule.display} → ${after}. Действует на новые закупки и новые поиски. Посчитанные закупки не изменятся.`,
+          diff: emptyDiff({ key: `rules.${rule.key}`, title, before: rule.display, after }) as unknown as Proposal['diff'],
+        }
+        db.addConfigMessage({ id: db.nextId('m'), created_at: new Date().toISOString(), role: 'agent', kind: 'proposal', text: null, data })
+        db.publish(CONFIG_CHANNEL, { event: 'agent', data: { busy: false } })
+      }, mockTiming.agentReplyMs)
+      return HttpResponse.json(user, { status: 202 })
+    }),
+    http.post('/api/config/proposals/:pid/:action', ({ params }) => {
+      const id = String(params.pid)
+      const message = db.configMessages.find((m) => m.kind === 'proposal' && m.data.id === id)
+      const meta = proposalPaths.get(id)
+      if (!message || message.kind !== 'proposal' || !meta) return notFound('Предложение не найдено')
+      const apply = params.action === 'apply'
+      db.addConfigMessage({ ...message, data: { ...message.data, status: apply ? 'applied' : 'rejected' } })
+      if (apply) {
+        db.configChanges.unshift({
+          id: db.nextId('cc'), created_at: new Date().toISOString(), path: `rules.${meta.key}`,
+          title: 'Порог разброса', before: meta.before, after: meta.after, reason: meta.reason, status: 'active',
+        })
+        setRule(meta.key, meta.after)
+      }
+      return HttpResponse.json({}, { status: apply ? 202 : 200 })
+    }),
+    http.post('/api/config/changes/:cid/cancel', ({ params }) => {
+      const change = db.configChanges.find((c) => c.id === params.cid)
+      if (!change) return notFound('Изменение не найдено')
+      change.status = 'cancelled'
+      setRule(change.path.split('.').at(-1)!, change.before)
+      return HttpResponse.json({}, { status: 202 })
+    }),
+  ]
+}

@@ -6,8 +6,17 @@ from types import SimpleNamespace
 import httpx
 import pytest
 from fastapi.testclient import TestClient
+from playwright.async_api import Error as PlaywrightError
+from playwright.async_api import TimeoutError as PlaywrightTimeout
 
-from app.browser.manager import BrowserManager, SourceSkipped, Tab
+from app.browser.manager import (
+    BrowserManager,
+    PageUnavailable,
+    SourceSkipped,
+    Tab,
+    navigation_error,
+    viewport_for,
+)
 from app.config import Settings, SourceConfig
 from app.main import create_app
 from app.sources.base import source_error
@@ -294,3 +303,331 @@ async def test_new_agent_page_event_does_not_close_its_own_page():
     page.opener, page.close = opener, close
     await manager._popup("p1", page)
     assert not closed
+
+
+# --- Ошибки Chromium, сбой вкладки, screencast и журнал (без сети и Chromium).
+
+CFG = SourceConfig(id="web", name="Магазин", level=2, type="web")
+
+
+class EventPage(Page):
+    """Страница с подписками на события, как у Playwright."""
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.handlers = {}
+        self.closed = False
+        self.main_frame = object()
+
+    def on(self, name, handler):
+        self.handlers.setdefault(name, []).append(handler)
+
+    def emit(self, name, *args):
+        for handler in self.handlers.get(name, []):
+            handler(*args)
+
+    def is_closed(self):
+        return self.closed
+
+    async def close(self):
+        self.closed = True
+        self.emit("close", self)
+
+
+def fetch_tab(manager, monkeypatch, page):
+    tab = add(manager, page=page)
+
+    async def fake_tab(*args):
+        return tab
+
+    monkeypatch.setattr(manager, "_tab", fake_tab)
+    return tab
+
+
+@pytest.mark.parametrize(
+    "exc, reason",
+    [
+        (PlaywrightTimeout("Page.goto: Timeout 30000ms exceeded."), "Сайт не ответил за 30 секунд"),
+        (PlaywrightError("Page.goto: net::ERR_NAME_NOT_RESOLVED at https://x.ru/"), "не найден"),
+        (PlaywrightError("Page.goto: net::ERR_CERT_DATE_INVALID at https://x.ru/"), "сертификат"),
+        (PlaywrightError("Page.goto: net::ERR_CONNECTION_CLOSED at https://x.ru/"), "ошибка сети"),
+        (PlaywrightError("Page.goto: Page crashed"), "аварийно"),
+        (PlaywrightError("Page.goto: Download is starting"), "файл"),
+    ],
+)
+def test_playwright_navigation_errors_have_clear_reasons(exc, reason):
+    mapped = navigation_error(exc)
+    assert isinstance(mapped, PageUnavailable) and reason in str(mapped)
+    assert source_error(mapped) == ("unavailable", str(mapped))
+    assert navigation_error(TimeoutError()) is None
+
+
+async def test_navigation_timeout_skips_page_and_hides_chrome_error_url(monkeypatch):
+    manager = BrowserManager()
+    page = Page()
+    tab = fetch_tab(manager, monkeypatch, page)
+
+    async def goto(url, **kwargs):
+        if url == "about:blank":
+            page.navigations.append(url)
+            return None
+        page.url = "chrome-error://chromewebdata/"
+        raise PlaywrightTimeout("Page.goto: Timeout 30000ms exceeded.")
+
+    page.goto = goto
+    target = "https://shop.example.org/item"
+    with pytest.raises(PageUnavailable, match="не ответил за 30 секунд") as exc:
+        await manager.fetch("p1", CFG, 1, target, 1000)
+    assert source_error(exc.value)[0] == "unavailable"
+    public = tab.public()
+    assert public["url"] == target and public["domain"] == "shop.example.org"
+    assert public["state"] == "error" and "30 секунд" in public["error"]
+    # Загрузка остановлена, вкладка не висит на служебной странице Chromium.
+    assert page.navigations == ["about:blank"]
+    events = manager.journal("p1")
+    assert events[-1]["kind"] == "skipped" and "не ответил" in events[-1]["text"]
+    assert "—" not in events[-1]["text"] and "–" not in events[-1]["text"]
+
+
+async def test_chrome_error_page_after_navigation_is_unavailable(monkeypatch):
+    manager = BrowserManager()
+    page = Page()
+    fetch_tab(manager, monkeypatch, page)
+
+    async def goto(url, **kwargs):
+        page.url = "chrome-error://chromewebdata/" if url != "about:blank" else url
+        return None
+
+    page.goto = goto
+    with pytest.raises(PageUnavailable, match="ошибка сети"):
+        await manager.fetch("p1", CFG, 1, "https://shop.example.org/item", 1000)
+
+
+async def test_blocked_redirect_fails_fast_instead_of_goto_timeout(monkeypatch):
+    manager = BrowserManager()
+    page = Page()
+    tab = fetch_tab(manager, monkeypatch, page)
+    hang = asyncio.Event()
+
+    async def goto(url, **kwargs):
+        if url == "about:blank":
+            return None
+        asyncio.get_running_loop().call_soon(tab.nav_blocked.set)
+        await hang.wait()
+
+    page.goto = goto
+    with pytest.raises(PageUnavailable, match="закрытый адрес"):
+        await asyncio.wait_for(manager.fetch("p1", CFG, 1, "https://x.example.org/", 1000), 2)
+
+
+async def test_status_403_bot_check_text_waits_for_user(monkeypatch):
+    manager = BrowserManager(wait_seconds=0.05)
+    page = Page("<title>Комус</title><body>Подтвердите, что вы не робот</body>")
+    tab = fetch_tab(manager, monkeypatch, page)
+
+    async def goto(*args, **kwargs):
+        return SimpleNamespace(status=403)
+
+    async def evaluate(*args):
+        return "Запросы похожи на автоматические\nПодтвердите, что вы не робот"
+
+    page.goto, page.evaluate = goto, evaluate
+    with pytest.raises(SourceSkipped):
+        await manager.fetch("p1", CFG, 1, page.url, 1000)
+    assert tab.public()["state"] == "skipped"
+    kinds = [e["kind"] for e in manager.journal("p1")]
+    assert "waiting" in kinds and kinds[-1] == "skipped"
+
+
+async def test_waiting_tab_reports_deadline_and_needs():
+    manager = BrowserManager(wait_seconds=5)
+    tab = add(manager)
+    task = asyncio.create_task(manager._blocked(tab, "captcha"))
+    await asyncio.sleep(0)
+    public = tab.public()
+    assert public["state"] == "needs_user" and public["needs"] == "captcha"
+    assert public["wait_seconds"] == 5 and public["deadline"].endswith("Z")
+    tab.resume.set()
+    await task
+    assert tab.public()["deadline"] is None
+
+
+class Context:
+    def __init__(self):
+        self.pages = []
+
+    async def new_page(self):
+        page = EventPage()
+        page.context = self
+        self.pages.append(page)
+        return page
+
+
+async def test_crashed_tab_is_recreated_under_same_id():
+    manager = BrowserManager()
+    context = Context()
+    manager.contexts["p1"] = context
+    old = await context.new_page()
+    tab = manager._register("p1", "web", "Магазин", 1, old)
+    old.emit("crash", old)
+    while tab.page is old or not old.closed:
+        await asyncio.sleep(0)
+    await asyncio.gather(*manager.releases)
+    assert manager.tabs[tab.id] is tab and tab.page is context.pages[-1]
+    assert tab.public()["state"] == "error" and "аварийно" in tab.public()["error"]
+    assert manager.journal("p1")[-1]["kind"] == "error"
+    # Закрытие старой страницы вкладку не убрало; закрытие новой убирает.
+    tab.page.emit("close", tab.page)
+    assert tab.id not in manager.tabs
+
+
+async def test_crashed_popup_is_closed():
+    manager = BrowserManager()
+    manager.contexts["p1"] = Context()
+    page = EventPage()
+    tab = manager._register("p1", "web", "Магазин", 1, page)
+    tab.popup = True
+    page.emit("crash", page)
+    await asyncio.gather(*manager.releases)
+    assert page.closed and tab.id not in manager.tabs
+
+
+class CDP:
+    def __init__(self):
+        self.sent, self.handlers, self.detached = [], {}, False
+
+    def on(self, name, handler):
+        self.handlers[name] = handler
+
+    async def send(self, method, params=None):
+        self.sent.append((method, params))
+
+    async def detach(self):
+        self.detached = True
+
+
+async def test_screencast_frames_are_acked_and_quality_follows_control():
+    manager = BrowserManager()
+    page = Page()
+    sessions = []
+
+    async def new_cdp_session(target):
+        assert target is page
+        sessions.append(CDP())
+        return sessions[-1]
+
+    page.context = SimpleNamespace(new_cdp_session=new_cdp_session)
+    tab = add(manager, page=page)
+    assert not await manager.ensure_cast(tab)  # Никто не смотрит: screencast не нужен.
+    event = manager.watch(tab, "alice")
+    assert await manager.ensure_cast(tab)
+    cdp = sessions[0]
+    method, params = cdp.sent[0]
+    assert method == "Page.startScreencast"
+    assert params == dict(format="jpeg", quality=60, maxWidth=1280, maxHeight=800, everyNthFrame=2)
+    cdp.handlers["Page.screencastFrame"](
+        dict(
+            data="ZnJhbWU=",
+            sessionId=7,
+            metadata=dict(deviceWidth=1280, deviceHeight=800, scrollOffsetY=240, timestamp=1.5),
+        )
+    )
+    await asyncio.gather(*manager.releases)
+    assert ("Page.screencastFrameAck", {"sessionId": 7}) in cdp.sent
+    assert event.is_set() and tab.frame_seq == 1
+    assert tab.frame["data"] == "ZnJhbWU=" and tab.frame["scroll_y"] == 240
+    assert tab.frame["source"] == "screencast" and tab.frame["format"] == "jpeg"
+    # Ручное управление: перезапуск с повышенным качеством и каждым кадром.
+    tab.owner = "alice"
+    assert await manager.ensure_cast(tab)
+    assert ("Page.stopScreencast", None) in cdp.sent and cdp.detached
+    assert sessions[1].sent[0][1]["quality"] == 85
+    assert sessions[1].sent[0][1]["everyNthFrame"] == 1
+    # Кадр старой сессии после перезапуска подтверждается, но наблюдателю не уходит.
+    cdp.handlers["Page.screencastFrame"](dict(data="b2xk", sessionId=8, metadata={}))
+    await asyncio.gather(*manager.releases)
+    assert ("Page.screencastFrameAck", {"sessionId": 8}) in cdp.sent
+    assert tab.frame["data"] == "ZnJhbWU="
+    manager.unwatch(tab, "alice")
+    await asyncio.gather(*manager.releases)
+    assert sessions[1].detached and tab.cast is None
+
+
+async def test_viewport_follows_panel_within_desktop_limits():
+    assert viewport_for(600, 400) == (1024, 683)
+    assert viewport_for(2000, 1000) == (1440, 720)
+    assert viewport_for(1200, 2000) == (1200, 1100)
+    with pytest.raises(ValueError):
+        viewport_for(0, 100)
+    manager = BrowserManager()
+    page = Page()
+    sizes = []
+
+    async def set_viewport_size(size):
+        sizes.append(size)
+
+    page.set_viewport_size = set_viewport_size
+    tab = add(manager, page=page)
+    assert await manager.set_viewport(tab, "alice", 1400, 900) == (1400, 900)
+    assert sizes == [{"width": 1400, "height": 900}]
+    tab.owner = "bob"
+    assert await manager.set_viewport(tab, "alice", 1100, 700) == (1400, 900)
+    # Координаты мыши проверяются по текущему viewport.
+    await manager.command(
+        "p1", "bob", dict(type="mouse", tab_id=tab.id, x=1390, y=880, event="down", click_count=2)
+    )
+    assert page.mouse.calls[-1] == ("down", (), {"button": "left", "click_count": 2})
+
+
+async def test_page_result_adds_found_price_to_journal_and_finishes_tab():
+    manager = BrowserManager()
+    tab = add(manager)
+    tab.target_url, tab.status = "https://www.komus.ru/p/1", "reading"
+    manager.page_result(
+        "p1",
+        dict(
+            position_index=1,
+            source_id="web",
+            source_name="Магазин",
+            url="https://www.komus.ru/p/1",
+            offers=[dict(price="1389.5", amount="1", unit="пачка", title="Бумага")],
+        ),
+    )
+    event = manager.journal("p1")[-1]
+    assert event["kind"] == "found" and event["text"] == "komus.ru: цена 1 389,50 ₽ за 1 пачка"
+    assert event["price"] == "1389.5" and event["tab_id"] == tab.id
+    assert tab.public()["state"] == "done"
+    manager.page_result("p1", dict(source_id="eis", url="https://zakupki.gov.ru/x", offers=[]))
+    assert manager.journal("p1")[-1]["kind"] == "skipped"
+    assert [e["id"] for e in manager.journal("p1", event["id"])] == [event["id"] + 1]
+
+
+def test_websocket_sends_journal_and_accepts_viewport(tmp_path):
+    app = create_app(Settings(_env_file=None, data_dir=tmp_path))
+    with TestClient(app) as client:
+        manager = app.state.service.browser
+        pid = client.post("/api/procurements", data={"tz_text": "ТЗ"}).json()["id"]
+        page = Page()
+        sizes = []
+
+        async def set_viewport_size(size):
+            sizes.append(size)
+
+        page.set_viewport_size = set_viewport_size
+        add(manager, "t1", pid, page=page)
+        manager.log(pid, "opened", "Открыта страница example.org")
+        with client.websocket_connect(f"/api/browser?procurement_id={pid}") as ws:
+            seen = {}
+            ws.send_json(dict(type="viewport", width=700, height=500))
+            for _ in range(30):
+                data = ws.receive_json()
+                if data["type"] == "frame" and data["width"] != 1024:
+                    continue
+                seen.setdefault(data["type"], data)
+                if "journal" in seen and "frame" in seen and sizes:
+                    break
+            assert seen["journal"]["full"] is True
+            assert seen["journal"]["events"][0]["text"] == "Открыта страница example.org"
+            assert seen["tabs"]["tabs"][0]["state"] == "loading"
+            assert seen["frame"]["width"] == 1024 and seen["frame"]["format"] == "jpeg"
+            assert sizes == [{"width": 1024, "height": 731}]

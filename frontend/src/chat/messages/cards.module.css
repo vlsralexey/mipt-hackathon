@@ -37,7 +37,24 @@
   flex-direction: column;
   gap: 14px;
 }
-.askBare { display: flex; flex-direction: column; gap: 14px; }
+/* Вопрос открыт в окне над полем ввода: в ленте от него остаётся приглушённая строка */
+.docked {
+  display: flex;
+  align-items: baseline;
+  gap: 16px;
+  width: 100%;
+  padding: 12px 18px;
+  border: 1px dashed var(--line-strong);
+  border-radius: var(--r-md);
+  background: none;
+  color: var(--muted);
+  font-size: var(--t-sm);
+  text-align: left;
+  transition: border-color 0.15s ease-out, color 0.15s ease-out;
+}
+.docked:hover { border-color: var(--muted); color: var(--ink); }
+.dockedText { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.dockedNote { flex: none; font-size: var(--t-xs); }
 .q { font-weight: 500; }
 .hint { font-size: var(--t-sm); color: var(--muted); margin-top: 2px; }
 .actions { display: flex; flex-wrap: wrap; gap: 8px; }
@@ -57,6 +74,8 @@
 .btn:disabled { opacity: 0.6; cursor: default; }
 .btn svg { width: 16px; height: 16px; }
 .chosen { border-color: var(--accent); color: var(--accent-ink); background: var(--accent-wash); }
+/* Выбранный вариант неактивен (повторно не отправляется), но не бледнеет. */
+.chosen:disabled { opacity: 1; }
 .ghost { border-color: transparent; background: none; color: var(--muted); }
 .ghost:hover:not(:disabled) { color: var(--ink); background: var(--second); }
 
@@ -97,5 +116,5 @@
 
 @media (prefers-reduced-motion: reduce) {
   .run { animation: none; }
-  .chev, .btn { transition: none; }
+  .chev, .btn, .docked { transition: none; }
 }

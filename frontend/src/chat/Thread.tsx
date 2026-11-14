@@ -8,14 +8,11 @@ const NEAR_BOTTOM_PX = 120
 
 interface ThreadProps {
   messages: Message[]
-  /** Сообщения, которые пока показаны в другом месте (всплывающий вопрос). */
-  hiddenIds?: ReadonlySet<string>
   agentBusy: boolean
 }
 
 /** Лента сообщений. Прокручивается к новому, только если читатель и так был внизу. */
-export function Thread({ messages: all, hiddenIds, agentBusy }: ThreadProps) {
-  const messages = hiddenIds?.size ? all.filter((m) => !hiddenIds.has(m.id)) : all
+export function Thread({ messages, agentBusy }: ThreadProps) {
   const scroller = useRef<HTMLDivElement>(null)
   const stuck = useRef(true)
   const last = messages.at(-1)
@@ -34,7 +31,15 @@ export function Thread({ messages: all, hiddenIds, agentBusy }: ThreadProps) {
       stuck.current = el.scrollHeight - el.scrollTop - el.clientHeight < NEAR_BOTTOM_PX
     }
     el.addEventListener('scroll', onScroll, { passive: true })
-    return () => el.removeEventListener('scroll', onScroll)
+    // Окно вопросов над полем ввода сжимает ленту: читатель внизу остаётся внизу.
+    const resize = typeof ResizeObserver === 'undefined' ? null : new ResizeObserver(() => {
+      if (stuck.current) el.scrollTop = el.scrollHeight
+    })
+    resize?.observe(el)
+    return () => {
+      el.removeEventListener('scroll', onScroll)
+      resize?.disconnect()
+    }
   }, [])
 
   return (

@@ -1,3 +1,12 @@
 .composer { position: relative; flex: none; padding: 8px 24px 20px; }
-/* Окно стоит над полем ввода, в той же колонке, что поле и лента */
-.popupSlot { position: absolute; left: 24px; right: 24px; bottom: 100%; max-width: var(--chat-width); margin: 0 auto 8px; }
+/* Окно вопросов стоит над полем ввода, в той же колонке, и сдвигает ленту, а не закрывает её */
+.popupSlot { max-width: var(--chat-width); margin: 4px auto 12px; }
+.srOnly {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}

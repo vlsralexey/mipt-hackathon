@@ -101,6 +101,9 @@ class SourceBlocked(DomainModel):
     url: str
     reason: Literal["captcha", "login"]
     status: Literal["waiting", "resolved", "skipped"]
+    # Только при status="waiting": когда источник пропустят и полный срок ожидания.
+    deadline: AwareDatetime | None = None
+    wait_seconds: int | None = None
 
 
 class MessageBase(DomainModel):

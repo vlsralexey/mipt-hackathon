@@ -160,7 +160,7 @@ async def test_brand_case_is_not_a_contradiction_but_distinct_model_is():
             }
         ]
     )
-    result = await compare(llm, position, offer())
+    result = await compare(llm, position, offer(title="Бумага Svetocopy D600"))
     assert result[0].ok is True and result[1].ok is False
     assert decide(result)[0] == "incomparable"
 

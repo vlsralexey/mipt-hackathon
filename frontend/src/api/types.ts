@@ -176,6 +176,9 @@ export interface SourceBlocked {
   url: string
   reason: 'captcha' | 'login'
   status: 'waiting' | 'resolved' | 'skipped'
+  /** Только при status 'waiting': когда источник пропустят и полный срок ожидания. */
+  deadline?: ISODateTime | null
+  wait_seconds?: number | null
 }
 
 // ── Отчёт ───────────────────────────────────────────────────────────
@@ -420,6 +423,8 @@ export interface ConfigChange {
   reason: string
   status: 'active' | 'cancelled'
 }
+export type BrowserTabState = 'loading' | 'reading' | 'needs_user' | 'skipped' | 'error' | 'done'
+/** Вкладка управляемого браузера, см. docs/api.md §3.6. Новые поля необязательны для старого сервера. */
 export interface BrowserTab {
   id: string
   url: string
@@ -429,4 +434,39 @@ export interface BrowserTab {
   status: string
   action: string
   blocked: boolean
+  state?: BrowserTabState
+  domain?: string
+  source_name?: string
+  position_index?: number
+  needs?: 'captcha' | 'login' | null
+  deadline?: ISODateTime | null
+  wait_seconds?: number | null
+  error?: string | null
+  popup?: boolean
+  controlled?: boolean
+}
+export interface BrowserFrame {
+  tab_id: string
+  data: string
+  width: number
+  height: number
+  format?: 'jpeg' | 'png'
+  scroll_x?: number
+  scroll_y?: number
+  source?: 'screencast' | 'snapshot'
+}
+export interface JournalEvent {
+  id: number
+  at: ISODateTime
+  kind: 'opened' | 'found' | 'skipped' | 'waiting' | 'resolved' | 'error'
+  text: string
+  position_index: number | null
+  source_id: string | null
+  source_name: string | null
+  domain: string
+  url: string
+  tab_id: string | null
+  price: string | null
+  amount: string | null
+  unit: string | null
 }

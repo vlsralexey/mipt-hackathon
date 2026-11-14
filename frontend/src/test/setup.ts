@@ -12,5 +12,7 @@ afterEach(() => {
   vi.restoreAllMocks()
   server.resetHandlers()
   db.reset()
+  // окно вопросов помнит свёрнутость в sessionStorage: тесты не должны делить её
+  if (typeof sessionStorage !== 'undefined') sessionStorage.clear()
 })
 afterAll(() => server.close())

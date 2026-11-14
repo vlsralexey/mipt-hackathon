@@ -1,31 +1,132 @@
+/* Окно уточняющих вопросов над полем ввода. Макет: Question.dc.html (14 ноября 2026). */
 .popup {
-  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  max-height: min(62vh, 560px);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding: 14px 16px 18px 20px;
   background: var(--raised);
-  border: 1px solid var(--line-strong);
-  border-radius: var(--r-lg);
-  padding: 18px 56px 18px 20px;
-  /* тень со смещением и мягким размытием: окно «над» лентой */
-  box-shadow: 0 12px 32px rgb(29 26 23 / 0.14), 0 2px 6px rgb(29 26 23 / 0.08);
-  animation: rise 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  /* тень со смещением и мягким размытием: окно лежит над лентой */
+  box-shadow: 0 12px 36px rgb(29 26 23 / 0.13), 0 2px 6px rgb(29 26 23 / 0.06);
+  animation: rise 180ms cubic-bezier(0.22, 1, 0.36, 1);
 }
-.close {
-  position: absolute;
-  top: 10px;
-  right: 10px;
+.popup:focus-visible { outline-offset: 3px; border-radius: 20px; }
+
+.head { display: flex; align-items: center; gap: 2px; margin-right: -4px; }
+.meta {
+  flex: 1;
+  min-width: 0;
+  font-size: var(--t-sm);
+  color: var(--muted);
+  font-variant-numeric: tabular-nums;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.icon {
+  flex: none;
   width: 36px;
   height: 36px;
   display: grid;
   place-items: center;
   border: 0;
-  border-radius: 50%;
+  border-radius: 10px;
   background: none;
   color: var(--muted);
+  transition: background-color 0.15s ease-out, color 0.15s ease-out;
 }
-.close:hover { background: var(--accent-wash); color: var(--accent-ink); }
+.icon:hover:not(:disabled) { background: var(--second); color: var(--ink); }
+.icon:disabled { opacity: 0.35; cursor: default; }
+.icon svg { width: 18px; height: 18px; }
+
+.q {
+  margin: 0;
+  padding-right: 4px;
+  font-size: 1.25rem;
+  line-height: 1.35;
+  font-weight: 500;
+  text-wrap: pretty;
+}
+
+.options { display: flex; flex-direction: column; gap: 8px; padding-right: 4px; }
+.option {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  width: 100%;
+  min-height: 52px;
+  padding: 12px 16px;
+  text-align: left;
+  font-size: 1.0625rem;
+  line-height: 1.35;
+  color: var(--ink);
+  background: var(--raised);
+  border: 1px solid var(--line-strong);
+  border-radius: 14px;
+  transition: border-color 0.15s ease-out, background-color 0.15s ease-out;
+}
+.option:hover:not(:disabled) { border-color: var(--ink); }
+.option:disabled { cursor: default; }
+.option:disabled:not(.chosen) { opacity: 0.55; }
+/* Вариант по умолчанию: рамка акцента, чуть тёплая подложка */
+.default { border-color: var(--accent); background: color-mix(in srgb, var(--accent) 4%, var(--raised)); }
+.default:hover:not(:disabled) { border-color: var(--accent-hover); }
+.chosen { border-color: var(--accent); background: var(--accent-wash); }
+.key {
+  flex: none;
+  width: 26px;
+  height: 26px;
+  display: grid;
+  place-items: center;
+  border: 1px solid var(--line-strong);
+  border-radius: 7px;
+  background: var(--paper);
+  font-size: var(--t-sm);
+  color: var(--muted);
+  font-variant-numeric: tabular-nums;
+}
+.key:empty { visibility: hidden; }
+.chosen .key { border-color: var(--accent); color: var(--accent-ink); }
+.key svg { width: 15px; height: 15px; }
+.label { flex: 1; min-width: 0; overflow-wrap: anywhere; }
+.note { flex: none; font-size: var(--t-sm); color: var(--muted); }
+
+.same { display: flex; align-items: center; gap: 10px; font-size: 0.9375rem; cursor: pointer; }
+.same input { flex: none; width: 18px; height: 18px; margin: 0; accent-color: var(--accent); }
+
+.foot { margin: 0; font-size: var(--t-sm); color: var(--muted); }
+.error { margin: 0; font-size: var(--t-sm); color: var(--cut); }
+
+/* Свёрнутое окно: строка над полем ввода */
+.pill {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  padding: 10px 18px;
+  text-align: left;
+  font-size: 0.9375rem;
+  color: var(--ink);
+  background: var(--raised);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  box-shadow: 0 4px 14px rgb(29 26 23 / 0.07);
+  transition: border-color 0.15s ease-out;
+}
+.pill:hover { border-color: var(--line-strong); }
+.pill:focus-visible { border-radius: 999px; }
+.dot { flex: none; width: 8px; height: 8px; border-radius: 50%; background: var(--accent); }
+.pillText { flex: 1; min-width: 0; }
+.pillAction { flex: none; color: var(--accent-ink); font-weight: 500; }
 
 @keyframes rise {
-  from { opacity: 0; transform: translateY(10px); }
+  from { opacity: 0; transform: translateY(8px); }
 }
 @media (prefers-reduced-motion: reduce) {
   .popup { animation: none; }
+  .icon, .option, .pill { transition: none; }
 }

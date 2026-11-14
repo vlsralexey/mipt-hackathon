@@ -382,3 +382,30 @@ async def test_bad_llm_page_does_not_abort_research():
     )
     assert not run.offers and len(run.skipped_pages) == 1
     assert "JSON" in run.skipped_pages[0].reason
+
+
+def test_rebuild_rechecks_model_of_saved_comparison_without_llm():
+    """Сохранённое до исправления «ok» для чужой модели не попадает в расчёт."""
+    position = paper_position(
+        characteristics=[
+            {"name": "Модель", "value": "D600 PRO", "essential": True},
+            {"name": "Формат", "value": "А4", "essential": True},
+        ]
+    )
+    run = stored()
+    titles = ["CreatBot PEEK 300", "CreatBot D600 Pro", "Принтер CreatBot"]
+    for found, title in zip(run.offers, titles, strict=True):
+        found.offer.title = title
+        found.comparison = [
+            CharComparison(
+                name="Модель", required="D600 PRO", offered=title, essential=True, ok=True
+            ),
+            *comparison(),
+        ]
+    pr = build_position(position, [run], SNAP)
+    by_title = {e.offer.title: e.exclusion for e in pr.included + pr.excluded}
+    assert by_title == {
+        "CreatBot PEEK 300": "incomparable",
+        "CreatBot D600 Pro": None,
+        "Принтер CreatBot": "insufficient_data",
+    }

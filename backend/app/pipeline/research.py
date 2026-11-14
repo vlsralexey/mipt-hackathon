@@ -119,6 +119,28 @@ async def research_position(
                             reason="На странице не найдено предложений по позиции ТЗ",
                         )
                     )
+                # Журнал «Ход поиска»: итог разбора страницы, не влияет на расчёт.
+                await emit(
+                    Event(
+                        type="page",
+                        data={
+                            "position_index": position.index,
+                            "source_id": adapter.id,
+                            "source_name": adapter.name,
+                            "url": page.url,
+                            "offers": [
+                                {
+                                    "price": str(o.price),
+                                    "amount": str(o.amount),
+                                    "unit": o.amount_unit,
+                                    "title": o.title,
+                                }
+                                for o in offers
+                            ],
+                            "reason": failures[0].reason if failures else None,
+                        },
+                    )
+                )
                 for offer in offers:
                     try:
                         comparison = await compare(llm, position, offer)

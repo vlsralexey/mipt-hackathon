@@ -1,16 +1,39 @@
-/* Страница настроек: одна колонка по центру, как у формы. Крестик закреплён в углу страницы
-   и не уезжает при прокрутке содержимого. */
+/* Страница настроек: слева настройки, справа агент правил (липкий на широком экране).
+   Крестик закреплён в углу страницы и не уезжает при прокрутке содержимого.
+   Колонки зависят от ширины области страницы, а не окна: контейнерный запрос. */
 .page { position: relative; display: flex; flex-direction: column; min-width: 0; min-height: 0; }
-.scroll { flex: 1; overflow: auto; padding: 72px 32px 48px; }
-.column { max-width: var(--chat-width); margin: 0 auto; }
-.column h1 { margin: 0 0 24px; font-size: var(--t-xl); font-weight: 600; letter-spacing: -0.02em; line-height: 1.2; }
-.column p { margin: 0; color: var(--muted); }
+.scroll { flex: 1; overflow: auto; padding: 56px 72px 64px; container-type: inline-size; }
+.layout { max-width: 1120px; margin: 0 auto; }
+.layout h1 { margin: 0 0 36px; font-size: 2rem; font-weight: 600; letter-spacing: -0.02em; line-height: 1.2; }
+
+.columns { display: flex; align-items: flex-start; gap: 48px; }
+.main { flex: 1 1 640px; min-width: 0; display: flex; flex-direction: column; gap: 44px; }
+.agent {
+  flex: 0 0 400px;
+  position: sticky;
+  top: 24px;
+  max-height: calc(100dvh - 48px);
+}
+.agent > :global(*) { flex-shrink: 0; }
+.agent > :nth-child(2) { flex-shrink: 1; }
+
+/* Узко: агент уходит под настройки, без липкости и ограничения высоты */
+@container (max-width: 980px) {
+  .columns { flex-direction: column; align-items: stretch; gap: 44px; }
+  .main { flex-basis: auto; }
+  .agent { flex-basis: auto; position: static; max-height: none; }
+  .agent > :nth-child(2) { max-height: 420px; }
+}
+
+@media (max-width: 720px) {
+  .scroll { padding: 64px 20px 40px; }
+}
 
 .close {
   position: absolute;
   top: 20px;
   right: 24px;
-  z-index: 1;
+  z-index: 2;
   width: 44px;
   height: 44px;
   display: grid;
@@ -23,34 +46,39 @@
 }
 .close:hover { background: var(--accent-hover); }
 
-.form { display: grid; gap: 32px; }
-.field { display: grid; gap: 10px; }
-.field label { font-weight: 600; }
-.field p, .actions p { font-size: var(--t-sm); }
-.field input, .field select {
-  width: 100%;
+/* ── Ключ и модель ──────────────────────────────────────────────── */
+.stack { display: flex; flex-direction: column; gap: 10px; min-width: 0; }
+.status { display: flex; align-items: center; gap: 8px; margin: 0; }
+.status:empty { display: none; }
+.status svg { width: 18px; height: 18px; stroke-width: 2.2; }
+.statusBad { color: var(--cut); }
+.statusBad .muted { color: var(--muted); }
+.muted { color: var(--muted); }
+.spin { animation: spin 0.9s linear infinite; }
+@keyframes spin { to { transform: rotate(360deg); } }
+
+.buttons { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 16px; }
+/* Текстовые кнопки без боковых полей: текст стоит по одной линии со статусом и кнопками. */
+.flush { padding-inline: 0; }
+.remove { align-self: flex-start; }
+.keyForm { display: flex; flex-wrap: wrap; gap: 10px; }
+.keyForm input {
+  flex: 1 1 260px;
   min-width: 0;
-  padding: 12px 16px;
+  padding: 10px 14px;
   border: 1px solid var(--line-strong);
   border-radius: var(--r-md);
   background: var(--raised);
   color: var(--ink);
   font: inherit;
+  caret-color: var(--accent);
 }
-.field input:focus-visible, .field select:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
-.actions { display: flex; align-items: center; flex-wrap: wrap; gap: 16px; }
-.save, .secondary { justify-self: start; border-radius: 999px; padding: 10px 20px; font: inherit; }
-.save { border: 0; background: var(--accent); color: var(--on-accent); font-weight: 500; }
-.save:hover:not(:disabled) { background: var(--accent-hover); }
-.secondary { border: 1px solid var(--line-strong); background: var(--raised); color: var(--ink); }
-.secondary:hover:not(:disabled) { border-color: var(--ink); }
-.save:disabled, .secondary:disabled { opacity: 0.5; cursor: default; }
-.form .error { color: var(--cut); }
+.keyForm input::placeholder { color: var(--muted); }
+.keyForm input:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: var(--r-md); }
+.help { margin: 0; color: var(--muted); font-size: var(--t-sm); }
+.help [role='alert'] { color: var(--cut); }
 
 @media (prefers-reduced-motion: reduce) {
   .close { transition: none; }
+  .spin { animation: none; }
 }
-
-.extended { margin-top: 32px; border-top: 1px solid var(--line-strong); padding-top: 20px; }
-.extended > summary { cursor: pointer; font-weight: 500; color: var(--accent-ink); }
-.extended > div { padding-right: 0; padding-left: 0; }

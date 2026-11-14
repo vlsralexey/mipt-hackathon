@@ -1,12 +1,15 @@
-"""Подписка на реальные вкладки; кадры передаются только выбранному наблюдателю."""
+"""Подписка на реальные вкладки; кадры screencast только выбранной наблюдателем вкладки."""
 
 import asyncio
 import json
+import time
+from contextlib import suppress
 from urllib.parse import urlsplit
 from uuid import uuid4
 
 from fastapi import APIRouter, Request, WebSocket, WebSocketDisconnect
 
+from app.browser.manager import viewport_for
 from app.service import ActionError
 
 router = APIRouter(prefix="/api")
@@ -28,45 +31,82 @@ async def browser(websocket: WebSocket):
     await websocket.accept()
     manager, owner = service.browser, uuid4().hex
     selected = None
+    viewport = None
     send_lock = asyncio.Lock()
+    changed = asyncio.Event()
 
     async def send(data):
         async with send_lock:
             await websocket.send_json(data)
 
-    async def watch():
+    async def state():
+        """Список вкладок, владелец управления и журнал: только при изменениях."""
         nonlocal selected
-        previous = None
+        previous = control = None
+        journal_id = 0
+        first = True
         while True:
             tabs = manager.tabs_for(pid)
             if selected not in {t.id for t in tabs}:
                 selected = tabs[0].id if tabs else None
+                changed.set()
             snapshot = dict(type="tabs", tabs=[t.public() for t in tabs], selected_tab_id=selected)
             signature = json.dumps(snapshot, ensure_ascii=False)
             if signature != previous:
                 await send(snapshot)
                 previous = signature
-            if selected:
-                tab = manager.tabs.get(selected)
+            tab = manager.tabs.get(selected) if selected else None
+            current = (selected, "user" if tab and tab.owner == owner else "agent")
+            if tab and current != control:
+                await send(dict(type="control", tab_id=selected, by=current[1]))
+                control = current
+            events = manager.journal(pid, journal_id)
+            if first or events:
+                await send(dict(type="journal", full=first, events=events))
+                journal_id = events[-1]["id"] if events else journal_id
+                first = False
+            await asyncio.sleep(0.25)
+
+    async def frames():
+        """Кадры выбранной вкладки: последний кадр screencast, без очереди."""
+        watched = event = None
+        sent = -1
+        since = time.monotonic()
+        while True:
+            tab = manager.tabs.get(selected) if selected else None
+            if (tab.id if tab else None) != (watched.id if watched else None) or (
+                tab and owner not in tab.watchers
+            ):
+                if watched:
+                    manager.unwatch(watched, owner)
+                watched, event, sent, since = tab, None, -1, time.monotonic()
                 if tab:
-                    await send(
-                        dict(
-                            type="control",
-                            tab_id=selected,
-                            by="user" if tab.owner == owner else "agent",
-                        )
-                    )
-                    try:
-                        frame = await manager.frame(tab)
-                        if selected == tab.id:
-                            await send(frame)
-                    except Exception:
-                        # Навигация и закрытие вкладки временно прерывают снимок.
-                        pass
-            await asyncio.sleep(0.75)
+                    event = manager.watch(tab, owner)
+                    if viewport:
+                        await manager.set_viewport(tab, owner, *viewport)
+            if tab is None:
+                changed.clear()
+                with suppress(TimeoutError):
+                    await asyncio.wait_for(changed.wait(), 0.5)
+                continue
+            casting = await manager.ensure_cast(tab)
+            with suppress(TimeoutError):
+                await asyncio.wait_for(event.wait(), 0.5)
+            event.clear()
+            if tab.frame and tab.frame_seq != sent and selected == tab.id:
+                sent = tab.frame_seq
+                since = time.monotonic()
+                await send(tab.frame)
+            elif time.monotonic() - since > 1 and (not casting or sent < 0):
+                # Screencast ещё молчит (статичная страница) или недоступен: одиночный снимок.
+                since = time.monotonic()
+                with suppress(Exception):
+                    await manager.frame(tab)
 
     async def receive():
-        nonlocal selected
+        nonlocal selected, viewport
+        moved = 0.0
+        cursor = None
         while True:
             try:
                 raw = await websocket.receive_text()
@@ -75,10 +115,24 @@ async def browser(websocket: WebSocket):
                 data = json.loads(raw)
                 if not isinstance(data, dict):
                     raise ValueError("Неверный формат действия")
-                if data.get("type") == "select":
+                kind = data.get("type")
+                if kind == "select":
                     selected = manager.get(pid, data.get("tab_id")).id
+                    changed.set()
+                elif kind == "viewport":
+                    viewport = viewport_for(data.get("width"), data.get("height"))
+                    tab = manager.tabs.get(selected) if selected else None
+                    if tab:
+                        await manager.set_viewport(tab, owner, *viewport)
                 else:
-                    await manager.command(pid, owner, data)
+                    tab = await manager.command(pid, owner, data)
+                    now = time.monotonic()
+                    if kind == "mouse" and data.get("event") == "move" and now - moved > 0.15:
+                        moved = now
+                        value = await manager.cursor(tab, data["x"], data["y"])
+                        if value != cursor:
+                            cursor = value
+                            await send(dict(type="cursor", tab_id=tab.id, cursor=value))
             except (ValueError, TypeError):
                 await send(dict(type="error", detail="Не удалось выполнить действие браузера"))
             except WebSocketDisconnect:
@@ -86,7 +140,8 @@ async def browser(websocket: WebSocket):
             except Exception:
                 await send(dict(type="error", detail="Вкладка недоступна. Попробуйте снова."))
 
-    tasks = [asyncio.create_task(watch()), asyncio.create_task(receive())]
+    tasks = [asyncio.create_task(state()), asyncio.create_task(frames())]
+    tasks.append(asyncio.create_task(receive()))
     try:
         done, _ = await asyncio.wait(tasks, return_when=asyncio.FIRST_COMPLETED)
         for task in done:

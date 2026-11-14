@@ -8,7 +8,9 @@ from app.models import DomainModel
 
 
 class Event(DomainModel):
-    type: Literal["progress", "question", "report", "error", "message", "agent", "procurement"]
+    type: Literal[
+        "progress", "question", "report", "error", "message", "agent", "procurement", "page"
+    ]
     data: dict
 
 

@@ -7,20 +7,48 @@ from pydantic import Field
 from app.llm.client import LLM, LLMFormatError
 from app.llm.prompts import ANSWER_SYSTEM, PARSE_TZ_SYSTEM
 from app.llm.structured import complete_model
-from app.models import DomainModel, ParsedTZ, Position, Question
+from app.models import (
+    ANALOGS_YES,
+    Characteristic,
+    DomainModel,
+    ParsedTZ,
+    Position,
+    Question,
+    analog_choice,
+    analog_options,
+    asks_about_analogs,
+)
+from app.pipeline.identity import MODEL_NAMES, TRADEMARK_NAMES, missing_value, model_in_name
 from app.units import canonical_unit
 
-BRAND_FIELDS = {"товарный знак", "производитель", "модель", "марка", "бренд"}
+BRAND_FIELDS = {"товарный знак", "торговая марка", "производитель", "модель", "марка", "бренд"}
 
 
-def asks_about_analogs(text: str) -> bool:
-    return any(word in text.casefold() for word in ("аналог", "эквивалент"))
+def required_brands(position: Position) -> list[str]:
+    return [
+        c.value
+        for c in position.characteristics
+        if c.essential and c.name.casefold() in BRAND_FIELDS and not missing_value(c.value)
+    ]
 
 
 def same_question(left: Question, right: Question) -> bool:
     return left.position_index == right.position_index and (
         left.id == right.id or asks_about_analogs(left.text) and asks_about_analogs(right.text)
     )
+
+
+def current_answer(questions: list[Question], edits, question: Question) -> str | None:
+    """Действующий ответ пользователя на вопрос (с учётом повторов того же решения)."""
+    answer = None
+    for edit in edits:
+        if (
+            edit.kind == "answer_question"
+            and edit.status == "active"
+            and any(q.id == edit.target and same_question(q, question) for q in questions)
+        ):
+            answer = edit.payload.answer
+    return answer
 
 
 class RawQuestion(DomainModel):
@@ -72,18 +100,13 @@ async def parse_tz(llm: LLM, tz_text: str) -> ParsedTZ:
         ):
             continue
         counts[q.position_index] += 1
-        questions.append(
-            Question(id=f"q{q.position_index}-{counts[q.position_index]}", **q.model_dump())
-        )
+        data = q.model_dump()
+        if asks_about_analogs(q.text):
+            brands = required_brands(raw.positions[q.position_index - 1])
+            data["options"] = analog_options(q.options, brands[0] if brands else None)
+        questions.append(Question(id=f"q{q.position_index}-{counts[q.position_index]}", **data))
     for position in raw.positions:
-        brands = [
-            c.value
-            for c in position.characteristics
-            if c.essential
-            and c.name.casefold() in BRAND_FIELDS
-            and c.value.strip().casefold() not in ("отсутствует", "не указан")
-        ]
-        for brand in brands:
+        for brand in required_brands(position):
             if any(
                 q.position_index == position.index and asks_about_analogs(q.text) for q in questions
             ):
@@ -95,11 +118,41 @@ async def parse_tz(llm: LLM, tz_text: str) -> ParsedTZ:
                     id=f"q{position.index}-{counts[position.index]}",
                     position_index=position.index,
                     text=f"Учитывать аналоги без марки {brand} с теми же характеристиками?",
-                    options=[default, "Да, учитывать аналоги"],
+                    options=[default, ANALOGS_YES],
                     default_answer=default,
                 )
             )
     positions = [_units(p, pack_basis=True) for p in raw.positions]
+    for position in positions:
+        # Модель из названия позиции — требование, даже если LLM не выделила её.
+        names = {c.name.casefold() for c in position.characteristics}
+        if names & MODEL_NAMES:
+            continue
+        for brand in position.characteristics:
+            if brand.name.casefold() not in TRADEMARK_NAMES or missing_value(brand.value):
+                continue
+            model = model_in_name(position.name, brand.value)
+            if model:
+                position.characteristics.insert(
+                    position.characteristics.index(brand) + 1,
+                    Characteristic(name="Модель", value=model, essential=brand.essential),
+                )
+            break
+    for position in positions:
+        # Ответ по умолчанию уже отражён в позиции: «Нет, только X» требует X и модель.
+        # Производитель тоже становится существенным, но при подтверждённом товарном
+        # знаке исключает только явно другой производитель (match.decide).
+        if any(
+            q.position_index == position.index
+            and asks_about_analogs(q.text)
+            and analog_choice(q.default_answer) == "no"
+            for q in questions
+        ):
+            for characteristic in position.characteristics:
+                if characteristic.name.casefold() in BRAND_FIELDS and not missing_value(
+                    characteristic.value
+                ):
+                    characteristic.essential = True
     for position in positions:
         if position.unit == "шт" and position.basis.unit in {"мкг", "мг", "г", "мл", "л"}:
             existing = [q for q in questions if q.position_index == position.index]
@@ -139,8 +192,8 @@ def button_answer(position: Position, question: Question, answer: str) -> Positi
         return position.model_copy(deep=True)
     if answer not in question.options or not asks_about_analogs(question.text):
         return None
-    normalized = answer.strip().casefold()
-    if not normalized.startswith(("да", "нет")):
+    choice = analog_choice(answer)
+    if choice is None:
         return None
     brands = [c for c in position.characteristics if c.name.casefold() in BRAND_FIELDS]
     if not brands:
@@ -148,7 +201,7 @@ def button_answer(position: Position, question: Question, answer: str) -> Positi
     result = position.model_copy(deep=True)
     for characteristic in result.characteristics:
         if characteristic.name.casefold() in BRAND_FIELDS:
-            characteristic.essential = normalized.startswith("нет")
+            characteristic.essential = choice == "no"
     return result
 
 

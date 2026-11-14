@@ -147,6 +147,8 @@ async def answer(pid: str, qid: str, body: AnswerInput, service: Dep):
     state = service.require(pid)
     if state["parsed"] is None or qid not in {q.id for q in state["parsed"].questions}:
         raise ActionError("Вопрос не найден", 404)
+    if service.answer_unchanged(pid, qid, body.answer):
+        return {}  # Этот ответ уже действует: правка и новая версия не нужны.
     if not service.deterministic_answer(pid, qid, body.answer.strip()):
         service.require_key()
     await service.enqueue(pid, "answer", {"question_id": qid, "answer": body.answer.strip()})

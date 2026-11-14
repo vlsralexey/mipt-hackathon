@@ -1,0 +1,7058 @@
+[
+ {
+  "id": "printer-1-2695017214325000018",
+  "provenance": "живой прогон ТЗ принтера 14.11.2026, openai/gpt-4.1-mini",
+  "note": "Марка есть, модели нет; LLM нашла противоречие по скорости печати",
+  "position": {
+   "index": 1,
+   "name": "3D принтер 3D CREATBOT D600 PRO",
+   "unit": "шт",
+   "quantity": "1",
+   "okpd2": "26.20.16.129",
+   "characteristics": [
+    {
+     "name": "Товарный знак",
+     "value": "CreatBot",
+     "unit": null,
+     "essential": true
+    },
+    {
+     "name": "Модель",
+     "value": "D600 PRO",
+     "unit": null,
+     "essential": true
+    },
+    {
+     "name": "Страна происхождения",
+     "value": "Китай",
+     "unit": null,
+     "essential": false
+    },
+    {
+     "name": "Технология печати",
+     "value": "FDM (Fused Deposition Modeling)",
+     "unit": null,
+     "essential": true
+    },
+    {
+     "name": "Область печати одним экструдером",
+     "value": "600x600x600",
+     "unit": "мм",
+     "essential": true
+    },
+    {
+     "name": "Область печати двумя экструдерами",
+     "value": "540x600x600",
+     "unit": "мм",
+     "essential": true
+    },
+    {
+     "name": "Толщина слоя",
+     "value": "от 0,05 до 0,4",
+     "unit": "мм",
+     "essential": true
+    },
+    {
+     "name": "Диаметр используемой нити пластика",
+     "value": "1,75",
+     "unit": "мм",
+     "essential": true
+    },
+    {
+     "name": "Тип корпуса",
+     "value": "Закрытый",
+     "unit": null,
+     "essential": false
+    },
+    {
+     "name": "Поддерживаемые пластики",
+     "value": "PLA, ABS, Carbon Fiber, Wood, Nylon, PC, PETG, HIPS, PP, Flexible, TPU, PVA и другие",
+     "unit": null,
+     "essential": true
+    },
+    {
+     "name": "Диаметр сопел",
+     "value": "0.3/0.4/0.6/0.8/1.0",
+     "unit": "мм",
+     "essential": true
+    },
+    {
+     "name": "Материал рабочей платформы",
+     "value": "Алюминиевая платформа с адгезивной наклейкой Buildtak или стеклом",
+     "unit": null,
+     "essential": false
+    },
+    {
+     "name": "Поддержка форматов",
+     "value": "AMF, OBJ, STL",
+     "unit": null,
+     "essential": true
+    },
+    {
+     "name": "Максимальный нагрев рабочей платформы",
+     "value": "100",
+     "unit": "град",
+     "essential": true
+    },
+    {
+     "name": "Максимальный нагрев экструдера",
+     "value": "420",
+     "unit": "град",
+     "essential": true
+    },
+    {
+     "name": "Максимальный нагрев рабочей камеры",
+     "value": "70",
+     "unit": "град",
+     "essential": true
+    },
+    {
+     "name": "Максимальный нагрев отсека для сушки пластика",
+     "value": "65",
+     "unit": "град",
+     "essential": true
+    },
+    {
+     "name": "Оптимальная скорость печати",
+     "value": "45",
+     "unit": "мм/с",
+     "essential": true
+    },
+    {
+     "name": "Максимальная скорость печати",
+     "value": "120",
+     "unit": "мм/с",
+     "essential": true
+    },
+    {
+     "name": "Сенсорный дисплей",
+     "value": "4.3\"",
+     "unit": null,
+     "essential": false
+    },
+    {
+     "name": "Интерфейсы подключения",
+     "value": "USB",
+     "unit": null,
+     "essential": false
+    },
+    {
+     "name": "Точность позиционирования X/Y",
+     "value": "5.08",
+     "unit": "μm",
+     "essential": true
+    },
+    {
+     "name": "Точность позиционирования Z",
+     "value": "1.25",
+     "unit": "μm",
+     "essential": true
+    },
+    {
+     "name": "Габариты принтера без упаковки (ШхГхВ)",
+     "value": "915x845x1085",
+     "unit": "мм",
+     "essential": false
+    },
+    {
+     "name": "Вес принтера без упаковки",
+     "value": "125",
+     "unit": "кг",
+     "essential": false
+    },
+    {
+     "name": "Электропитание",
+     "value": "230 В, 50 Гц",
+     "unit": null,
+     "essential": false
+    },
+    {
+     "name": "Номинальная мощность",
+     "value": "4900",
+     "unit": "Вт",
+     "essential": false
+    }
+   ],
+   "basis": {
+    "unit": "шт",
+    "per_tz_unit": "1"
+   },
+   "search_terms": [
+    "CreatBot",
+    "3D принтер",
+    "3D CREATBOT D600 PRO"
+   ]
+  },
+  "offer": {
+   "id": "d1441fef5f46",
+   "source_id": "eis",
+   "source_name": "ЕИС — реестр контрактов",
+   "level": 1,
+   "url": "https://zakupki.gov.ru/epz/contract/contractCard/payment-info-and-target-of-order.html?reestrNumber=2695017214325000018",
+   "retrieved_at": "2026-11-14 16:51:01.942876+00:00",
+   "title": "1. 3D-принтер FDM. Товарный знак: CREATBOT",
+   "price": "2625000.00",
+   "currency": "RUB",
+   "amount": "1",
+   "amount_unit": "шт",
+   "vat": "included",
+   "vat_rate": "0.05",
+   "supplier": "ОБЩЕСТВО С ОГРАНИЧЕННОЙ ОТВЕТСТВЕННОСТЬЮ \"КОМПЛЕКТУЮ\"",
+   "supplier_inn": "1657079619",
+   "delivery": "unknown",
+   "delivery_cost": null,
+   "delivery_free_from": null,
+   "delivery_note": null,
+   "price_date": "2025-08-12",
+   "characteristics": {
+    "Калибровка платформы": "Автоматическая",
+    "Наличие системы контроля наличия пластика": "Да",
+    "Область печати по оси Z": "> 200 Миллиметр",
+    "Тип совместимого с 3D-принтером пластика": "PLA",
+    "Область печати по оси X": "> 200 Миллиметр",
+    "Минимальная толщина слоя": "≥ 0,05 Миллиметр",
+    "Максимальная скорость печати, см3/ч": "< 100",
+    "Скорость перемещения печатающей головки, мм/с": "≥ 80",
+    "Максимальная температура печатающей головки": "≥ 410 Градус Цельсия",
+    "Область печати по оси Y": "> 200 Миллиметр",
+    "Интерфейс подключения": "USB Flash",
+    "Максимальная температура платформы для печати": "< 150 Градус Цельсия",
+    "Тип системы контроля высоты первого слоя": "Автоматический",
+    "Наличие HEPA фильтра": "Да",
+    "Наличие системы контроля платформы печати": "Да",
+    "Тип управления принтером": "Панель управления с дисплеем на корпусе устройства",
+    "Наличие закрытого корпуса": "Да",
+    "Диаметр сопла": "≥ 0,5 Миллиметр"
+   }
+  },
+  "llm": {
+   "comparison": [
+    {
+     "name": "Товарный знак",
+     "offered": "CREATBOT",
+     "ok": true
+    },
+    {
+     "name": "Модель",
+     "offered": null,
+     "ok": null
+    },
+    {
+     "name": "Страна происхождения",
+     "offered": null,
+     "ok": null
+    },
+    {
+     "name": "Технология печати",
+     "offered": "FDM",
+     "ok": true
+    },
+    {
+     "name": "Область печати одним экструдером",
+     "offered": "> 200 Миллиметр",
+     "ok": true
+    },
+    {
+     "name": "Область печати двумя экструдерами",
+     "offered": null,
+     "ok": null
+    },
+    {
+     "name": "Толщина слоя",
+     "offered": "≥ 0,05 Миллиметр",
+     "ok": true
+    },
+    {
+     "name": "Диаметр используемой нити пластика",
+     "offered": null,
+     "ok": null
+    },
+    {
+     "name": "Тип корпуса",
+     "offered": "Да",
+     "ok": true
+    },
+    {
+     "name": "Поддерживаемые пластики",
+     "offered": "PLA",
+     "ok": true
+    },
+    {
+     "name": "Диаметр сопел",
+     "offered": "≥ 0,5 Миллиметр",
+     "ok": true
+    },
+    {
+     "name": "Материал рабочей платформы",
+     "offered": null,
+     "ok": null
+    },
+    {
+     "name": "Поддержка форматов",
+     "offered": null,
+     "ok": null
+    },
+    {
+     "name": "Максимальный нагрев рабочей платформы",
+     "offered": "< 150 Градус Цельсия",
+     "ok": true
+    },
+    {
+     "name": "Максимальный нагрев экструдера",
+     "offered": "≥ 410 Градус Цельсия",
+     "ok": true
+    },
+    {
+     "name": "Максимальный нагрев рабочей камеры",
+     "offered": null,
+     "ok": null
+    },
+    {
+     "name": "Максимальный нагрев отсека для сушки пластика",
+     "offered": null,
+     "ok": null
+    },
+    {
+     "name": "Оптимальная скорость печати",
+     "offered": null,
+     "ok": null
+    },
+    {
+     "name": "Максимальная скорость печати",
+     "offered": "≥ 80",
+     "ok": false
+    },
+    {
+     "name": "Сенсорный дисплей",
+     "offered": "Панель управления с дисплеем на корпусе устройства",
+     "ok": true
+    },
+    {
+     "name": "Интерфейсы подключения",
+     "offered": "USB Flash",
+     "ok": false
+    },
+    {
+     "name": "Точность позиционирования X/Y",
+     "offered": null,
+     "ok": null
+    },
+    {
+     "name": "Точность позиционирования Z",
+     "offered": null,
+     "ok": null
+    },
+    {
+     "name": "Габариты принтера без упаковки (ШхГхВ)",
+     "offered": null,
+     "ok": null
+    },
+    {
+     "name": "Вес принтера без упаковки",
+     "offered": null,
+     "ok": null
+    },
+    {
+     "name": "Электропитание",
+     "offered": null,
+     "ok": null
+    },
+    {
+     "name": "Номинальная мощность",
+     "offered": null,
+     "ok": null
+    }
+   ]
+  },
+  "expected": "incomparable"
+ },
+ {
+  "id": "printer-1-1781204352224000023",
+  "provenance": "живой прогон ТЗ принтера 14.11.2026, openai/gpt-4.1-mini",
+  "note": "Только марка CreatBot, модель не названа; до исправления — подходит",
+  "position": {
+   "index": 1,
+   "name": "3D принтер 3D CREATBOT D600 PRO",
+   "unit": "шт",
+   "quantity": "1",
+   "okpd2": "26.20.16.129",
+   "characteristics": [
+    {
+     "name": "Товарный знак",
+     "value": "CreatBot",
+     "unit": null,
+     "essential": true
+    },
+    {
+     "name": "Модель",
+     "value": "D600 PRO",
+     "unit": null,
+     "essential": true
+    },
+    {
+     "name": "Страна происхождения",
+     "value": "Китай",
+     "unit": null,
+     "essential": false
+    },
+    {
+     "name": "Технология печати",
+     "value": "FDM (Fused Deposition Modeling)",
+     "unit": null,
+     "essential": true
+    },
+    {
+     "name": "Область печати одним экструдером",
+     "value": "600x600x600",
+     "unit": "мм",
+     "essential": true
+    },
+    {
+     "name": "Область печати двумя экструдерами",
+     "value": "540x600x600",
+     "unit": "мм",
+     "essential": true
+    },
+    {
+     "name": "Толщина слоя",
+     "value": "от 0,05 до 0,4",
+     "unit": "мм",
+     "essential": true
+    },
+    {
+     "name": "Диаметр используемой нити пластика",
+     "value": "1,75",
+     "unit": "мм",
+     "essential": true
+    },
+    {
+     "name": "Тип корпуса",
+     "value": "Закрытый",
+     "unit": null,
+     "essential": false
+    },
+    {
+     "name": "Поддерживаемые пластики",
+     "value": "PLA, ABS, Carbon Fiber, Wood, Nylon, PC, PETG, HIPS, PP, Flexible, TPU, PVA и другие",
+     "unit": null,
+     "essential": true
+    },
+    {
+     "name": "Диаметр сопел",
+     "value": "0.3/0.4/0.6/0.8/1.0",
+     "unit": "мм",
+     "essential": true
+    },
+    {
+     "name": "Материал рабочей платформы",
+     "value": "Алюминиевая платформа с адгезивной наклейкой Buildtak или стеклом",
+     "unit": null,
+     "essential": false
+    },
+    {
+     "name": "Поддержка форматов",
+     "value": "AMF, OBJ, STL",
+     "unit": null,
+     "essential": true
+    },
+    {
+     "name": "Максимальный нагрев рабочей платформы",
+     "value": "100",
+     "unit": "град",
+     "essential": true
+    },
+    {
+     "name": "Максимальный нагрев экструдера",
+     "value": "420",
+     "unit": "град",
+     "essential": true
+    },
+    {
+     "name": "Максимальный нагрев рабочей камеры",
+     "value": "70",
+     "unit": "град",
+     "essential": true
+    },
+    {
+     "name": "Максимальный нагрев отсека для сушки пластика",
+     "value": "65",
+     "unit": "град",
+     "essential": true
+    },
+    {
+     "name": "Оптимальная скорость печати",
+     "value": "45",
+     "unit": "мм/с",
+     "essential": true
+    },
+    {
+     "name": "Максимальная скорость печати",
+     "value": "120",
+     "unit": "мм/с",
+     "essential": true
+    },
+    {
+     "name": "Сенсорный дисплей",
+     "value": "4.3\"",
+     "unit": null,
+     "essential": false
+    },
+    {
+     "name": "Интерфейсы подключения",
+     "value": "USB",
+     "unit": null,
+     "essential": false
+    },
+    {
+     "name": "Точность позиционирования X/Y",
+     "value": "5.08",
+     "unit": "μm",
+     "essential": true
+    },
+    {
+     "name": "Точность позиционирования Z",
+     "value": "1.25",
+     "unit": "μm",
+     "essential": true
+    },
+    {
+     "name": "Габариты принтера без упаковки (ШхГхВ)",
+     "value": "915x845x1085",
+     "unit": "мм",
+     "essential": false
+    },
+    {
+     "name": "Вес принтера без упаковки",
+     "value": "125",
+     "unit": "кг",
+     "essential": false
+    },
+    {
+     "name": "Электропитание",
+     "value": "230 В, 50 Гц",
+     "unit": null,
+     "essential": false
+    },
+    {
+     "name": "Номинальная мощность",
+     "value": "4900",
+     "unit": "Вт",
+     "essential": false
+    }
+   ],
+   "basis": {
+    "unit": "шт",
+    "per_tz_unit": "1"
+   },
+   "search_terms": [
+    "CreatBot",
+    "3D принтер",
+    "3D CREATBOT D600 PRO"
+   ]
+  },
+  "offer": {
+   "id": "bc1afe9e27fd",
+   "source_id": "eis",
+   "source_name": "ЕИС — реестр контрактов",
+   "level": 1,
+   "url": "https://zakupki.gov.ru/epz/contract/contractCard/payment-info-and-target-of-order.html?reestrNumber=1781204352224000023",
+   "retrieved_at": "2026-11-14 16:51:03.740576+00:00",
+   "title": "6. 3Д принтер. CreatBot",
+   "price": "3812999.97",
+   "currency": "RUB",
+   "amount": "1",
+   "amount_unit": "шт",
+   "vat": "exempt",
+   "vat_rate": null,
+   "supplier": "ОБЩЕСТВО С ОГРАНИЧЕННОЙ ОТВЕТСТВЕННОСТЬЮ «АЙ-ФОРС»",
+   "supplier_inn": "7816692486",
+   "delivery": "unknown",
+   "delivery_cost": null,
+   "delivery_free_from": null,
+   "delivery_note": null,
+   "price_date": "2024-06-04",
+   "characteristics": {
+    "Товарный знак": "CreatBot",
+    "Страна происхождения": "Китай"
+   }
+  },
+  "llm": {
+   "comparison": [
+    {
+     "name": "Товарный знак",
+     "offered": "CreatBot",
+     "ok": true
+    },
+    {
+     "name": "Модель",
+     "offered": null,
+     "ok": null
+    },
+    {
+     "name": "Страна происхождения",
+     "offered": "Китай",
+     "ok": true
+    },
+    {
+     "name": "Технология печати",
+     "offered": null,
+     "ok": null
+    },
+    {
+     "name": "Область печати одним экструдером",
+     "offered": null,
+     "ok": null
+    },
+    {
+     "name": "Область печати двумя экструдерами",
+     "offered": null,
+     "ok": null
+    },
+    {
+     "name": "Толщина слоя",
+     "offered": null,
+     "ok": null
+    },
+    {
+     "name": "Диаметр используемой нити пластика",
+     "offered": null,
+     "ok": null
+    },
+    {
+     "name": "Тип корпуса",
+     "offered": null,
+     "ok": null
+    },
+    {
+     "name": "Поддерживаемые пластики",
+     "offered": null,
+     "ok": null
+    },
+    {
+     "name": "Диаметр сопел",
+     "offered": null,
+     "ok": null
+    },
+    {
+     "name": "Материал рабочей платформы",
+     "offered": null,
+     "ok": null
+    },
+    {
+     "name": "Поддержка форматов",
+     "offered": null,
+     "ok": null
+    },
+    {
+     "name": "Максимальный нагрев рабочей платформы",
+     "offered": null,
+     "ok": null
+    },
+    {
+     "name": "Максимальный нагрев экструдера",
+     "offered": null,
+     "ok": null
+    },
+    {
+     "name": "Максимальный нагрев рабочей камеры",
+     "offered": null,
+     "ok": null
+    },
+    {
+     "name": "Максимальный нагрев отсека для сушки пластика",
+     "offered": null,
+     "ok": null
+    },
+    {
+     "name": "Оптимальная скорость печати",
+     "offered": null,
+     "ok": null
+    },
+    {
+     "name": "Максимальная скорость печати",
+     "offered": null,
+     "ok": null
+    },
+    {
+     "name": "Сенсорный дисплей",
+     "offered": null,
+     "ok": null
+    },
+    {
+     "name": "Интерфейсы подключения",
+     "offered": null,
+     "ok": null
+    },
+    {
+     "name": "Точность позиционирования X/Y",
+     "offered": null,
+     "ok": null
+    },
+    {
+     "name": "Точность позиционирования Z",
+     "offered": null,
+     "ok": null
+    },
+    {
+     "name": "Габариты принтера без упаковки (ШхГхВ)",
+     "offered": null,
+     "ok": null
+    },
+    {
+     "name": "Вес принтера без упаковки",
+     "offered": null,
+     "ok": null
+    },
+    {
+     "name": "Электропитание",
+     "offered": null,
+     "ok": null
+    },
+    {
+     "name": "Номинальная мощность",
+     "offered": null,
+     "ok": null
+    }
+   ]
+  },
+  "expected": "insufficient_data"
+ },
+ {
+  "id": "printer-1-1373100030824000070",
+  "provenance": "живой прогон ТЗ принтера 14.11.2026, openai/gpt-4.1-mini",
+  "note": "Противоречия КТРУ: толщина слоя, форматы файлов",
+  "position": {
+   "index": 1,
+   "name": "3D принтер 3D CREATBOT D600 PRO",
+   "unit": "шт",
+   "quantity": "1",
+   "okpd2": "26.20.16.129",
+   "characteristics": [
+    {
+     "name": "Товарный знак",
+     "value": "CreatBot",
+     "unit": null,
+     "essential": true
+    },
+    {
+     "name": "Модель",
+     "value": "D600 PRO",
+     "unit": null,
+     "essential": true
+    },
+    {
+     "name": "Страна происхождения",
+     "value": "Китай",
+     "unit": null,
+     "essential": false
+    },
+    {
+     "name": "Технология печати",
+     "value": "FDM (Fused Deposition Modeling)",
+     "unit": null,
+     "essential": true
+    },
+    {
+     "name": "Область печати одним экструдером",
+     "value": "600x600x600",
+     "unit": "мм",
+     "essential": true
+    },
+    {
+     "name": "Область печати двумя экструдерами",
+     "value": "540x600x600",
+     "unit": "мм",
+     "essential": true
+    },
+    {
+     "name": "Толщина слоя",
+     "value": "от 0,05 до 0,4",
+     "unit": "мм",
+     "essential": true
+    },
+    {
+     "name": "Диаметр используемой нити пластика",
+     "value": "1,75",
+     "unit": "мм",
+     "essential": true
+    },
+    {
+     "name": "Тип корпуса",
+     "value": "Закрытый",
+     "unit": null,
+     "essential": false
+    },
+    {
+     "name": "Поддерживаемые пластики",
+     "value": "PLA, ABS, Carbon Fiber, Wood, Nylon, PC, PETG, HIPS, PP, Flexible, TPU, PVA и другие",
+     "unit": null,
+     "essential": true
+    },
+    {
+     "name": "Диаметр сопел",
+     "value": "0.3/0.4/0.6/0.8/1.0",
+     "unit": "мм",
+     "essential": true
+    },
+    {
+     "name": "Материал рабочей платформы",
+     "value": "Алюминиевая платформа с адгезивной наклейкой Buildtak или стеклом",
+     "unit": null,
+     "essential": false
+    },
+    {
+     "name": "Поддержка форматов",
+     "value": "AMF, OBJ, STL",
+     "unit": null,
+     "essential": true
+    },
+    {
+     "name": "Максимальный нагрев рабочей платформы",
+     "value": "100",
+     "unit": "град",
+     "essential": true
+    },
+    {
+     "name": "Максимальный нагрев экструдера",
+     "value": "420",
+     "unit": "град",
+     "essential": true
+    },
+    {
+     "name": "Максимальный нагрев рабочей камеры",
+     "value": "70",
+     "unit": "град",
+     "essential": true
+    },
+    {
+     "name": "Максимальный нагрев отсека для сушки пластика",
+     "value": "65",
+     "unit": "град",
+     "essential": true
+    },
+    {
+     "name": "Оптимальная скорость печати",
+     "value": "45",
+     "unit": "мм/с",
+     "essential": true
+    },
+    {
+     "name": "Максимальная скорость печати",
+     "value": "120",
+     "unit": "мм/с",
+     "essential": true
+    },
+    {
+     "name": "Сенсорный дисплей",
+     "value": "4.3\"",
+     "unit": null,
+     "essential": false
+    },
+    {
+     "name": "Интерфейсы подключения",
+     "value": "USB",
+     "unit": null,
+     "essential": false
+    },
+    {
+     "name": "Точность позиционирования X/Y",
+     "value": "5.08",
+     "unit": "μm",
+     "essential": true
+    },
+    {
+     "name": "Точность позиционирования Z",
+     "value": "1.25",
+     "unit": "μm",
+     "essential": true
+    },
+    {
+     "name": "Габариты принтера без упаковки (ШхГхВ)",
+     "value": "915x845x1085",
+     "unit": "мм",
+     "essential": false
+    },
+    {
+     "name": "Вес принтера без упаковки",
+     "value": "125",
+     "unit": "кг",
+     "essential": false
+    },
+    {
+     "name": "Электропитание",
+     "value": "230 В, 50 Гц",
+     "unit": null,
+     "essential": false
+    },
+    {
+     "name": "Номинальная мощность",
+     "value": "4900",
+     "unit": "Вт",
+     "essential": false
+    }
+   ],
+   "basis": {
+    "unit": "шт",
+    "per_tz_unit": "1"
+   },
+   "search_terms": [
+    "CreatBot",
+    "3D принтер",
+    "3D CREATBOT D600 PRO"
+   ]
+  },
+  "offer": {
+   "id": "7753e326aaaa",
+   "source_id": "eis",
+   "source_name": "ЕИС — реестр контрактов",
+   "level": 1,
+   "url": "https://zakupki.gov.ru/epz/contract/contractCard/payment-info-and-target-of-order.html?reestrNumber=1373100030824000070",
+   "retrieved_at": "2026-11-14 16:51:06.695760+00:00",
+   "title": "1. 3D-принтер FDM. CreatBot",
+   "price": "1472307.00",
+   "currency": "RUB",
+   "amount": "1",
+   "amount_unit": "шт",
+   "vat": "included",
+   "vat_rate": "0.2",
+   "supplier": "ООО \"ОФИСНАЯ ТЕХНИКА ДЖЕТКОМ\"",
+   "supplier_inn": "7716589527",
+   "delivery": "unknown",
+   "delivery_cost": null,
+   "delivery_free_from": null,
+   "delivery_note": null,
+   "price_date": "2024-11-05",
+   "characteristics": {
+    "Интерфейс подключения": "USB Flash",
+    "Тип совместимого с 3D-принтером пластика": "ABS ; PA ; PLA ; PETG ; ASA ; PC ; PPS ; TPU",
+    "Скорость перемещения печатающей головки, мм/с": "≥ 80",
+    "Максимальная скорость печати, см3/ч": "≥ 100",
+    "Область печати по оси X": "> 200 Миллиметр",
+    "Область печати по оси Y": "> 200 Миллиметр",
+    "Область печати по оси Z": "> 200 Миллиметр",
+    "Наличие системы вентиляции внутреннего пространства корпуса": "Нет",
+    "Наличие функции встроенного режима сушки": "Да",
+    "Наличие функции встроенной настройки печати": "Да",
+    "Наличие системы контроля платформы печати": "Да",
+    "Наличие функции удаленного управления принтером": "Да",
+    "Максимальная температура печатающей головки": "≥ 410 Градус Цельсия",
+    "Максимальная температура платформы для печати": "< 150 Градус Цельсия",
+    "Тип управления принтером": "Панель управления с дисплеем на корпусе устройства",
+    "Наличие HEPA фильтра": "Да",
+    "Наличие системы контроля наличия пластика": "Да",
+    "Тип платформы для печати": "Подогреваемая съемная на магнитах, фиксируемая на платформе",
+    "Наличие контроля доступа к принтеру": "Нет",
+    "Минимальная толщина слоя": "≥ 0,01 и < 0,05 Миллиметр",
+    "Калибровка платформы": "Автоматическая",
+    "Охлаждение зоны печати": "Одностороннее",
+    "Количество сопел на печатающей головке": "2Штука",
+    "Наличие функции продолжения печати после отключения питания": "Да",
+    "Диаметр сопла": "≥ 0,3 и < 0,5 Миллиметр",
+    "Формат файлов для печати": "GCODE",
+    "Наличие закрытого корпуса": "Да",
+    "Тип системы контроля высоты первого слоя": "Автоматический"
+   }
+  },
+  "llm": {
+   "comparison": [
+    {
+     "name": "Товарный знак",
+     "offered": null,
+     "ok": null
+    },
+    {
+     "name": "Модель",
+     "offered": null,
+     "ok": null
+    },
+    {
+     "name": "Страна происхождения",
+     "offered": null,
+     "ok": null
+    },
+    {
+     "name": "Технология печати",
+     "offered": "FDM",
+     "ok": true
+    },
+    {
+     "name": "Область печати одним экструдером",
+     "offered": null,
+     "ok": null
+    },
+    {
+     "name": "Область печати двумя экструдерами",
+     "offered": null,
+     "ok": null
+    },
+    {
+     "name": "Толщина слоя",
+     "offered": "≥ 0,01 и < 0,05 Миллиметр",
+     "ok": false
+    },
+    {
+     "name": "Диаметр используемой нити пластика",
+     "offered": null,
+     "ok": null
+    },
+    {
+     "name": "Тип корпуса",
+     "offered": "Да",
+     "ok": true
+    },
+    {
+     "name": "Поддерживаемые пластики",
+     "offered": "ABS ; PA ; PLA ; PETG ; ASA ; PC ; PPS ; TPU",
+     "ok": false
+    },
+    {
+     "name": "Диаметр сопел",
+     "offered": "≥ 0,3 и < 0,5 Миллиметр",
+     "ok": true
+    },
+    {
+     "name": "Материал рабочей платформы",
+     "offered": null,
+     "ok": null
+    },
+    {
+     "name": "Поддержка форматов",
+     "offered": "GCODE",
+     "ok": false
+    },
+    {
+     "name": "Максимальный нагрев рабочей платформы",
+     "offered": "< 150 Градус Цельсия",
+     "ok": true
+    },
+    {
+     "name": "Максимальный нагрев экструдера",
+     "offered": "≥ 410 Градус Цельсия",
+     "ok": true
+    },
+    {
+     "name": "Максимальный нагрев рабочей камеры",
+     "offered": null,
+     "ok": null
+    },
+    {
+     "name": "Максимальный нагрев отсека для сушки пластика",
+     "offered": null,
+     "ok": null
+    },
+    {
+     "name": "Оптимальная скорость печати",
+     "offered": "≥ 80",
+     "ok": false
+    },
+    {
+     "name": "Максимальная скорость печати",
+     "offered": "≥ 80",
+     "ok": false
+    },
+    {
+     "name": "Сенсорный дисплей",
+     "offered": null,
+     "ok": null
+    },
+    {
+     "name": "Интерфейсы подключения",
+     "offered": "USB Flash",
+     "ok": false
+    },
+    {
+     "name": "Точность позиционирования X/Y",
+     "offered": null,
+     "ok": null
+    },
+    {
+     "name": "Точность позиционирования Z",
+     "offered": null,
+     "ok": null
+    },
+    {
+     "name": "Габариты принтера без упаковки (ШхГхВ)",
+     "offered": null,
+     "ok": null
+    },
+    {
+     "name": "Вес принтера без упаковки",
+     "offered": null,
+     "ok": null
+    },
+    {
+     "name": "Электропитание",
+     "offered": null,
+     "ok": null
+    },
+    {
+     "name": "Номинальная мощность",
+     "offered": null,
+     "ok": null
+    }
+   ]
+  },
+  "expected": "incomparable"
+ },
+ {
+  "id": "printer-1-1650108482024000005",
+  "provenance": "живой прогон ТЗ принтера 14.11.2026, openai/gpt-4.1-mini",
+  "note": "Другая модель того же производителя; LLM вернула null для модели",
+  "position": {
+   "index": 1,
+   "name": "3D принтер 3D CREATBOT D600 PRO",
+   "unit": "шт",
+   "quantity": "1",
+   "okpd2": "26.20.16.129",
+   "characteristics": [
+    {
+     "name": "Товарный знак",
+     "value": "CreatBot",
+     "unit": null,
+     "essential": true
+    },
+    {
+     "name": "Модель",
+     "value": "D600 PRO",
+     "unit": null,
+     "essential": true
+    },
+    {
+     "name": "Страна происхождения",
+     "value": "Китай",
+     "unit": null,
+     "essential": false
+    },
+    {
+     "name": "Технология печати",
+     "value": "FDM (Fused Deposition Modeling)",
+     "unit": null,
+     "essential": true
+    },
+    {
+     "name": "Область печати одним экструдером",
+     "value": "600x600x600",
+     "unit": "мм",
+     "essential": true
+    },
+    {
+     "name": "Область печати двумя экструдерами",
+     "value": "540x600x600",
+     "unit": "мм",
+     "essential": true
+    },
+    {
+     "name": "Толщина слоя",
+     "value": "от 0,05 до 0,4",
+     "unit": "мм",
+     "essential": true
+    },
+    {
+     "name": "Диаметр используемой нити пластика",
+     "value": "1,75",
+     "unit": "мм",
+     "essential": true
+    },
+    {
+     "name": "Тип корпуса",
+     "value": "Закрытый",
+     "unit": null,
+     "essential": false
+    },
+    {
+     "name": "Поддерживаемые пластики",
+     "value": "PLA, ABS, Carbon Fiber, Wood, Nylon, PC, PETG, HIPS, PP, Flexible, TPU, PVA и другие",
+     "unit": null,
+     "essential": true
+    },
+    {
+     "name": "Диаметр сопел",
+     "value": "0.3/0.4/0.6/0.8/1.0",
+     "unit": "мм",
+     "essential": true
+    },
+    {
+     "name": "Материал рабочей платформы",
+     "value": "Алюминиевая платформа с адгезивной наклейкой Buildtak или стеклом",
+     "unit": null,
+     "essential": false
+    },
+    {
+     "name": "Поддержка форматов",
+     "value": "AMF, OBJ, STL",
+     "unit": null,
+     "essential": true
+    },
+    {
+     "name": "Максимальный нагрев рабочей платформы",
+     "value": "100",
+     "unit": "град",
+     "essential": true
+    },
+    {
+     "name": "Максимальный нагрев экструдера",
+     "value": "420",
+     "unit": "град",
+     "essential": true
+    },
+    {
+     "name": "Максимальный нагрев рабочей камеры",
+     "value": "70",
+     "unit": "град",
+     "essential": true
+    },
+    {
+     "name": "Максимальный нагрев отсека для сушки пластика",
+     "value": "65",
+     "unit": "град",
+     "essential": true
+    },
+    {
+     "name": "Оптимальная скорость печати",
+     "value": "45",
+     "unit": "мм/с",
+     "essential": true
+    },
+    {
+     "name": "Максимальная скорость печати",
+     "value": "120",
+     "unit": "мм/с",
+     "essential": true
+    },
+    {
+     "name": "Сенсорный дисплей",
+     "value": "4.3\"",
+     "unit": null,
+     "essential": false
+    },
+    {
+     "name": "Интерфейсы подключения",
+     "value": "USB",
+     "unit": null,
+     "essential": false
+    },
+    {
+     "name": "Точность позиционирования X/Y",
+     "value": "5.08",
+     "unit": "μm",
+     "essential": true
+    },
+    {
+     "name": "Точность позиционирования Z",
+     "value": "1.25",
+     "unit": "μm",
+     "essential": true
+    },
+    {
+     "name": "Габариты принтера без упаковки (ШхГхВ)",
+     "value": "915x845x1085",
+     "unit": "мм",
+     "essential": false
+    },
+    {
+     "name": "Вес принтера без упаковки",
+     "value": "125",
+     "unit": "кг",
+     "essential": false
+    },
+    {
+     "name": "Электропитание",
+     "value": "230 В, 50 Гц",
+     "unit": null,
+     "essential": false
+    },
+    {
+     "name": "Номинальная мощность",
+     "value": "4900",
+     "unit": "Вт",
+     "essential": false
+    }
+   ],
+   "basis": {
+    "unit": "шт",
+    "per_tz_unit": "1"
+   },
+   "search_terms": [
+    "CreatBot",
+    "3D принтер",
+    "3D CREATBOT D600 PRO"
+   ]
+  },
+  "offer": {
+   "id": "4770f2cec470",
+   "source_id": "eis",
+   "source_name": "ЕИС — реестр контрактов",
+   "level": 1,
+   "url": "https://zakupki.gov.ru/epz/contract/contractCard/payment-info-and-target-of-order.html?reestrNumber=1650108482024000005",
+   "retrieved_at": "2026-11-14 16:51:07.940083+00:00",
+   "title": "1. Принтер 3D. CreatBot PEEK 300",
+   "price": "1207983.07",
+   "currency": "RUB",
+   "amount": "1",
+   "amount_unit": "шт",
+   "vat": "exempt",
+   "vat_rate": null,
+   "supplier": "РЫБАКОВ ДЕНИС ГЕННАДЬЕВИЧ",
+   "supplier_inn": "784001141467",
+   "delivery": "unknown",
+   "delivery_cost": null,
+   "delivery_free_from": null,
+   "delivery_note": null,
+   "price_date": "2024-07-29",
+   "characteristics": {
+    "Страна происхождения": "Китайская Народная Республика (156)",
+    "Товар": "3D Принтер"
+   }
+  },
+  "llm": {
+   "comparison": [
+    {
+     "name": "Товарный знак",
+     "offered": null,
+     "ok": null
+    },
+    {
+     "name": "Модель",
+     "offered": null,
+     "ok": null
+    },
+    {
+     "name": "Страна происхождения",
+     "offered": "Китайская Народная Республика (156)",
+     "ok": true
+    },
+    {
+     "name": "Технология печати",
+     "offered": null,
+     "ok": null
+    },
+    {
+     "name": "Область печати одним экструдером",
+     "offered": null,
+     "ok": null
+    },
+    {
+     "name": "Область печати двумя экструдерами",
+     "offered": null,
+     "ok": null
+    },
+    {
+     "name": "Толщина слоя",
+     "offered": null,
+     "ok": null
+    },
+    {
+     "name": "Диаметр используемой нити пластика",
+     "offered": null,
+     "ok": null
+    },
+    {
+     "name": "Тип корпуса",
+     "offered": null,
+     "ok": null
+    },
+    {
+     "name": "Поддерживаемые пластики",
+     "offered": null,
+     "ok": null
+    },
+    {
+     "name": "Диаметр сопел",
+     "offered": null,
+     "ok": null
+    },
+    {
+     "name": "Материал рабочей платформы",
+     "offered": null,
+     "ok": null
+    },
+    {
+     "name": "Поддержка форматов",
+     "offered": null,
+     "ok": null
+    },
+    {
+     "name": "Максимальный нагрев рабочей платформы",
+     "offered": null,
+     "ok": null
+    },
+    {
+     "name": "Максимальный нагрев экструдера",
+     "offered": null,
+     "ok": null
+    },
+    {
+     "name": "Максимальный нагрев рабочей камеры",
+     "offered": null,
+     "ok": null
+    },
+    {
+     "name": "Максимальный нагрев отсека для сушки пластика",
+     "offered": null,
+     "ok": null
+    },
+    {
+     "name": "Оптимальная скорость печати",
+     "offered": null,
+     "ok": null
+    },
+    {
+     "name": "Максимальная скорость печати",
+     "offered": null,
+     "ok": null
+    },
+    {
+     "name": "Сенсорный дисплей",
+     "offered": null,
+     "ok": null
+    },
+    {
+     "name": "Интерфейсы подключения",
+     "offered": null,
+     "ok": null
+    },
+    {
+     "name": "Точность позиционирования X/Y",
+     "offered": null,
+     "ok": null
+    },
+    {
+     "name": "Точность позиционирования Z",
+     "offered": null,
+     "ok": null
+    },
+    {
+     "name": "Габариты принтера без упаковки (ШхГхВ)",
+     "offered": null,
+     "ok": null
+    },
+    {
+     "name": "Вес принтера без упаковки",
+     "offered": null,
+     "ok": null
+    },
+    {
+     "name": "Электропитание",
+     "offered": null,
+     "ok": null
+    },
+    {
+     "name": "Номинальная мощность",
+     "offered": null,
+     "ok": null
+    }
+   ]
+  },
+  "expected": "incomparable"
+ },
+ {
+  "id": "printer-1-1650108482024000005",
+  "provenance": "живой прогон ТЗ принтера 14.11.2026, openai/gpt-4.1-mini; ответ LLM изменён",
+  "note": "Случай пользователя: LLM подтвердила марку, модель null — до исправления предложение проходило",
+  "position": {
+   "index": 1,
+   "name": "3D принтер 3D CREATBOT D600 PRO",
+   "unit": "шт",
+   "quantity": "1",
+   "okpd2": "26.20.16.129",
+   "characteristics": [
+    {
+     "name": "Товарный знак",
+     "value": "CreatBot",
+     "unit": null,
+     "essential": true
+    },
+    {
+     "name": "Модель",
+     "value": "D600 PRO",
+     "unit": null,
+     "essential": true
+    },
+    {
+     "name": "Страна происхождения",
+     "value": "Китай",
+     "unit": null,
+     "essential": false
+    },
+    {
+     "name": "Технология печати",
+     "value": "FDM (Fused Deposition Modeling)",
+     "unit": null,
+     "essential": true
+    },
+    {
+     "name": "Область печати одним экструдером",
+     "value": "600x600x600",
+     "unit": "мм",
+     "essential": true
+    },
+    {
+     "name": "Область печати двумя экструдерами",
+     "value": "540x600x600",
+     "unit": "мм",
+     "essential": true
+    },
+    {
+     "name": "Толщина слоя",
+     "value": "от 0,05 до 0,4",
+     "unit": "мм",
+     "essential": true
+    },
+    {
+     "name": "Диаметр используемой нити пластика",
+     "value": "1,75",
+     "unit": "мм",
+     "essential": true
+    },
+    {
+     "name": "Тип корпуса",
+     "value": "Закрытый",
+     "unit": null,
+     "essential": false
+    },
+    {
+     "name": "Поддерживаемые пластики",
+     "value": "PLA, ABS, Carbon Fiber, Wood, Nylon, PC, PETG, HIPS, PP, Flexible, TPU, PVA и другие",
+     "unit": null,
+     "essential": true
+    },
+    {
+     "name": "Диаметр сопел",
+     "value": "0.3/0.4/0.6/0.8/1.0",
+     "unit": "мм",
+     "essential": true
+    },
+    {
+     "name": "Материал рабочей платформы",
+     "value": "Алюминиевая платформа с адгезивной наклейкой Buildtak или стеклом",
+     "unit": null,
+     "essential": false
+    },
+    {
+     "name": "Поддержка форматов",
+     "value": "AMF, OBJ, STL",
+     "unit": null,
+     "essential": true
+    },
+    {
+     "name": "Максимальный нагрев рабочей платформы",
+     "value": "100",
+     "unit": "град",
+     "essential": true
+    },
+    {
+     "name": "Максимальный нагрев экструдера",
+     "value": "420",
+     "unit": "град",
+     "essential": true
+    },
+    {
+     "name": "Максимальный нагрев рабочей камеры",
+     "value": "70",
+     "unit": "град",
+     "essential": true
+    },
+    {
+     "name": "Максимальный нагрев отсека для сушки пластика",
+     "value": "65",
+     "unit": "град",
+     "essential": true
+    },
+    {
+     "name": "Оптимальная скорость печати",
+     "value": "45",
+     "unit": "мм/с",
+     "essential": true
+    },
+    {
+     "name": "Максимальная скорость печати",
+     "value": "120",
+     "unit": "мм/с",
+     "essential": true
+    },
+    {
+     "name": "Сенсорный дисплей",
+     "value": "4.3\"",
+     "unit": null,
+     "essential": false
+    },
+    {
+     "name": "Интерфейсы подключения",
+     "value": "USB",
+     "unit": null,
+     "essential": false
+    },
+    {
+     "name": "Точность позиционирования X/Y",
+     "value": "5.08",
+     "unit": "μm",
+     "essential": true
+    },
+    {
+     "name": "Точность позиционирования Z",
+     "value": "1.25",
+     "unit": "μm",
+     "essential": true
+    },
+    {
+     "name": "Габариты принтера без упаковки (ШхГхВ)",
+     "value": "915x845x1085",
+     "unit": "мм",
+     "essential": false
+    },
+    {
+     "name": "Вес принтера без упаковки",
+     "value": "125",
+     "unit": "кг",
+     "essential": false
+    },
+    {
+     "name": "Электропитание",
+     "value": "230 В, 50 Гц",
+     "unit": null,
+     "essential": false
+    },
+    {
+     "name": "Номинальная мощность",
+     "value": "4900",
+     "unit": "Вт",
+     "essential": false
+    }
+   ],
+   "basis": {
+    "unit": "шт",
+    "per_tz_unit": "1"
+   },
+   "search_terms": [
+    "CreatBot",
+    "3D принтер",
+    "3D CREATBOT D600 PRO"
+   ]
+  },
+  "offer": {
+   "id": "4770f2cec470",
+   "source_id": "eis",
+   "source_name": "ЕИС — реестр контрактов",
+   "level": 1,
+   "url": "https://zakupki.gov.ru/epz/contract/contractCard/payment-info-and-target-of-order.html?reestrNumber=1650108482024000005",
+   "retrieved_at": "2026-11-14 16:51:07.940083+00:00",
+   "title": "1. Принтер 3D. CreatBot PEEK 300",
+   "price": "1207983.07",
+   "currency": "RUB",
+   "amount": "1",
+   "amount_unit": "шт",
+   "vat": "exempt",
+   "vat_rate": null,
+   "supplier": "РЫБАКОВ ДЕНИС ГЕННАДЬЕВИЧ",
+   "supplier_inn": "784001141467",
+   "delivery": "unknown",
+   "delivery_cost": null,
+   "delivery_free_from": null,
+   "delivery_note": null,
+   "price_date": "2024-07-29",
+   "characteristics": {
+    "Страна происхождения": "Китайская Народная Республика (156)",
+    "Товар": "3D Принтер"
+   }
+  },
+  "llm": {
+   "comparison": [
+    {
+     "name": "Товарный знак",
+     "offered": "CreatBot",
+     "ok": true
+    },
+    {
+     "name": "Модель",
+     "offered": null,
+     "ok": null
+    },
+    {
+     "name": "Страна происхождения",
+     "offered": "Китайская Народная Республика (156)",
+     "ok": true
+    },
+    {
+     "name": "Технология печати",
+     "offered": null,
+     "ok": null
+    },
+    {
+     "name": "Область печати одним экструдером",
+     "offered": null,
+     "ok": null
+    },
+    {
+     "name": "Область печати двумя экструдерами",
+     "offered": null,
+     "ok": null
+    },
+    {
+     "name": "Толщина слоя",
+     "offered": null,
+     "ok": null
+    },
+    {
+     "name": "Диаметр используемой нити пластика",
+     "offered": null,
+     "ok": null
+    },
+    {
+     "name": "Тип корпуса",
+     "offered": null,
+     "ok": null
+    },
+    {
+     "name": "Поддерживаемые пластики",
+     "offered": null,
+     "ok": null
+    },
+    {
+     "name": "Диаметр сопел",
+     "offered": null,
+     "ok": null
+    },
+    {
+     "name": "Материал рабочей платформы",
+     "offered": null,
+     "ok": null
+    },
+    {
+     "name": "Поддержка форматов",
+     "offered": null,
+     "ok": null
+    },
+    {
+     "name": "Максимальный нагрев рабочей платформы",
+     "offered": null,
+     "ok": null
+    },
+    {
+     "name": "Максимальный нагрев экструдера",
+     "offered": null,
+     "ok": null
+    },
+    {
+     "name": "Максимальный нагрев рабочей камеры",
+     "offered": null,
+     "ok": null
+    },
+    {
+     "name": "Максимальный нагрев отсека для сушки пластика",
+     "offered": null,
+     "ok": null
+    },
+    {
+     "name": "Оптимальная скорость печати",
+     "offered": null,
+     "ok": null
+    },
+    {
+     "name": "Максимальная скорость печати",
+     "offered": null,
+     "ok": null
+    },
+    {
+     "name": "Сенсорный дисплей",
+     "offered": null,
+     "ok": null
+    },
+    {
+     "name": "Интерфейсы подключения",
+     "offered": null,
+     "ok": null
+    },
+    {
+     "name": "Точность позиционирования X/Y",
+     "offered": null,
+     "ok": null
+    },
+    {
+     "name": "Точность позиционирования Z",
+     "offered": null,
+     "ok": null
+    },
+    {
+     "name": "Габариты принтера без упаковки (ШхГхВ)",
+     "offered": null,
+     "ok": null
+    },
+    {
+     "name": "Вес принтера без упаковки",
+     "offered": null,
+     "ok": null
+    },
+    {
+     "name": "Электропитание",
+     "offered": null,
+     "ok": null
+    },
+    {
+     "name": "Номинальная мощность",
+     "offered": null,
+     "ok": null
+    }
+   ]
+  },
+  "expected": "incomparable"
+ },
+ {
+  "id": "printer-1-1280102829824000034",
+  "provenance": "живой прогон ТЗ принтера 14.11.2026, openai/gpt-4.1-mini",
+  "note": "Только марка CreatBot, модель не названа; до исправления — подходит",
+  "position": {
+   "index": 1,
+   "name": "3D принтер 3D CREATBOT D600 PRO",
+   "unit": "шт",
+   "quantity": "1",
+   "okpd2": "26.20.16.129",
+   "characteristics": [
+    {
+     "name": "Товарный знак",
+     "value": "CreatBot",
+     "unit": null,
+     "essential": true
+    },
+    {
+     "name": "Модель",
+     "value": "D600 PRO",
+     "unit": null,
+     "essential": true
+    },
+    {
+     "name": "Страна происхождения",
+     "value": "Китай",
+     "unit": null,
+     "essential": false
+    },
+    {
+     "name": "Технология печати",
+     "value": "FDM (Fused Deposition Modeling)",
+     "unit": null,
+     "essential": true
+    },
+    {
+     "name": "Область печати одним экструдером",
+     "value": "600x600x600",
+     "unit": "мм",
+     "essential": true
+    },
+    {
+     "name": "Область печати двумя экструдерами",
+     "value": "540x600x600",
+     "unit": "мм",
+     "essential": true
+    },
+    {
+     "name": "Толщина слоя",
+     "value": "от 0,05 до 0,4",
+     "unit": "мм",
+     "essential": true
+    },
+    {
+     "name": "Диаметр используемой нити пластика",
+     "value": "1,75",
+     "unit": "мм",
+     "essential": true
+    },
+    {
+     "name": "Тип корпуса",
+     "value": "Закрытый",
+     "unit": null,
+     "essential": false
+    },
+    {
+     "name": "Поддерживаемые пластики",
+     "value": "PLA, ABS, Carbon Fiber, Wood, Nylon, PC, PETG, HIPS, PP, Flexible, TPU, PVA и другие",
+     "unit": null,
+     "essential": true
+    },
+    {
+     "name": "Диаметр сопел",
+     "value": "0.3/0.4/0.6/0.8/1.0",
+     "unit": "мм",
+     "essential": true
+    },
+    {
+     "name": "Материал рабочей платформы",
+     "value": "Алюминиевая платформа с адгезивной наклейкой Buildtak или стеклом",
+     "unit": null,
+     "essential": false
+    },
+    {
+     "name": "Поддержка форматов",
+     "value": "AMF, OBJ, STL",
+     "unit": null,
+     "essential": true
+    },
+    {
+     "name": "Максимальный нагрев рабочей платформы",
+     "value": "100",
+     "unit": "град",
+     "essential": true
+    },
+    {
+     "name": "Максимальный нагрев экструдера",
+     "value": "420",
+     "unit": "град",
+     "essential": true
+    },
+    {
+     "name": "Максимальный нагрев рабочей камеры",
+     "value": "70",
+     "unit": "град",
+     "essential": true
+    },
+    {
+     "name": "Максимальный нагрев отсека для сушки пластика",
+     "value": "65",
+     "unit": "град",
+     "essential": true
+    },
+    {
+     "name": "Оптимальная скорость печати",
+     "value": "45",
+     "unit": "мм/с",
+     "essential": true
+    },
+    {
+     "name": "Максимальная скорость печати",
+     "value": "120",
+     "unit": "мм/с",
+     "essential": true
+    },
+    {
+     "name": "Сенсорный дисплей",
+     "value": "4.3\"",
+     "unit": null,
+     "essential": false
+    },
+    {
+     "name": "Интерфейсы подключения",
+     "value": "USB",
+     "unit": null,
+     "essential": false
+    },
+    {
+     "name": "Точность позиционирования X/Y",
+     "value": "5.08",
+     "unit": "μm",
+     "essential": true
+    },
+    {
+     "name": "Точность позиционирования Z",
+     "value": "1.25",
+     "unit": "μm",
+     "essential": true
+    },
+    {
+     "name": "Габариты принтера без упаковки (ШхГхВ)",
+     "value": "915x845x1085",
+     "unit": "мм",
+     "essential": false
+    },
+    {
+     "name": "Вес принтера без упаковки",
+     "value": "125",
+     "unit": "кг",
+     "essential": false
+    },
+    {
+     "name": "Электропитание",
+     "value": "230 В, 50 Гц",
+     "unit": null,
+     "essential": false
+    },
+    {
+     "name": "Номинальная мощность",
+     "value": "4900",
+     "unit": "Вт",
+     "essential": false
+    }
+   ],
+   "basis": {
+    "unit": "шт",
+    "per_tz_unit": "1"
+   },
+   "search_terms": [
+    "CreatBot",
+    "3D принтер",
+    "3D CREATBOT D600 PRO"
+   ]
+  },
+  "offer": {
+   "id": "c4b5f2bc6d15",
+   "source_id": "eis",
+   "source_name": "ЕИС — реестр контрактов",
+   "level": 1,
+   "url": "https://zakupki.gov.ru/epz/contract/contractCard/payment-info-and-target-of-order.html?reestrNumber=1280102829824000034",
+   "retrieved_at": "2026-11-14 16:51:10.241530+00:00",
+   "title": "1. Принтер 3D. CreatBot",
+   "price": "1115240.00",
+   "currency": "RUB",
+   "amount": "1",
+   "amount_unit": "шт",
+   "vat": "included",
+   "vat_rate": "0.2",
+   "supplier": "ОБЩЕСТВО С ОГРАНИЧЕННОЙ ОТВЕТСТВЕННОСТЬЮ \"ОФИСНАЯ ТЕХНИКА ДЖЕТКОМ\"",
+   "supplier_inn": "7716589527",
+   "delivery": "unknown",
+   "delivery_cost": null,
+   "delivery_free_from": null,
+   "delivery_note": null,
+   "price_date": "2024-08-26",
+   "characteristics": {
+    "Товарный знак": "CreatBot",
+    "Страна происхождения": "Китай"
+   }
+  },
+  "llm": {
+   "comparison": [
+    {
+     "name": "Товарный знак",
+     "offered": "CreatBot",
+     "ok": true
+    },
+    {
+     "name": "Модель",
+     "offered": null,
+     "ok": null
+    },
+    {
+     "name": "Страна происхождения",
+     "offered": "Китай",
+     "ok": true
+    },
+    {
+     "name": "Технология печати",
+     "offered": null,
+     "ok": null
+    },
+    {
+     "name": "Область печати одним экструдером",
+     "offered": null,
+     "ok": null
+    },
+    {
+     "name": "Область печати двумя экструдерами",
+     "offered": null,
+     "ok": null
+    },
+    {
+     "name": "Толщина слоя",
+     "offered": null,
+     "ok": null
+    },
+    {
+     "name": "Диаметр используемой нити пластика",
+     "offered": null,
+     "ok": null
+    },
+    {
+     "name": "Тип корпуса",
+     "offered": null,
+     "ok": null
+    },
+    {
+     "name": "Поддерживаемые пластики",
+     "offered": null,
+     "ok": null
+    },
+    {
+     "name": "Диаметр сопел",
+     "offered": null,
+     "ok": null
+    },
+    {
+     "name": "Материал рабочей платформы",
+     "offered": null,
+     "ok": null
+    },
+    {
+     "name": "Поддержка форматов",
+     "offered": null,
+     "ok": null
+    },
+    {
+     "name": "Максимальный нагрев рабочей платформы",
+     "offered": null,
+     "ok": null
+    },
+    {
+     "name": "Максимальный нагрев экструдера",
+     "offered": null,
+     "ok": null
+    },
+    {
+     "name": "Максимальный нагрев рабочей камеры",
+     "offered": null,
+     "ok": null
+    },
+    {
+     "name": "Максимальный нагрев отсека для сушки пластика",
+     "offered": null,
+     "ok": null
+    },
+    {
+     "name": "Оптимальная скорость печати",
+     "offered": null,
+     "ok": null
+    },
+    {
+     "name": "Максимальная скорость печати",
+     "offered": null,
+     "ok": null
+    },
+    {
+     "name": "Сенсорный дисплей",
+     "offered": null,
+     "ok": null
+    },
+    {
+     "name": "Интерфейсы подключения",
+     "offered": null,
+     "ok": null
+    },
+    {
+     "name": "Точность позиционирования X/Y",
+     "offered": null,
+     "ok": null
+    },
+    {
+     "name": "Точность позиционирования Z",
+     "offered": null,
+     "ok": null
+    },
+    {
+     "name": "Габариты принтера без упаковки (ШхГхВ)",
+     "offered": null,
+     "ok": null
+    },
+    {
+     "name": "Вес принтера без упаковки",
+     "offered": null,
+     "ok": null
+    },
+    {
+     "name": "Электропитание",
+     "offered": null,
+     "ok": null
+    },
+    {
+     "name": "Номинальная мощность",
+     "offered": null,
+     "ok": null
+    }
+   ]
+  },
+  "expected": "insufficient_data"
+ },
+ {
+  "id": "paper-1-2610300092726000086",
+  "provenance": "живой прогон ТЗ бумаги 14.11.2026, openai/gpt-4.1-mini",
+  "note": "Марка в названии строки ЕИС",
+  "position": {
+   "index": 1,
+   "name": "Бумага для офисной техники А4 SvetoCopy",
+   "unit": "пачка",
+   "quantity": "2500",
+   "okpd2": "17.12.14.160",
+   "characteristics": [
+    {
+     "name": "Формат бумаги",
+     "value": "А4",
+     "unit": null,
+     "essential": true
+    },
+    {
+     "name": "Марка бумаги",
+     "value": "С",
+     "unit": null,
+     "essential": true
+    },
+    {
+     "name": "Количество листов в пачке",
+     "value": "500 (±2%)",
+     "unit": "лист",
+     "essential": false
+    },
+    {
+     "name": "Цвет",
+     "value": "белый",
+     "unit": null,
+     "essential": false
+    },
+    {
+     "name": "Белизна CIE",
+     "value": "146 ± 3%",
+     "unit": "%",
+     "essential": false
+    },
+    {
+     "name": "Масса листа бумаги площадью 1 м2",
+     "value": "80 ± 3",
+     "unit": "г/м2",
+     "essential": true
+    },
+    {
+     "name": "Толщина",
+     "value": "104 ± 2",
+     "unit": "мкм",
+     "essential": true
+    },
+    {
+     "name": "Соответствие ГОСТ",
+     "value": "Р 57641-2017",
+     "unit": null,
+     "essential": false
+    },
+    {
+     "name": "Товарный знак",
+     "value": "SvetoCopy",
+     "unit": null,
+     "essential": true
+    }
+   ],
+   "basis": {
+    "unit": "пачка",
+    "per_tz_unit": "1"
+   },
+   "search_terms": [
+    "SvetoCopy",
+    "бумага для офисной техники",
+    "бумага А4"
+   ]
+  },
+  "offer": {
+   "id": "132f35db23da",
+   "source_id": "eis",
+   "source_name": "ЕИС — реестр контрактов",
+   "level": 1,
+   "url": "https://zakupki.gov.ru/epz/contract/contractCard/payment-info-and-target-of-order.html?reestrNumber=2610300092726000086",
+   "retrieved_at": "2026-11-14 16:54:28.365437+00:00",
+   "title": "1. Бумага для офисной техники. Товарный знак: Svetocopy",
+   "price": "291.40",
+   "currency": "RUB",
+   "amount": "1",
+   "amount_unit": "пачка",
+   "vat": "exempt",
+   "vat_rate": null,
+   "supplier": "ГАБИБОВ МАЛИК АРТУРОВИЧ",
+   "supplier_inn": "051205954080",
+   "delivery": "unknown",
+   "delivery_cost": null,
+   "delivery_free_from": null,
+   "delivery_note": null,
+   "price_date": "2026-10-19",
+   "characteristics": {
+    "Формат": "А4",
+    "Цветность": "Белая",
+    "Количество листов в пачке": "500Штука",
+    "Масса бумаги площадью 1м2": "80Грамм",
+    "Белизна по CIE": "146",
+    "Отбелка целлюлозы без хлора (ECF)": "Да",
+    "Марка бумаги": "не ниже С"
+   }
+  },
+  "llm": {
+   "comparison": [
+    {
+     "name": "Формат бумаги",
+     "offered": "А4",
+     "ok": true
+    },
+    {
+     "name": "Марка бумаги",
+     "offered": "не ниже С",
+     "ok": true
+    },
+    {
+     "name": "Количество листов в пачке",
+     "offered": "500Штука",
+     "ok": true
+    },
+    {
+     "name": "Цвет",
+     "offered": "Белая",
+     "ok": true
+    },
+    {
+     "name": "Белизна CIE",
+     "offered": "146",
+     "ok": true
+    },
+    {
+     "name": "Масса листа бумаги площадью 1 м2",
+     "offered": "80Грамм",
+     "ok": true
+    },
+    {
+     "name": "Толщина",
+     "offered": null,
+     "ok": null
+    },
+    {
+     "name": "Соответствие ГОСТ",
+     "offered": null,
+     "ok": null
+    },
+    {
+     "name": "Товарный знак",
+     "offered": "Svetocopy",
+     "ok": false
+    }
+   ]
+  },
+  "expected": null
+ },
+ {
+  "id": "paper-1-2332810135826000059",
+  "provenance": "живой прогон ТЗ бумаги 14.11.2026, openai/gpt-4.1-mini",
+  "note": "Марка заглавными буквами",
+  "position": {
+   "index": 1,
+   "name": "Бумага для офисной техники А4 SvetoCopy",
+   "unit": "пачка",
+   "quantity": "2500",
+   "okpd2": "17.12.14.160",
+   "characteristics": [
+    {
+     "name": "Формат бумаги",
+     "value": "А4",
+     "unit": null,
+     "essential": true
+    },
+    {
+     "name": "Марка бумаги",
+     "value": "С",
+     "unit": null,
+     "essential": true
+    },
+    {
+     "name": "Количество листов в пачке",
+     "value": "500 (±2%)",
+     "unit": "лист",
+     "essential": false
+    },
+    {
+     "name": "Цвет",
+     "value": "белый",
+     "unit": null,
+     "essential": false
+    },
+    {
+     "name": "Белизна CIE",
+     "value": "146 ± 3%",
+     "unit": "%",
+     "essential": false
+    },
+    {
+     "name": "Масса листа бумаги площадью 1 м2",
+     "value": "80 ± 3",
+     "unit": "г/м2",
+     "essential": true
+    },
+    {
+     "name": "Толщина",
+     "value": "104 ± 2",
+     "unit": "мкм",
+     "essential": true
+    },
+    {
+     "name": "Соответствие ГОСТ",
+     "value": "Р 57641-2017",
+     "unit": null,
+     "essential": false
+    },
+    {
+     "name": "Товарный знак",
+     "value": "SvetoCopy",
+     "unit": null,
+     "essential": true
+    }
+   ],
+   "basis": {
+    "unit": "пачка",
+    "per_tz_unit": "1"
+   },
+   "search_terms": [
+    "SvetoCopy",
+    "бумага для офисной техники",
+    "бумага А4"
+   ]
+  },
+  "offer": {
+   "id": "e7f3b768226c",
+   "source_id": "eis",
+   "source_name": "ЕИС — реестр контрактов",
+   "level": 1,
+   "url": "https://zakupki.gov.ru/epz/contract/contractCard/payment-info-and-target-of-order.html?reestrNumber=2332810135826000059",
+   "retrieved_at": "2026-11-14 16:54:29.795155+00:00",
+   "title": "1. Бумага для офисной техники. Товарный знак: SVETOCOPY",
+   "price": "320.80",
+   "currency": "RUB",
+   "amount": "1",
+   "amount_unit": "пачка",
+   "vat": "included",
+   "vat_rate": "0.22",
+   "supplier": "ЗАБЕЛИН АЛЕКСЕЙ ВИТАЛЬЕВИЧ",
+   "supplier_inn": "330301343802",
+   "delivery": "unknown",
+   "delivery_cost": null,
+   "delivery_free_from": null,
+   "delivery_note": null,
+   "price_date": "2026-09-02",
+   "characteristics": {
+    "Масса бумаги площадью 1м2": "80Грамм",
+    "Формат": "А4",
+    "Количество листов в пачке": "500Штука",
+    "Цветность": "Белая"
+   }
+  },
+  "llm": {
+   "comparison": [
+    {
+     "name": "Формат бумаги",
+     "offered": "А4",
+     "ok": true
+    },
+    {
+     "name": "Марка бумаги",
+     "offered": null,
+     "ok": null
+    },
+    {
+     "name": "Количество листов в пачке",
+     "offered": "500Штука",
+     "ok": true
+    },
+    {
+     "name": "Цвет",
+     "offered": "Белая",
+     "ok": true
+    },
+    {
+     "name": "Белизна CIE",
+     "offered": null,
+     "ok": null
+    },
+    {
+     "name": "Масса листа бумаги площадью 1 м2",
+     "offered": "80Грамм",
+     "ok": true
+    },
+    {
+     "name": "Толщина",
+     "offered": null,
+     "ok": null
+    },
+    {
+     "name": "Соответствие ГОСТ",
+     "offered": null,
+     "ok": null
+    },
+    {
+     "name": "Товарный знак",
+     "offered": "SVETOCOPY",
+     "ok": true
+    }
+   ]
+  },
+  "expected": null
+ },
+ {
+  "id": "paper-1-2230103264126000007",
+  "provenance": "живой прогон ТЗ бумаги 14.11.2026, openai/gpt-4.1-mini",
+  "note": "Svetocopy classic — та же марка; LLM сочла противоречием",
+  "position": {
+   "index": 1,
+   "name": "Бумага для офисной техники А4 SvetoCopy",
+   "unit": "пачка",
+   "quantity": "2500",
+   "okpd2": "17.12.14.160",
+   "characteristics": [
+    {
+     "name": "Формат бумаги",
+     "value": "А4",
+     "unit": null,
+     "essential": true
+    },
+    {
+     "name": "Марка бумаги",
+     "value": "С",
+     "unit": null,
+     "essential": true
+    },
+    {
+     "name": "Количество листов в пачке",
+     "value": "500 (±2%)",
+     "unit": "лист",
+     "essential": false
+    },
+    {
+     "name": "Цвет",
+     "value": "белый",
+     "unit": null,
+     "essential": false
+    },
+    {
+     "name": "Белизна CIE",
+     "value": "146 ± 3%",
+     "unit": "%",
+     "essential": false
+    },
+    {
+     "name": "Масса листа бумаги площадью 1 м2",
+     "value": "80 ± 3",
+     "unit": "г/м2",
+     "essential": true
+    },
+    {
+     "name": "Толщина",
+     "value": "104 ± 2",
+     "unit": "мкм",
+     "essential": true
+    },
+    {
+     "name": "Соответствие ГОСТ",
+     "value": "Р 57641-2017",
+     "unit": null,
+     "essential": false
+    },
+    {
+     "name": "Товарный знак",
+     "value": "SvetoCopy",
+     "unit": null,
+     "essential": true
+    }
+   ],
+   "basis": {
+    "unit": "пачка",
+    "per_tz_unit": "1"
+   },
+   "search_terms": [
+    "SvetoCopy",
+    "бумага для офисной техники",
+    "бумага А4"
+   ]
+  },
+  "offer": {
+   "id": "8b31edbc15e9",
+   "source_id": "eis",
+   "source_name": "ЕИС — реестр контрактов",
+   "level": 1,
+   "url": "https://zakupki.gov.ru/epz/contract/contractCard/payment-info-and-target-of-order.html?reestrNumber=2230103264126000007",
+   "retrieved_at": "2026-11-14 16:54:42.981383+00:00",
+   "title": "1. Поставка бумаги для офисной техники. Товарный знак: Svetocopy classic",
+   "price": "289.82961904762",
+   "currency": "RUB",
+   "amount": "1",
+   "amount_unit": "пачка",
+   "vat": "included",
+   "vat_rate": "0.05",
+   "supplier": "ГОМЗЯКОВ ДЕНИС ВИКТОРОВИЧ",
+   "supplier_inn": "452001496518",
+   "delivery": "unknown",
+   "delivery_cost": null,
+   "delivery_free_from": null,
+   "delivery_note": null,
+   "price_date": "2026-11-06",
+   "characteristics": {
+    "Товарный знак": "Svetocopy classic"
+   }
+  },
+  "llm": {
+   "comparison": [
+    {
+     "name": "Формат бумаги",
+     "offered": null,
+     "ok": null
+    },
+    {
+     "name": "Марка бумаги",
+     "offered": null,
+     "ok": null
+    },
+    {
+     "name": "Количество листов в пачке",
+     "offered": null,
+     "ok": null
+    },
+    {
+     "name": "Цвет",
+     "offered": null,
+     "ok": null
+    },
+    {
+     "name": "Белизна CIE",
+     "offered": null,
+     "ok": null
+    },
+    {
+     "name": "Масса листа бумаги площадью 1 м2",
+     "offered": null,
+     "ok": null
+    },
+    {
+     "name": "Толщина",
+     "offered": null,
+     "ok": null
+    },
+    {
+     "name": "Соответствие ГОСТ",
+     "offered": null,
+     "ok": null
+    },
+    {
+     "name": "Товарный знак",
+     "offered": "Svetocopy classic",
+     "ok": false
+    }
+   ]
+  },
+  "expected": null
+ },
+ {
+  "id": "paper-2-2332810135826000059",
+  "provenance": "живой прогон ТЗ бумаги 14.11.2026, openai/gpt-4.1-mini",
+  "note": "Товарный знак: Отсутствует при требовании SvetoCopy",
+  "position": {
+   "index": 2,
+   "name": "Бумага для офисной техники А3 SvetoCopy",
+   "unit": "пачка",
+   "quantity": "25",
+   "okpd2": "17.12.14.160",
+   "characteristics": [
+    {
+     "name": "Формат бумаги",
+     "value": "А3",
+     "unit": null,
+     "essential": true
+    },
+    {
+     "name": "Марка бумаги",
+     "value": "С",
+     "unit": null,
+     "essential": true
+    },
+    {
+     "name": "Количество листов в пачке",
+     "value": "500 (±2%)",
+     "unit": "лист",
+     "essential": false
+    },
+    {
+     "name": "Цвет",
+     "value": "белый",
+     "unit": null,
+     "essential": false
+    },
+    {
+     "name": "Белизна CIE",
+     "value": "146 ± 3%",
+     "unit": "%",
+     "essential": false
+    },
+    {
+     "name": "Масса листа бумаги площадью 1 м2",
+     "value": "80 ± 3",
+     "unit": "г/м2",
+     "essential": true
+    },
+    {
+     "name": "Толщина",
+     "value": "104 ± 2",
+     "unit": "мкм",
+     "essential": true
+    },
+    {
+     "name": "Соответствие ГОСТ",
+     "value": "Р 57641-2017",
+     "unit": null,
+     "essential": false
+    },
+    {
+     "name": "Товарный знак",
+     "value": "SvetoCopy",
+     "unit": null,
+     "essential": true
+    }
+   ],
+   "basis": {
+    "unit": "пачка",
+    "per_tz_unit": "1"
+   },
+   "search_terms": [
+    "SvetoCopy",
+    "бумага для офисной техники",
+    "бумага А3"
+   ]
+  },
+  "offer": {
+   "id": "05caf671fec0",
+   "source_id": "eis",
+   "source_name": "ЕИС — реестр контрактов",
+   "level": 1,
+   "url": "https://zakupki.gov.ru/epz/contract/contractCard/payment-info-and-target-of-order.html?reestrNumber=2332810135826000059",
+   "retrieved_at": "2026-11-14 16:54:29.861269+00:00",
+   "title": "3. Бумага для офисной техники. Товарный знак: Отсутствует",
+   "price": "611.54",
+   "currency": "RUB",
+   "amount": "1",
+   "amount_unit": "пачка",
+   "vat": "included",
+   "vat_rate": "0.22",
+   "supplier": null,
+   "supplier_inn": null,
+   "delivery": "unknown",
+   "delivery_cost": null,
+   "delivery_free_from": null,
+   "delivery_note": null,
+   "price_date": "2026-09-02",
+   "characteristics": {
+    "Масса бумаги площадью 1м2": "80Грамм",
+    "Цветность": "Белая",
+    "Количество листов в пачке": "500Штука",
+    "Формат": "А3"
+   }
+  },
+  "llm": {
+   "comparison": [
+    {
+     "name": "Формат бумаги",
+     "offered": "А3",
+     "ok": true
+    },
+    {
+     "name": "Марка бумаги",
+     "offered": null,
+     "ok": null
+    },
+    {
+     "name": "Количество листов в пачке",
+     "offered": "500Штука",
+     "ok": true
+    },
+    {
+     "name": "Цвет",
+     "offered": "Белая",
+     "ok": true
+    },
+    {
+     "name": "Белизна CIE",
+     "offered": null,
+     "ok": null
+    },
+    {
+     "name": "Масса листа бумаги площадью 1 м2",
+     "offered": "80Грамм",
+     "ok": true
+    },
+    {
+     "name": "Толщина",
+     "offered": null,
+     "ok": null
+    },
+    {
+     "name": "Соответствие ГОСТ",
+     "offered": null,
+     "ok": null
+    },
+    {
+     "name": "Товарный знак",
+     "offered": "Отсутствует",
+     "ok": false
+    }
+   ]
+  },
+  "expected": "incomparable"
+ },
+ {
+  "id": "paper-2-2610300092726000086",
+  "provenance": "живой прогон ТЗ бумаги 14.11.2026, openai/gpt-4.1-mini",
+  "note": "Строка А4 для позиции А3",
+  "position": {
+   "index": 2,
+   "name": "Бумага для офисной техники А3 SvetoCopy",
+   "unit": "пачка",
+   "quantity": "25",
+   "okpd2": "17.12.14.160",
+   "characteristics": [
+    {
+     "name": "Формат бумаги",
+     "value": "А3",
+     "unit": null,
+     "essential": true
+    },
+    {
+     "name": "Марка бумаги",
+     "value": "С",
+     "unit": null,
+     "essential": true
+    },
+    {
+     "name": "Количество листов в пачке",
+     "value": "500 (±2%)",
+     "unit": "лист",
+     "essential": false
+    },
+    {
+     "name": "Цвет",
+     "value": "белый",
+     "unit": null,
+     "essential": false
+    },
+    {
+     "name": "Белизна CIE",
+     "value": "146 ± 3%",
+     "unit": "%",
+     "essential": false
+    },
+    {
+     "name": "Масса листа бумаги площадью 1 м2",
+     "value": "80 ± 3",
+     "unit": "г/м2",
+     "essential": true
+    },
+    {
+     "name": "Толщина",
+     "value": "104 ± 2",
+     "unit": "мкм",
+     "essential": true
+    },
+    {
+     "name": "Соответствие ГОСТ",
+     "value": "Р 57641-2017",
+     "unit": null,
+     "essential": false
+    },
+    {
+     "name": "Товарный знак",
+     "value": "SvetoCopy",
+     "unit": null,
+     "essential": true
+    }
+   ],
+   "basis": {
+    "unit": "пачка",
+    "per_tz_unit": "1"
+   },
+   "search_terms": [
+    "SvetoCopy",
+    "бумага для офисной техники",
+    "бумага А3"
+   ]
+  },
+  "offer": {
+   "id": "132f35db23da",
+   "source_id": "eis",
+   "source_name": "ЕИС — реестр контрактов",
+   "level": 1,
+   "url": "https://zakupki.gov.ru/epz/contract/contractCard/payment-info-and-target-of-order.html?reestrNumber=2610300092726000086",
+   "retrieved_at": "2026-11-14 16:54:28.646343+00:00",
+   "title": "1. Бумага для офисной техники. Товарный знак: Svetocopy",
+   "price": "291.40",
+   "currency": "RUB",
+   "amount": "1",
+   "amount_unit": "пачка",
+   "vat": "exempt",
+   "vat_rate": null,
+   "supplier": "ГАБИБОВ МАЛИК АРТУРОВИЧ",
+   "supplier_inn": "051205954080",
+   "delivery": "unknown",
+   "delivery_cost": null,
+   "delivery_free_from": null,
+   "delivery_note": null,
+   "price_date": "2026-10-19",
+   "characteristics": {
+    "Формат": "А4",
+    "Цветность": "Белая",
+    "Количество листов в пачке": "500Штука",
+    "Масса бумаги площадью 1м2": "80Грамм",
+    "Белизна по CIE": "146",
+    "Отбелка целлюлозы без хлора (ECF)": "Да",
+    "Марка бумаги": "не ниже С"
+   }
+  },
+  "llm": {
+   "comparison": [
+    {
+     "name": "Формат бумаги",
+     "offered": "А4",
+     "ok": false
+    },
+    {
+     "name": "Марка бумаги",
+     "offered": "не ниже С",
+     "ok": true
+    },
+    {
+     "name": "Количество листов в пачке",
+     "offered": "500Штука",
+     "ok": true
+    },
+    {
+     "name": "Цвет",
+     "offered": "Белая",
+     "ok": true
+    },
+    {
+     "name": "Белизна CIE",
+     "offered": "146",
+     "ok": true
+    },
+    {
+     "name": "Масса листа бумаги площадью 1 м2",
+     "offered": "80Грамм",
+     "ok": true
+    },
+    {
+     "name": "Толщина",
+     "offered": null,
+     "ok": null
+    },
+    {
+     "name": "Соответствие ГОСТ",
+     "offered": null,
+     "ok": null
+    },
+    {
+     "name": "Товарный знак",
+     "offered": "Svetocopy",
+     "ok": false
+    }
+   ]
+  },
+  "expected": "incomparable"
+ },
+ {
+  "id": "paper-1-110086",
+  "provenance": "живой прогон ТЗ бумаги 14.11.2026, openai/gpt-4.1-mini",
+  "note": "Магазин, артикул",
+  "position": {
+   "index": 1,
+   "name": "Бумага для офисной техники А4 SvetoCopy",
+   "unit": "пачка",
+   "quantity": "2500",
+   "okpd2": "17.12.14.160",
+   "characteristics": [
+    {
+     "name": "Формат бумаги",
+     "value": "А4",
+     "unit": null,
+     "essential": true
+    },
+    {
+     "name": "Марка бумаги",
+     "value": "С",
+     "unit": null,
+     "essential": true
+    },
+    {
+     "name": "Количество листов в пачке",
+     "value": "500 (±2%)",
+     "unit": "лист",
+     "essential": false
+    },
+    {
+     "name": "Цвет",
+     "value": "белый",
+     "unit": null,
+     "essential": false
+    },
+    {
+     "name": "Белизна CIE",
+     "value": "146 ± 3%",
+     "unit": "%",
+     "essential": false
+    },
+    {
+     "name": "Масса листа бумаги площадью 1 м2",
+     "value": "80 ± 3",
+     "unit": "г/м2",
+     "essential": true
+    },
+    {
+     "name": "Толщина",
+     "value": "104 ± 2",
+     "unit": "мкм",
+     "essential": true
+    },
+    {
+     "name": "Соответствие ГОСТ",
+     "value": "Р 57641-2017",
+     "unit": null,
+     "essential": false
+    },
+    {
+     "name": "Товарный знак",
+     "value": "SvetoCopy",
+     "unit": null,
+     "essential": true
+    }
+   ],
+   "basis": {
+    "unit": "пачка",
+    "per_tz_unit": "1"
+   },
+   "search_terms": [
+    "SvetoCopy",
+    "бумага для офисной техники",
+    "бумага А4"
+   ]
+  },
+  "offer": {
+   "id": "de601de6185a",
+   "source_id": "web_suppliers",
+   "source_name": "Производители и дистрибьюторы",
+   "level": 1,
+   "url": "https://diplomat.ooo/catalog/goods/bumaga-belaja-marok-a-v-s2/110086/",
+   "retrieved_at": "2026-11-14 16:54:45.649585+00:00",
+   "title": "Бумага офисная А4, 80 г/м2, 500 л., марка С, SVETOCOPY CLASSIC 110086",
+   "price": "335",
+   "currency": "RUB",
+   "amount": "1",
+   "amount_unit": "пачка",
+   "vat": "included",
+   "vat_rate": null,
+   "supplier": null,
+   "supplier_inn": null,
+   "delivery": "unknown",
+   "delivery_cost": null,
+   "delivery_free_from": null,
+   "delivery_note": null,
+   "price_date": null,
+   "characteristics": {
+    "Формат бумаги": "А4",
+    "Марка бумаги": "С",
+    "Количество листов в пачке": "500",
+    "Белизна CIE": "140-150 ± 3 %",
+    "Масса листа бумаги площадью 1 м2": "72-80 ± 2-3 г/м2",
+    "Соответствие ГОСТ": "ГОСТ Р 57641-2017",
+    "Товарный знак": "SVETOCOPY"
+   }
+  },
+  "llm": {
+   "comparison": [
+    {
+     "name": "Формат бумаги",
+     "offered": "А4",
+     "ok": true
+    },
+    {
+     "name": "Марка бумаги",
+     "offered": "С",
+     "ok": true
+    },
+    {
+     "name": "Количество листов в пачке",
+     "offered": "500",
+     "ok": true
+    },
+    {
+     "name": "Цвет",
+     "offered": null,
+     "ok": null
+    },
+    {
+     "name": "Белизна CIE",
+     "offered": "140-150 ± 3 %",
+     "ok": true
+    },
+    {
+     "name": "Масса листа бумаги площадью 1 м2",
+     "offered": "72-80 ± 2-3 г/м2",
+     "ok": true
+    },
+    {
+     "name": "Толщина",
+     "offered": null,
+     "ok": null
+    },
+    {
+     "name": "Соответствие ГОСТ",
+     "offered": "ГОСТ Р 57641-2017",
+     "ok": true
+    },
+    {
+     "name": "Товарный знак",
+     "offered": "SVETOCOPY",
+     "ok": true
+    }
+   ]
+  },
+  "expected": null
+ },
+ {
+  "id": "paper-1-pragmatic",
+  "provenance": "живой прогон ТЗ бумаги 14.11.2026, openai/gpt-4.1-mini",
+  "note": "Магазин",
+  "position": {
+   "index": 1,
+   "name": "Бумага для офисной техники А4 SvetoCopy",
+   "unit": "пачка",
+   "quantity": "2500",
+   "okpd2": "17.12.14.160",
+   "characteristics": [
+    {
+     "name": "Формат бумаги",
+     "value": "А4",
+     "unit": null,
+     "essential": true
+    },
+    {
+     "name": "Марка бумаги",
+     "value": "С",
+     "unit": null,
+     "essential": true
+    },
+    {
+     "name": "Количество листов в пачке",
+     "value": "500 (±2%)",
+     "unit": "лист",
+     "essential": false
+    },
+    {
+     "name": "Цвет",
+     "value": "белый",
+     "unit": null,
+     "essential": false
+    },
+    {
+     "name": "Белизна CIE",
+     "value": "146 ± 3%",
+     "unit": "%",
+     "essential": false
+    },
+    {
+     "name": "Масса листа бумаги площадью 1 м2",
+     "value": "80 ± 3",
+     "unit": "г/м2",
+     "essential": true
+    },
+    {
+     "name": "Толщина",
+     "value": "104 ± 2",
+     "unit": "мкм",
+     "essential": true
+    },
+    {
+     "name": "Соответствие ГОСТ",
+     "value": "Р 57641-2017",
+     "unit": null,
+     "essential": false
+    },
+    {
+     "name": "Товарный знак",
+     "value": "SvetoCopy",
+     "unit": null,
+     "essential": true
+    }
+   ],
+   "basis": {
+    "unit": "пачка",
+    "per_tz_unit": "1"
+   },
+   "search_terms": [
+    "SvetoCopy",
+    "бумага для офисной техники",
+    "бумага А4"
+   ]
+  },
+  "offer": {
+   "id": "9d8d9fac567b",
+   "source_id": "web_suppliers",
+   "source_name": "Производители и дистрибьюторы",
+   "level": 1,
+   "url": "https://www.pragmatic.ru/product/bumaga-dlya-ofisnoy-tehniki-svetocopy-a4-marka-c-80-gkvm-500-listov",
+   "retrieved_at": "2026-11-14 16:54:50.793491+00:00",
+   "title": "Бумага для офисной техники SvetoCopy (A4, марка C, 80 г/кв.м, 500 листов)",
+   "price": "370",
+   "currency": "RUB",
+   "amount": "1",
+   "amount_unit": "пачка",
+   "vat": "included",
+   "vat_rate": null,
+   "supplier": null,
+   "supplier_inn": null,
+   "delivery": "unknown",
+   "delivery_cost": null,
+   "delivery_free_from": null,
+   "delivery_note": null,
+   "price_date": null,
+   "characteristics": {
+    "Формат бумаги": "А4",
+    "Марка бумаги": "C",
+    "Количество листов в пачке": "500",
+    "Цвет": "белый",
+    "Белизна CIE": "146 %",
+    "Масса листа бумаги площадью 1 м2": "80 г/кв.м",
+    "Толщина": "104 мкм",
+    "Соответствие ГОСТ": "Р 57641-2017",
+    "Товарный знак": "SvetoCopy"
+   }
+  },
+  "llm": {
+   "comparison": [
+    {
+     "name": "Формат бумаги",
+     "offered": "А4",
+     "ok": true
+    },
+    {
+     "name": "Марка бумаги",
+     "offered": "C",
+     "ok": true
+    },
+    {
+     "name": "Количество листов в пачке",
+     "offered": "500",
+     "ok": true
+    },
+    {
+     "name": "Цвет",
+     "offered": "белый",
+     "ok": true
+    },
+    {
+     "name": "Белизна CIE",
+     "offered": "146 %",
+     "ok": true
+    },
+    {
+     "name": "Масса листа бумаги площадью 1 м2",
+     "offered": "80 г/кв.м",
+     "ok": true
+    },
+    {
+     "name": "Толщина",
+     "offered": "104 мкм",
+     "ok": true
+    },
+    {
+     "name": "Соответствие ГОСТ",
+     "offered": "Р 57641-2017",
+     "ok": true
+    },
+    {
+     "name": "Товарный знак",
+     "offered": "SvetoCopy",
+     "ok": true
+    }
+   ]
+  },
+  "expected": null
+ },
+ {
+  "id": "paper-2-tema19",
+  "provenance": "живой прогон ТЗ бумаги 14.11.2026, openai/gpt-4.1-mini",
+  "note": "Марка и производитель в названии",
+  "position": {
+   "index": 2,
+   "name": "Бумага для офисной техники А3 SvetoCopy",
+   "unit": "пачка",
+   "quantity": "25",
+   "okpd2": "17.12.14.160",
+   "characteristics": [
+    {
+     "name": "Формат бумаги",
+     "value": "А3",
+     "unit": null,
+     "essential": true
+    },
+    {
+     "name": "Марка бумаги",
+     "value": "С",
+     "unit": null,
+     "essential": true
+    },
+    {
+     "name": "Количество листов в пачке",
+     "value": "500 (±2%)",
+     "unit": "лист",
+     "essential": false
+    },
+    {
+     "name": "Цвет",
+     "value": "белый",
+     "unit": null,
+     "essential": false
+    },
+    {
+     "name": "Белизна CIE",
+     "value": "146 ± 3%",
+     "unit": "%",
+     "essential": false
+    },
+    {
+     "name": "Масса листа бумаги площадью 1 м2",
+     "value": "80 ± 3",
+     "unit": "г/м2",
+     "essential": true
+    },
+    {
+     "name": "Толщина",
+     "value": "104 ± 2",
+     "unit": "мкм",
+     "essential": true
+    },
+    {
+     "name": "Соответствие ГОСТ",
+     "value": "Р 57641-2017",
+     "unit": null,
+     "essential": false
+    },
+    {
+     "name": "Товарный знак",
+     "value": "SvetoCopy",
+     "unit": null,
+     "essential": true
+    }
+   ],
+   "basis": {
+    "unit": "пачка",
+    "per_tz_unit": "1"
+   },
+   "search_terms": [
+    "SvetoCopy",
+    "бумага для офисной техники",
+    "бумага А3"
+   ]
+  },
+  "offer": {
+   "id": "34950a3df101",
+   "source_id": "web_suppliers",
+   "source_name": "Производители и дистрибьюторы",
+   "level": 1,
+   "url": "https://tema19.ru/catalog/7/531312",
+   "retrieved_at": "2026-11-14 16:55:15.771007+00:00",
+   "title": "Бумага А3 SvetoCopy Светогорский ЦБК 80 гр 94% С 500л. 64872/5/120",
+   "price": "760",
+   "currency": "RUB",
+   "amount": "1",
+   "amount_unit": "пачка",
+   "vat": "unknown",
+   "vat_rate": null,
+   "supplier": null,
+   "supplier_inn": null,
+   "delivery": "unknown",
+   "delivery_cost": null,
+   "delivery_free_from": null,
+   "delivery_note": null,
+   "price_date": null,
+   "characteristics": {
+    "Артикул": "64872",
+    "Белизна": "94%",
+    "Класс бумаги номинальный": "С",
+    "Количество листов": "500л.",
+    "Марка": "SvetoCopy",
+    "плотность1": "80 гр",
+    "Формат": "А3",
+    "Цвет": "белый"
+   }
+  },
+  "llm": {
+   "comparison": [
+    {
+     "name": "Формат бумаги",
+     "offered": "А3",
+     "ok": true
+    },
+    {
+     "name": "Марка бумаги",
+     "offered": "С",
+     "ok": true
+    },
+    {
+     "name": "Количество листов в пачке",
+     "offered": "500л.",
+     "ok": true
+    },
+    {
+     "name": "Цвет",
+     "offered": "белый",
+     "ok": true
+    },
+    {
+     "name": "Белизна CIE",
+     "offered": "94%",
+     "ok": false
+    },
+    {
+     "name": "Масса листа бумаги площадью 1 м2",
+     "offered": "80 гр",
+     "ok": true
+    },
+    {
+     "name": "Толщина",
+     "offered": null,
+     "ok": null
+    },
+    {
+     "name": "Соответствие ГОСТ",
+     "offered": null,
+     "ok": null
+    },
+    {
+     "name": "Товарный знак",
+     "offered": "SvetoCopy",
+     "ok": true
+    }
+   ]
+  },
+  "expected": null
+ },
+ {
+  "id": "paper-3-irkformat",
+  "provenance": "живой прогон ТЗ бумаги 14.11.2026, openai/gpt-4.1-mini",
+  "note": "Позиция без марки",
+  "position": {
+   "index": 3,
+   "name": "Бумага писчая (офсетная) в листах А4",
+   "unit": "пачка",
+   "quantity": "50",
+   "okpd2": "17.12.14.112",
+   "characteristics": [
+    {
+     "name": "Формат листов",
+     "value": "А4",
+     "unit": null,
+     "essential": true
+    },
+    {
+     "name": "Плотность листа бумаги",
+     "value": "65",
+     "unit": "г/м2",
+     "essential": true
+    },
+    {
+     "name": "Вид бумаги",
+     "value": "офсет",
+     "unit": null,
+     "essential": true
+    },
+    {
+     "name": "Белизна",
+     "value": "142-148",
+     "unit": "%",
+     "essential": false
+    },
+    {
+     "name": "Количество листов в упаковке",
+     "value": "500",
+     "unit": "лист",
+     "essential": false
+    },
+    {
+     "name": "Яркость бумаги",
+     "value": "102-105",
+     "unit": "%",
+     "essential": false
+    }
+   ],
+   "basis": {
+    "unit": "пачка",
+    "per_tz_unit": "1"
+   },
+   "search_terms": [
+    "офсетная бумага",
+    "писчая бумага",
+    "бумага А4"
+   ]
+  },
+  "offer": {
+   "id": "0a1d1389354f",
+   "source_id": "web_suppliers",
+   "source_name": "Производители и дистрибьюторы",
+   "level": 1,
+   "url": "https://irkformat.ru/catalog/bumaga_i_bumazhnaya_produktsiya/bumaga_dlya_orgtekhniki/bumaga_pischaya/bumaga_pischaya_a4_65_universal_500l/",
+   "retrieved_at": "2026-11-14 16:55:04.492583+00:00",
+   "title": "Бумага писчая А4 65 Универсал.500л, артикул пс65Универ",
+   "price": "663.80",
+   "currency": "RUB",
+   "amount": "1",
+   "amount_unit": "пачка",
+   "vat": "included",
+   "vat_rate": null,
+   "supplier": null,
+   "supplier_inn": null,
+   "delivery": "unknown",
+   "delivery_cost": null,
+   "delivery_free_from": "10000",
+   "delivery_note": "БЕСПЛАТНАЯ ДОСТАВКА при заказе от 10 000 руб.",
+   "price_date": null,
+   "characteristics": {
+    "Формат листов": "А4",
+    "Плотность листа бумаги": "65 г/кв.м.",
+    "Вид бумаги": "офсет",
+    "Белизна": "142-148 %",
+    "Количество листов в упаковке": "500",
+    "Яркость бумаги": "102-105 %"
+   }
+  },
+  "llm": {
+   "comparison": [
+    {
+     "name": "Формат листов",
+     "offered": "А4",
+     "ok": true
+    },
+    {
+     "name": "Плотность листа бумаги",
+     "offered": "65 г/кв.м.",
+     "ok": true
+    },
+    {
+     "name": "Вид бумаги",
+     "offered": "офсет",
+     "ok": true
+    },
+    {
+     "name": "Белизна",
+     "offered": "142-148 %",
+     "ok": true
+    },
+    {
+     "name": "Количество листов в упаковке",
+     "offered": "500",
+     "ok": true
+    },
+    {
+     "name": "Яркость бумаги",
+     "offered": "102-105 %",
+     "ok": true
+    }
+   ]
+  },
+  "expected": null
+ },
+ {
+  "id": "cytokines-3-dia-m.ru/catalog/reactive/rostovye-faktory-i-tsitokiny/interleykin-7",
+  "provenance": "живой прогон ТЗ цитокинов 14.11.2026, openai/gpt-4.1-mini",
+  "note": "Совпадают все существенные",
+  "position": {
+   "index": 3,
+   "name": "rhIL-7, Интерлейкин-7 человека, рекомбинантный белок",
+   "unit": "шт",
+   "quantity": "1",
+   "okpd2": "20.59.51.120",
+   "characteristics": [
+    {
+     "name": "Назначение",
+     "value": "Вещества белковые и их производные предназначены для исследовательских целей.",
+     "unit": null,
+     "essential": false
+    },
+    {
+     "name": "Клеточная линия",
+     "value": "CHO",
+     "unit": null,
+     "essential": true
+    },
+    {
+     "name": "Лиофильно высушен",
+     "value": "из фосфатного буферного раствора (PBS), содержащего 0,05% Tween20, pH 7.0, профильтрованного через фильтр 0,22 мкм",
+     "unit": null,
+     "essential": true
+    },
+    {
+     "name": "Уровень эндотоксина, LAL-test",
+     "value": "менее 0,1",
+     "unit": "EU/1 мкг белка",
+     "essential": true
+    },
+    {
+     "name": "Чистота",
+     "value": "более 97",
+     "unit": "%",
+     "essential": true
+    },
+    {
+     "name": "Окраска",
+     "value": "Coomassie Brilliant Blue",
+     "unit": null,
+     "essential": false
+    },
+    {
+     "name": "Биологическая активность, ED50",
+     "value": "более 0,07 и менее 0,5",
+     "unit": "нг/мл",
+     "essential": true
+    },
+    {
+     "name": "Хранение не вскрытой упаковки",
+     "value": "24 месяца в диапазоне не выше -20 и не ниже -70",
+     "unit": "0C",
+     "essential": false
+    },
+    {
+     "name": "Хранение разведенного препарата 1 месяц",
+     "value": "более +2 и менее +8",
+     "unit": "0C",
+     "essential": false
+    },
+    {
+     "name": "Хранение разведенного препарата 6 месяцев",
+     "value": "не выше -20 и не ниже -70",
+     "unit": "0C",
+     "essential": false
+    },
+    {
+     "name": "Вес 1 шт.",
+     "value": "не менее 10",
+     "unit": "мкг",
+     "essential": true
+    }
+   ],
+   "basis": {
+    "unit": "мкг",
+    "per_tz_unit": "10"
+   },
+   "search_terms": [
+    "rhIL-7",
+    "интерлейкин 7",
+    "рекомбинантный белок"
+   ]
+  },
+  "offer": {
+   "id": "9b54e370e726",
+   "source_id": "web_suppliers",
+   "source_name": "Производители и дистрибьюторы",
+   "level": 1,
+   "url": "https://www.dia-m.ru/catalog/reactive/rostovye-faktory-i-tsitokiny/interleykin-7-cheloveka-rekombinantnyy-belok-rhil-7/",
+   "retrieved_at": "2026-11-14 16:57:54.066677+00:00",
+   "title": "Интерлейкин 7 человека, рекомбинантный белок, rhIL-7, Артикул PSG240-10, 10 мкг",
+   "price": "33573",
+   "currency": "RUB",
+   "amount": "10",
+   "amount_unit": "мкг",
+   "vat": "exempt",
+   "vat_rate": null,
+   "supplier": null,
+   "supplier_inn": null,
+   "delivery": "unknown",
+   "delivery_cost": null,
+   "delivery_free_from": null,
+   "delivery_note": null,
+   "price_date": null,
+   "characteristics": {
+    "Клеточная линия": "CHO",
+    "Лиофильно высушен": "из буферного раствора (PBS), содержащего 0,05% Tween 20, pH 7,0, профильтрованного через фильтр с диаметром пор 0,22 мкм.",
+    "Уровень эндотоксина, LAL-test": "менее 0,1 EU/1 мкг белка",
+    "Чистота": "более 98%",
+    "Окраска": "Coomassie Brilliant Blue",
+    "Биологическая активность, ED50": "0,07 - 0,5 нг/мл",
+    "Вес 1 шт.": "не менее 10 мкг"
+   }
+  },
+  "llm": {
+   "comparison": [
+    {
+     "name": "Клеточная линия",
+     "offered": "CHO",
+     "ok": true
+    },
+    {
+     "name": "Лиофильно высушен",
+     "offered": "из буферного раствора (PBS), содержащего 0,05% Tween 20, pH 7,0, профильтрованного через фильтр с диаметром пор 0,22 мкм.",
+     "ok": true
+    },
+    {
+     "name": "Уровень эндотоксина, LAL-test",
+     "offered": "менее 0,1 EU/1 мкг белка",
+     "ok": true
+    },
+    {
+     "name": "Чистота",
+     "offered": "более 98%",
+     "ok": true
+    },
+    {
+     "name": "Окраска",
+     "offered": "Coomassie Brilliant Blue",
+     "ok": true
+    },
+    {
+     "name": "Биологическая активность, ED50",
+     "offered": "0,07 - 0,5 нг/мл",
+     "ok": true
+    },
+    {
+     "name": "Вес 1 шт.",
+     "offered": "не менее 10 мкг",
+     "ok": true
+    }
+   ]
+  },
+  "expected": null
+ },
+ {
+  "id": "cytokines-3-sci-store",
+  "provenance": "живой прогон ТЗ цитокинов 14.11.2026, openai/gpt-4.1-mini",
+  "note": "Совпадают все существенные",
+  "position": {
+   "index": 3,
+   "name": "rhIL-7, Интерлейкин-7 человека, рекомбинантный белок",
+   "unit": "шт",
+   "quantity": "1",
+   "okpd2": "20.59.51.120",
+   "characteristics": [
+    {
+     "name": "Назначение",
+     "value": "Вещества белковые и их производные предназначены для исследовательских целей.",
+     "unit": null,
+     "essential": false
+    },
+    {
+     "name": "Клеточная линия",
+     "value": "CHO",
+     "unit": null,
+     "essential": true
+    },
+    {
+     "name": "Лиофильно высушен",
+     "value": "из фосфатного буферного раствора (PBS), содержащего 0,05% Tween20, pH 7.0, профильтрованного через фильтр 0,22 мкм",
+     "unit": null,
+     "essential": true
+    },
+    {
+     "name": "Уровень эндотоксина, LAL-test",
+     "value": "менее 0,1",
+     "unit": "EU/1 мкг белка",
+     "essential": true
+    },
+    {
+     "name": "Чистота",
+     "value": "более 97",
+     "unit": "%",
+     "essential": true
+    },
+    {
+     "name": "Окраска",
+     "value": "Coomassie Brilliant Blue",
+     "unit": null,
+     "essential": false
+    },
+    {
+     "name": "Биологическая активность, ED50",
+     "value": "более 0,07 и менее 0,5",
+     "unit": "нг/мл",
+     "essential": true
+    },
+    {
+     "name": "Хранение не вскрытой упаковки",
+     "value": "24 месяца в диапазоне не выше -20 и не ниже -70",
+     "unit": "0C",
+     "essential": false
+    },
+    {
+     "name": "Хранение разведенного препарата 1 месяц",
+     "value": "более +2 и менее +8",
+     "unit": "0C",
+     "essential": false
+    },
+    {
+     "name": "Хранение разведенного препарата 6 месяцев",
+     "value": "не выше -20 и не ниже -70",
+     "unit": "0C",
+     "essential": false
+    },
+    {
+     "name": "Вес 1 шт.",
+     "value": "не менее 10",
+     "unit": "мкг",
+     "essential": true
+    }
+   ],
+   "basis": {
+    "unit": "мкг",
+    "per_tz_unit": "10"
+   },
+   "search_terms": [
+    "rhIL-7",
+    "интерлейкин 7",
+    "рекомбинантный белок"
+   ]
+  },
+  "offer": {
+   "id": "ef98c6620752",
+   "source_id": "web_suppliers",
+   "source_name": "Производители и дистрибьюторы",
+   "level": 1,
+   "url": "http://sci-store.ru/rostovye-faktory-i-citokiny/human-IL-7-recombinant-protein.html",
+   "retrieved_at": "2026-11-14 16:58:16.060764+00:00",
+   "title": "rhIL-7, интерлейкин 7 человека, рекомбинантный белок фасовка 10 мкг PSG240-10",
+   "price": "24000",
+   "currency": "RUB",
+   "amount": "10",
+   "amount_unit": "мкг",
+   "vat": "included",
+   "vat_rate": null,
+   "supplier": null,
+   "supplier_inn": null,
+   "delivery": "unknown",
+   "delivery_cost": null,
+   "delivery_free_from": null,
+   "delivery_note": null,
+   "price_date": null,
+   "characteristics": {
+    "Клеточная линия": "CHO",
+    "Лиофильно высушен": "из фосфатного буферного раствора (PBS), содержащего 0,05% Tween20, pH 7.0, профильтрованного через фильтр 0,22 мкм",
+    "Уровень эндотоксина, LAL-test": "<0.1 EU на 1 мкг белка",
+    "Чистота": ">98%",
+    "Окраска": "Coomassie Brilliant Blue",
+    "Биологическая активность, ED50": "0,07 - 0,5 нг/мл",
+    "Вес 1 шт.": "не менее 10 мкг"
+   }
+  },
+  "llm": {
+   "comparison": [
+    {
+     "name": "Назначение",
+     "offered": null,
+     "ok": null
+    },
+    {
+     "name": "Клеточная линия",
+     "offered": "CHO",
+     "ok": true
+    },
+    {
+     "name": "Лиофильно высушен",
+     "offered": "из фосфатного буферного раствора (PBS), содержащего 0,05% Tween20, pH 7.0, профильтрованного через фильтр 0,22 мкм",
+     "ok": true
+    },
+    {
+     "name": "Уровень эндотоксина, LAL-test",
+     "offered": "<0.1 EU на 1 мкг белка",
+     "ok": true
+    },
+    {
+     "name": "Чистота",
+     "offered": ">98%",
+     "ok": true
+    },
+    {
+     "name": "Окраска",
+     "offered": "Coomassie Brilliant Blue",
+     "ok": true
+    },
+    {
+     "name": "Биологическая активность, ED50",
+     "offered": "0,07 - 0,5 нг/мл",
+     "ok": true
+    },
+    {
+     "name": "Хранение не вскрытой упаковки",
+     "offered": null,
+     "ok": null
+    },
+    {
+     "name": "Хранение разведенного препарата 1 месяц",
+     "offered": null,
+     "ok": null
+    },
+    {
+     "name": "Хранение разведенного препарата 6 месяцев",
+     "offered": null,
+     "ok": null
+    },
+    {
+     "name": "Вес 1 шт.",
+     "offered": "не менее 10 мкг",
+     "ok": true
+    }
+   ]
+  },
+  "expected": null
+ },
+ {
+  "id": "cytokines-3-helicon",
+  "provenance": "живой прогон ТЗ цитокинов 14.11.2026, openai/gpt-4.1-mini",
+  "note": "LLM: 10 мкг против «не менее 10» — спорное противоречие",
+  "position": {
+   "index": 3,
+   "name": "rhIL-7, Интерлейкин-7 человека, рекомбинантный белок",
+   "unit": "шт",
+   "quantity": "1",
+   "okpd2": "20.59.51.120",
+   "characteristics": [
+    {
+     "name": "Назначение",
+     "value": "Вещества белковые и их производные предназначены для исследовательских целей.",
+     "unit": null,
+     "essential": false
+    },
+    {
+     "name": "Клеточная линия",
+     "value": "CHO",
+     "unit": null,
+     "essential": true
+    },
+    {
+     "name": "Лиофильно высушен",
+     "value": "из фосфатного буферного раствора (PBS), содержащего 0,05% Tween20, pH 7.0, профильтрованного через фильтр 0,22 мкм",
+     "unit": null,
+     "essential": true
+    },
+    {
+     "name": "Уровень эндотоксина, LAL-test",
+     "value": "менее 0,1",
+     "unit": "EU/1 мкг белка",
+     "essential": true
+    },
+    {
+     "name": "Чистота",
+     "value": "более 97",
+     "unit": "%",
+     "essential": true
+    },
+    {
+     "name": "Окраска",
+     "value": "Coomassie Brilliant Blue",
+     "unit": null,
+     "essential": false
+    },
+    {
+     "name": "Биологическая активность, ED50",
+     "value": "более 0,07 и менее 0,5",
+     "unit": "нг/мл",
+     "essential": true
+    },
+    {
+     "name": "Хранение не вскрытой упаковки",
+     "value": "24 месяца в диапазоне не выше -20 и не ниже -70",
+     "unit": "0C",
+     "essential": false
+    },
+    {
+     "name": "Хранение разведенного препарата 1 месяц",
+     "value": "более +2 и менее +8",
+     "unit": "0C",
+     "essential": false
+    },
+    {
+     "name": "Хранение разведенного препарата 6 месяцев",
+     "value": "не выше -20 и не ниже -70",
+     "unit": "0C",
+     "essential": false
+    },
+    {
+     "name": "Вес 1 шт.",
+     "value": "не менее 10",
+     "unit": "мкг",
+     "essential": true
+    }
+   ],
+   "basis": {
+    "unit": "мкг",
+    "per_tz_unit": "10"
+   },
+   "search_terms": [
+    "rhIL-7",
+    "интерлейкин 7",
+    "рекомбинантный белок"
+   ]
+  },
+  "offer": {
+   "id": "ee52a37d4d7f",
+   "source_id": "web_suppliers",
+   "source_name": "Производители и дистрибьюторы",
+   "level": 1,
+   "url": "https://shop.helicon.ru/catalog/reagents/reagents-and-kits/cell-culturing/growth-factors-and-cytokines/interleykin-7-cheloveka-rekombinantnyy-rhil-7/",
+   "retrieved_at": "2026-11-14 16:57:57.984868+00:00",
+   "title": "rhIL-7, Интерлейкин-7 человека, рекомбинантный белок 10 мкг (PSG240-10)",
+   "price": "25460",
+   "currency": "RUB",
+   "amount": "10",
+   "amount_unit": "мкг",
+   "vat": "included",
+   "vat_rate": null,
+   "supplier": null,
+   "supplier_inn": null,
+   "delivery": "unknown",
+   "delivery_cost": null,
+   "delivery_free_from": null,
+   "delivery_note": null,
+   "price_date": null,
+   "characteristics": {
+    "Источник": "клеточная линия CHO, продуцирующая rhIL-7",
+    "Чистота": "более 98%",
+    "Эндотоксин": "менее 0.1 EU на 1 мкг белка согласно LAL-тесту",
+    "Молекулярный вес": "около 25 кДа",
+    "Форма": "лиофилизат, не содержит вспомогательных белков",
+    "Приготовление": "лиофильно высушен из фосфатного буферного раствора PBS, содержащего 0,05% Tween20, pH 7.0",
+    "Условия хранения": "хранить при -20°C"
+   }
+  },
+  "llm": {
+   "comparison": [
+    {
+     "name": "Назначение",
+     "offered": null,
+     "ok": null
+    },
+    {
+     "name": "Клеточная линия",
+     "offered": "клеточная линия CHO, продуцирующая rhIL-7",
+     "ok": true
+    },
+    {
+     "name": "Лиофильно высушен",
+     "offered": "лиофильно высушен из фосфатного буферного раствора PBS, содержащего 0,05% Tween20, pH 7.0",
+     "ok": true
+    },
+    {
+     "name": "Уровень эндотоксина, LAL-test",
+     "offered": "менее 0.1 EU на 1 мкг белка согласно LAL-тесту",
+     "ok": true
+    },
+    {
+     "name": "Чистота",
+     "offered": "более 98%",
+     "ok": true
+    },
+    {
+     "name": "Окраска",
+     "offered": null,
+     "ok": null
+    },
+    {
+     "name": "Биологическая активность, ED50",
+     "offered": null,
+     "ok": null
+    },
+    {
+     "name": "Хранение не вскрытой упаковки",
+     "offered": "хранить при -20°C",
+     "ok": false
+    },
+    {
+     "name": "Хранение разведенного препарата 1 месяц",
+     "offered": null,
+     "ok": null
+    },
+    {
+     "name": "Хранение разведенного препарата 6 месяцев",
+     "offered": null,
+     "ok": null
+    },
+    {
+     "name": "Вес 1 шт.",
+     "offered": "10 мкг",
+     "ok": false
+    }
+   ]
+  },
+  "expected": "incomparable"
+ },
+ {
+  "id": "cytokines-3-1772407516225000745",
+  "provenance": "живой прогон ТЗ цитокинов 14.11.2026, openai/gpt-4.1-mini",
+  "note": "Другой белок (GM-CSF), характеристик нет",
+  "position": {
+   "index": 3,
+   "name": "rhIL-7, Интерлейкин-7 человека, рекомбинантный белок",
+   "unit": "шт",
+   "quantity": "1",
+   "okpd2": "20.59.51.120",
+   "characteristics": [
+    {
+     "name": "Назначение",
+     "value": "Вещества белковые и их производные предназначены для исследовательских целей.",
+     "unit": null,
+     "essential": false
+    },
+    {
+     "name": "Клеточная линия",
+     "value": "CHO",
+     "unit": null,
+     "essential": true
+    },
+    {
+     "name": "Лиофильно высушен",
+     "value": "из фосфатного буферного раствора (PBS), содержащего 0,05% Tween20, pH 7.0, профильтрованного через фильтр 0,22 мкм",
+     "unit": null,
+     "essential": true
+    },
+    {
+     "name": "Уровень эндотоксина, LAL-test",
+     "value": "менее 0,1",
+     "unit": "EU/1 мкг белка",
+     "essential": true
+    },
+    {
+     "name": "Чистота",
+     "value": "более 97",
+     "unit": "%",
+     "essential": true
+    },
+    {
+     "name": "Окраска",
+     "value": "Coomassie Brilliant Blue",
+     "unit": null,
+     "essential": false
+    },
+    {
+     "name": "Биологическая активность, ED50",
+     "value": "более 0,07 и менее 0,5",
+     "unit": "нг/мл",
+     "essential": true
+    },
+    {
+     "name": "Хранение не вскрытой упаковки",
+     "value": "24 месяца в диапазоне не выше -20 и не ниже -70",
+     "unit": "0C",
+     "essential": false
+    },
+    {
+     "name": "Хранение разведенного препарата 1 месяц",
+     "value": "более +2 и менее +8",
+     "unit": "0C",
+     "essential": false
+    },
+    {
+     "name": "Хранение разведенного препарата 6 месяцев",
+     "value": "не выше -20 и не ниже -70",
+     "unit": "0C",
+     "essential": false
+    },
+    {
+     "name": "Вес 1 шт.",
+     "value": "не менее 10",
+     "unit": "мкг",
+     "essential": true
+    }
+   ],
+   "basis": {
+    "unit": "мкг",
+    "per_tz_unit": "10"
+   },
+   "search_terms": [
+    "rhIL-7",
+    "интерлейкин 7",
+    "рекомбинантный белок"
+   ]
+  },
+  "offer": {
+   "id": "cf79e00f25ee",
+   "source_id": "eis",
+   "source_name": "ЕИС — реестр контрактов",
+   "level": 1,
+   "url": "https://zakupki.gov.ru/epz/contract/contractCard/payment-info-and-target-of-order.html?reestrNumber=1772407516225000745",
+   "retrieved_at": "2026-11-14 16:57:57.247144+00:00",
+   "title": "3. Гранулоцитарно-макрофагальный колониестимулирующий фактор человека, рекомбинантный белок. Товарный знак: СайСторЛаб",
+   "price": "21070.00",
+   "currency": "RUB",
+   "amount": "1",
+   "amount_unit": "шт",
+   "vat": "exempt",
+   "vat_rate": null,
+   "supplier": null,
+   "supplier_inn": null,
+   "delivery": "unknown",
+   "delivery_cost": null,
+   "delivery_free_from": null,
+   "delivery_note": null,
+   "price_date": null,
+   "characteristics": {}
+  },
+  "llm": {
+   "comparison": [
+    {
+     "name": "Назначение",
+     "offered": null,
+     "ok": null
+    },
+    {
+     "name": "Клеточная линия",
+     "offered": null,
+     "ok": null
+    },
+    {
+     "name": "Лиофильно высушен",
+     "offered": null,
+     "ok": null
+    },
+    {
+     "name": "Уровень эндотоксина, LAL-test",
+     "offered": null,
+     "ok": null
+    },
+    {
+     "name": "Чистота",
+     "offered": null,
+     "ok": null
+    },
+    {
+     "name": "Окраска",
+     "offered": null,
+     "ok": null
+    },
+    {
+     "name": "Биологическая активность, ED50",
+     "offered": null,
+     "ok": null
+    },
+    {
+     "name": "Хранение не вскрытой упаковки",
+     "offered": null,
+     "ok": null
+    },
+    {
+     "name": "Хранение разведенного препарата 1 месяц",
+     "offered": null,
+     "ok": null
+    },
+    {
+     "name": "Хранение разведенного препарата 6 месяцев",
+     "offered": null,
+     "ok": null
+    },
+    {
+     "name": "Вес 1 шт.",
+     "offered": null,
+     "ok": null
+    }
+   ]
+  },
+  "expected": "insufficient_data"
+ },
+ {
+  "id": "printer-after-1-1650108482024000005",
+  "provenance": "повторный живой прогон ТЗ принтера 14.11.2026; LLM не выделила «Модель», добавлена моделью из названия позиции, как делает parse_tz",
+  "note": "Случай пользователя воспроизведён: без модели в требованиях PEEK 300 был включён в расчёт",
+  "position": {
+   "index": 1,
+   "name": "3D принтер 3D CREATBOT D600 PRO",
+   "unit": "шт",
+   "quantity": "1",
+   "okpd2": "26.20.16.129",
+   "characteristics": [
+    {
+     "name": "Товарный знак",
+     "value": "CreatBot",
+     "unit": null,
+     "essential": true
+    },
+    {
+     "name": "Модель",
+     "value": "D600 PRO",
+     "unit": null,
+     "essential": true
+    },
+    {
+     "name": "Страна происхождения",
+     "value": "Китай",
+     "unit": null,
+     "essential": false
+    },
+    {
+     "name": "Технология печати",
+     "value": "FDM (Fused Deposition Modeling)",
+     "unit": null,
+     "essential": true
+    },
+    {
+     "name": "Печать одним экструдером",
+     "value": "600x600x600",
+     "unit": "мм",
+     "essential": true
+    },
+    {
+     "name": "Печать двумя экструдерами",
+     "value": "540x600x600",
+     "unit": "мм",
+     "essential": true
+    },
+    {
+     "name": "Толщина слоя",
+     "value": "от 0,05 до 0,4",
+     "unit": "мм",
+     "essential": true
+    },
+    {
+     "name": "Диаметр используемой нити пластика",
+     "value": "1.75",
+     "unit": "мм",
+     "essential": true
+    },
+    {
+     "name": "Тип корпуса",
+     "value": "Закрытый",
+     "unit": null,
+     "essential": false
+    },
+    {
+     "name": "Поддерживаемые пластики",
+     "value": "PLA, ABS, Carbon Fiber, Wood, Nylon, PC, PETG, HIPS, PP, Flexible, TPU, PVA и другие",
+     "unit": null,
+     "essential": true
+    },
+    {
+     "name": "Диаметр сопел",
+     "value": "0.3/0.4/0.6/0.8/1.0",
+     "unit": "мм",
+     "essential": true
+    },
+    {
+     "name": "Материал рабочей платформы",
+     "value": "Алюминиевая платформа с адгезивной наклейкой Buildtak или стеклом",
+     "unit": null,
+     "essential": false
+    },
+    {
+     "name": "Поддержка форматов",
+     "value": "AMF, OBJ, STL",
+     "unit": null,
+     "essential": true
+    },
+    {
+     "name": "Максимальный нагрев рабочей платформы",
+     "value": "100",
+     "unit": "град",
+     "essential": true
+    },
+    {
+     "name": "Максимальный нагрев экструдера",
+     "value": "420",
+     "unit": "град",
+     "essential": true
+    },
+    {
+     "name": "Максимальный нагрев рабочей камеры",
+     "value": "70",
+     "unit": "град",
+     "essential": false
+    },
+    {
+     "name": "Максимальный нагрев отсека для сушки пластика",
+     "value": "65",
+     "unit": "град",
+     "essential": false
+    },
+    {
+     "name": "Оптимальная скорость печати",
+     "value": "45",
+     "unit": "мм/с",
+     "essential": true
+    },
+    {
+     "name": "Максимальная скорость печати",
+     "value": "120",
+     "unit": "мм/с",
+     "essential": true
+    },
+    {
+     "name": "Сенсорный дисплей",
+     "value": "4.3",
+     "unit": "дюйм",
+     "essential": false
+    },
+    {
+     "name": "Интерфейсы подключения",
+     "value": "USB",
+     "unit": null,
+     "essential": false
+    },
+    {
+     "name": "Точность позиционирования X/Y",
+     "value": "5.08",
+     "unit": "μm",
+     "essential": true
+    },
+    {
+     "name": "Точность позиционирования Z",
+     "value": "1.25",
+     "unit": "μm",
+     "essential": true
+    },
+    {
+     "name": "Габариты принтера без упаковки (ШхГхВ)",
+     "value": "915x845x1085",
+     "unit": "мм",
+     "essential": false
+    },
+    {
+     "name": "Вес принтера без упаковки",
+     "value": "125",
+     "unit": "кг",
+     "essential": false
+    },
+    {
+     "name": "Электропитание",
+     "value": "230 В, 50 Гц",
+     "unit": null,
+     "essential": false
+    },
+    {
+     "name": "Номинальная мощность",
+     "value": "4900",
+     "unit": "Вт",
+     "essential": false
+    }
+   ],
+   "basis": {
+    "unit": "шт",
+    "per_tz_unit": "1"
+   },
+   "search_terms": [
+    "CreatBot",
+    "3D CREATBOT D600 PRO",
+    "3D принтер"
+   ]
+  },
+  "offer": {
+   "id": "4770f2cec470",
+   "source_id": "eis",
+   "source_name": "ЕИС — реестр контрактов",
+   "level": 1,
+   "url": "https://zakupki.gov.ru/epz/contract/contractCard/payment-info-and-target-of-order.html?reestrNumber=1650108482024000005",
+   "retrieved_at": "2026-11-14 17:52:12.697664+00:00",
+   "title": "1. Принтер 3D. CreatBot PEEK 300",
+   "price": "1207983.07",
+   "currency": "RUB",
+   "amount": "1",
+   "amount_unit": "шт",
+   "vat": "exempt",
+   "vat_rate": null,
+   "supplier": "РЫБАКОВ ДЕНИС ГЕННАДЬЕВИЧ",
+   "supplier_inn": "784001141467",
+   "delivery": "unknown",
+   "delivery_cost": null,
+   "delivery_free_from": null,
+   "delivery_note": null,
+   "price_date": "2024-07-29",
+   "characteristics": {
+    "Товарный знак": "CreatBot",
+    "Страна происхождения": "Китайская Народная Республика",
+    "Тип объекта закупки": "Принтер 3D",
+    "Модель": "CreatBot PEEK 300"
+   }
+  },
+  "llm": {
+   "comparison": [
+    {
+     "name": "Товарный знак",
+     "offered": "CreatBot",
+     "ok": true
+    },
+    {
+     "name": "Страна происхождения",
+     "offered": "Китайская Народная Республика",
+     "ok": true
+    },
+    {
+     "name": "Технология печати",
+     "offered": null,
+     "ok": null
+    },
+    {
+     "name": "Печать одним экструдером",
+     "offered": null,
+     "ok": null
+    },
+    {
+     "name": "Печать двумя экструдерами",
+     "offered": null,
+     "ok": null
+    },
+    {
+     "name": "Толщина слоя",
+     "offered": null,
+     "ok": null
+    },
+    {
+     "name": "Диаметр используемой нити пластика",
+     "offered": null,
+     "ok": null
+    },
+    {
+     "name": "Тип корпуса",
+     "offered": null,
+     "ok": null
+    },
+    {
+     "name": "Поддерживаемые пластики",
+     "offered": null,
+     "ok": null
+    },
+    {
+     "name": "Диаметр сопел",
+     "offered": null,
+     "ok": null
+    },
+    {
+     "name": "Материал рабочей платформы",
+     "offered": null,
+     "ok": null
+    },
+    {
+     "name": "Поддержка форматов",
+     "offered": null,
+     "ok": null
+    },
+    {
+     "name": "Максимальный нагрев рабочей платформы",
+     "offered": null,
+     "ok": null
+    },
+    {
+     "name": "Максимальный нагрев экструдера",
+     "offered": null,
+     "ok": null
+    },
+    {
+     "name": "Максимальный нагрев рабочей камеры",
+     "offered": null,
+     "ok": null
+    },
+    {
+     "name": "Максимальный нагрев отсека для сушки пластика",
+     "offered": null,
+     "ok": null
+    },
+    {
+     "name": "Оптимальная скорость печати",
+     "offered": null,
+     "ok": null
+    },
+    {
+     "name": "Максимальная скорость печати",
+     "offered": null,
+     "ok": null
+    },
+    {
+     "name": "Сенсорный дисплей",
+     "offered": null,
+     "ok": null
+    },
+    {
+     "name": "Интерфейсы подключения",
+     "offered": null,
+     "ok": null
+    },
+    {
+     "name": "Точность позиционирования X/Y",
+     "offered": null,
+     "ok": null
+    },
+    {
+     "name": "Точность позиционирования Z",
+     "offered": null,
+     "ok": null
+    },
+    {
+     "name": "Габариты принтера без упаковки (ШхГхВ)",
+     "offered": null,
+     "ok": null
+    },
+    {
+     "name": "Вес принтера без упаковки",
+     "offered": null,
+     "ok": null
+    },
+    {
+     "name": "Электропитание",
+     "offered": null,
+     "ok": null
+    },
+    {
+     "name": "Номинальная мощность",
+     "offered": null,
+     "ok": null
+    },
+    {
+     "name": "Модель",
+     "offered": "CreatBot PEEK 300",
+     "ok": false
+    }
+   ]
+  },
+  "expected": "incomparable"
+ },
+ {
+  "id": "printer-after-1-1280102829824000034",
+  "provenance": "повторный живой прогон ТЗ принтера 14.11.2026; LLM не выделила «Модель», добавлена моделью из названия позиции, как делает parse_tz",
+  "note": "Включён в расчёт без модели в требованиях",
+  "position": {
+   "index": 1,
+   "name": "3D принтер 3D CREATBOT D600 PRO",
+   "unit": "шт",
+   "quantity": "1",
+   "okpd2": "26.20.16.129",
+   "characteristics": [
+    {
+     "name": "Товарный знак",
+     "value": "CreatBot",
+     "unit": null,
+     "essential": true
+    },
+    {
+     "name": "Модель",
+     "value": "D600 PRO",
+     "unit": null,
+     "essential": true
+    },
+    {
+     "name": "Страна происхождения",
+     "value": "Китай",
+     "unit": null,
+     "essential": false
+    },
+    {
+     "name": "Технология печати",
+     "value": "FDM (Fused Deposition Modeling)",
+     "unit": null,
+     "essential": true
+    },
+    {
+     "name": "Печать одним экструдером",
+     "value": "600x600x600",
+     "unit": "мм",
+     "essential": true
+    },
+    {
+     "name": "Печать двумя экструдерами",
+     "value": "540x600x600",
+     "unit": "мм",
+     "essential": true
+    },
+    {
+     "name": "Толщина слоя",
+     "value": "от 0,05 до 0,4",
+     "unit": "мм",
+     "essential": true
+    },
+    {
+     "name": "Диаметр используемой нити пластика",
+     "value": "1.75",
+     "unit": "мм",
+     "essential": true
+    },
+    {
+     "name": "Тип корпуса",
+     "value": "Закрытый",
+     "unit": null,
+     "essential": false
+    },
+    {
+     "name": "Поддерживаемые пластики",
+     "value": "PLA, ABS, Carbon Fiber, Wood, Nylon, PC, PETG, HIPS, PP, Flexible, TPU, PVA и другие",
+     "unit": null,
+     "essential": true
+    },
+    {
+     "name": "Диаметр сопел",
+     "value": "0.3/0.4/0.6/0.8/1.0",
+     "unit": "мм",
+     "essential": true
+    },
+    {
+     "name": "Материал рабочей платформы",
+     "value": "Алюминиевая платформа с адгезивной наклейкой Buildtak или стеклом",
+     "unit": null,
+     "essential": false
+    },
+    {
+     "name": "Поддержка форматов",
+     "value": "AMF, OBJ, STL",
+     "unit": null,
+     "essential": true
+    },
+    {
+     "name": "Максимальный нагрев рабочей платформы",
+     "value": "100",
+     "unit": "град",
+     "essential": true
+    },
+    {
+     "name": "Максимальный нагрев экструдера",
+     "value": "420",
+     "unit": "град",
+     "essential": true
+    },
+    {
+     "name": "Максимальный нагрев рабочей камеры",
+     "value": "70",
+     "unit": "град",
+     "essential": false
+    },
+    {
+     "name": "Максимальный нагрев отсека для сушки пластика",
+     "value": "65",
+     "unit": "град",
+     "essential": false
+    },
+    {
+     "name": "Оптимальная скорость печати",
+     "value": "45",
+     "unit": "мм/с",
+     "essential": true
+    },
+    {
+     "name": "Максимальная скорость печати",
+     "value": "120",
+     "unit": "мм/с",
+     "essential": true
+    },
+    {
+     "name": "Сенсорный дисплей",
+     "value": "4.3",
+     "unit": "дюйм",
+     "essential": false
+    },
+    {
+     "name": "Интерфейсы подключения",
+     "value": "USB",
+     "unit": null,
+     "essential": false
+    },
+    {
+     "name": "Точность позиционирования X/Y",
+     "value": "5.08",
+     "unit": "μm",
+     "essential": true
+    },
+    {
+     "name": "Точность позиционирования Z",
+     "value": "1.25",
+     "unit": "μm",
+     "essential": true
+    },
+    {
+     "name": "Габариты принтера без упаковки (ШхГхВ)",
+     "value": "915x845x1085",
+     "unit": "мм",
+     "essential": false
+    },
+    {
+     "name": "Вес принтера без упаковки",
+     "value": "125",
+     "unit": "кг",
+     "essential": false
+    },
+    {
+     "name": "Электропитание",
+     "value": "230 В, 50 Гц",
+     "unit": null,
+     "essential": false
+    },
+    {
+     "name": "Номинальная мощность",
+     "value": "4900",
+     "unit": "Вт",
+     "essential": false
+    }
+   ],
+   "basis": {
+    "unit": "шт",
+    "per_tz_unit": "1"
+   },
+   "search_terms": [
+    "CreatBot",
+    "3D CREATBOT D600 PRO",
+    "3D принтер"
+   ]
+  },
+  "offer": {
+   "id": "c4b5f2bc6d15",
+   "source_id": "eis",
+   "source_name": "ЕИС — реестр контрактов",
+   "level": 1,
+   "url": "https://zakupki.gov.ru/epz/contract/contractCard/payment-info-and-target-of-order.html?reestrNumber=1280102829824000034",
+   "retrieved_at": "2026-11-14 17:52:13.893650+00:00",
+   "title": "1. Принтер 3D. CreatBot",
+   "price": "1115240.00",
+   "currency": "RUB",
+   "amount": "1",
+   "amount_unit": "шт",
+   "vat": "included",
+   "vat_rate": "0.2",
+   "supplier": "ООО \"ОФИСНАЯ ТЕХНИКА ДЖЕТКОМ\"",
+   "supplier_inn": "7716589527",
+   "delivery": "unknown",
+   "delivery_cost": null,
+   "delivery_free_from": null,
+   "delivery_note": null,
+   "price_date": "2024-08-26",
+   "characteristics": {
+    "Товарный знак": "CreatBot",
+    "Страна происхождения": "Китай"
+   }
+  },
+  "llm": {
+   "comparison": [
+    {
+     "name": "Товарный знак",
+     "offered": "CreatBot",
+     "ok": true
+    },
+    {
+     "name": "Страна происхождения",
+     "offered": "Китай",
+     "ok": true
+    },
+    {
+     "name": "Технология печати",
+     "offered": null,
+     "ok": null
+    },
+    {
+     "name": "Печать одним экструдером",
+     "offered": null,
+     "ok": null
+    },
+    {
+     "name": "Печать двумя экструдерами",
+     "offered": null,
+     "ok": null
+    },
+    {
+     "name": "Толщина слоя",
+     "offered": null,
+     "ok": null
+    },
+    {
+     "name": "Диаметр используемой нити пластика",
+     "offered": null,
+     "ok": null
+    },
+    {
+     "name": "Тип корпуса",
+     "offered": null,
+     "ok": null
+    },
+    {
+     "name": "Поддерживаемые пластики",
+     "offered": null,
+     "ok": null
+    },
+    {
+     "name": "Диаметр сопел",
+     "offered": null,
+     "ok": null
+    },
+    {
+     "name": "Материал рабочей платформы",
+     "offered": null,
+     "ok": null
+    },
+    {
+     "name": "Поддержка форматов",
+     "offered": null,
+     "ok": null
+    },
+    {
+     "name": "Максимальный нагрев рабочей платформы",
+     "offered": null,
+     "ok": null
+    },
+    {
+     "name": "Максимальный нагрев экструдера",
+     "offered": null,
+     "ok": null
+    },
+    {
+     "name": "Максимальный нагрев рабочей камеры",
+     "offered": null,
+     "ok": null
+    },
+    {
+     "name": "Максимальный нагрев отсека для сушки пластика",
+     "offered": null,
+     "ok": null
+    },
+    {
+     "name": "Оптимальная скорость печати",
+     "offered": null,
+     "ok": null
+    },
+    {
+     "name": "Максимальная скорость печати",
+     "offered": null,
+     "ok": null
+    },
+    {
+     "name": "Сенсорный дисплей",
+     "offered": null,
+     "ok": null
+    },
+    {
+     "name": "Интерфейсы подключения",
+     "offered": null,
+     "ok": null
+    },
+    {
+     "name": "Точность позиционирования X/Y",
+     "offered": null,
+     "ok": null
+    },
+    {
+     "name": "Точность позиционирования Z",
+     "offered": null,
+     "ok": null
+    },
+    {
+     "name": "Габариты принтера без упаковки (ШхГхВ)",
+     "offered": null,
+     "ok": null
+    },
+    {
+     "name": "Вес принтера без упаковки",
+     "offered": null,
+     "ok": null
+    },
+    {
+     "name": "Электропитание",
+     "offered": null,
+     "ok": null
+    },
+    {
+     "name": "Номинальная мощность",
+     "offered": null,
+     "ok": null
+    }
+   ]
+  },
+  "expected": "insufficient_data"
+ },
+ {
+  "id": "printer-after-1-topstanok",
+  "provenance": "повторный живой прогон ТЗ принтера 14.11.2026; LLM не выделила «Модель», добавлена моделью из названия позиции, как делает parse_tz",
+  "note": "D600 PRO в названии — остаётся в расчёте",
+  "position": {
+   "index": 1,
+   "name": "3D принтер 3D CREATBOT D600 PRO",
+   "unit": "шт",
+   "quantity": "1",
+   "okpd2": "26.20.16.129",
+   "characteristics": [
+    {
+     "name": "Товарный знак",
+     "value": "CreatBot",
+     "unit": null,
+     "essential": true
+    },
+    {
+     "name": "Модель",
+     "value": "D600 PRO",
+     "unit": null,
+     "essential": true
+    },
+    {
+     "name": "Страна происхождения",
+     "value": "Китай",
+     "unit": null,
+     "essential": false
+    },
+    {
+     "name": "Технология печати",
+     "value": "FDM (Fused Deposition Modeling)",
+     "unit": null,
+     "essential": true
+    },
+    {
+     "name": "Печать одним экструдером",
+     "value": "600x600x600",
+     "unit": "мм",
+     "essential": true
+    },
+    {
+     "name": "Печать двумя экструдерами",
+     "value": "540x600x600",
+     "unit": "мм",
+     "essential": true
+    },
+    {
+     "name": "Толщина слоя",
+     "value": "от 0,05 до 0,4",
+     "unit": "мм",
+     "essential": true
+    },
+    {
+     "name": "Диаметр используемой нити пластика",
+     "value": "1.75",
+     "unit": "мм",
+     "essential": true
+    },
+    {
+     "name": "Тип корпуса",
+     "value": "Закрытый",
+     "unit": null,
+     "essential": false
+    },
+    {
+     "name": "Поддерживаемые пластики",
+     "value": "PLA, ABS, Carbon Fiber, Wood, Nylon, PC, PETG, HIPS, PP, Flexible, TPU, PVA и другие",
+     "unit": null,
+     "essential": true
+    },
+    {
+     "name": "Диаметр сопел",
+     "value": "0.3/0.4/0.6/0.8/1.0",
+     "unit": "мм",
+     "essential": true
+    },
+    {
+     "name": "Материал рабочей платформы",
+     "value": "Алюминиевая платформа с адгезивной наклейкой Buildtak или стеклом",
+     "unit": null,
+     "essential": false
+    },
+    {
+     "name": "Поддержка форматов",
+     "value": "AMF, OBJ, STL",
+     "unit": null,
+     "essential": true
+    },
+    {
+     "name": "Максимальный нагрев рабочей платформы",
+     "value": "100",
+     "unit": "град",
+     "essential": true
+    },
+    {
+     "name": "Максимальный нагрев экструдера",
+     "value": "420",
+     "unit": "град",
+     "essential": true
+    },
+    {
+     "name": "Максимальный нагрев рабочей камеры",
+     "value": "70",
+     "unit": "град",
+     "essential": false
+    },
+    {
+     "name": "Максимальный нагрев отсека для сушки пластика",
+     "value": "65",
+     "unit": "град",
+     "essential": false
+    },
+    {
+     "name": "Оптимальная скорость печати",
+     "value": "45",
+     "unit": "мм/с",
+     "essential": true
+    },
+    {
+     "name": "Максимальная скорость печати",
+     "value": "120",
+     "unit": "мм/с",
+     "essential": true
+    },
+    {
+     "name": "Сенсорный дисплей",
+     "value": "4.3",
+     "unit": "дюйм",
+     "essential": false
+    },
+    {
+     "name": "Интерфейсы подключения",
+     "value": "USB",
+     "unit": null,
+     "essential": false
+    },
+    {
+     "name": "Точность позиционирования X/Y",
+     "value": "5.08",
+     "unit": "μm",
+     "essential": true
+    },
+    {
+     "name": "Точность позиционирования Z",
+     "value": "1.25",
+     "unit": "μm",
+     "essential": true
+    },
+    {
+     "name": "Габариты принтера без упаковки (ШхГхВ)",
+     "value": "915x845x1085",
+     "unit": "мм",
+     "essential": false
+    },
+    {
+     "name": "Вес принтера без упаковки",
+     "value": "125",
+     "unit": "кг",
+     "essential": false
+    },
+    {
+     "name": "Электропитание",
+     "value": "230 В, 50 Гц",
+     "unit": null,
+     "essential": false
+    },
+    {
+     "name": "Номинальная мощность",
+     "value": "4900",
+     "unit": "Вт",
+     "essential": false
+    }
+   ],
+   "basis": {
+    "unit": "шт",
+    "per_tz_unit": "1"
+   },
+   "search_terms": [
+    "CreatBot",
+    "3D CREATBOT D600 PRO",
+    "3D принтер"
+   ]
+  },
+  "offer": {
+   "id": "a45cc01bf9d3",
+   "source_id": "web_suppliers",
+   "source_name": "Производители и дистрибьюторы",
+   "level": 1,
+   "url": "https://topstanok.ru/p-3dprinter_sreatbot_d600_pro/",
+   "retrieved_at": "2026-11-14 17:52:12.776186+00:00",
+   "title": "3D принтер 3D CREATBOT D600 PRO",
+   "price": "1200000",
+   "currency": "RUB",
+   "amount": "1",
+   "amount_unit": "шт",
+   "vat": "unknown",
+   "vat_rate": null,
+   "supplier": "Top Stanok",
+   "supplier_inn": null,
+   "delivery": "unknown",
+   "delivery_cost": null,
+   "delivery_free_from": null,
+   "delivery_note": null,
+   "price_date": null,
+   "characteristics": {
+    "Товарный знак": "CreatBot",
+    "Технология печати": "FDM",
+    "Печать одним экструдером": "600x600x600 мм",
+    "Диаметр используемой нити пластика": "1.75 мм",
+    "Поддерживаемые пластики": "PLA, ABS, Carbon Fiber, Wood, Nylon, PC, PETG, HIPS, PP, Flexible, TPU, PVA и другие",
+    "Поддержка форматов": "AMF, OBJ, STL",
+    "Максимальный нагрев рабочей платформы": "100 град",
+    "Максимальный нагрев экструдера": "420 град",
+    "Максимальный нагрев рабочей камеры": "70 град",
+    "Максимальный нагрев отсека для сушки пластика": "65 град",
+    "Оптимальная скорость печати": "45 мм/с",
+    "Максимальная скорость печати": "120 мм/с",
+    "Габариты принтера без упаковки (ШхГхВ)": "915x845x1085 мм",
+    "Вес принтера без упаковки": "125 кг",
+    "Номинальная мощность": "4900 Вт"
+   }
+  },
+  "llm": {
+   "comparison": [
+    {
+     "name": "Товарный знак",
+     "offered": "CreatBot",
+     "ok": true
+    },
+    {
+     "name": "Страна происхождения",
+     "offered": null,
+     "ok": null
+    },
+    {
+     "name": "Технология печати",
+     "offered": "FDM",
+     "ok": true
+    },
+    {
+     "name": "Печать одним экструдером",
+     "offered": "600x600x600 мм",
+     "ok": true
+    },
+    {
+     "name": "Печать двумя экструдерами",
+     "offered": null,
+     "ok": null
+    },
+    {
+     "name": "Толщина слоя",
+     "offered": null,
+     "ok": null
+    },
+    {
+     "name": "Диаметр используемой нити пластика",
+     "offered": "1.75 мм",
+     "ok": true
+    },
+    {
+     "name": "Тип корпуса",
+     "offered": null,
+     "ok": null
+    },
+    {
+     "name": "Поддерживаемые пластики",
+     "offered": "PLA, ABS, Carbon Fiber, Wood, Nylon, PC, PETG, HIPS, PP, Flexible, TPU, PVA и другие",
+     "ok": true
+    },
+    {
+     "name": "Диаметр сопел",
+     "offered": null,
+     "ok": null
+    },
+    {
+     "name": "Материал рабочей платформы",
+     "offered": null,
+     "ok": null
+    },
+    {
+     "name": "Поддержка форматов",
+     "offered": "AMF, OBJ, STL",
+     "ok": true
+    },
+    {
+     "name": "Максимальный нагрев рабочей платформы",
+     "offered": "100 град",
+     "ok": true
+    },
+    {
+     "name": "Максимальный нагрев экструдера",
+     "offered": "420 град",
+     "ok": true
+    },
+    {
+     "name": "Максимальный нагрев рабочей камеры",
+     "offered": "70 град",
+     "ok": true
+    },
+    {
+     "name": "Максимальный нагрев отсека для сушки пластика",
+     "offered": "65 град",
+     "ok": true
+    },
+    {
+     "name": "Оптимальная скорость печати",
+     "offered": "45 мм/с",
+     "ok": true
+    },
+    {
+     "name": "Максимальная скорость печати",
+     "offered": "120 мм/с",
+     "ok": true
+    },
+    {
+     "name": "Сенсорный дисплей",
+     "offered": null,
+     "ok": null
+    },
+    {
+     "name": "Интерфейсы подключения",
+     "offered": null,
+     "ok": null
+    },
+    {
+     "name": "Точность позиционирования X/Y",
+     "offered": null,
+     "ok": null
+    },
+    {
+     "name": "Точность позиционирования Z",
+     "offered": null,
+     "ok": null
+    },
+    {
+     "name": "Габариты принтера без упаковки (ШхГхВ)",
+     "offered": "915x845x1085 мм",
+     "ok": true
+    },
+    {
+     "name": "Вес принтера без упаковки",
+     "offered": "125 кг",
+     "ok": true
+    },
+    {
+     "name": "Электропитание",
+     "offered": null,
+     "ok": null
+    },
+    {
+     "name": "Номинальная мощность",
+     "offered": "4900 Вт",
+     "ok": true
+    }
+   ]
+  },
+  "expected": null
+ },
+ {
+  "id": "printer-after-1-3dtool",
+  "provenance": "повторный живой прогон ТЗ принтера 14.11.2026; LLM не выделила «Модель», добавлена моделью из названия позиции, как делает parse_tz",
+  "note": "«CreatBot D600 PRO (D600pro)» — то же написание модели",
+  "position": {
+   "index": 1,
+   "name": "3D принтер 3D CREATBOT D600 PRO",
+   "unit": "шт",
+   "quantity": "1",
+   "okpd2": "26.20.16.129",
+   "characteristics": [
+    {
+     "name": "Товарный знак",
+     "value": "CreatBot",
+     "unit": null,
+     "essential": true
+    },
+    {
+     "name": "Модель",
+     "value": "D600 PRO",
+     "unit": null,
+     "essential": true
+    },
+    {
+     "name": "Страна происхождения",
+     "value": "Китай",
+     "unit": null,
+     "essential": false
+    },
+    {
+     "name": "Технология печати",
+     "value": "FDM (Fused Deposition Modeling)",
+     "unit": null,
+     "essential": true
+    },
+    {
+     "name": "Печать одним экструдером",
+     "value": "600x600x600",
+     "unit": "мм",
+     "essential": true
+    },
+    {
+     "name": "Печать двумя экструдерами",
+     "value": "540x600x600",
+     "unit": "мм",
+     "essential": true
+    },
+    {
+     "name": "Толщина слоя",
+     "value": "от 0,05 до 0,4",
+     "unit": "мм",
+     "essential": true
+    },
+    {
+     "name": "Диаметр используемой нити пластика",
+     "value": "1.75",
+     "unit": "мм",
+     "essential": true
+    },
+    {
+     "name": "Тип корпуса",
+     "value": "Закрытый",
+     "unit": null,
+     "essential": false
+    },
+    {
+     "name": "Поддерживаемые пластики",
+     "value": "PLA, ABS, Carbon Fiber, Wood, Nylon, PC, PETG, HIPS, PP, Flexible, TPU, PVA и другие",
+     "unit": null,
+     "essential": true
+    },
+    {
+     "name": "Диаметр сопел",
+     "value": "0.3/0.4/0.6/0.8/1.0",
+     "unit": "мм",
+     "essential": true
+    },
+    {
+     "name": "Материал рабочей платформы",
+     "value": "Алюминиевая платформа с адгезивной наклейкой Buildtak или стеклом",
+     "unit": null,
+     "essential": false
+    },
+    {
+     "name": "Поддержка форматов",
+     "value": "AMF, OBJ, STL",
+     "unit": null,
+     "essential": true
+    },
+    {
+     "name": "Максимальный нагрев рабочей платформы",
+     "value": "100",
+     "unit": "град",
+     "essential": true
+    },
+    {
+     "name": "Максимальный нагрев экструдера",
+     "value": "420",
+     "unit": "град",
+     "essential": true
+    },
+    {
+     "name": "Максимальный нагрев рабочей камеры",
+     "value": "70",
+     "unit": "град",
+     "essential": false
+    },
+    {
+     "name": "Максимальный нагрев отсека для сушки пластика",
+     "value": "65",
+     "unit": "град",
+     "essential": false
+    },
+    {
+     "name": "Оптимальная скорость печати",
+     "value": "45",
+     "unit": "мм/с",
+     "essential": true
+    },
+    {
+     "name": "Максимальная скорость печати",
+     "value": "120",
+     "unit": "мм/с",
+     "essential": true
+    },
+    {
+     "name": "Сенсорный дисплей",
+     "value": "4.3",
+     "unit": "дюйм",
+     "essential": false
+    },
+    {
+     "name": "Интерфейсы подключения",
+     "value": "USB",
+     "unit": null,
+     "essential": false
+    },
+    {
+     "name": "Точность позиционирования X/Y",
+     "value": "5.08",
+     "unit": "μm",
+     "essential": true
+    },
+    {
+     "name": "Точность позиционирования Z",
+     "value": "1.25",
+     "unit": "μm",
+     "essential": true
+    },
+    {
+     "name": "Габариты принтера без упаковки (ШхГхВ)",
+     "value": "915x845x1085",
+     "unit": "мм",
+     "essential": false
+    },
+    {
+     "name": "Вес принтера без упаковки",
+     "value": "125",
+     "unit": "кг",
+     "essential": false
+    },
+    {
+     "name": "Электропитание",
+     "value": "230 В, 50 Гц",
+     "unit": null,
+     "essential": false
+    },
+    {
+     "name": "Номинальная мощность",
+     "value": "4900",
+     "unit": "Вт",
+     "essential": false
+    }
+   ],
+   "basis": {
+    "unit": "шт",
+    "per_tz_unit": "1"
+   },
+   "search_terms": [
+    "CreatBot",
+    "3D CREATBOT D600 PRO",
+    "3D принтер"
+   ]
+  },
+  "offer": {
+   "id": "f9a87e5afa44",
+   "source_id": "web_suppliers",
+   "source_name": "Производители и дистрибьюторы",
+   "level": 1,
+   "url": "https://3dtool.ru/product/3d_printer_creatbot_d600_pro/",
+   "retrieved_at": "2026-11-14 17:52:59.149967+00:00",
+   "title": "3D принтер CreatBot D600 PRO (D600pro) артикул 2308",
+   "price": "900000",
+   "currency": "RUB",
+   "amount": "1",
+   "amount_unit": "шт",
+   "vat": "included",
+   "vat_rate": "0.22",
+   "supplier": null,
+   "supplier_inn": null,
+   "delivery": "included",
+   "delivery_cost": null,
+   "delivery_free_from": null,
+   "delivery_note": "Бесплатная доставка",
+   "price_date": null,
+   "characteristics": {
+    "Товарный знак": "CreatBot",
+    "Страна происхождения": "Китай",
+    "Технология печати": "FDM (FFF)",
+    "Печать одним экструдером": "600x600x600 мм",
+    "Печать двумя экструдерами": "540x600x600 мм",
+    "Толщина слоя": "от 0,05 до 0,4 мм",
+    "Диаметр используемой нити пластика": "1.75 мм",
+    "Тип корпуса": "Закрытый",
+    "Поддерживаемые пластики": "PLA, ABS, Carbon Fiber, Wood, Nylon, PC, PETG, HIPS, PP, Flexible, TPU, PVA и другие",
+    "Диаметр сопел": "0.3/0.4/0.6/0.8/1.0 мм",
+    "Поддержка форматов": "AMF, OBJ, STL",
+    "Максимальный нагрев рабочей платформы": "100 град",
+    "Максимальный нагрев экструдера": "420 град",
+    "Максимальный нагрев рабочей камеры": "70 град",
+    "Максимальный нагрев отсека для сушки пластика": "65 град",
+    "Оптимальная скорость печати": "45 мм/с",
+    "Максимальная скорость печати": "120 мм/с",
+    "Сенсорный дисплей": "4.3 дюйм",
+    "Интерфейсы подключения": "USB, USB Disk",
+    "Точность позиционирования X/Y": "5.08 μm",
+    "Точность позиционирования Z": "1.25 μm",
+    "Габариты принтера без упаковки (ШхГхВ)": "915x845x1085 мм",
+    "Вес принтера без упаковки": "125 кг"
+   }
+  },
+  "llm": {
+   "comparison": [
+    {
+     "name": "Товарный знак",
+     "offered": "CreatBot",
+     "ok": true
+    },
+    {
+     "name": "Страна происхождения",
+     "offered": "Китай",
+     "ok": true
+    },
+    {
+     "name": "Технология печати",
+     "offered": "FDM (FFF)",
+     "ok": true
+    },
+    {
+     "name": "Печать одним экструдером",
+     "offered": "600x600x600 мм",
+     "ok": true
+    },
+    {
+     "name": "Печать двумя экструдерами",
+     "offered": "540x600x600 мм",
+     "ok": true
+    },
+    {
+     "name": "Толщина слоя",
+     "offered": "от 0,05 до 0,4 мм",
+     "ok": true
+    },
+    {
+     "name": "Диаметр используемой нити пластика",
+     "offered": "1.75 мм",
+     "ok": true
+    },
+    {
+     "name": "Тип корпуса",
+     "offered": "Закрытый",
+     "ok": true
+    },
+    {
+     "name": "Поддерживаемые пластики",
+     "offered": "PLA, ABS, Carbon Fiber, Wood, Nylon, PC, PETG, HIPS, PP, Flexible, TPU, PVA и другие",
+     "ok": true
+    },
+    {
+     "name": "Диаметр сопел",
+     "offered": "0.3/0.4/0.6/0.8/1.0 мм",
+     "ok": true
+    },
+    {
+     "name": "Материал рабочей платформы",
+     "offered": null,
+     "ok": null
+    },
+    {
+     "name": "Поддержка форматов",
+     "offered": "AMF, OBJ, STL",
+     "ok": true
+    },
+    {
+     "name": "Максимальный нагрев рабочей платформы",
+     "offered": "100 град",
+     "ok": true
+    },
+    {
+     "name": "Максимальный нагрев экструдера",
+     "offered": "420 град",
+     "ok": true
+    },
+    {
+     "name": "Максимальный нагрев рабочей камеры",
+     "offered": "70 град",
+     "ok": true
+    },
+    {
+     "name": "Максимальный нагрев отсека для сушки пластика",
+     "offered": "65 град",
+     "ok": true
+    },
+    {
+     "name": "Оптимальная скорость печати",
+     "offered": "45 мм/с",
+     "ok": true
+    },
+    {
+     "name": "Максимальная скорость печати",
+     "offered": "120 мм/с",
+     "ok": true
+    },
+    {
+     "name": "Сенсорный дисплей",
+     "offered": "4.3 дюйм",
+     "ok": true
+    },
+    {
+     "name": "Интерфейсы подключения",
+     "offered": "USB, USB Disk",
+     "ok": null
+    },
+    {
+     "name": "Точность позиционирования X/Y",
+     "offered": "5.08 μm",
+     "ok": true
+    },
+    {
+     "name": "Точность позиционирования Z",
+     "offered": "1.25 μm",
+     "ok": true
+    },
+    {
+     "name": "Габариты принтера без упаковки (ШхГхВ)",
+     "offered": "915x845x1085 мм",
+     "ok": true
+    },
+    {
+     "name": "Вес принтера без упаковки",
+     "offered": "125 кг",
+     "ok": true
+    },
+    {
+     "name": "Электропитание",
+     "offered": null,
+     "ok": null
+    },
+    {
+     "name": "Номинальная мощность",
+     "offered": null,
+     "ok": null
+    }
+   ]
+  },
+  "expected": null
+ },
+ {
+  "id": "printer-model-1-creatbot3d",
+  "provenance": "живой прогон ТЗ принтера 14.11.2026 с «Моделью» в требованиях, openai/gpt-4.1-mini; до правила — исключено",
+  "note": "Та же модель D600 PRO; LLM сочла противоречием частичный список пластиков, «0,05 мм» при «0,05-0,4» и точность, описанную словами, — не явные противоречия",
+  "position": {
+   "index": 1,
+   "name": "3D принтер 3D CREATBOT D600 PRO",
+   "unit": "шт",
+   "quantity": "1",
+   "okpd2": "26.20.16.129",
+   "characteristics": [
+    {
+     "name": "Технология печати",
+     "value": "FDM (Fused Deposition Modeling) Моделирование методом послойного наплавления",
+     "unit": null,
+     "essential": true
+    },
+    {
+     "name": "Область печати одним экструдером",
+     "value": "600х600х600",
+     "unit": "мм",
+     "essential": true
+    },
+    {
+     "name": "Область печати двумя экструдерами",
+     "value": "540х600х600",
+     "unit": "мм",
+     "essential": true
+    },
+    {
+     "name": "Толщина слоя",
+     "value": "0,05-0,4",
+     "unit": "мм",
+     "essential": true
+    },
+    {
+     "name": "Диаметр используемой нити пластика",
+     "value": "1,75",
+     "unit": "мм",
+     "essential": true
+    },
+    {
+     "name": "Тип корпуса",
+     "value": "Закрытый",
+     "unit": null,
+     "essential": false
+    },
+    {
+     "name": "Поддерживаемые пластики",
+     "value": "PLA, ABS, Carbon Fiber, Wood, Nylon, PC, PETG, HIPS, PP, Flexible, TPU, PVA и другие",
+     "unit": null,
+     "essential": true
+    },
+    {
+     "name": "Диаметр сопел",
+     "value": "0.3/0.4/0.6/0.8/1.0",
+     "unit": "мм",
+     "essential": true
+    },
+    {
+     "name": "Материал рабочей платформы",
+     "value": "Алюминиевая платформа с адгезивной наклейкой Buildtak или стеклом",
+     "unit": null,
+     "essential": false
+    },
+    {
+     "name": "Поддержка форматов",
+     "value": "AMF, OBJ, STL",
+     "unit": null,
+     "essential": true
+    },
+    {
+     "name": "Максимальный нагрев рабочей платформы",
+     "value": "100",
+     "unit": "град",
+     "essential": true
+    },
+    {
+     "name": "Максимальный нагрев экструдера",
+     "value": "420",
+     "unit": "град",
+     "essential": true
+    },
+    {
+     "name": "Максимальный нагрев рабочей камеры",
+     "value": "70",
+     "unit": "град",
+     "essential": true
+    },
+    {
+     "name": "Максимальный нагрев отсека для сушки пластика",
+     "value": "65",
+     "unit": "град",
+     "essential": false
+    },
+    {
+     "name": "Оптимальная скорость печати",
+     "value": "45",
+     "unit": "мм/с",
+     "essential": false
+    },
+    {
+     "name": "Максимальная скорость печати",
+     "value": "120",
+     "unit": "мм/с",
+     "essential": false
+    },
+    {
+     "name": "Сенсорный дисплей",
+     "value": "4.3\"",
+     "unit": null,
+     "essential": false
+    },
+    {
+     "name": "Интерфейсы подключения",
+     "value": "USB",
+     "unit": null,
+     "essential": false
+    },
+    {
+     "name": "Точность позиционирования X/Y",
+     "value": "5.08",
+     "unit": "μm",
+     "essential": true
+    },
+    {
+     "name": "Точность позиционирования Z",
+     "value": "1.25",
+     "unit": "μm",
+     "essential": true
+    },
+    {
+     "name": "Габариты принтера без упаковки",
+     "value": "915x845x1085",
+     "unit": "мм",
+     "essential": false
+    },
+    {
+     "name": "Вес принтера без упаковки",
+     "value": "125",
+     "unit": "кг",
+     "essential": false
+    },
+    {
+     "name": "Электропитание",
+     "value": "230 В, 50 Гц",
+     "unit": null,
+     "essential": false
+    },
+    {
+     "name": "Номинальная мощность",
+     "value": "4900",
+     "unit": "Вт",
+     "essential": false
+    },
+    {
+     "name": "Страна происхождения",
+     "value": "Китай",
+     "unit": null,
+     "essential": true
+    },
+    {
+     "name": "Товарный знак",
+     "value": "CreatBot",
+     "unit": null,
+     "essential": true
+    },
+    {
+     "name": "Модель",
+     "value": "D600 PRO",
+     "unit": null,
+     "essential": true
+    }
+   ],
+   "basis": {
+    "unit": "шт",
+    "per_tz_unit": "1"
+   },
+   "search_terms": [
+    "3D CREATBOT",
+    "3D принтер",
+    "CreatBot"
+   ]
+  },
+  "offer": {
+   "id": "87a5f4a67e5c",
+   "source_id": "web_suppliers",
+   "source_name": "Производители и дистрибьюторы",
+   "level": 1,
+   "url": "https://www.creatbot3d.ru/creatbot-d600-pro-2",
+   "retrieved_at": "2026-11-14T17:57:29.093671Z",
+   "title": "3D принтер 3D CREATBOT D600 PRO",
+   "price": "1350300.00",
+   "currency": "RUB",
+   "amount": "1",
+   "amount_unit": "шт",
+   "vat": "unknown",
+   "vat_rate": null,
+   "supplier": null,
+   "supplier_inn": null,
+   "delivery": "unknown",
+   "delivery_cost": null,
+   "delivery_free_from": null,
+   "delivery_note": null,
+   "price_date": null,
+   "characteristics": {
+    "Технология печати": "Моделирование методом послойного наплавления",
+    "Толщина слоя": "0,05 мм",
+    "Диаметр используемой нити пластика": "1,75 мм",
+    "Поддерживаемые пластики": "PLA, ABS, ASA, PETG, PC, нейлон, ABS-CF, PC-CF, PET-CF, PET-GF, UltraPA-CF и т. д.",
+    "Диаметр сопел": "0,3/0,4/0,6/0,8/1,0 мм",
+    "Максимальный нагрев экструдера": "420 град",
+    "Максимальный нагрев рабочей платформы": "100 град",
+    "Максимальный нагрев рабочей камеры": "70 град",
+    "Точность позиционирования X/Y": "Высокоточные серводвигатели (интерпретация)",
+    "Точность позиционирования Z": "Высокоточные линейные направляющие (интерпретация)",
+    "Тип корпуса": "Полностью закрытый",
+    "Сенсорный дисплей": "7 дюймов",
+    "Интерфейсы подключения": "USB, USB-диск, Wi-Fi",
+    "Вес принтера без упаковки": "200 кг",
+    "Электропитание": "220~240 В, 50~60 Гц",
+    "Номинальная мощность": "5500 Вт",
+    "Товарный знак": "CreatBot",
+    "Модель": "D600 PRO"
+   }
+  },
+  "llm": {
+   "comparison": [
+    {
+     "name": "Технология печати",
+     "offered": "Моделирование методом послойного наплавления",
+     "ok": true
+    },
+    {
+     "name": "Область печати одним экструдером",
+     "offered": null,
+     "ok": null
+    },
+    {
+     "name": "Область печати двумя экструдерами",
+     "offered": null,
+     "ok": null
+    },
+    {
+     "name": "Толщина слоя",
+     "offered": "0,05 мм",
+     "ok": false
+    },
+    {
+     "name": "Диаметр используемой нити пластика",
+     "offered": "1,75 мм",
+     "ok": true
+    },
+    {
+     "name": "Тип корпуса",
+     "offered": "Полностью закрытый",
+     "ok": false
+    },
+    {
+     "name": "Поддерживаемые пластики",
+     "offered": "PLA, ABS, ASA, PETG, PC, нейлон, ABS-CF, PC-CF, PET-CF, PET-GF, UltraPA-CF и т. д.",
+     "ok": false
+    },
+    {
+     "name": "Диаметр сопел",
+     "offered": "0,3/0,4/0,6/0,8/1,0 мм",
+     "ok": true
+    },
+    {
+     "name": "Материал рабочей платформы",
+     "offered": null,
+     "ok": null
+    },
+    {
+     "name": "Поддержка форматов",
+     "offered": null,
+     "ok": null
+    },
+    {
+     "name": "Максимальный нагрев рабочей платформы",
+     "offered": "100 град",
+     "ok": true
+    },
+    {
+     "name": "Максимальный нагрев экструдера",
+     "offered": "420 град",
+     "ok": true
+    },
+    {
+     "name": "Максимальный нагрев рабочей камеры",
+     "offered": "70 град",
+     "ok": true
+    },
+    {
+     "name": "Максимальный нагрев отсека для сушки пластика",
+     "offered": null,
+     "ok": null
+    },
+    {
+     "name": "Оптимальная скорость печати",
+     "offered": null,
+     "ok": null
+    },
+    {
+     "name": "Максимальная скорость печати",
+     "offered": null,
+     "ok": null
+    },
+    {
+     "name": "Сенсорный дисплей",
+     "offered": "7 дюймов",
+     "ok": false
+    },
+    {
+     "name": "Интерфейсы подключения",
+     "offered": "USB, USB-диск, Wi-Fi",
+     "ok": false
+    },
+    {
+     "name": "Точность позиционирования X/Y",
+     "offered": "Высокоточные серводвигатели (интерпретация)",
+     "ok": false
+    },
+    {
+     "name": "Точность позиционирования Z",
+     "offered": "Высокоточные линейные направляющие (интерпретация)",
+     "ok": false
+    },
+    {
+     "name": "Габариты принтера без упаковки",
+     "offered": null,
+     "ok": null
+    },
+    {
+     "name": "Вес принтера без упаковки",
+     "offered": "200 кг",
+     "ok": false
+    },
+    {
+     "name": "Электропитание",
+     "offered": "220~240 В, 50~60 Гц",
+     "ok": false
+    },
+    {
+     "name": "Номинальная мощность",
+     "offered": "5500 Вт",
+     "ok": false
+    },
+    {
+     "name": "Страна происхождения",
+     "offered": null,
+     "ok": null
+    },
+    {
+     "name": "Товарный знак",
+     "offered": "CreatBot",
+     "ok": true
+    },
+    {
+     "name": "Модель",
+     "offered": "D600 PRO",
+     "ok": true
+    }
+   ]
+  },
+  "expected": null
+ },
+ {
+  "id": "printer-model-1-ekua",
+  "provenance": "живой прогон ТЗ принтера 14.11.2026 с «Моделью» в требованиях, openai/gpt-4.1-mini; до правила — исключено",
+  "note": "Та же модель, но в данных предложения диаметр нити 3 мм при требовании 1,75 — явное противоречие",
+  "position": {
+   "index": 1,
+   "name": "3D принтер 3D CREATBOT D600 PRO",
+   "unit": "шт",
+   "quantity": "1",
+   "okpd2": "26.20.16.129",
+   "characteristics": [
+    {
+     "name": "Технология печати",
+     "value": "FDM (Fused Deposition Modeling) Моделирование методом послойного наплавления",
+     "unit": null,
+     "essential": true
+    },
+    {
+     "name": "Область печати одним экструдером",
+     "value": "600х600х600",
+     "unit": "мм",
+     "essential": true
+    },
+    {
+     "name": "Область печати двумя экструдерами",
+     "value": "540х600х600",
+     "unit": "мм",
+     "essential": true
+    },
+    {
+     "name": "Толщина слоя",
+     "value": "0,05-0,4",
+     "unit": "мм",
+     "essential": true
+    },
+    {
+     "name": "Диаметр используемой нити пластика",
+     "value": "1,75",
+     "unit": "мм",
+     "essential": true
+    },
+    {
+     "name": "Тип корпуса",
+     "value": "Закрытый",
+     "unit": null,
+     "essential": false
+    },
+    {
+     "name": "Поддерживаемые пластики",
+     "value": "PLA, ABS, Carbon Fiber, Wood, Nylon, PC, PETG, HIPS, PP, Flexible, TPU, PVA и другие",
+     "unit": null,
+     "essential": true
+    },
+    {
+     "name": "Диаметр сопел",
+     "value": "0.3/0.4/0.6/0.8/1.0",
+     "unit": "мм",
+     "essential": true
+    },
+    {
+     "name": "Материал рабочей платформы",
+     "value": "Алюминиевая платформа с адгезивной наклейкой Buildtak или стеклом",
+     "unit": null,
+     "essential": false
+    },
+    {
+     "name": "Поддержка форматов",
+     "value": "AMF, OBJ, STL",
+     "unit": null,
+     "essential": true
+    },
+    {
+     "name": "Максимальный нагрев рабочей платформы",
+     "value": "100",
+     "unit": "град",
+     "essential": true
+    },
+    {
+     "name": "Максимальный нагрев экструдера",
+     "value": "420",
+     "unit": "град",
+     "essential": true
+    },
+    {
+     "name": "Максимальный нагрев рабочей камеры",
+     "value": "70",
+     "unit": "град",
+     "essential": true
+    },
+    {
+     "name": "Максимальный нагрев отсека для сушки пластика",
+     "value": "65",
+     "unit": "град",
+     "essential": false
+    },
+    {
+     "name": "Оптимальная скорость печати",
+     "value": "45",
+     "unit": "мм/с",
+     "essential": false
+    },
+    {
+     "name": "Максимальная скорость печати",
+     "value": "120",
+     "unit": "мм/с",
+     "essential": false
+    },
+    {
+     "name": "Сенсорный дисплей",
+     "value": "4.3\"",
+     "unit": null,
+     "essential": false
+    },
+    {
+     "name": "Интерфейсы подключения",
+     "value": "USB",
+     "unit": null,
+     "essential": false
+    },
+    {
+     "name": "Точность позиционирования X/Y",
+     "value": "5.08",
+     "unit": "μm",
+     "essential": true
+    },
+    {
+     "name": "Точность позиционирования Z",
+     "value": "1.25",
+     "unit": "μm",
+     "essential": true
+    },
+    {
+     "name": "Габариты принтера без упаковки",
+     "value": "915x845x1085",
+     "unit": "мм",
+     "essential": false
+    },
+    {
+     "name": "Вес принтера без упаковки",
+     "value": "125",
+     "unit": "кг",
+     "essential": false
+    },
+    {
+     "name": "Электропитание",
+     "value": "230 В, 50 Гц",
+     "unit": null,
+     "essential": false
+    },
+    {
+     "name": "Номинальная мощность",
+     "value": "4900",
+     "unit": "Вт",
+     "essential": false
+    },
+    {
+     "name": "Страна происхождения",
+     "value": "Китай",
+     "unit": null,
+     "essential": true
+    },
+    {
+     "name": "Товарный знак",
+     "value": "CreatBot",
+     "unit": null,
+     "essential": true
+    },
+    {
+     "name": "Модель",
+     "value": "D600 PRO",
+     "unit": null,
+     "essential": true
+    }
+   ],
+   "basis": {
+    "unit": "шт",
+    "per_tz_unit": "1"
+   },
+   "search_terms": [
+    "3D CREATBOT",
+    "3D принтер",
+    "CreatBot"
+   ]
+  },
+  "offer": {
+   "id": "22753ab4ce66",
+   "source_id": "web_suppliers",
+   "source_name": "Производители и дистрибьюторы",
+   "level": 1,
+   "url": "https://ek.ua/CREATBOT-D600-PRO.htm",
+   "retrieved_at": "2026-11-14T17:57:32.472515Z",
+   "title": "3D принтер 3D CREATBOT D600 PRO",
+   "price": "1142000.00",
+   "currency": "RUB",
+   "amount": "1",
+   "amount_unit": "шт",
+   "vat": "unknown",
+   "vat_rate": null,
+   "supplier": null,
+   "supplier_inn": null,
+   "delivery": "unknown",
+   "delivery_cost": null,
+   "delivery_free_from": null,
+   "delivery_note": null,
+   "price_date": null,
+   "characteristics": {
+    "Технология печати": "моделирование методом наплавления (FDM/FFF)",
+    "Печатный материал": "ABS, Carbon, Flex, HIPS, Nylon, PC, PETG, PLA, PP, PVA, TPU, Wood",
+    "Формат файлов 3D моделей": ".gcode, .stl, .obj, .amf",
+    "Совместимое ПО": "CreatWare, Simplify3D, Cura",
+    "Габариты модели (ВхШхГ)": "600x600x600 мм",
+    "Объем модели": "216 л",
+    "Кинематика": "Core XY",
+    "Мин. толщина слоя": "50 микрон",
+    "Скорость печати": "120 мм/с",
+    "Диаметр сопла": "0.4 мм",
+    "Мин. диаметр нити": "3 мм",
+    "Температура стола": "100 °C",
+    "Температура экструдера (сопла)": "420 °C",
+    "Количество экструдеров": "2",
+    "Дополнительные функции": "подогреваемый стол, закрытая камера печати, возобновление прерванной печати, датчик филамента",
+    "Передача данных": "картридер, USB-A, подключение к ПК (USB-B)",
+    "LCD дисплей": "4.3\", сенсорный экран",
+    "Мощность": "1000 Вт",
+    "Габариты": "91.5x84.5x108.5 см",
+    "Вес": "125 кг"
+   }
+  },
+  "llm": {
+   "comparison": [
+    {
+     "name": "Технология печати",
+     "offered": "моделирование методом наплавления (FDM/FFF)",
+     "ok": true
+    },
+    {
+     "name": "Область печати одним экструдером",
+     "offered": "600x600x600 мм",
+     "ok": true
+    },
+    {
+     "name": "Область печати двумя экструдерами",
+     "offered": null,
+     "ok": null
+    },
+    {
+     "name": "Толщина слоя",
+     "offered": "50 микрон",
+     "ok": true
+    },
+    {
+     "name": "Диаметр используемой нити пластика",
+     "offered": "3 мм",
+     "ok": false
+    },
+    {
+     "name": "Тип корпуса",
+     "offered": "закрытая камера печати",
+     "ok": true
+    },
+    {
+     "name": "Поддерживаемые пластики",
+     "offered": "ABS, Carbon, Flex, HIPS, Nylon, PC, PETG, PLA, PP, PVA, TPU, Wood",
+     "ok": true
+    },
+    {
+     "name": "Диаметр сопел",
+     "offered": "0.4 мм",
+     "ok": false
+    },
+    {
+     "name": "Материал рабочей платформы",
+     "offered": null,
+     "ok": null
+    },
+    {
+     "name": "Поддержка форматов",
+     "offered": ".gcode, .stl, .obj, .amf",
+     "ok": true
+    },
+    {
+     "name": "Максимальный нагрев рабочей платформы",
+     "offered": "100 °C",
+     "ok": true
+    },
+    {
+     "name": "Максимальный нагрев экструдера",
+     "offered": "420 °C",
+     "ok": true
+    },
+    {
+     "name": "Максимальный нагрев рабочей камеры",
+     "offered": null,
+     "ok": null
+    },
+    {
+     "name": "Максимальный нагрев отсека для сушки пластика",
+     "offered": null,
+     "ok": null
+    },
+    {
+     "name": "Оптимальная скорость печати",
+     "offered": null,
+     "ok": null
+    },
+    {
+     "name": "Максимальная скорость печати",
+     "offered": "120 мм/с",
+     "ok": true
+    },
+    {
+     "name": "Сенсорный дисплей",
+     "offered": "4.3\", сенсорный экран",
+     "ok": true
+    },
+    {
+     "name": "Интерфейсы подключения",
+     "offered": "картридер, USB-A, подключение к ПК (USB-B)",
+     "ok": false
+    },
+    {
+     "name": "Точность позиционирования X/Y",
+     "offered": null,
+     "ok": null
+    },
+    {
+     "name": "Точность позиционирования Z",
+     "offered": null,
+     "ok": null
+    },
+    {
+     "name": "Габариты принтера без упаковки",
+     "offered": "91.5x84.5x108.5 см",
+     "ok": true
+    },
+    {
+     "name": "Вес принтера без упаковки",
+     "offered": "125 кг",
+     "ok": true
+    },
+    {
+     "name": "Электропитание",
+     "offered": null,
+     "ok": null
+    },
+    {
+     "name": "Номинальная мощность",
+     "offered": "1000 Вт",
+     "ok": false
+    },
+    {
+     "name": "Страна происхождения",
+     "offered": null,
+     "ok": null
+    },
+    {
+     "name": "Товарный знак",
+     "offered": null,
+     "ok": null
+    },
+    {
+     "name": "Модель",
+     "offered": null,
+     "ok": true
+    }
+   ]
+  },
+  "expected": "incomparable"
+ },
+ {
+  "id": "paper-maker-1-eis-no-maker",
+  "provenance": "живой прогон ТЗ бумаги 14.11.2026 с «Производителем» в требованиях, openai/gpt-4.1-mini; до правила — «Не подтверждены: Производитель»",
+  "note": "Товарный знак SVETOCOPY подтверждён кодом, производителя в контракте нет — проверьте, не исключать",
+  "position": {
+   "index": 1,
+   "name": "Бумага для офисной техники А4 SvetoCopy",
+   "unit": "пачка",
+   "quantity": "2500",
+   "okpd2": null,
+   "characteristics": [
+    {
+     "name": "Товарный знак",
+     "value": "SvetoCopy",
+     "unit": null,
+     "essential": true
+    },
+    {
+     "name": "Производитель",
+     "value": "НПАО Светогорский ЦБК",
+     "unit": null,
+     "essential": true
+    },
+    {
+     "name": "Формат бумаги",
+     "value": "А4",
+     "unit": null,
+     "essential": true
+    },
+    {
+     "name": "Марка бумаги",
+     "value": "С",
+     "unit": null,
+     "essential": true
+    },
+    {
+     "name": "Количество листов в пачке",
+     "value": "500",
+     "unit": "лист",
+     "essential": true
+    },
+    {
+     "name": "Цвет",
+     "value": "белый",
+     "unit": null,
+     "essential": false
+    },
+    {
+     "name": "Белизна CIE",
+     "value": "146 ± 3",
+     "unit": "%",
+     "essential": false
+    },
+    {
+     "name": "Масса листа бумаги площадью 1 м2",
+     "value": "80 ± 3",
+     "unit": "г/м2",
+     "essential": true
+    },
+    {
+     "name": "Толщина",
+     "value": "104 ± 2",
+     "unit": "мкм",
+     "essential": true
+    },
+    {
+     "name": "Соответствие ГОСТ",
+     "value": "Р 57641-2017",
+     "unit": null,
+     "essential": false
+    }
+   ],
+   "basis": {
+    "unit": "пачка",
+    "per_tz_unit": "1"
+   },
+   "search_terms": [
+    "SvetoCopy",
+    "бумага для офисной техники",
+    "А4 бумага"
+   ]
+  },
+  "offer": {
+   "id": "e7f3b768226c",
+   "source_id": "eis",
+   "source_name": "ЕИС : реестр контрактов",
+   "level": 1,
+   "url": "https://zakupki.gov.ru/epz/contract/contractCard/payment-info-and-target-of-order.html?reestrNumber=2332810135826000059",
+   "retrieved_at": "2026-11-14T18:18:49.701003Z",
+   "title": "1. Бумага для офисной техники. Товарный знак: SVETOCOPY",
+   "price": "320.80",
+   "currency": "RUB",
+   "amount": "1",
+   "amount_unit": "пачка",
+   "vat": "included",
+   "vat_rate": "0.22",
+   "supplier": "ЗАБЕЛИН АЛЕКСЕЙ ВИТАЛЬЕВИЧ",
+   "supplier_inn": "330301343802",
+   "delivery": "unknown",
+   "delivery_cost": null,
+   "delivery_free_from": null,
+   "delivery_note": null,
+   "price_date": "2026-09-02",
+   "characteristics": {
+    "Масса бумаги площадью 1м2": "80Грамм",
+    "Формат": "А4",
+    "Количество листов в пачке": "500Штука",
+    "Цветность": "Белая"
+   }
+  },
+  "llm": {
+   "comparison": [
+    {
+     "name": "Товарный знак",
+     "offered": "SVETOCOPY",
+     "ok": true
+    },
+    {
+     "name": "Производитель",
+     "offered": null,
+     "ok": null
+    },
+    {
+     "name": "Формат бумаги",
+     "offered": "А4",
+     "ok": true
+    },
+    {
+     "name": "Марка бумаги",
+     "offered": null,
+     "ok": null
+    },
+    {
+     "name": "Количество листов в пачке",
+     "offered": "500Штука",
+     "ok": true
+    },
+    {
+     "name": "Цвет",
+     "offered": "Белая",
+     "ok": true
+    },
+    {
+     "name": "Белизна CIE",
+     "offered": null,
+     "ok": null
+    },
+    {
+     "name": "Масса листа бумаги площадью 1 м2",
+     "offered": "80Грамм",
+     "ok": true
+    },
+    {
+     "name": "Толщина",
+     "offered": null,
+     "ok": null
+    },
+    {
+     "name": "Соответствие ГОСТ",
+     "offered": null,
+     "ok": null
+    }
+   ]
+  },
+  "expected": null
+ },
+ {
+  "id": "paper-maker-1-other-maker",
+  "provenance": "живой прогон ТЗ бумаги 14.11.2026 с «Производителем» в требованиях, openai/gpt-4.1-mini; до правила — «Не подтверждены: Производитель»",
+  "note": "Производитель International Paper явно указан и не совпадает с требованием",
+  "position": {
+   "index": 1,
+   "name": "Бумага для офисной техники А4 SvetoCopy",
+   "unit": "пачка",
+   "quantity": "2500",
+   "okpd2": null,
+   "characteristics": [
+    {
+     "name": "Товарный знак",
+     "value": "SvetoCopy",
+     "unit": null,
+     "essential": true
+    },
+    {
+     "name": "Производитель",
+     "value": "НПАО Светогорский ЦБК",
+     "unit": null,
+     "essential": true
+    },
+    {
+     "name": "Формат бумаги",
+     "value": "А4",
+     "unit": null,
+     "essential": true
+    },
+    {
+     "name": "Марка бумаги",
+     "value": "С",
+     "unit": null,
+     "essential": true
+    },
+    {
+     "name": "Количество листов в пачке",
+     "value": "500",
+     "unit": "лист",
+     "essential": true
+    },
+    {
+     "name": "Цвет",
+     "value": "белый",
+     "unit": null,
+     "essential": false
+    },
+    {
+     "name": "Белизна CIE",
+     "value": "146 ± 3",
+     "unit": "%",
+     "essential": false
+    },
+    {
+     "name": "Масса листа бумаги площадью 1 м2",
+     "value": "80 ± 3",
+     "unit": "г/м2",
+     "essential": true
+    },
+    {
+     "name": "Толщина",
+     "value": "104 ± 2",
+     "unit": "мкм",
+     "essential": true
+    },
+    {
+     "name": "Соответствие ГОСТ",
+     "value": "Р 57641-2017",
+     "unit": null,
+     "essential": false
+    }
+   ],
+   "basis": {
+    "unit": "пачка",
+    "per_tz_unit": "1"
+   },
+   "search_terms": [
+    "SvetoCopy",
+    "бумага для офисной техники",
+    "А4 бумага"
+   ]
+  },
+  "offer": {
+   "id": "0d8a5bfed3e0",
+   "source_id": "web_suppliers",
+   "source_name": "Производители и дистрибьюторы",
+   "level": 1,
+   "url": "https://oficity.ru/bumaga-dlya-ofisnoj-tehniki/7911-bumaga-sveto-copy-a4-80g-m2-belizna-146-cie-500-listov-13500.html?results=1&search_query=13500",
+   "retrieved_at": "2026-11-14T18:18:58.489545Z",
+   "title": "Бумага SvetoCopy (А4, 500 листов, 80г/м2, белизна 146% CIE) арт. 13500",
+   "price": "470.00",
+   "currency": "RUB",
+   "amount": "1",
+   "amount_unit": "пачка",
+   "vat": "unknown",
+   "vat_rate": null,
+   "supplier": "International Paper",
+   "supplier_inn": null,
+   "delivery": "separate",
+   "delivery_cost": "500.00",
+   "delivery_free_from": "3000.00",
+   "delivery_note": "Доставка заказа до 3000 рублей : 500 рублей, свыше 3000 рублей : бесплатно; доставка от МКАД до 100 км : от 500 рублей, далее обсуждается отдельно",
+   "price_date": null,
+   "characteristics": {
+    "Торговая марка": "SvetoCopy",
+    "Формат листов": "А4",
+    "Класс бумаги": "C",
+    "Плотность бумаги": "80 г/м2",
+    "Белизна": "146 % CIE",
+    "Листов в пачке": "500",
+    "Толщина бумаги": "104 мкм",
+    "Производитель": "International Paper"
+   }
+  },
+  "llm": {
+   "comparison": [
+    {
+     "name": "Товарный знак",
+     "offered": "SvetoCopy",
+     "ok": true
+    },
+    {
+     "name": "Производитель",
+     "offered": "International Paper",
+     "ok": false
+    },
+    {
+     "name": "Формат бумаги",
+     "offered": "А4",
+     "ok": true
+    },
+    {
+     "name": "Марка бумаги",
+     "offered": "C",
+     "ok": true
+    },
+    {
+     "name": "Количество листов в пачке",
+     "offered": "500",
+     "ok": true
+    },
+    {
+     "name": "Цвет",
+     "offered": null,
+     "ok": null
+    },
+    {
+     "name": "Белизна CIE",
+     "offered": "146 % CIE",
+     "ok": true
+    },
+    {
+     "name": "Масса листа бумаги площадью 1 м2",
+     "offered": "80 г/м2",
+     "ok": true
+    },
+    {
+     "name": "Толщина",
+     "offered": "104 мкм",
+     "ok": true
+    },
+    {
+     "name": "Соответствие ГОСТ",
+     "offered": null,
+     "ok": null
+    }
+   ]
+  },
+  "expected": "incomparable"
+ },
+ {
+  "id": "paper-maker-1-no-maker-field",
+  "provenance": "живой прогон ТЗ бумаги 14.11.2026 с «Производителем» в требованиях, openai/gpt-4.1-mini; до правила — «Не подтверждены: Производитель»",
+  "note": "SVETOCOPY CLASSIC в названии, поле производителя на странице не указано",
+  "position": {
+   "index": 1,
+   "name": "Бумага для офисной техники А4 SvetoCopy",
+   "unit": "пачка",
+   "quantity": "2500",
+   "okpd2": null,
+   "characteristics": [
+    {
+     "name": "Товарный знак",
+     "value": "SvetoCopy",
+     "unit": null,
+     "essential": true
+    },
+    {
+     "name": "Производитель",
+     "value": "НПАО Светогорский ЦБК",
+     "unit": null,
+     "essential": true
+    },
+    {
+     "name": "Формат бумаги",
+     "value": "А4",
+     "unit": null,
+     "essential": true
+    },
+    {
+     "name": "Марка бумаги",
+     "value": "С",
+     "unit": null,
+     "essential": true
+    },
+    {
+     "name": "Количество листов в пачке",
+     "value": "500",
+     "unit": "лист",
+     "essential": true
+    },
+    {
+     "name": "Цвет",
+     "value": "белый",
+     "unit": null,
+     "essential": false
+    },
+    {
+     "name": "Белизна CIE",
+     "value": "146 ± 3",
+     "unit": "%",
+     "essential": false
+    },
+    {
+     "name": "Масса листа бумаги площадью 1 м2",
+     "value": "80 ± 3",
+     "unit": "г/м2",
+     "essential": true
+    },
+    {
+     "name": "Толщина",
+     "value": "104 ± 2",
+     "unit": "мкм",
+     "essential": true
+    },
+    {
+     "name": "Соответствие ГОСТ",
+     "value": "Р 57641-2017",
+     "unit": null,
+     "essential": false
+    }
+   ],
+   "basis": {
+    "unit": "пачка",
+    "per_tz_unit": "1"
+   },
+   "search_terms": [
+    "SvetoCopy",
+    "бумага для офисной техники",
+    "А4 бумага"
+   ]
+  },
+  "offer": {
+   "id": "2c397fa0fea0",
+   "source_id": "web_suppliers",
+   "source_name": "Производители и дистрибьюторы",
+   "level": 1,
+   "url": "https://russcarton.ru/catalog/ofisnaya-bumaga/svetocopy/bumaga_ofisnaya_svetocopy_classic_a4_marka_c_80_g_kv_m_500_listov/",
+   "retrieved_at": "2026-11-14T18:19:00.375318Z",
+   "title": "Бумага офисная SVETOCOPY CLASSIC (A4, марка C, 80 г/кв.м, 500 листов) артикул 30227",
+   "price": "408.00",
+   "currency": "RUB",
+   "amount": "1",
+   "amount_unit": "пачка",
+   "vat": "unknown",
+   "vat_rate": null,
+   "supplier": null,
+   "supplier_inn": null,
+   "delivery": "separate",
+   "delivery_cost": "750.00",
+   "delivery_free_from": "750.00",
+   "delivery_note": "Доставка по Москве в пределах МКАД и Московской области от 750 рублей",
+   "price_date": null,
+   "characteristics": {
+    "Формат листов": "А4",
+    "Марка": "С",
+    "Плотность бумаги, г/м2": "80",
+    "Количество листов в пачке": "500",
+    "Белизна CIE": "146 +/- 3",
+    "Толщина, мкм": "104 +/- 2",
+    "Цвет": "белый",
+    "Товарный знак": "SvetoCopy"
+   }
+  },
+  "llm": {
+   "comparison": [
+    {
+     "name": "Товарный знак",
+     "offered": "SvetoCopy",
+     "ok": true
+    },
+    {
+     "name": "Производитель",
+     "offered": null,
+     "ok": null
+    },
+    {
+     "name": "Формат бумаги",
+     "offered": "А4",
+     "ok": true
+    },
+    {
+     "name": "Марка бумаги",
+     "offered": "С",
+     "ok": true
+    },
+    {
+     "name": "Количество листов в пачке",
+     "offered": "500",
+     "ok": true
+    },
+    {
+     "name": "Цвет",
+     "offered": "белый",
+     "ok": true
+    },
+    {
+     "name": "Белизна CIE",
+     "offered": "146 +/- 3",
+     "ok": true
+    },
+    {
+     "name": "Масса листа бумаги площадью 1 м2",
+     "offered": "80",
+     "ok": true
+    },
+    {
+     "name": "Толщина",
+     "offered": "104 +/- 2",
+     "ok": true
+    },
+    {
+     "name": "Соответствие ГОСТ",
+     "offered": null,
+     "ok": null
+    }
+   ]
+  },
+  "expected": null
+ },
+ {
+  "id": "paper-maker-2-country",
+  "provenance": "живой прогон ТЗ бумаги 14.11.2026 с «Производителем» в требованиях, openai/gpt-4.1-mini; до правила — «Не подтверждены: Производитель»",
+  "note": "«Производитель: Россия» — страна, а не производитель; не противоречие",
+  "position": {
+   "index": 2,
+   "name": "Бумага для офисной техники А3 SvetoCopy",
+   "unit": "пачка",
+   "quantity": "25",
+   "okpd2": null,
+   "characteristics": [
+    {
+     "name": "Товарный знак",
+     "value": "SvetoCopy",
+     "unit": null,
+     "essential": true
+    },
+    {
+     "name": "Производитель",
+     "value": "НПАО Светогорский ЦБК",
+     "unit": null,
+     "essential": true
+    },
+    {
+     "name": "Формат бумаги",
+     "value": "А3",
+     "unit": null,
+     "essential": true
+    },
+    {
+     "name": "Марка бумаги",
+     "value": "С",
+     "unit": null,
+     "essential": true
+    },
+    {
+     "name": "Количество листов в пачке",
+     "value": "500",
+     "unit": "лист",
+     "essential": true
+    },
+    {
+     "name": "Цвет",
+     "value": "белый",
+     "unit": null,
+     "essential": false
+    },
+    {
+     "name": "Белизна CIE",
+     "value": "146 ± 3",
+     "unit": "%",
+     "essential": false
+    },
+    {
+     "name": "Масса листа бумаги площадью 1 м2",
+     "value": "80 ± 3",
+     "unit": "г/м2",
+     "essential": true
+    },
+    {
+     "name": "Толщина",
+     "value": "104 ± 2",
+     "unit": "мкм",
+     "essential": true
+    },
+    {
+     "name": "Соответствие ГОСТ",
+     "value": "Р 57641-2017",
+     "unit": null,
+     "essential": false
+    }
+   ],
+   "basis": {
+    "unit": "пачка",
+    "per_tz_unit": "1"
+   },
+   "search_terms": [
+    "SvetoCopy",
+    "бумага для офисной техники",
+    "А3 бумага"
+   ]
+  },
+  "offer": {
+   "id": "3b6ac17641e1",
+   "source_id": "web_suppliers",
+   "source_name": "Производители и дистрибьюторы",
+   "level": 1,
+   "url": "https://xn--80atckz0df.xn--p1ai/bumaga-ofisnaya-bolshogo-formata-297h420-a3-80-g-m2-500-l-marka-s-svetocopy-classic-146-cie",
+   "retrieved_at": "2026-11-14T18:19:00.395448Z",
+   "title": "Бумага офисная БОЛЬШОГО ФОРМАТА (297х420), А3, 80 г/м2, 500 л., марка С, SVETOCOPY CLASSIC, 146% (CIE)",
+   "price": "1061.00",
+   "currency": "RUB",
+   "amount": "1",
+   "amount_unit": "пачка",
+   "vat": "unknown",
+   "vat_rate": null,
+   "supplier": null,
+   "supplier_inn": null,
+   "delivery": "separate",
+   "delivery_cost": "500.00",
+   "delivery_free_from": null,
+   "delivery_note": "Доставка по Екатеринбургу 500₽",
+   "price_date": null,
+   "characteristics": {
+    "Товарный знак": "SvetoCopy",
+    "Производитель": "Россия",
+    "Формат бумаги": "А3",
+    "Марка бумаги": "С",
+    "Количество листов в пачке": "500",
+    "Белизна CIE": "146 ± 3 %",
+    "Масса листа бумаги площадью 1 м2": "80 ± 3 г/м2",
+    "Соответствие ГОСТ": "Р 57641-2017"
+   }
+  },
+  "llm": {
+   "comparison": [
+    {
+     "name": "Товарный знак",
+     "offered": "SvetoCopy",
+     "ok": true
+    },
+    {
+     "name": "Производитель",
+     "offered": "Россия",
+     "ok": false
+    },
+    {
+     "name": "Формат бумаги",
+     "offered": "А3",
+     "ok": true
+    },
+    {
+     "name": "Марка бумаги",
+     "offered": "С",
+     "ok": true
+    },
+    {
+     "name": "Количество листов в пачке",
+     "offered": "500",
+     "ok": true
+    },
+    {
+     "name": "Цвет",
+     "offered": null,
+     "ok": null
+    },
+    {
+     "name": "Белизна CIE",
+     "offered": "146 ± 3 %",
+     "ok": true
+    },
+    {
+     "name": "Масса листа бумаги площадью 1 м2",
+     "offered": "80 ± 3 г/м2",
+     "ok": true
+    },
+    {
+     "name": "Толщина",
+     "offered": null,
+     "ok": null
+    },
+    {
+     "name": "Соответствие ГОСТ",
+     "offered": "Р 57641-2017",
+     "ok": true
+    }
+   ]
+  },
+  "expected": null
+ }
+]

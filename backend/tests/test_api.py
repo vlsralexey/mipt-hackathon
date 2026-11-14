@@ -420,3 +420,35 @@ async def test_auth_error_in_search_is_not_an_empty_report(tmp_path, monkeypatch
         assert [m for m in service.repo.list_messages(pid) if m.kind == "error"][
             -1
         ].data.code == "llm_auth"
+
+
+async def test_source_blocked_message_carries_backend_deadline(tmp_path, monkeypatch):
+    from datetime import UTC, datetime, timedelta
+    from types import SimpleNamespace
+
+    async with api(tmp_path, monkeypatch) as (client, service, _, _):
+        pid = await ready(client, service)
+        deadline = datetime.now(UTC) + timedelta(seconds=300)
+        tab = SimpleNamespace(
+            procurement_id=pid,
+            id="t1",
+            source_id="shop",
+            name="Магазин",
+            page=SimpleNamespace(url="https://shop.example/item"),
+            deadline=deadline,
+            wait_seconds=300,
+            blocked=True,
+        )
+        service.browser.tabs_for = lambda _pid: [tab]
+        await service.source_blocked(tab, "captcha", "waiting")
+        body = (await client.get(f"/api/procurements/{pid}")).json()
+        card = next(m for m in body["messages"] if m["kind"] == "source_blocked")
+        assert card["data"]["wait_seconds"] == 300
+        assert datetime.fromisoformat(card["data"]["deadline"]) == deadline
+
+        tab.deadline, tab.blocked = None, False
+        await service.source_blocked(tab, "captcha", "resolved")
+        body = (await client.get(f"/api/procurements/{pid}")).json()
+        card = next(m for m in body["messages"] if m["kind"] == "source_blocked")
+        assert card["data"]["status"] == "resolved"
+        assert card["data"]["deadline"] is None and card["data"]["wait_seconds"] is None

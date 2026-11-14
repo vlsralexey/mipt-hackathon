@@ -8,6 +8,7 @@ from app.llm.client import LLM, LLMAuthError, LLMError
 from app.llm.prompts import EXTRACT_SYSTEM
 from app.llm.structured import complete_model
 from app.models import DomainModel, Offer, Position
+from app.pipeline.grounding import PageEvidence, foreign_currency
 from app.pipeline.match import offer_id
 from app.sources.base import CandidatePage, SourceAdapter
 from app.units import canonical_unit, parse_price
@@ -87,10 +88,12 @@ async def extract_offers(
     except LLMError as exc:
         return [], [ExtractFailure(page=page, reason=str(exc))]
     offers, failures = [], []
+    evidence = PageEvidence(page.title, page.text) if raw.offers else None
     for row in raw.offers:
         price, amount = _number(row.price), _number(row.amount)
         title = row.title
-        characteristics = {c.name: c.value for c in row.characteristics}
+        # Требование ТЗ, которого нет на странице, не становится данными предложения.
+        characteristics = {c.name: c.value for c in row.characteristics if evidence.has(c.value)}
         unit = row.amount_unit
         vat, vat_rate = row.vat, _rate(row.vat_rate)
         if page.eis_lines:
@@ -102,6 +105,7 @@ async def extract_offers(
                 continue
             price, vat, vat_rate = line.price, line.vat, line.vat_rate
             title = line.title.split("Страна происхождения")[0].strip()
+            # Характеристики КТРУ берёт код из карточки ЕИС, их не перепроверяем.
             if line.characteristics:
                 characteristics = line.characteristics
             # Для массы внутри штуки фасовку по описанию по-прежнему извлекает LLM.
@@ -112,6 +116,18 @@ async def extract_offers(
                 canonical_unit(unit or line.amount_unit),
             }:
                 amount, unit = Decimal(1), line.amount_unit
+        elif row.price and foreign_currency(row.price, page.text):
+            failures.append(
+                ExtractFailure(page=page, reason=f"{row.title}: цена указана не в рублях")
+            )
+            continue
+        elif not evidence.has_codes(title):
+            failures.append(
+                ExtractFailure(
+                    page=page, reason=f"{row.title}: модель из названия не найдена на странице"
+                )
+            )
+            continue
         if price is None or price <= 0:
             failures.append(
                 ExtractFailure(page=page, reason=f"{row.title}: цена не указана или не распознана")

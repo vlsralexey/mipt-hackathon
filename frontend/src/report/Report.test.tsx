@@ -4,11 +4,19 @@ import { beforeEach, describe, expect, it, vi } from 'vitest'
 import { api } from '../api/client'
 import type { AppliedEdit, Edit, Report } from '../api/types'
 import { db } from '../mocks/db'
+import { http, HttpResponse } from 'msw'
 import { mockTiming } from '../mocks/handlers'
+import { server } from '../mocks/server'
 import { renderApp } from '../test/render'
 
 const exampleId = () => [...db.procurements.keys()][0]
 const panel = async () => within(await screen.findByRole('article', { name: 'Отчёт' }))
+
+/** Открывает меню версии в шапке панели и выбирает версию. */
+async function chooseVersion(user: ReturnType<typeof userEvent.setup>, version: number) {
+  await user.click(await screen.findByRole('button', { name: /^Версия отчёта:/ }))
+  await user.click(screen.getByRole('button', { name: new RegExp(`^Версия ${version}(\\D|$)`) }))
+}
 
 const edit = (over: Partial<Edit>): Edit => ({
   id: 'ed_01',
@@ -51,30 +59,55 @@ describe('панель отчёта: версия из примера контр
     renderApp(`/p/${exampleId()}`)
     const report = await panel()
     expect(report.getByRole('heading', { name: /Поставка бумаги для офисной техники/ })).toBeInTheDocument()
-    expect(report.getByText(/версия 1, 13 ноября 2026 г\.$/)).toBeInTheDocument()
+    // мета одной строкой, без причины версии: она в карточке версии в чате
+    expect(report.getByText('Версия 1 · 13 ноября 2026 · метод сопоставимых рыночных цен')).toBeInTheDocument()
     expect(report.queryByText(/Первый прогон/)).not.toBeInTheDocument()
-    // позиция 2 не обоснована: итог только по обоснованным, цена справочная
-    expect(report.getByText('НМЦК по обоснованным позициям')).toBeInTheDocument()
-    // итог крупно и та же сумма у обоснованной позиции 1
-    expect(report.getAllByText(/761\s250,00/)).toHaveLength(2)
-    expect(report.getByText(/Позиция 2 пока не обоснована: её цена 274,75\s₽ приведена справочно и в итог не входит\./)).toBeInTheDocument()
-    expect(report.getByRole('note')).toHaveTextContent(/найдено 2 цены, обоснование недостаточно/)
+    // позиция 2 не обоснована: итог только по обоснованным, плашка говорит, без какой позиции
+    expect(report.getByText('НМЦК закупки')).toBeInTheDocument()
+    expect(report.getByText('без позиции 2: мало цен')).toBeInTheDocument()
+    // итог крупно; та же сумма у позиции 1 в таблице, в заголовке позиции и в шаге расчёта
+    expect(report.getAllByText(/761\s250,00/).length).toBeGreaterThanOrEqual(2)
+    // справочная цена позиции 2 видна в таблице, но в итог не входит
+    const rows = report.getAllByRole('row')
+    expect(rows[2]).toHaveTextContent(/274,75\s₽справочно/)
+    expect(rows[2]).toHaveTextContent('не входит')
+    expect(within(rows[2]).getByRole('img', { name: 'не обоснована' })).toBeInTheDocument()
+    expect(within(rows[1]).getByRole('img', { name: 'обоснована' })).toBeInTheDocument()
+    // предупреждения сгруппированы
+    const note = report.getByRole('note')
+    expect(note).toHaveTextContent('Проверьте перед согласованием')
+    expect(note).toHaveTextContent('Цена может быть занижена: НДС не подтверждён (поз. 1), доставка не подтверждена (поз. 1 и 2).')
+    expect(note).toHaveTextContent('Позиция 2: найдено 2 цены, для обоснования нужно не меньше 3.')
   })
 
-  it('расчёт по позициям: цена × количество, статус и линейка цен', async () => {
+  it('расчёт позиции: шаги с числами, линейка цен, переключатель позиций', async () => {
+    const user = userEvent.setup()
     renderApp(`/p/${exampleId()}`)
     const report = await panel()
-    // название встречается и в расчёте, и в «Предмете закупки»
-    expect(report.getAllByText(/1\. Бумага А4 SvetoCopy/).length).toBeGreaterThanOrEqual(1)
-    expect(report.getByText(/304,50\s₽\s×\s2\s500\s·\sпачка/)).toBeInTheDocument()
-    expect(report.getByText('обоснована')).toBeInTheDocument()
-    expect(report.getByText('справочно')).toBeInTheDocument()
-    expect(report.getByText('3 цены · исключено 2 · разброс 4,68 %')).toBeInTheDocument()
+    const steps = within(document.querySelector<HTMLElement>('dl[aria-label="Расчёт"]')!)
+    expect(steps.getByText('Средняя цена')).toBeInTheDocument()
+    expect(steps.getByText(/\(290,00 \+ 305,00 \+ 318,50\) \/ 3 =/)).toBeInTheDocument()
+    expect(steps.getByText(/14,26 \/ 304,50 =/)).toBeInTheDocument()
+    expect(steps.getByText(/не больше 33\s%: цены однородны/)).toBeInTheDocument()
+    expect(steps.getByText(/520,00\s₽ вне коридора, отклонение от медианы больше 50\s%/)).toBeInTheDocument()
+    expect(steps.getByText(/304,50\s₽\s×\s2\s500\sпачек =/)).toBeInTheDocument()
     // длинное правило выбросов не загромождает позицию: оно в разделе «Методика»
     expect(report.getAllByText(/Меньше 5 цен: исключаются цены/)).toHaveLength(1)
-    const rulers = report.getAllByRole('img')
-    expect(rulers).toHaveLength(2)
-    expect(rulers[0]).toHaveAttribute('aria-label', expect.stringMatching(/Среднее 304,50\s₽.*Допустимый коридор/))
+    const ruler = report.getByRole('img', { name: /^Цены:/ })
+    expect(ruler).toHaveAttribute('aria-label', expect.stringMatching(/Среднее 304,50\s₽.*Допустимый коридор.*Выбросы: 520,00/))
+    expect(report.getByText('в расчёте: 3')).toBeInTheDocument()
+    expect(report.getByText('выбросы: 1')).toBeInTheDocument()
+
+    // переключатель управляет всей детализацией; необоснованная позиция отмечена точкой
+    const seg2 = report.getByRole('button', { name: /^2\. Бумага писчая офсетная А4, 65 г\/м², не обоснована$/ })
+    expect(within(seg2).getByRole('img', { name: 'не обоснована' })).toBeInTheDocument()
+    // на вкладке номер и то, чем позиция отличается; полное название в подсказке
+    expect(seg2).toHaveTextContent(/^2Писчая 65 г\/м²$/)
+    expect(seg2).toHaveAttribute('title', 'Бумага писчая офсетная А4, 65 г/м²')
+    await user.click(seg2)
+    expect(report.getByRole('heading', { name: 'Бумага писчая офсетная А4, 65 г/м²' })).toBeInTheDocument()
+    expect(report.getByText(/не определена: 2 цены, нужно не меньше 3, цена 274,75\s₽ справочно/)).toBeInTheDocument()
+    expect(report.getByText('в расчёте: 2')).toBeInTheDocument()
     // допущения не загромождают позицию: ответ по умолчанию виден в «Уточнениях»
     expect(report.queryByText(/Принято по умолчанию/)).not.toBeInTheDocument()
     expect(report.queryByText(/Уровень 2 подключён/)).not.toBeInTheDocument()
@@ -85,32 +118,44 @@ describe('панель отчёта: версия из примера контр
     const user = userEvent.setup()
     renderApp(`/p/${exampleId()}`)
     const report = await panel()
-    const link = report.getByRole('link', { name: /ЕИС, контракт № 2770…0148/ })
+    const link = report.getByRole('link', { name: /^ЕИС · контракт №\s2770…0148$/ })
     expect(link).toHaveAttribute('href', expect.stringContaining('zakupki.gov.ru'))
     expect(link).toHaveAttribute('target', '_blank')
     expect(link).toHaveAttribute('rel', 'noopener noreferrer')
-    expect(report.getByText('12.08.2026')).toBeInTheDocument()
-    // «Совпадают: ...» под источником не выводится: то же видно в «Как получена цена»
+    // под источником поставщик и дата словами
+    expect(report.getByText('12 августа 2026').parentElement).toHaveTextContent(/^ООО «Офис-Снаб» · 12 августа 2026$/)
+    // «Совпадают: ...» под источником не выводится: то же видно в раскрытой строке
     expect(report.queryByText(/Совпадают:/)).not.toBeInTheDocument()
 
-    // как получена цена: фасовка 5 пачек приводится к пачке
-    const row = report.getAllByRole('link', { name: /Регион|Северная/ })[0].closest('tr')!
+    // раскрытие строки: как получена цена и совпадение с ТЗ
+    const toggle = report.getByRole('button', { name: 'Как получена цена, строка 1.3' })
+    expect(toggle).toHaveAttribute('aria-expanded', 'false')
+    await user.click(toggle)
+    expect(toggle).toHaveAttribute('aria-expanded', 'true')
+    const row = toggle.closest('li')!
     expect(within(row).getByText('Как получена цена')).toBeInTheDocument()
+    expect(within(row).getByText('За единицу ТЗ')).toBeInTheDocument()
+    expect(within(row).getByText(/= 290,00\s₽ за единицу/)).toBeInTheDocument()
+    expect(within(row).getByRole('list', { name: 'Сравнение с ТЗ' })).toBeInTheDocument()
+    // клик по строке (не по ссылке) тоже сворачивает
+    await user.click(within(row).getByText('1.3'))
+    expect(toggle).toHaveAttribute('aria-expanded', 'false')
 
-    await user.click(report.getByRole('button', { name: 'Позиция 2' }))
-    expect(report.getByRole('button', { name: 'Позиция 2' })).toHaveAttribute('aria-pressed', 'true')
+    await user.click(report.getByRole('button', { name: /^2\. Бумага писчая офсетная А4, 65 г\/м², не обоснована$/ }))
+    expect(report.getByRole('button', { name: /^2\. Бумага писчая офсетная А4, 65 г\/м², не обоснована$/ })).toHaveAttribute('aria-pressed', 'true')
     expect(report.getByRole('link', { name: /Северная бумага/ })).toBeInTheDocument()
-    expect(report.queryByRole('link', { name: /ЕИС, контракт № 2770…0148/ })).not.toBeInTheDocument()
+    expect(report.queryByRole('link', { name: /контракт №\s2770…0148/ })).not.toBeInTheDocument()
+    // строка магазина: домен и название
+    expect(report.getByRole('link', { name: /^kanc-market\.example\s· Канцмаркет$/ })).toHaveAttribute('title', 'Канцмаркет')
   })
 
   it('исключённые предложения: причина показана, раздел относится к выбранной позиции', async () => {
     renderApp(`/p/${exampleId()}`)
     const report = await panel()
-    const summary = report.getByText(/Исключённые предложения, позиция 1/)
-    expect(summary).toBeInTheDocument()
-    const excluded = (await screen.findByRole('article', { name: 'Отчёт' })).querySelectorAll('tr[class*="excluded"]')
-    expect(excluded.length).toBeGreaterThan(0)
-    expect(report.getAllByText(/Выброс|Не совпадает|Дубль|Исключено/).length).toBeGreaterThan(0)
+    const excluded = within(report.getByRole('list', { name: 'Исключены' }))
+    expect(excluded.getByText(/^Выброс: выше коридора 467,63\s₽$/)).toBeInTheDocument()
+    expect(excluded.getByText('Не совпадает с ТЗ: Белизна CIE')).toBeInTheDocument()
+    expect(excluded.getAllByText(/520,00\s₽/)[0]).toHaveClass(/struck/)
   })
 
   it('«Где искали», «Уточнения», «Предмет закупки» и методика', async () => {
@@ -128,7 +173,7 @@ describe('панель отчёта: версия из примера контр
   it('ссылка на DOCX ведёт на выгрузку открытой версии', async () => {
     const id = exampleId()
     renderApp(`/p/${id}`)
-    const link = await screen.findByRole('link', { name: 'DOCX' })
+    const link = await screen.findByRole('link', { name: 'Скачать DOCX' })
     expect(link).toHaveAttribute('href', `/api/procurements/${id}/reports/1/export.docx`)
   })
 })
@@ -170,16 +215,16 @@ describe('подсказки о разбросе', () => {
 })
 
 describe('итог в разных состояниях', () => {
-  it('все позиции обоснованы: просто «НМЦК» без пояснения', async () => {
+  it('все позиции обоснованы: «НМЦК закупки» без плашки', async () => {
     const id = exampleId()
     const r = db.reports.get(id)![0]
     r.total = '800000.00'
     r.positions[1].status = 'ok'
     renderApp(`/p/${id}`)
     const report = await panel()
-    expect(report.getByText('НМЦК')).toBeInTheDocument()
-    expect(report.getByText(/800\s000,00/)).toBeInTheDocument()
-    expect(report.queryByText(/пока не обоснован/)).not.toBeInTheDocument()
+    expect(report.getByText('НМЦК закупки')).toBeInTheDocument()
+    expect(report.getAllByText(/800\s000,00/).length).toBeGreaterThanOrEqual(1)
+    expect(report.queryByText(/^без позици/)).not.toBeInTheDocument()
   })
 
   it('ничего не обосновано: итога нет, и это сказано', async () => {
@@ -191,7 +236,7 @@ describe('итог в разных состояниях', () => {
     renderApp(`/p/${id}`)
     const report = await panel()
     expect(report.getByText('НМЦК не определена')).toBeInTheDocument()
-    expect(report.getByText(/Позиции 1, 2 пока не обоснованы/)).toBeInTheDocument()
+    expect(report.getByText('ни одна позиция не обоснована')).toBeInTheDocument()
   })
 })
 
@@ -201,25 +246,28 @@ describe('версии отчёта', () => {
   })
 
   it('по умолчанию открыта последняя; список версий, от новой к старой', async () => {
+    const user = userEvent.setup()
     renderApp(`/p/${exampleId()}`)
-    const select = await screen.findByRole('combobox', { name: 'Версия отчёта' })
-    await waitFor(() => expect(select).toHaveValue('2'))
-    expect(within(select).getAllByRole('option').map((o) => o.textContent)).toEqual([
-      'Версия 2',
-      'Версия 1',
-    ])
+    const toggle = await screen.findByRole('button', { name: 'Версия отчёта: 2' })
     expect(await screen.findByRole('heading', { name: 'Заголовок второй версии' })).toBeInTheDocument()
+    await user.click(toggle)
+    expect(toggle).toHaveAttribute('aria-expanded', 'true')
+    const items = within(screen.getByRole('list', { name: 'Версии отчёта' })).getAllByRole('button')
+    expect(items.map((b) => b.getAttribute('aria-label')?.split(',')[0])).toEqual(['Версия 2', 'Версия 1'])
+    expect(items[0]).toHaveAttribute('aria-current', 'true')
+    // Escape закрывает меню
+    await user.keyboard('{Escape}')
+    expect(toggle).toHaveAttribute('aria-expanded', 'false')
   })
 
   it('выбор старой версии закрепляет её с плашкой; «Открыть последнюю» возвращает', async () => {
     const user = userEvent.setup()
     renderApp(`/p/${exampleId()}`)
-    const select = await screen.findByRole('combobox', { name: 'Версия отчёта' })
     await screen.findByRole('heading', { name: 'Заголовок второй версии' })
-    await user.selectOptions(select, '1')
+    await chooseVersion(user, 1)
 
     expect(await screen.findByText('Вы смотрите версию 1, последняя: 2.')).toBeInTheDocument()
-    expect(screen.getByRole('link', { name: 'DOCX' })).toHaveAttribute('href', expect.stringMatching(/reports\/1\/export\.docx$/))
+    expect(screen.getByRole('link', { name: 'Скачать DOCX' })).toHaveAttribute('href', expect.stringMatching(/reports\/1\/export\.docx$/))
     await user.click(screen.getByRole('button', { name: 'Открыть последнюю' }))
     expect(await screen.findByRole('heading', { name: 'Заголовок второй версии' })).toBeInTheDocument()
     expect(screen.queryByText(/Вы смотрите версию/)).not.toBeInTheDocument()
@@ -229,9 +277,8 @@ describe('версии отчёта', () => {
     const user = userEvent.setup()
     const send = vi.spyOn(api, 'sendMessage')
     renderApp(`/p/${exampleId()}`)
-    const select = await screen.findByRole('combobox', { name: 'Версия отчёта' })
     await screen.findByRole('heading', { name: 'Заголовок второй версии' })
-    await user.selectOptions(select, '1')
+    await chooseVersion(user, 1)
     await screen.findByText(/Вы смотрите версию 1/)
 
     await user.type(screen.getByRole('textbox', { name: 'Сообщение агенту' }), 'про эту таблицу{Enter}')
@@ -259,16 +306,15 @@ describe('версии отчёта', () => {
     db.publish(id, { event: 'report', data: { version: 3, cause: v3.cause } })
 
     expect(await screen.findByRole('heading', { name: 'Заголовок третьей версии' })).toBeInTheDocument()
-    await waitFor(() => expect(screen.getByRole('combobox', { name: 'Версия отчёта' })).toHaveValue('3'))
+    expect(await screen.findByRole('button', { name: 'Версия отчёта: 3' })).toBeInTheDocument()
   })
 
   it('закреплённая версия не подменяется новой по событию SSE', async () => {
     const user = userEvent.setup()
     const id = exampleId()
     renderApp(`/p/${id}`)
-    const select = await screen.findByRole('combobox', { name: 'Версия отчёта' })
     await screen.findByRole('heading', { name: 'Заголовок второй версии' })
-    await user.selectOptions(select, '1')
+    await chooseVersion(user, 1)
     await screen.findByText(/Вы смотрите версию 1/)
 
     const v3: Report = { ...structuredClone(db.reports.get(id)![1]), version: 3, cause: 'Ещё правка' }
@@ -297,7 +343,7 @@ describe('правки пользователя в отчёте', () => {
     addVersion2({ edits: applied() })
     renderApp(`/p/${exampleId()}`)
     const report = await panel()
-    expect(report.getByText(/Правки пользователя/)).toBeInTheDocument()
+    expect(report.getByText('Правки')).toBeInTheDocument()
     expect(report.getByText('1 из 2')).toBeInTheDocument()
     expect(report.getByText('Не применена: предложение не найдено при поиске от 14.11.2026')).toBeInTheDocument()
     expect(report.getAllByRole('button', { name: 'Отменить' })).toHaveLength(1)
@@ -310,9 +356,8 @@ describe('правки пользователя в отчёте', () => {
     db.reports.get(exampleId())![0].edits = applied()
     addVersion2()
     renderApp(`/p/${exampleId()}`)
-    const select = await screen.findByRole('combobox', { name: 'Версия отчёта' })
     await screen.findByRole('heading', { name: 'Заголовок второй версии' })
-    await user.selectOptions(select, '1')
+    await chooseVersion(user, 1)
     const report = await panel()
     await waitFor(() => expect(report.getByText('1 из 2')).toBeInTheDocument())
     expect(report.queryByRole('button', { name: 'Отменить' })).not.toBeInTheDocument()
@@ -329,8 +374,8 @@ describe('пустые состояния', () => {
     renderApp(`/p/${id}`)
     expect(await screen.findByRole('heading', { name: 'Отчёта пока нет' })).toBeInTheDocument()
     expect(screen.getByText('Отчёт появится после первого прогона.')).toBeInTheDocument()
-    expect(screen.queryByRole('combobox', { name: 'Версия отчёта' })).not.toBeInTheDocument()
-    expect(screen.queryByRole('link', { name: 'DOCX' })).not.toBeInTheDocument()
+    expect(screen.queryByRole('button', { name: /^Версия отчёта/ })).not.toBeInTheDocument()
+    expect(screen.queryByRole('link', { name: 'Скачать DOCX' })).not.toBeInTheDocument()
     expect(get).not.toHaveBeenCalled()
   })
 
@@ -359,6 +404,80 @@ describe('пустые состояния', () => {
     const user = userEvent.setup()
     renderApp(`/p/${exampleId()}`)
     await user.click(await screen.findByRole('tab', { name: 'Браузер' }))
-    expect(screen.getByText('Вкладок пока нет')).toBeVisible()
+    expect(screen.getByText('Агент пока не открывал страниц')).toBeVisible()
+  })
+})
+
+describe('редизайн панели: таблица позиций, предупреждения, сравнение версий', () => {
+  it('клик по названию в таблице позиций переключает детализацию', async () => {
+    const user = userEvent.setup()
+    renderApp(`/p/${exampleId()}`)
+    const report = await panel()
+    const rows = report.getAllByRole('row')
+    const rowName = within(rows[2]).getByRole('button', { name: 'Бумага писчая офсетная А4, 65 г/м²' })
+    // в строке коротко, полностью в подсказке
+    expect(rowName).toHaveTextContent(/^Бумага писчая А4 65 г\/м²$/)
+    expect(rowName).toHaveAttribute('title', 'Бумага писчая офсетная А4, 65 г/м²')
+    await user.click(rowName)
+    expect(report.getByRole('button', { name: /^2\. Бумага писчая офсетная А4, 65 г\/м², не обоснована$/ })).toHaveAttribute('aria-pressed', 'true')
+    expect(report.getByRole('region', { name: 'Позиция 2' })).toBeInTheDocument()
+  })
+
+  it('недоступные страницы свёрнуты в одну строку со списком «Какие»', async () => {
+    const user = userEvent.setup()
+    const id = exampleId()
+    const r = db.reports.get(id)![0]
+    r.positions[0].skipped_pages = [
+      { url: 'https://zakupki.gov.ru/a?reestrNumber=111', source_id: 'eis', reason: 'Источник недоступен : таймаут' },
+      { url: 'https://zakupki.gov.ru/b?reestrNumber=222', source_id: 'eis', reason: 'Источник недоступен : таймаут' },
+    ]
+    r.warnings.push('Источник «ЕИС Закупки», позиция 1: Источник недоступен : таймаут')
+    renderApp(`/p/${id}`)
+    const note = (await panel()).getByRole('note')
+    expect(note).toHaveTextContent('2 страницы не открылись: ЕИС.')
+    const toggle = within(note).getByRole('button', { name: 'Какие' })
+    expect(toggle).toHaveAttribute('aria-expanded', 'false')
+    await user.click(toggle)
+    expect(within(note).getByRole('link', { name: 'zakupki.gov.ru/…111' })).toBeInTheDocument()
+    // причина одна на обе страницы: написана один раз, под ней ссылки
+    expect(within(note).getAllByText('Источник недоступен: таймаут')).toHaveLength(1)
+    expect(within(note).getByRole('link', { name: 'zakupki.gov.ru/…222' })).toBeInTheDocument()
+    expect(note.textContent).not.toMatch(/\s:\s/)
+  })
+
+  it('«Сравнить версии» в меню версии открывает сравнение над отчётом', async () => {
+    const user = userEvent.setup()
+    addVersion2()
+    server.use(
+      http.get('/api/procurements/:id/reports/:a/diff/:b', ({ params }) =>
+        HttpResponse.json({
+          from_version: Number(params.a),
+          to_version: Number(params.b),
+          total: { before: '761250.00', after: '700000.00' },
+          total_justified: { before: '761250.00', after: '700000.00' },
+          positions: [],
+          offers_moved: [],
+          edits_added: [],
+          edits_cancelled: [],
+          rules_changed: [],
+        }),
+      ),
+    )
+    renderApp(`/p/${exampleId()}`)
+    await screen.findByRole('heading', { name: 'Заголовок второй версии' })
+    expect(screen.queryByRole('heading', { name: 'Сравнение версий' })).not.toBeInTheDocument()
+    await user.click(screen.getByRole('button', { name: 'Версия отчёта: 2' }))
+    await user.click(screen.getByRole('button', { name: 'Сравнить версии' }))
+    const region = screen.getByRole('region', { name: 'Сравнение версий' })
+    expect(await within(region).findByText(/НМЦК: 761\s250,00\s₽ → 700\s000,00\s₽/)).toBeInTheDocument()
+    await user.click(within(region).getByRole('button', { name: 'Закрыть сравнение' }))
+    expect(screen.queryByRole('region', { name: 'Сравнение версий' })).not.toBeInTheDocument()
+  })
+
+  it('с одной версией пункта сравнения нет', async () => {
+    const user = userEvent.setup()
+    renderApp(`/p/${exampleId()}`)
+    await user.click(await screen.findByRole('button', { name: 'Версия отчёта: 1' }))
+    expect(screen.queryByRole('button', { name: 'Сравнить версии' })).not.toBeInTheDocument()
   })
 })

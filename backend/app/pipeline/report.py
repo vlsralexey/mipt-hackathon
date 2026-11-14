@@ -28,7 +28,7 @@ from app.p1.configuration_helpers import (
 )
 from app.p1.filters import matches
 from app.pipeline.calc import calculate, find_outliers, money
-from app.pipeline.match import decide, dedupe
+from app.pipeline.match import decide, dedupe, verify
 from app.pipeline.normalize import (
     adjusted_price,
     diagnose_spread,
@@ -174,7 +174,8 @@ def build_position(
                 offer = Offer.model_validate(offer.model_dump() | {field: edit.payload.value})
                 if "corrected" not in marks:
                     marks.append("corrected")
-        comparison = _comparison(position, f.comparison)
+        # Сохранённые сравнения перепроверяются кодом и после правок требований.
+        comparison = verify(position, offer, _comparison(position, f.comparison))
         exclusion, reason = decide(comparison)
         entry = OfferEntry(
             offer=offer,

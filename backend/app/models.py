@@ -4,6 +4,7 @@
 округляется только при JSON-сериализации; исходная цена ЕИС внутри не теряет дробь.
 """
 
+import re
 from datetime import date
 from decimal import ROUND_HALF_UP, Decimal
 from typing import Annotated, Any, Literal
@@ -69,6 +70,41 @@ class Position(DomainModel):
     search_terms: list[str] = Field(default_factory=list)
 
 
+ANALOGS_YES = "Да, учитывать аналоги"
+
+
+def asks_about_analogs(text: str) -> bool:
+    return any(word in text.casefold() for word in ("аналог", "эквивалент"))
+
+
+# Варианты, которые по смыслу оставляют только марку из ТЗ: «Нет, только X», «Только X»,
+# «Без аналогов», «Не допускаются». Модель не всегда начинает такой вариант со слова «Нет».
+_BRAND_ONLY = re.compile(
+    r"(нет|только)\b|без\s+(аналог|эквивалент|замен)|не\s+(допуска|учитыва|рассматрива)"
+)
+
+
+def analog_choice(answer: str) -> Literal["yes", "no"] | None:
+    """«Да…» допускает аналоги, «Нет…»/«Только…» оставляет марку ТЗ; иначе решает модель."""
+    normalized = answer.strip().casefold()
+    if re.match(r"да\b", normalized):
+        return "yes"
+    if _BRAND_ONLY.match(normalized):
+        return "no"
+    return None
+
+
+def analog_options(options: list[str], brand: str | None = None) -> list[str]:
+    """У вопроса об аналогах всегда есть оба стандартных варианта, которые применяются без LLM."""
+    choices = {analog_choice(option) for option in options}
+    result = list(options)
+    if "no" not in choices:
+        result.insert(0, f"Нет, только {brand}" if brand else "Нет, только указанная марка")
+    if "yes" not in choices:
+        result.append(ANALOGS_YES)
+    return result
+
+
 class Question(DomainModel):
     id: str
     position_index: int = Field(ge=1)
@@ -80,6 +116,10 @@ class Question(DomainModel):
 
     @model_validator(mode="after")
     def default_is_option(self):
+        # Модель могла вернуть вопрос об аналогах с одним вариантом; такие вопросы уже
+        # сохранены в закупках, поэтому дополняем варианты и при чтении.
+        if asks_about_analogs(self.text):
+            self.options = analog_options(self.options)
         if self.default_answer not in self.options:
             raise ValueError("Ответ по умолчанию должен входить в варианты ответа")
         return self

@@ -60,7 +60,7 @@ export function ChatMessage({ message }: { message: Message }) {
     case 'proposal':
       return <ProposalCard text={message.text} data={message.data} />
     case 'source_blocked':
-      return <SourceBlockedCard text={message.text} data={message.data} />
+      return <SourceBlockedCard text={message.text} data={message.data} createdAt={message.created_at} />
     default:
       // сообщение неизвестного вида: показываем текст, если он есть, но не падаем
       return <FallbackMessage message={message} />

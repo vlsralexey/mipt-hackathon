@@ -1,20 +1,26 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
-import { useEffect, useState, type FormEvent } from 'react'
-import { GlobalSettingsPanel } from '../settings/GlobalSettingsPanel'
+import { useEffect, useState, type FormEvent, type KeyboardEvent } from 'react'
 import { api } from '../api/client'
 import type { Settings } from '../api/types'
-import { Icon } from '../components/Icon'
+import { Icon, type IconName } from '../components/Icon'
+import { RulesSection, SourcesSection } from '../settings/ConfigSections'
+import { GlobalSettingsPanel } from '../settings/GlobalSettingsPanel'
+import { ModelPicker } from '../settings/ModelPicker'
+import { Problem, Row, RowsSkeleton } from '../settings/SettingsParts'
+import panels from '../settings/SettingsPanels.module.css'
 import { useGoBack } from '../useGoBack'
 import styles from './SettingsPage.module.css'
 
-/** Ключ и модель сохраняются на сервере; сохранённый ключ никогда не загружается в форму. */
+/**
+ * Настройки: слева ключ, модель, правила и источники, справа агент, который меняет правила.
+ * Сохранённый ключ никогда не загружается в форму.
+ */
 export function SettingsPage() {
   const goBack = useGoBack()
-  const [showConfig, setShowConfig] = useState(false)
 
   // Esc закрывает страницу, если его не обработали раньше (например, список или поле)
   useEffect(() => {
-    const onKeyDown = (e: KeyboardEvent) => {
+    const onKeyDown = (e: globalThis.KeyboardEvent) => {
       if (e.key === 'Escape' && !e.defaultPrevented) goBack()
     }
     window.addEventListener('keydown', onKeyDown)
@@ -27,119 +33,190 @@ export function SettingsPage() {
         <Icon name="x" />
       </button>
       <div className={styles.scroll}>
-        <div className={styles.column}>
+        <div className={styles.layout}>
           <h1>Настройки</h1>
-          <SettingsContent />
-          <details className={styles.extended} onToggle={(e) => setShowConfig(e.currentTarget.open)}><summary>Источники, правила и агент настроек</summary>{showConfig && <GlobalSettingsPanel />}</details>
+          <div className={styles.columns}>
+            <div className={styles.main}>
+              <ModelSection />
+              <RulesSection />
+              <SourcesSection />
+            </div>
+            <GlobalSettingsPanel className={styles.agent} />
+          </div>
         </div>
       </div>
     </div>
   )
 }
 
-function SettingsContent() {
+function ModelSection() {
   const settings = useQuery({ queryKey: ['settings'], queryFn: api.getSettings })
-  if (settings.isPending) return <p role="status">Загрузка настроек…</p>
-  if (settings.isError) return (
-    <div role="alert">
-      <p>{settings.error.message}</p>
-      <button className={styles.secondary} type="button" onClick={() => void settings.refetch()}>Повторить</button>
-    </div>
+  return (
+    <section className={panels.section} aria-labelledby="model-heading">
+      <h2 id="model-heading">Модель</h2>
+      {settings.isPending ? <RowsSkeleton rows={2} label="Загрузка настроек" />
+        : settings.isError ? <Problem message={settings.error.message} retrying={settings.isFetching} onRetry={() => void settings.refetch()} />
+          : <div className={panels.rows}><KeyRow settings={settings.data} /><ModelRow settings={settings.data} /></div>}
+    </section>
   )
-  return <SettingsForm settings={settings.data} />
 }
 
-function SettingsForm({ settings }: { settings: Settings }) {
-  const queryClient = useQueryClient()
+function KeyRow({ settings }: { settings: Settings }) {
+  const client = useQueryClient()
+  const [editing, setEditing] = useState(false)
   const [key, setKey] = useState('')
-  const [model, setModel] = useState(settings.model)
-  const [search, setSearch] = useState('')
-  const models = useQuery({
-    queryKey: ['openrouter-models'], queryFn: api.listModels, staleTime: 5 * 60 * 1000, retry: false,
-  })
-  const catalog = models.data ?? []
-  const query = search.trim().toLocaleLowerCase()
-  const filtered = catalog.filter((entry) => `${entry.name} ${entry.id}`.toLocaleLowerCase().includes(query))
-  const selected = catalog.find((entry) => entry.id === model)
+  const check = useMutation({ mutationFn: api.checkSettings })
   const save = useMutation({
-    mutationFn: (patch: Parameters<typeof api.putSettings>[0]) => api.putSettings(patch),
+    mutationFn: (value: string) => api.putSettings({ openrouter_api_key: value }),
     onSuccess: (updated) => {
-      queryClient.setQueryData(['settings'], updated)
+      client.setQueryData(['settings'], updated)
       setKey('')
-      setModel(updated.model)
+      setEditing(false)
+      check.reset()
     },
   })
-  const check = useMutation({ mutationFn: api.checkSettings })
-  const changed = key.trim() !== '' || model.trim() !== settings.model
-  const keyStatus = settings.key_source === 'settings'
-    ? 'Ключ сохранён в настройках.'
-    : settings.key_source === 'env'
-      ? 'Используется ключ из окружения сервера.'
-      : 'Ключ не задан. Добавьте его, чтобы запустить поиск и чат.'
+  const showField = editing || !settings.has_api_key
+  const source = settings.key_source === 'env' ? 'из окружения сервера' : settings.key_source === 'settings' ? 'сохранён в настройках' : null
+
+  let status: { icon: IconName | null; text: string; tone?: 'bad' }
+  if (!settings.has_api_key) status = { icon: 'alert', text: 'Не задан', tone: 'bad' }
+  else if (check.isPending) status = { icon: 'spin', text: 'Проверяем…' }
+  else if (check.isError) status = { icon: 'alert', text: check.error.message, tone: 'bad' }
+  else if (check.data?.ok) status = { icon: 'check', text: 'Работает' }
+  else if (check.data) status = { icon: 'alert', text: check.data.detail ?? 'Ключ не работает', tone: 'bad' }
+  else status = { icon: null, text: 'Не проверен' }
 
   function submit(e: FormEvent) {
     e.preventDefault()
-    const patch: { openrouter_api_key?: string; model?: string } = {}
-    if (key.trim()) patch.openrouter_api_key = key.trim()
-    if (model.trim() !== settings.model) patch.model = model.trim()
-    if (changed && model.trim()) save.mutate(patch)
+    if (key.trim()) save.mutate(key.trim())
+  }
+
+  function cancel() {
+    setEditing(false)
+    setKey('')
+    save.reset()
+  }
+
+  function onKeyDown(e: KeyboardEvent<HTMLInputElement>) {
+    if (e.key === 'Escape' && settings.has_api_key) {
+      e.preventDefault() // закрываем только поле, а не страницу
+      cancel()
+    }
   }
 
   return (
-    <form className={styles.form} onSubmit={submit}>
-      <div className={styles.field}>
-        <label htmlFor="api-key">Ключ OpenRouter</label>
-        <p id="key-status">{keyStatus}</p>
-        <input id="api-key" type="password" autoComplete="new-password" value={key}
-          aria-describedby="key-status key-help" placeholder={settings.has_api_key ? 'Новый ключ для замены' : 'sk-or-v1-…'}
-          disabled={save.isPending} onChange={(e) => { setKey(e.target.value); save.reset() }} />
-        <p id="key-help">Пустое поле сохраняет текущий ключ.</p>
-        {settings.key_source === 'settings' && (
-          <button className={styles.secondary} type="button" disabled={save.isPending}
-            onClick={() => save.mutate({ openrouter_api_key: '' })}>Удалить сохранённый ключ</button>
-        )}
-      </div>
-      <div className={styles.actions}>
-        <button type="button" className={styles.secondary} disabled={!settings.has_api_key || check.isPending || save.isPending} onClick={() => check.mutate()}>{check.isPending ? 'Проверка…' : 'Проверить сохранённый ключ'}</button>
-        {check.data && <p role="status">{check.data.detail ?? (check.data.ok ? 'Ключ работает' : 'Проверка не пройдена')}</p>}
-        {check.isError && <p className={styles.error} role="alert">{check.error.message}</p>}
-      </div>
-      <div className={styles.field}>
-        <label htmlFor="model">Модель</label>
-        {models.isError || (models.isSuccess && catalog.length === 0) ? (
-          <input id="model" value={model} required aria-describedby="model-help" disabled={save.isPending}
-            onChange={(e) => { setModel(e.target.value); save.reset() }} />
+    <Row label="Ключ OpenRouter" labelId="key-label">
+      <div className={styles.stack}>
+        <p className={`${styles.status} ${status.tone === 'bad' ? styles.statusBad : ''}`} role="status" id="key-status">
+          {status.icon && <Icon name={status.icon} className={status.icon === 'spin' ? styles.spin : undefined} />}
+          <span>{status.text}{source && <span className={styles.muted}> · {source}</span>}</span>
+        </p>
+        {showField ? (
+          <form className={styles.keyForm} onSubmit={submit}>
+            <input
+              type="password"
+              autoComplete="new-password"
+              spellCheck={false}
+              aria-labelledby="key-label"
+              aria-describedby="key-status"
+              placeholder={settings.has_api_key ? 'Новый ключ' : 'sk-or-v1-…'}
+              value={key}
+              disabled={save.isPending}
+              autoFocus={editing}
+              onChange={(e) => { setKey(e.target.value); save.reset() }}
+              onKeyDown={onKeyDown}
+            />
+            <div className={styles.buttons}>
+              <button type="submit" className={panels.primary} disabled={save.isPending || !key.trim()}>{save.isPending ? 'Сохраняем…' : 'Сохранить'}</button>
+              {settings.has_api_key && <button type="button" className={panels.textButton} disabled={save.isPending} onClick={cancel}>Отмена</button>}
+            </div>
+          </form>
         ) : (
-          <>
-            <input type="search" aria-label="Поиск модели" placeholder="Поиск по названию или ID"
-              value={search} disabled={save.isPending || models.isPending}
-              onChange={(e) => setSearch(e.target.value)} />
-            <select id="model" value={model} required aria-describedby="model-help"
-              disabled={save.isPending || models.isPending}
-              onChange={(e) => { setModel(e.target.value); save.reset() }}>
-              {!model && <option value="" disabled>Выберите модель</option>}
-              {model && !filtered.some((entry) => entry.id === model) && (
-                <option value={model}>{selected?.name ?? model} (текущая)</option>
-              )}
-              {filtered.map((entry) => <option key={entry.id} value={entry.id}>{entry.name} · {entry.id}</option>)}
-            </select>
-            {models.isPending && <p role="status">Загрузка моделей…</p>}
-            {models.isSuccess && filtered.length === 0 && <p role="status">Модели не найдены. Измените запрос.</p>}
-          </>
+          <div className={styles.buttons}>
+            <button type="button" className={panels.secondary} disabled={check.isPending || save.isPending} onClick={() => check.mutate()}>Проверить</button>
+            <button type="button" className={`${panels.textButton} ${styles.flush}`} disabled={save.isPending} onClick={() => { setEditing(true); check.reset() }}>Заменить ключ</button>
+          </div>
         )}
-        <p id="model-help">Модели OpenRouter с текстовым входом и выходом. Для работы агента нужна поддержка инструментов и структурированных ответов.</p>
-        {models.isError && <p className={styles.error} role="alert">{models.error.message}</p>}
-        {models.isSuccess && catalog.length === 0 && <p role="status">В каталоге нет текстовых моделей. Укажите ID вручную.</p>}
-        <button className={styles.secondary} type="button" disabled={models.isFetching || save.isPending}
-          onClick={() => void models.refetch()}>{models.isFetching ? 'Загрузка…' : 'Обновить список моделей'}</button>
+        {!showField && settings.key_source === 'settings' && (
+          <button type="button" className={`${panels.textButton} ${panels.danger} ${styles.flush} ${styles.remove}`} disabled={save.isPending} onClick={() => save.mutate('')}>Удалить сохранённый ключ</button>
+        )}
+        {save.isError && <p className={panels.error} role="alert">{save.error.message}</p>}
       </div>
-      <div className={styles.actions}>
-        <button className={styles.save} type="submit" disabled={save.isPending || !changed || !model.trim()}>
-          {save.isPending ? 'Сохранение…' : 'Сохранить'}
-        </button>
-        {save.isSuccess && <p role="status">Настройки сохранены</p>}
+    </Row>
+  )
+}
+
+function ModelRow({ settings }: { settings: Settings }) {
+  const client = useQueryClient()
+  const models = useQuery({ queryKey: ['openrouter-models'], queryFn: api.listModels, staleTime: 5 * 60 * 1000, retry: false })
+  const [manual, setManual] = useState(settings.model)
+  const save = useMutation({
+    mutationFn: (model: string) => api.putSettings({ model }),
+    onSuccess: (updated) => {
+      client.setQueryData(['settings'], updated)
+      setManual(updated.model)
+    },
+  })
+  const { isSuccess: saved, reset } = save
+  // «Сохранено» висит недолго: это подтверждение, а не состояние
+  useEffect(() => {
+    if (!saved) return
+    const timer = setTimeout(reset, 3000)
+    return () => clearTimeout(timer)
+  }, [saved, reset])
+
+  const catalog = models.data ?? []
+  const noCatalog = models.isError || (models.isSuccess && catalog.length === 0)
+  const value = save.isPending ? save.variables : settings.model
+
+  function submitManual(e: FormEvent) {
+    e.preventDefault()
+    const id = manual.trim()
+    if (id && id !== settings.model) save.mutate(id)
+  }
+
+  return (
+    <Row label="Модель агента" labelId="model-label" top>
+      <div className={styles.stack}>
+        {noCatalog ? (
+          <form className={styles.keyForm} onSubmit={submitManual}>
+            <input
+              aria-labelledby="model-label"
+              aria-describedby="model-help"
+              placeholder="ID модели, например openai/gpt-4.1-mini"
+              spellCheck={false}
+              value={manual}
+              disabled={save.isPending}
+              onChange={(e) => { setManual(e.target.value); save.reset() }}
+            />
+            <div className={styles.buttons}>
+              <button type="submit" className={panels.primary} disabled={save.isPending || !manual.trim() || manual.trim() === settings.model}>Сохранить</button>
+            </div>
+          </form>
+        ) : (
+          <ModelPicker
+            labelledBy="model-label"
+            value={value}
+            models={catalog}
+            loading={models.isPending}
+            refreshing={models.isFetching}
+            disabled={models.isPending || save.isPending}
+            onRefresh={() => void models.refetch()}
+            onSelect={(id) => save.mutate(id)}
+          />
+        )}
+        {noCatalog && (
+          <p className={styles.help} id="model-help">
+            <span role={models.isError ? 'alert' : 'status'}>{models.isError ? models.error.message : 'В каталоге нет текстовых моделей. Укажите ID вручную.'}</span>{' '}
+            <button type="button" className={panels.textButton} disabled={models.isFetching} onClick={() => void models.refetch()}>{models.isFetching ? 'Загрузка…' : 'Обновить список моделей'}</button>
+          </p>
+        )}
+        <p className={`${styles.status} ${save.isError ? styles.statusBad : ''}`} role="status">
+          {save.isPending && 'Сохраняем…'}
+          {save.isSuccess && <><Icon name="check" />Сохранено</>}
+          {save.isError && <><Icon name="alert" />{save.error.message}</>}
+        </p>
       </div>
-      {save.isError && <p className={styles.error} role="alert">{save.error.message}</p>}
-    </form>
+    </Row>
   )
 }

@@ -483,6 +483,7 @@ class Actions:
                 adapters,
                 turn.llm,
                 effective_snapshot(turn.state["snapshot"], turn.edits),
+                self.service.page_events(turn.pid),
                 procurement_id=turn.pid,
                 edits=turn.edits,
             )

@@ -7,7 +7,7 @@ from pydantic import TypeAdapter, ValidationError
 from app.models import CorrectOfferPayload, Edit
 from app.p1.actions import actions_for, schemas
 from app.p1.configuration import CONFIG_TOOLS
-from app.pipeline.parse_tz import apply_answer
+from app.pipeline.parse_tz import apply_answer, current_answer
 from app.pipeline.report import active_edits, effective_position
 from app.report.diff import version_diff
 from app.service import ActionError, safe_text, search_signature
@@ -264,6 +264,11 @@ class Turn:
         q = next((q for q in parsed.questions if q.id == question_id), None) if parsed else None
         if q is None:
             raise ActionError("Вопрос не найден", 404)
+        if current_answer(parsed.questions, self.edits, q) == answer.strip():
+            # Повторный тот же ответ не должен давать пустую правку и новую версию.
+            if self.origin == "chat":
+                raise ActionError("Этот ответ уже действует, правка не нужна")
+            return
         base = next(p for p in parsed.positions if p.index == q.position_index)
         old = effective_position(base, self.edits)
         previous = effective_position(

@@ -26,8 +26,29 @@ describe('состояние ответа на вопрос', () => {
     view.rerender(view.content(null))
     expect(screen.getByRole('button', { name: 'Да', pressed: true })).toBeDisabled()
     view.rerender(view.content('Да'))
-    await waitFor(() => expect(screen.getByRole('button', { name: 'Да', pressed: true })).toBeEnabled())
+    await waitFor(() => expect(screen.getByRole('button', { name: 'Нет' })).toBeEnabled())
+    expect(screen.getByRole('button', { name: 'Да', pressed: true })).toBeDisabled()
     expect(screen.queryByText('Ответ принят, применяем…')).not.toBeInTheDocument()
+  })
+  it('не отправляет уже выбранный вариант повторно, а другой выбрать можно', async () => {
+    const spy = vi.spyOn(api, 'answerQuestion').mockResolvedValue({})
+    const view = setup()
+    view.rerender(view.content('Да'))
+    const chosen = screen.getByRole('button', { name: 'Да', pressed: true })
+    expect(chosen).toBeDisabled()
+    await userEvent.click(chosen)
+    expect(spy).not.toHaveBeenCalled()
+    await userEvent.click(screen.getByRole('button', { name: 'Нет', pressed: false }))
+    expect(spy).toHaveBeenCalledExactlyOnceWith('p1', 'q1', 'Нет')
+    spy.mockRestore()
+  })
+  it('вопрос с одним вариантом показывает допущение без кнопки', () => {
+    const client = new QueryClient()
+    render(<QueryClientProvider client={client}><ChatContext.Provider value={{ procurementId: 'p1', openVersion: vi.fn() }}>
+      <QuestionCard data={{ ...question, text: 'Какой ГОСТ?', options: ['ГОСТ 1'], default_answer: 'ГОСТ 1' }} />
+    </ChatContext.Provider></QueryClientProvider>)
+    expect(screen.queryByRole('button')).not.toBeInTheDocument()
+    expect(screen.getByText(/ГОСТ 1/)).toBeInTheDocument()
   })
   it('возвращает прежний выбор и показывает причину при отказе сервера', async () => {
     vi.spyOn(api, 'answerQuestion').mockRejectedValueOnce(new Error('Не удалось сохранить ответ'))

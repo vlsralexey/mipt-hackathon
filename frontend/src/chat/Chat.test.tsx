@@ -30,7 +30,7 @@ describe('история чата из примера контракта', () =>
     expect(region.getByText(/В ТЗ две позиции/)).toBeInTheDocument()
     const positions = region.getByRole('list', { name: 'Позиции ТЗ' })
     expect(within(positions).getAllByRole('listitem')).toHaveLength(2)
-    expect(positions).toHaveTextContent(/2\s500\s·\sпачка/)
+    expect(positions).toHaveTextContent(/2\s500\sпачек/)
     // пояснение к вопросу не выводится текстом, оно только подсказка при наведении
     expect(region.queryByText(/Марка названа в ТЗ/)).not.toBeInTheDocument()
     expect(region.getByText(/Учитывать аналоги без марки/)).toHaveAttribute('title', expect.stringMatching(/Марка названа в ТЗ/))
@@ -209,13 +209,14 @@ describe('события SSE', () => {
     })
     const id = exampleId()
     renderApp(`/p/${id}`)
-    await screen.findByRole('option', { name: 'Версия 1' })
+    await screen.findByRole('button', { name: 'Версия отчёта: 1' })
     // Сервер закончил правку, пока клиент не получал события.
     db.reports.get(id)!.push({ ...structuredClone(db.reports.get(id)![0]), version: 2 })
     db.procurements.get(id)!.latest_version = 2
     act(() => source.dispatchEvent(new Event('open')))
-    await waitFor(() => expect(screen.getByRole('combobox', { name: 'Версия отчёта' })).toHaveValue('2'))
-    expect(screen.getByRole('option', { name: 'Версия 2' })).toBeInTheDocument()
+    expect(await screen.findByRole('button', { name: 'Версия отчёта: 2' })).toBeInTheDocument()
+    act(() => screen.getByRole('button', { name: 'Версия отчёта: 2' }).click())
+    expect(screen.getByRole('button', { name: /^Версия 2/ })).toBeInTheDocument()
   })
 
   it('сообщение неизвестного вида и ошибка прогона не ломают чат', async () => {

@@ -109,6 +109,15 @@ class Service:
             async with self.runtime_factory(key, model, sources) as pair:
                 yield pair
 
+    def page_events(self, pid):
+        """Emit для поиска вне основного прогона: только журнал браузера."""
+
+        async def emit(event):
+            if event.type == "page":
+                self.browser.page_result(pid, event.data)
+
+        return emit
+
     async def source_blocked(self, tab, reason, status):
         key = (tab.procurement_id, tab.id)
         message = self.blocked_messages.get(key)
@@ -127,6 +136,9 @@ class Service:
             )
             self.blocked_messages[key] = message
         message.data.status = status
+        waiting = status == "waiting"
+        message.data.deadline = tab.deadline if waiting else None
+        message.data.wait_seconds = tab.wait_seconds if waiting else None
         await self.message(tab.procurement_id, message)
         if status == "waiting":
             self.repo.update(tab.procurement_id, status="needs_user")
@@ -154,6 +166,15 @@ class Service:
             raise ActionError("Не задан ключ OpenRouter. Укажите его в настройках.", 400)
         return key, view.model
 
+    def answer_unchanged(self, pid, question_id, answer):
+        from app.pipeline.parse_tz import current_answer
+
+        parsed = self.require(pid)["parsed"]
+        question = next((q for q in parsed.questions if q.id == question_id), None)
+        if question is None:
+            return False
+        return current_answer(parsed.questions, self.repo.edits(pid), question) == answer.strip()
+
     def deterministic_answer(self, pid, question_id, answer):
         from app.pipeline.parse_tz import button_answer
 
@@ -164,6 +185,8 @@ class Service:
         question = next((q for q in parsed.questions if q.id == question_id), None)
         if question is None:
             return False
+        if self.answer_unchanged(pid, question_id, answer):
+            return True
         base = next(p for p in parsed.positions if p.index == question.position_index)
         edits = [
             e
@@ -489,6 +512,9 @@ class Service:
                 await self.message(pid, message)
 
                 async def emit(event):
+                    if event.type == "page":
+                        self.browser.page_result(pid, event.data)
+                        return
                     if event.type != "progress":
                         return
                     for step in message.data.steps:

@@ -62,6 +62,21 @@ export function startMockRun(id: string) {
     created_at: now(),
     data: { ...question.data, answer: null },
   })
+  // Второй вопрос: окно показывает «Вопрос 1 из 2» и листание.
+  db.addMessage(id, {
+    ...question,
+    id: db.nextId('m'),
+    created_at: now(),
+    data: {
+      id: 'q2-1',
+      position_index: 2,
+      text: 'Допускать плотность от 60 до 70 г/м² вместо 65?',
+      hint: null,
+      options: ['Нет, только 65 г/м²', 'Да, от 60 до 70 г/м²'],
+      default_answer: 'Нет, только 65 г/м²',
+      answer: null,
+    },
+  })
 
   const step = mockTiming.stepMs
   setTimeout(() => {

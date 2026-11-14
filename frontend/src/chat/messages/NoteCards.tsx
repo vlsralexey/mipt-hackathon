@@ -4,9 +4,12 @@ import { DiffSummary } from '../../report/DiffSummary'
 import { useChat } from '../context'
 import { procurementKey } from '../useProcurementEvents'
 import { Link } from 'react-router'
+import { plural } from '../../plural'
 import type { ErrorData, Proposal, SourceBlocked } from '../../api/types'
 import { Icon } from '../../components/Icon'
 import styles from './cards.module.css'
+import { DEFAULT_WAIT_SECONDS, deadlineOf, minutesLeft, useCountdown } from '../../browser/countdown'
+
 
 /** Ошибка прогона. Для неверного ключа сразу ведём в настройки. */
 export function ErrorCard({ text, data }: { text: string | null; data: ErrorData }) {
@@ -46,13 +49,17 @@ export function ProposalCard({ text, data }: { text: string | null; data: Propos
   }} />
 }
 
-export function SourceBlockedCard({ text, data }: { text: string | null; data: SourceBlocked }) {
+export function SourceBlockedCard({ text, data, createdAt }: { text: string | null; data: SourceBlocked; createdAt?: string }) {
   const { procurementId, openBrowser } = useChat()
   const skip = useMutation({ mutationFn: () => api.skipSource(procurementId, data.source_id) })
+  const waiting = data.status === 'waiting' && !skip.isSuccess
+  const seconds = useCountdown(waiting ? deadlineOf(data, createdAt) : null, data.wait_seconds ?? DEFAULT_WAIT_SECONDS)
+  const left = minutesLeft(seconds ?? 0)
   return <div className={styles.note}>
     <Icon name="alert" />
-    <p>{text ?? `${data.name} просит ${data.reason === 'login' ? 'войти на сайт' : 'подтвердить, что вы не робот'}.`}</p>
-    {data.status === 'waiting' && !skip.isSuccess ? <div className={styles.actions}>
+    <p>{text ?? `${data.name} просит ${data.reason === 'login' ? 'войти на сайт' : 'пройти проверку'}.`}
+      {waiting && seconds != null && ` Без неё агент пропустит сайт через ${left} ${plural(left, 'минуту', 'минуты', 'минут')}, поиск продолжится.`}</p>
+    {waiting ? <div className={styles.actions}>
       <button type="button" className={styles.btn} onClick={() => openBrowser?.()}>Открыть браузер</button>
       <button type="button" className={styles.btn} disabled={skip.isPending} onClick={() => skip.mutate()}>{skip.isPending ? 'Пропускаем…' : 'Пропустить источник'}</button>
     </div> : <p className={styles.hint}>{data.status === 'resolved' ? 'Проверка пройдена' : 'Источник пропущен'}</p>}

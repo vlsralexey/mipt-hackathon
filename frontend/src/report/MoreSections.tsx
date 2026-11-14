@@ -5,7 +5,7 @@ import type { AppliedEdit, Characteristic, Position, Question, Report, SourceRun
 import { groupSteps } from '../chat/steps'
 import { procurementKey } from '../chat/useProcurementEvents'
 import { Icon, type IconName } from '../components/Icon'
-import { formatIsoDate } from '../format'
+import { formatIsoDate, tidyText } from '../format'
 import { stepStatusLabel } from '../labels'
 import styles from './report.module.css'
 
@@ -53,10 +53,10 @@ export function SourcesList({ sources }: { sources: SourceRun[] }) {
           <li key={r.source_id}>
             <Icon name={mark.icon} className={`${styles.ico} ${mark.tone}`} />
             <span>
-              {r.name} <span className={styles.lvl}>уровень {r.level}</span>
+              {tidyText(r.name)} <span className={styles.lvl}>уровень {r.level}</span>
             </span>
             <span className={styles.res}>
-              {r.status === 'ok' ? `найдено ${r.found}` : (r.note ?? stepStatusLabel[r.status])}
+              {r.status === 'ok' ? `найдено ${r.found}` : (r.note ? tidyText(r.note) : stepStatusLabel[r.status])}
             </span>
           </li>
         )
@@ -160,12 +160,12 @@ export function Methodology({ report }: { report: Report }) {
   const same = rules.length > 0 && rules.every((r) => r.rule === rules[0].rule)
   return (
     <div className={styles.muted}>
-      <p>{report.methodology}</p>
-      {same && <p>Выбросы: {rules[0].rule}.</p>}
+      <p>{tidyText(report.methodology)}</p>
+      {same && <p>Выбросы: {tidyText(rules[0].rule)}.</p>}
       {!same &&
         rules.map((r) => (
           <p key={r.index}>
-            Выбросы, позиция {r.index}: {r.rule}.
+            Выбросы, позиция {r.index}: {tidyText(r.rule)}.
           </p>
         ))}
       <p>Цены приведены на {formatIsoDate(report.calc_date)}.</p>

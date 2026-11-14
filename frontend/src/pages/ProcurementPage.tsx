@@ -43,6 +43,7 @@ function ProcurementView({ id }: { id: string }) {
   const [tab, setTab] = useState<Tab>('report')
   // Версия в панели отчёта: null — следить за последней. Её же получает чат как viewing_version.
   const [viewing, setViewing] = useState<number | null>(null)
+  const [comparing, setComparing] = useState(false)
   const hasReport = (procurement.data?.latest_version ?? null) !== null
   const reports = useReport(id, hasReport, viewing)
   const shownVersion = reports.report.data?.version ?? procurement.data?.latest_version ?? null
@@ -99,7 +100,8 @@ function ProcurementView({ id }: { id: string }) {
           />
         )}
         {procurement.data ? (
-          <Chat procurement={procurement.data} viewingVersion={shownVersion} onOpenVersion={openVersion} onOpenBrowser={() => setTab('browser')} />
+          // key: у каждой закупки свой чат и своё окно вопросов, состояние не переносится
+          <Chat key={procurement.data.id} procurement={procurement.data} viewingVersion={shownVersion} onOpenVersion={openVersion} onOpenBrowser={() => setTab('browser')} />
         ) : (
           <p className={styles.loading}>Загрузка…</p>
         )}
@@ -131,6 +133,10 @@ function ProcurementView({ id }: { id: string }) {
               report={reports.report.data}
               latest={reports.latest}
               onViewingChange={setViewing}
+              onCompare={() => {
+                setComparing(true)
+                scrollToTop(reportPanel.current)
+              }}
             />
           )}
         </div>
@@ -142,7 +148,9 @@ function ProcurementView({ id }: { id: string }) {
           className={styles.panel}
           hidden={tab !== 'report'}
         >
-          {reports.versions.data && <VersionComparison procurementId={id} versions={reports.versions.data} />}
+          {comparing && reports.versions.data && (
+            <VersionComparison procurementId={id} versions={reports.versions.data} onClose={() => setComparing(false)} />
+          )}
           {procurement.data && (
             <ReportPanel
               query={reports}

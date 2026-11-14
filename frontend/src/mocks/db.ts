@@ -1,6 +1,9 @@
 import procurementExample from '../../../docs/api-examples/procurement.json'
 import reportExample from '../../../docs/api-examples/report.json'
+import configExample from '../../../docs/api-examples/config.json'
 import type {
+  Config,
+  ConfigChange,
   Edit,
   Message,
   Procurement,
@@ -17,6 +20,10 @@ export type MockEvent =
   | { event: 'agent'; data: { busy: boolean } }
   | { event: 'procurement'; data: ProcurementSummary }
   | { event: 'report'; data: { version: number; cause: string } }
+  | { event: 'config'; data: Record<string, never> }
+
+/** Канал SSE агента общих настроек в `subscribe`/`publish`. */
+export const CONFIG_CHANNEL = '__config'
 
 type Listener = (e: MockEvent) => void
 
@@ -28,6 +35,9 @@ export function summaryOf(p: Procurement): ProcurementSummary {
 export class MockDb {
   settings: Settings = { has_api_key: false, key_source: null, model: '' }
   procurements = new Map<string, Procurement>()
+  config: Config = structuredClone(configExample) as Config
+  configChanges: ConfigChange[] = []
+  configMessages: Message[] = []
   reports = new Map<string, Report[]>()
   private listeners = new Map<string, Set<Listener>>()
   private counter = 0
@@ -38,6 +48,9 @@ export class MockDb {
 
   reset() {
     this.settings = { has_api_key: false, key_source: null, model: '' }
+    this.config = structuredClone(configExample) as Config
+    this.configChanges = []
+    this.configMessages = []
     this.procurements.clear()
     this.reports.clear()
     this.listeners.clear()
@@ -87,6 +100,14 @@ export class MockDb {
     if (index === -1) p.messages.push(message)
     else p.messages[index] = message
     this.publish(id, { event: 'message', data: message })
+  }
+
+  /** Сообщение агента общих настроек: добавляет или заменяет по `id` и рассылает в SSE. */
+  addConfigMessage(message: Message) {
+    const index = this.configMessages.findIndex((m) => m.id === message.id)
+    if (index === -1) this.configMessages.push(message)
+    else this.configMessages[index] = message
+    this.publish(CONFIG_CHANNEL, { event: 'message', data: message })
   }
 
   /** Сообщает подписчикам об изменении названия или статуса закупки. */

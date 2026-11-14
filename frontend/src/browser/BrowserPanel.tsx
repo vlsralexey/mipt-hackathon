@@ -1,136 +1,244 @@
-import { useEffect, useRef, useState, type KeyboardEvent, type MouseEvent } from 'react'
+import { useMutation } from '@tanstack/react-query'
+import { useEffect, useRef, useState } from 'react'
+import { createPortal } from 'react-dom'
+import { api } from '../api/client'
 import type { BrowserTab } from '../api/types'
+import { Icon } from '../components/Icon'
 import styles from './BrowserPanel.module.css'
+import { useCountdown } from './countdown'
+import { Journal } from './Journal'
+import { PageView } from './PageView'
+import { useBrowserSession } from './useBrowserSession'
 
-type Frame = { tab_id: string; data: string; width: number; height: number }
 /** Все вкладки управляемого браузера; кадры приходят только для выбранной. */
 export function BrowserPanel({ procurementId, active }: { procurementId: string; active: boolean }) {
   return <BrowserSession key={procurementId} procurementId={procurementId} active={active} />
 }
-function BrowserSession({ procurementId, active }: { procurementId: string; active: boolean }) {
-  const viewport = useRef<HTMLDivElement>(null)
-  const pressedMouse = useRef(false)
-  const pointer = useRef({ x: 0, y: 0 })
-  const pressedKeys = useRef(new Set<string>())
-  const socket = useRef<WebSocket | null>(null)
-  const lastMove = useRef(0)
-  const selectedRef = useRef<string | null>(null)
-  const [tabs, setTabs] = useState<BrowserTab[]>([])
-  const [selected, setSelected] = useState<string | null>(null)
-  const [frames, setFrames] = useState<Record<string, Frame>>({})
-  const [controllers, setControllers] = useState<Record<string, string>>({})
-  const [connection, setConnection] = useState('Подключение к браузеру…')
-  const [error, setError] = useState<string | null>(null)
-  const [text, setText] = useState('')
-  const [retry, setRetry] = useState(0)
-  useEffect(() => {
-    if (!active || typeof WebSocket === 'undefined') return
-    let disposed = false
-    let timer: ReturnType<typeof setTimeout>
-    const connect = () => {
-      if (disposed) return
-      const protocol = location.protocol === 'https:' ? 'wss:' : 'ws:'
-      const ws = new WebSocket(`${protocol}//${location.host}/api/browser?procurement_id=${encodeURIComponent(procurementId)}`)
-      socket.current = ws
-      setControllers({})
-      pressedKeys.current.clear()
-      pressedMouse.current = false
-      ws.onopen = () => { if (disposed || socket.current !== ws) return; setConnection('Браузер подключён'); setError(null) }
-      ws.onmessage = (event) => {
-        if (disposed || socket.current !== ws) return
-        try {
-          const value = JSON.parse(String(event.data))
-          if (value.type === 'tabs') {
-            const next = value.tabs as BrowserTab[]
-            setTabs(next)
-            setSelected((current) => {
-              const id = next.some((t) => t.id === current) ? current : value.selected_tab_id ?? next[0]?.id ?? null
-              selectedRef.current = id
-              if (id && id !== value.selected_tab_id) ws.send(JSON.stringify({ type: 'select', tab_id: id }))
-              return id
-            })
-            setFrames((current) => Object.fromEntries(Object.entries(current).filter(([id]) => next.some((t) => t.id === id))))
-          } else if (value.type === 'frame') setFrames((current) => ({ ...current, [value.tab_id]: value as Frame }))
-          else if (value.type === 'control') setControllers((current) => ({ ...current, [value.tab_id]: value.by }))
-          else if (value.type === 'error') setError(value.detail)
-        } catch { setError('Не удалось прочитать обновление браузера. Переподключитесь.') }
-      }
-      ws.onclose = () => {
-        if (!disposed && socket.current === ws) { setControllers({}); setConnection('Связь прервана. Переподключение…'); timer = setTimeout(connect, 2000) }
-      }
-      ws.onerror = () => { if (!disposed) setError('Нет связи с браузером агента. Проверьте подключение к серверу.') }
-    }
-    connect()
-    return () => { disposed = true; clearTimeout(timer); socket.current?.close(); socket.current = null }
-  }, [procurementId, active, retry])
 
-  function send(value: Record<string, unknown>) {
-    if (socket.current?.readyState !== WebSocket.OPEN) { setError('Браузер ещё не подключён. Повторите действие после подключения.'); return }
-    socket.current.send(JSON.stringify({ ...value, tab_id: selectedRef.current }))
-  }
+function domainOf(tab: BrowserTab) {
+  if (tab.domain) return tab.domain
+  try { return new URL(tab.url).hostname.replace(/^www\./, '') } catch { return '' }
+}
+function stateOf(tab: BrowserTab) {
+  return tab.state ?? (tab.blocked ? 'needs_user' : tab.status === 'error' ? 'error' : 'loading')
+}
+function clock(seconds: number) {
+  const s = Math.max(0, Math.round(seconds))
+  return `${Math.floor(s / 60)}:${String(s % 60).padStart(2, '0')}`
+}
+
+function BrowserSession({ procurementId, active }: { procurementId: string; active: boolean }) {
+  const session = useBrowserSession(procurementId, active)
+  const { tabs, selected, frames, controllers, cursors, journal, connection, error, send, sendRaw, select, reconnect } = session
+  const [expanded, setExpanded] = useState(false)
   const tab = tabs.find((t) => t.id === selected)
   const frame = selected ? frames[selected] : undefined
-  const userControl = selected ? controllers[selected] === 'user' : false
-  function mouse(e: MouseEvent<HTMLImageElement>, event: string) {
-    if (!userControl || !frame) return
-    const bounds = e.currentTarget.getBoundingClientRect()
-    if (event === 'down') e.currentTarget.focus({ preventScroll: true })
-    pointer.current = { x: Math.max(0, Math.min(frame.width, Math.round((e.clientX - bounds.left) * frame.width / bounds.width))), y: Math.max(0, Math.min(frame.height, Math.round((e.clientY - bounds.top) * frame.height / bounds.height))) }
-    if (event === 'down') pressedMouse.current = true
-    if (event === 'up') pressedMouse.current = false
-    send({ type: 'mouse', event, ...pointer.current, button: 'left' })
+  const control = selected ? controllers[selected] === 'user' : false
+  const chips = useRef<HTMLDivElement>(null)
+  const stageBox = useRef<HTMLDivElement>(null)
+  const hasTabs = tabs.length > 0
+
+  // В панели капча нечитаемо мелкая: при переходе к ручному управлению окно разворачивается,
+  // а когда управление вернулось агенту (Esc, «Готово, продолжить»), сворачивается обратно.
+  const [wasControl, setWasControl] = useState(control)
+  const [autoExpanded, setAutoExpanded] = useState(false)
+  if (control !== wasControl) {
+    setWasControl(control)
+    if (control && !expanded) {
+      setExpanded(true)
+      setAutoExpanded(true)
+    } else if (!control && autoExpanded) {
+      setExpanded(false)
+      setAutoExpanded(false)
+    }
   }
-  function keyboard(e: KeyboardEvent, event: string) {
-    if (!userControl || e.nativeEvent.isComposing || e.key === 'Unidentified' || e.key === 'Dead') return
-    e.preventDefault()
-    const key = e.key === ' ' ? 'Space' : e.key
-    if (event === 'down') pressedKeys.current.add(key)
-    else pressedKeys.current.delete(key)
-    send({ type: 'key', event, key })
-  }
-  // React делегирует wheel пассивно: native listener нужен, чтобы не прокручивать сам интерфейс.
+
+  // Размер области кадра: сервер подстраивает viewport страницы под панель.
   useEffect(() => {
-    const element = viewport.current
-    if (!element || !userControl) return
-    const up = () => {
-      if (pressedMouse.current) {
-        send({ type: 'mouse', event: 'up', ...pointer.current, button: 'left' })
-        pressedMouse.current = false
-      }
+    const element = stageBox.current
+    if (!element || typeof ResizeObserver === 'undefined' || connection !== 'open') return
+    let timer: ReturnType<typeof setTimeout>
+    const report = () => {
+      clearTimeout(timer)
+      timer = setTimeout(() => {
+        const width = element.clientWidth
+        if (!width) return
+        const height = expanded ? Math.max(400, window.innerHeight - 200) : Math.round(width * 0.625)
+        sendRaw({ type: 'viewport', width, height })
+      }, 250)
     }
-    const wheel = (event: WheelEvent) => {
-      event.preventDefault()
-      send({ type: 'wheel', dx: event.deltaX, dy: event.deltaY })
-    }
-    element.addEventListener('wheel', wheel, { passive: false })
-    window.addEventListener('mouseup', up)
-    return () => { element.removeEventListener('wheel', wheel); window.removeEventListener('mouseup', up) }
-  }, [userControl, selected, frame?.tab_id])
-  function releaseKeys() {
-    if (!userControl) return
-    for (const key of pressedKeys.current) send({ type: 'key', event: 'up', key })
-    pressedKeys.current.clear()
-    if (pressedMouse.current) send({ type: 'mouse', event: 'up', ...pointer.current, button: 'left' })
-    pressedMouse.current = false
+    const observer = new ResizeObserver(report)
+    observer.observe(element)
+    report()
+    return () => { clearTimeout(timer); observer.disconnect() }
+  }, [expanded, connection, sendRaw, selected, hasTabs])
+
+  // Выбранная вкладка всегда видна целиком в ленте вкладок.
+  const selectedIndex = tabs.findIndex((t) => t.id === selected)
+  useEffect(() => {
+    const chip = chips.current?.children[selectedIndex] as HTMLElement | undefined
+    chip?.scrollIntoView?.({ block: 'nearest', inline: 'nearest' })
+  }, [selectedIndex])
+
+  // Esc закрывает развёрнутое окно, если не занят возвратом управления.
+  useEffect(() => {
+    if (!expanded) return
+    const close = (event: KeyboardEvent) => { if (event.key === 'Escape' && !event.defaultPrevented) setExpanded(false) }
+    window.addEventListener('keydown', close)
+    return () => window.removeEventListener('keydown', close)
+  }, [expanded])
+
+  function move(index: number, step: number) {
+    const next = tabs[(index + step + tabs.length) % tabs.length]
+    select(next.id)
+    ;(chips.current?.children[(index + step + tabs.length) % tabs.length] as HTMLButtonElement | undefined)?.focus()
   }
+
+  const status = connection !== 'open' && (
+    <p className={styles.connection} role="status">
+      {connection === 'lost' ? 'Нет связи с браузером агента.' : 'Подключаемся к браузеру…'}
+      {connection === 'lost' && <button type="button" className={styles.link} onClick={reconnect}>Переподключить</button>}
+    </p>
+  )
+
+  if (tabs.length === 0) {
+    return (
+      <div className={styles.browser}>
+        {status}
+        <p className={styles.empty}>Агент пока не открывал страниц</p>
+        <Journal events={journal} tabs={tabs} position={undefined} />
+      </div>
+    )
+  }
+
+  const window_ = tab && (
+    <BrowserWindow
+      key={tab.id}
+      procurementId={procurementId}
+      tab={tab}
+      frame={frame}
+      control={control}
+      cursor={cursors[tab.id]}
+      expanded={expanded}
+      stageBox={stageBox}
+      send={send}
+      onExpand={() => setExpanded((v) => !v)}
+    />
+  )
+
   return (
     <div className={styles.browser}>
-      <div className={styles.connection} role="status">{connection} <button type="button" onClick={() => setRetry((v) => v + 1)}>Переподключить</button></div>
-      {error && <p className={styles.error} role="alert">{error}</p>}
-      {tabs.length === 0 ? <div className={styles.empty}><h2>Вкладок пока нет</h2><p>Во время поиска здесь видны все открытые страницы агента и его действия. Выберите вкладку, чтобы наблюдать за ней.</p></div> : (
-        <>
-          <div className={styles.tabs} role="tablist" aria-label="Активные вкладки агента">
-            {tabs.map((t) => <button type="button" role="tab" tabIndex={selected === t.id ? 0 : -1} aria-selected={selected === t.id} key={t.id} onKeyDown={(e) => { if (e.key !== 'ArrowRight' && e.key !== 'ArrowLeft') return; e.preventDefault(); const index = tabs.findIndex((entry) => entry.id === t.id); const next = tabs[(index + (e.key === 'ArrowRight' ? 1 : tabs.length - 1)) % tabs.length]; selectedRef.current = next.id; setSelected(next.id); send({ type: 'select' }); (e.currentTarget.parentElement?.children[(index + (e.key === 'ArrowRight' ? 1 : tabs.length - 1)) % tabs.length] as HTMLButtonElement)?.focus() }} onClick={() => { selectedRef.current = t.id; setSelected(t.id); send({ type: 'select' }) }} title={t.url}>
-              <span className={t.blocked ? styles.blocked : styles.dot} aria-hidden="true" />
-              <span>{t.title || t.url || 'Новая вкладка'}<small>{t.action || t.status}</small></span>
-            </button>)}
-          </div>
-          {tab && <><div className={styles.toolbar}><span className={styles.url} title={tab.url}>{tab.url}</span><button type="button" onClick={() => send({ type: 'control', by: userControl ? 'agent' : 'user' })}>{userControl ? 'Вернуть агенту' : 'Взять управление'}</button>{tab.blocked && <button type="button" onClick={() => send({ type: 'resume' })}>Проверка пройдена</button>}</div>
-          <p className={styles.action} role="status">{userControl ? 'Управляете вы. Кликните по странице для ввода с клавиатуры.' : tab.action || 'Агент работает на странице'}</p></>}
-          {frame ? <div className={styles.viewport} ref={viewport}><img src={`data:image/jpeg;base64,${frame.data}`} alt={`Страница: ${tab?.title ?? 'браузер агента'}`} tabIndex={userControl ? 0 : -1} draggable={false} onMouseDown={(e) => mouse(e, 'down')} onMouseUp={(e) => mouse(e, 'up')} onMouseMove={(e) => { if (Date.now() - lastMove.current > 40) { lastMove.current = Date.now(); mouse(e, 'move') } }} onKeyDown={(e) => keyboard(e, 'down')} onKeyUp={(e) => keyboard(e, 'up')} onBlur={releaseKeys} /></div> : <p className={styles.empty}>Ожидаем изображение выбранной вкладки…</p>}
-          {userControl && <form className={styles.textInput} onSubmit={(e) => { e.preventDefault(); if (text) { send({ type: 'text', text }); setText('') } }}><input aria-label="Текст для страницы браузера" value={text} onChange={(e) => setText(e.target.value)} placeholder="Текст для поля на странице" /><button type="submit" disabled={!text}>Ввести</button></form>}
-        </>
+      {status}
+      {error && <p className={styles.notice} role="alert">{error}</p>}
+      <div className={styles.chips} role="tablist" aria-label="Страницы агента" ref={chips}>
+        {tabs.map((t, index) => {
+          const state = stateOf(t)
+          const site = domainOf(t)
+          return (
+            <button
+              type="button"
+              role="tab"
+              key={t.id}
+              className={styles.chip}
+              aria-selected={selected === t.id}
+              tabIndex={selected === t.id ? 0 : -1}
+              title={t.url}
+              onClick={() => select(t.id)}
+              onKeyDown={(e) => {
+                if (e.key !== 'ArrowRight' && e.key !== 'ArrowLeft') return
+                e.preventDefault()
+                move(index, e.key === 'ArrowRight' ? 1 : -1)
+              }}
+            >
+              <span className={styles.fav} aria-hidden="true">{(site[0] ?? '·').toUpperCase()}</span>
+              <span className={state === 'skipped' ? styles.struck : state === 'error' ? styles.dim : undefined}>{t.title || site || 'Новая вкладка'}</span>
+              {state === 'loading' && <span role="img" aria-label="загружается" className={styles.chipState}><Icon name="spin" className={styles.spin} /></span>}
+              {state === 'needs_user' && <span role="img" aria-label="нужна помощь" className={styles.helpDot} />}
+            </button>
+          )
+        })}
+      </div>
+      {expanded && window_ ? createPortal(
+        <div className={styles.overlay} role="dialog" aria-modal="true" aria-label="Браузер агента" onMouseDown={(e) => { if (e.target === e.currentTarget) setExpanded(false) }}>
+          {window_}
+        </div>,
+        document.body,
+      ) : window_}
+      {control && (
+        <p className={styles.hint}>Клики и клавиатура уходят на страницу. <kbd>Esc</kbd> вернёт управление агенту.</p>
       )}
+      <Journal events={journal} tabs={tabs} position={tab?.position_index} />
+    </div>
+  )
+}
+
+function BrowserWindow({ procurementId, tab, frame, control, cursor, expanded, stageBox, send, onExpand }: {
+  procurementId: string
+  tab: BrowserTab
+  frame: Parameters<typeof PageView>[0]['frame']
+  control: boolean
+  cursor: string | undefined
+  expanded: boolean
+  stageBox: React.RefObject<HTMLDivElement | null>
+  send: (value: Record<string, unknown>) => boolean
+  onExpand: () => void
+}) {
+  const state = stateOf(tab)
+  const needsUser = state === 'needs_user'
+  const left = useCountdown(needsUser ? tab.deadline : null, tab.wait_seconds)
+  const skip = useMutation({ mutationFn: () => api.skipSource(procurementId, tab.source_id) })
+  let host = domainOf(tab)
+  let rest = ''
+  let secure = false
+  try {
+    const url = new URL(tab.url)
+    host = url.hostname.replace(/^www\./, '')
+    rest = `${url.pathname === '/' ? '' : url.pathname}${url.search}`
+    try { rest = decodeURI(rest) } catch { /* оставляем как есть */ }
+    secure = url.protocol === 'https:'
+  } catch { /* адрес ещё не известен */ }
+  const giveBack = () => send(needsUser ? { type: 'resume' } : { type: 'control', by: 'agent' })
+
+  return (
+    <div className={`${styles.window} ${control ? styles.controlled : ''} ${expanded ? styles.big : ''}`}>
+      {control && (
+        <div className={styles.controlBar}>
+          <Icon name="pointer" />
+          <span className={styles.controlText}>Управляете вы{left != null && <span title="Агент ждёт, потом пропустит сайт"> · <span className={styles.hidden}>агент ждёт </span><span className={styles.num}>{clock(left)}</span></span>}</span>
+          {needsUser && (
+            <button type="button" className={styles.ghost} aria-label="Пропустить сайт" disabled={skip.isPending || skip.isSuccess} onClick={() => skip.mutate()}>
+              <span>Пропустить<span className={styles.wide}> сайт</span></span>
+            </button>
+          )}
+          <button type="button" className={styles.primary} aria-label="Готово, продолжить" onClick={giveBack}><span>Готово<span className={styles.wide}>, продолжить</span></span></button>
+        </div>
+      )}
+      <div className={styles.address}>
+        {secure && <Icon name="lock" className={styles.lock} />}
+        <span className={styles.url} title={tab.url}><b>{host}</b><span>{rest}</span></span>
+        {!control && (
+          <button type="button" className={needsUser ? styles.primary : styles.plain} onClick={() => send({ type: 'control', by: 'user' })}>
+            <Icon name="pointer" />Взять управление
+          </button>
+        )}
+        <button type="button" className={styles.icon} aria-label={expanded ? 'Свернуть' : 'Развернуть'} onClick={onExpand}>
+          <Icon name={expanded ? 'shrink' : 'expand'} />
+        </button>
+      </div>
+      <div ref={stageBox} className={styles.stageBox}>
+        <PageView frame={frame} title={tab.title || host} control={control} cursor={cursor} send={send} onEscape={giveBack}>
+          {state === 'error' && !control && (
+            <div className={styles.failed} role="status"><Icon name="x" /><span><b>Страница не открылась</b>{tab.error && <span>{tab.error}</span>}</span></div>
+          )}
+          {!control && state !== 'error' && (
+            <p className={styles.pill} role="status">
+              {(state === 'loading' || state === 'reading') && <Icon name="spin" className={styles.spin} />}
+              {needsUser ? 'Сайт просит пройти проверку' : tab.action || 'Агент работает на странице'}
+            </p>
+          )}
+        </PageView>
+      </div>
+      {skip.isError && <p className={styles.notice} role="alert">{skip.error.message}</p>}
     </div>
   )
 }
