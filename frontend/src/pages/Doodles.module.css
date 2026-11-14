@@ -1,0 +1,40 @@
+/* Зарисовки занимают свободное место по бокам формы и держат от неё отступ.
+   Когда места сбоку мало, они скрываются, а не наезжают на поле ввода. */
+.cluster {
+  position: absolute;
+  top: 20px;
+  /* Не шире свободного места сбоку и не выше половины окна, чтобы не задеть здание */
+  width: min(240px, calc((100% - var(--chat-width)) / 2 - 52px), 26vh);
+  height: auto;
+  overflow: visible;
+  pointer-events: none;
+  user-select: none;
+  /* Тот же тон, что у линий здания: #F65A00 примерно на 30 % */
+  color: #f65a00;
+  opacity: 0.3;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+/* Толщина линий не зависит от масштаба рисунка */
+.cluster * { vector-effect: non-scaling-stroke; }
+.left { right: calc(50% + var(--chat-width) / 2 + 32px); }
+.right { left: calc(50% + var(--chat-width) / 2 + 32px); }
+
+@container new-purchase (max-width: 1000px) {
+  .cluster { display: none; }
+}
+
+.cluster text {
+  fill: currentColor;
+  stroke: none;
+  font-family: 'Caveat', cursive;
+  font-weight: 500;
+  font-size: 36px;
+}
+.cluster .sup { font-size: 24px; }
+.cluster .label { font-size: 28px; }
+.node { fill: var(--paper); }
+.solid { fill: currentColor; stroke: none; }

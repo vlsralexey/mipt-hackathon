@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router'
 import { api, ApiError } from '../api/client'
 import buildingUrl from '../assets/mipt-building.png'
 import { Composer } from '../components/Composer'
+import { Doodles } from './Doodles'
 import styles from './NewProcurementPage.module.css'
 
 export interface RunNoticeState {
@@ -48,6 +49,7 @@ export function NewProcurementPage() {
 
   return (
     <div className={styles.page}>
+      <Doodles />
       <div className={styles.stack}>
         <div className={styles.intro}>
           <h1>Новая закупка</h1>
