@@ -48,7 +48,7 @@ describe('история чата из примера контракта', () =>
     // причина «Первый прогон» ничего не добавляет, и её в карточке нет
     expect(region.queryByText('Первый прогон')).not.toBeInTheDocument()
     // у первого прогона нет «Отменить»
-    expect(region.queryByRole('button', { name: 'Отменить' })).not.toBeInTheDocument()
+    expect(region.queryByRole('button', { name: 'Отменить правки версии' })).not.toBeInTheDocument()
     // ответ агента
     expect(region.getByText(/Позиция 1 посчитана/)).toBeInTheDocument()
   })
@@ -180,7 +180,7 @@ describe('события SSE', () => {
     expect(screen.getByText(/Исключено: Дистрибьютор «Регион», каталог, «поставка б\/у»/, { selector: 'span' })).toBeInTheDocument()
     expect(screen.getByText(/761\s250,00\s₽\s→\sнет/)).toBeInTheDocument()
     expect(screen.getByText(/Исключено: 1\.5 Дистрибьютор/)).toBeInTheDocument()
-    await user.click(screen.getByRole('button', { name: 'Отменить' }))
+    await user.click(screen.getByRole('button', { name: 'Отменить правки версии' }))
     expect(cancel).toHaveBeenCalledWith(id, ['ed_01'])
   })
 

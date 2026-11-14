@@ -76,6 +76,7 @@ export function IncludedTable({ position }: { position: PositionReport }) {
     <table className={styles.tbl}>
       <thead>
         <tr>
+          <th scope="col">№</th>
           <th>Источник</th>
           <th>Дата цены</th>
           <th className={styles.r}>Цена за единицу</th>
@@ -84,6 +85,7 @@ export function IncludedTable({ position }: { position: PositionReport }) {
       <tbody>
         {position.included.map((e) => (
           <tr key={e.offer.id}>
+            <td>{e.label}</td>
             <td>
               <Source entry={e} />
               <Marks entry={e} />
@@ -106,6 +108,7 @@ export function ExcludedTable({ position }: { position: PositionReport }) {
     <table className={styles.tbl}>
       <thead>
         <tr>
+          <th scope="col">№</th>
           <th>Источник и причина</th>
           <th className={styles.r}>Цена за единицу</th>
         </tr>
@@ -113,6 +116,7 @@ export function ExcludedTable({ position }: { position: PositionReport }) {
       <tbody>
         {position.excluded.map((e) => (
           <tr key={e.offer.id} className={styles.excluded}>
+            <td>{e.label}</td>
             <td>
               <Source entry={e} />
               <Marks entry={e} />

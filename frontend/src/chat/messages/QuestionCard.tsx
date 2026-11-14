@@ -1,6 +1,7 @@
-import { useMutation, useQueryClient } from '@tanstack/react-query'
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { api } from '../../api/client'
-import type { Procurement, Question } from '../../api/types'
+import { useEffect, useMemo } from 'react'
+import type { Question } from '../../api/types'
 import { Icon } from '../../components/Icon'
 import { useChat } from '../context'
 import { procurementKey } from '../useProcurementEvents'
@@ -18,24 +19,23 @@ interface QuestionCardProps {
 export function QuestionCard({ data, variant = 'card', onAnswered }: QuestionCardProps) {
   const { procurementId } = useChat()
   const queryClient = useQueryClient()
+  const pendingKey = useMemo(() => ['question-answer', procurementId, data.id], [procurementId, data.id])
+  const pending = useQuery<{ value: string; accepted: boolean } | null>({ queryKey: pendingKey, queryFn: () => null, enabled: false, initialData: null })
+  useEffect(() => {
+    if (pending.data && data.answer === pending.data.value) queryClient.setQueryData(pendingKey, null)
+  }, [data.answer, pending.data, queryClient, pendingKey])
   const answer = useMutation({
     mutationFn: (value: string) => api.answerQuestion(procurementId, data.id, value),
+    onMutate: (value) => { queryClient.setQueryData(pendingKey, { value, accepted: false }) },
     onSuccess: (_result, value) => {
-      // сразу показываем ответ; то же самое затем придёт по SSE и заменит по id
-      queryClient.setQueryData<Procurement>(procurementKey(procurementId), (old) =>
-        old && {
-          ...old,
-          messages: old.messages.map((m) =>
-            m.kind === 'question' && m.data.id === data.id ? { ...m, data: { ...m.data, answer: value } } : m,
-          ),
-        },
-      )
+      queryClient.setQueryData(pendingKey, { value, accepted: true })
       onAnswered?.()
     },
-    // повторный запрос подстраховывает от потери события
+    onError: () => { queryClient.setQueryData(pendingKey, null) },
     onSettled: () => queryClient.invalidateQueries({ queryKey: procurementKey(procurementId) }),
   })
-  const custom = data.answer !== null && !data.options.includes(data.answer)
+  const shownAnswer = pending.data?.value ?? data.answer
+  const custom = shownAnswer !== null && shownAnswer !== undefined && !data.options.includes(shownAnswer)
 
   return (
     <div className={variant === 'popup' ? styles.askBare : styles.ask}>
@@ -45,14 +45,14 @@ export function QuestionCard({ data, variant = 'card', onAnswered }: QuestionCar
       </div>
       <div className={styles.actions} role="group" aria-label="Варианты ответа">
         {data.options.map((option) => {
-          const chosen = option === data.answer
+          const chosen = option === shownAnswer
           return (
             <button
               key={option}
               type="button"
               className={`${styles.btn} ${chosen ? styles.chosen : ''}`}
               aria-pressed={chosen}
-              disabled={answer.isPending}
+              disabled={answer.isPending || !!pending.data}
               onClick={() => answer.mutate(option)}
             >
               {chosen && <Icon name="check" />}
@@ -61,8 +61,9 @@ export function QuestionCard({ data, variant = 'card', onAnswered }: QuestionCar
           )
         })}
       </div>
-      {custom && <div className={styles.hint}>Ваш ответ: {data.answer}</div>}
-      {data.answer === null && <div className={styles.hint}>По умолчанию: {data.default_answer}</div>}
+      {custom && <div className={styles.hint}>Ваш ответ: {shownAnswer}</div>}
+      {pending.data && <div className={styles.hint} role="status">{pending.data.accepted ? 'Ответ принят, применяем…' : 'Сохраняем ответ…'}</div>}
+      {!pending.data && data.answer === null && <div className={styles.hint}>По умолчанию: {data.default_answer}</div>}
       {answer.isError && (
         <p className={styles.error} role="alert">
           {answer.error.message}

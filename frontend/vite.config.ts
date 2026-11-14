@@ -8,7 +8,7 @@ process.env.TZ = 'Europe/Moscow'
 export default defineConfig({
   plugins: [react()],
   server: {
-    proxy: { '/api': 'http://localhost:8000' },
+    proxy: { '/api': { target: 'http://localhost:8000', ws: true } },
     // моки читают примеры контракта из docs/api-examples
     fs: { allow: ['..'] },
   },

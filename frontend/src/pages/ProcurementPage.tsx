@@ -1,6 +1,9 @@
 import { useQuery } from '@tanstack/react-query'
 import { useRef, useState, type KeyboardEvent } from 'react'
 import { useLocation, useNavigate, useParams } from 'react-router'
+import { BrowserPanel } from '../browser/BrowserPanel'
+import { LocalSettingsPanel } from '../settings/LocalSettingsPanel'
+import { VersionComparison } from '../report/VersionComparison'
 import { api } from '../api/client'
 import { Chat } from '../chat/Chat'
 import { ReportControls } from '../report/ReportControls'
@@ -10,7 +13,7 @@ import type { RunNoticeState } from './NewProcurementPage'
 import { RunNotice } from './RunNotice'
 import styles from './ProcurementPage.module.css'
 
-type Tab = 'report' | 'browser'
+type Tab = 'report' | 'browser' | 'settings'
 
 /** Плавно, но без анимации тем, кто отключил её в системе. */
 function scrollToTop(el: HTMLElement | null) {
@@ -22,6 +25,7 @@ function scrollToTop(el: HTMLElement | null) {
 const tabs: { id: Tab; label: string }[] = [
   { id: 'report', label: 'Отчёт' },
   { id: 'browser', label: 'Браузер' },
+  { id: 'settings', label: 'Правила' },
 ]
 
 /** Экран закупки: чат слева, панель «Отчёт / Браузер» справа. */
@@ -66,7 +70,7 @@ function ProcurementView({ id }: { id: string }) {
 
   function onTabKeyDown(e: KeyboardEvent) {
     if (e.key !== 'ArrowRight' && e.key !== 'ArrowLeft') return
-    const next = tab === 'report' ? 'browser' : 'report'
+    const next = tabs[(tabs.findIndex((t) => t.id === tab) + (e.key === 'ArrowRight' ? 1 : tabs.length - 1)) % tabs.length].id
     setTab(next)
     document.getElementById(`tab-${next}`)?.focus()
   }
@@ -95,7 +99,7 @@ function ProcurementView({ id }: { id: string }) {
           />
         )}
         {procurement.data ? (
-          <Chat procurement={procurement.data} viewingVersion={shownVersion} onOpenVersion={openVersion} />
+          <Chat procurement={procurement.data} viewingVersion={shownVersion} onOpenVersion={openVersion} onOpenBrowser={() => setTab('browser')} />
         ) : (
           <p className={styles.loading}>Загрузка…</p>
         )}
@@ -138,6 +142,7 @@ function ProcurementView({ id }: { id: string }) {
           className={styles.panel}
           hidden={tab !== 'report'}
         >
+          {reports.versions.data && <VersionComparison procurementId={id} versions={reports.versions.data} />}
           {procurement.data && (
             <ReportPanel
               query={reports}
@@ -155,11 +160,9 @@ function ProcurementView({ id }: { id: string }) {
           className={styles.panel}
           hidden={tab !== 'browser'}
         >
-          <div className={styles.state}>
-            <h2>Окно браузера</h2>
-            <p>Оно появится здесь, когда источнику понадобится проверка «я не робот» или вход.</p>
-          </div>
+          <BrowserPanel procurementId={id} active={tab === 'browser'} />
         </div>
+        <div id="panel-settings" role="tabpanel" aria-labelledby="tab-settings" className={styles.panel} hidden={tab !== 'settings'}><LocalSettingsPanel procurementId={id} active={tab === 'settings'} /></div>
       </section>
     </div>
   )

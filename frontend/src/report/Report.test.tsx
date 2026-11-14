@@ -359,6 +359,6 @@ describe('пустые состояния', () => {
     const user = userEvent.setup()
     renderApp(`/p/${exampleId()}`)
     await user.click(await screen.findByRole('tab', { name: 'Браузер' }))
-    expect(screen.getByText(/Оно появится здесь/)).toBeVisible()
+    expect(screen.getByText('Вкладок пока нет')).toBeVisible()
   })
 })

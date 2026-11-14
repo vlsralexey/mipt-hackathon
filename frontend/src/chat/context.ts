@@ -2,6 +2,7 @@ import { createContext, useContext } from 'react'
 
 interface ChatContextValue {
   procurementId: string
+  openBrowser?: () => void
   /** Открыть версию отчёта в правой панели. */
   openVersion: (version: number) => void
 }

@@ -392,3 +392,41 @@ export interface AgentEvent {
 export interface ApiErrorBody {
   detail: string
 }
+
+export interface LocalSetting {
+  key: string
+  group: 'rules' | 'sources'
+  title: string
+  display: string
+  global_display: string
+  changed: boolean
+  edit_id: string | null
+}
+export interface LocalSettings {
+  items: LocalSetting[]
+  base_outdated: { key: string; title: string; base: string; current: string }[]
+}
+export interface Config {
+  sources: { id: string; name: string; level: 1 | 2; type: 'eis' | 'web'; enabled: boolean; sites: string[]; vat_default: 'included' | 'unknown'; vat_note: string | null; delivery_note: string | null }[]
+  rules: { key: string; title: string; value: unknown; display: string; description: string }[]
+}
+export interface ConfigChange {
+  id: string
+  created_at: ISODateTime
+  path: string
+  title: string
+  before: string
+  after: string
+  reason: string
+  status: 'active' | 'cancelled'
+}
+export interface BrowserTab {
+  id: string
+  url: string
+  title: string
+  procurement_id: string
+  source_id: string
+  status: string
+  action: string
+  blocked: boolean
+}

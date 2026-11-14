@@ -42,13 +42,15 @@ export function VersionCard({ data }: { data: VersionCardData }) {
             type="button"
             className={`${styles.btn} ${styles.ghost}`}
             disabled={cancel.isPending}
+            title="Отменить изменения, внесённые этой версией. Отчёт пересчитается в новой версии."
             onClick={() => cancel.mutate()}
           >
-            Отменить
+            {cancel.isPending ? 'Отмена правок…' : 'Отменить правки версии'}
           </button>
         )}
       </div>
 
+      {data.cancellable && <p className={styles.hint}>Отмена убирает правки этой версии и создаёт новый отчёт. История сохранится.</p>}
       <ul className={styles.lines}>
         {!empty(diff.total) && (
           <li>

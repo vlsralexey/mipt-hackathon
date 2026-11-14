@@ -1,0 +1,24 @@
+.browser { display: flex; flex-direction: column; min-height: 100%; background: var(--raised); }
+.connection { display: flex; justify-content: space-between; align-items: center; padding: 10px 14px; color: var(--muted); font-size: var(--t-xs); border-bottom: 1px solid var(--line); }
+.browser button { padding: 6px 10px; border: 1px solid var(--line-strong); border-radius: var(--r-sm); background: var(--raised); font-size: var(--t-xs); }
+.browser button:hover:not(:disabled) { background: var(--hover); }
+.browser button:disabled { opacity: .55; cursor: default; }
+.tabs { display: flex; gap: 6px; padding: 10px; overflow-x: auto; background: var(--second); }
+.tabs button { display: flex; align-items: center; gap: 8px; flex: 0 0 180px; text-align: left; min-width: 0; }
+.tabs button[aria-selected='true'] { border-color: var(--accent); color: var(--accent-ink); }
+.tabs button > span:last-child { overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
+.tabs small { display: block; font-size: var(--t-xs); color: var(--muted); overflow: hidden; text-overflow: ellipsis; }
+.dot, .blocked { width: 7px; height: 7px; border-radius: 50%; flex: none; background: var(--accent); }
+.blocked { background: var(--warn); }
+.toolbar { display: flex; gap: 8px; padding: 10px 14px; border-bottom: 1px solid var(--line); flex-wrap: wrap; }
+.url { flex: 1 1 160px; min-width: 0; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; color: var(--muted); font-size: var(--t-xs); align-self: center; }
+.action { margin: 0; padding: 8px 14px; font-size: var(--t-xs); color: var(--muted); }
+.viewport { background: var(--second); overflow: auto; }
+.viewport img { display: block; width: 100%; height: auto; }
+.viewport img:focus-visible { outline-offset: -2px; }
+.textInput { display: flex; gap: 8px; padding: 12px; }
+.textInput input { flex: 1; min-width: 0; padding: 8px; border: 1px solid var(--line-strong); border-radius: var(--r-sm); font: inherit; }
+.empty { margin: 0; padding: 28px 20px; color: var(--muted); font-size: var(--t-sm); }
+.empty h2 { margin: 0 0 8px; color: var(--ink); font-size: var(--t-lg); }
+.empty p { margin: 0; max-width: 60ch; }
+.error { margin: 0; padding: 10px 14px; color: var(--cut); font-size: var(--t-sm); }
