@@ -143,6 +143,28 @@ async def test_compare_cannot_change_essential_flag_or_omit_requirement():
     assert decide(comparisons)[0] == "incomparable"
 
 
+async def test_brand_case_is_not_a_contradiction_but_distinct_model_is():
+    position = paper_position(
+        characteristics=[
+            {"name": "Товарный знак", "value": "SvetoCopy", "essential": True},
+            {"name": "Модель", "value": "D600 PRO", "essential": True},
+        ]
+    )
+    llm = FakeLLM(
+        [
+            {
+                "comparison": [
+                    {"name": "Товарный знак", "offered": "Svetocopy", "ok": False},
+                    {"name": "Модель", "offered": "D600", "ok": False},
+                ]
+            }
+        ]
+    )
+    result = await compare(llm, position, offer())
+    assert result[0].ok is True and result[1].ok is False
+    assert decide(result)[0] == "incomparable"
+
+
 @pytest.mark.parametrize(
     "ok, expected", [(False, "incomparable"), (None, "insufficient_data"), (True, None)]
 )

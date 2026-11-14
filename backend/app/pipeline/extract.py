@@ -4,7 +4,7 @@ from typing import Literal
 
 from pydantic import Field, ValidationError
 
-from app.llm.client import LLM, LLMError
+from app.llm.client import LLM, LLMAuthError, LLMError
 from app.llm.prompts import EXTRACT_SYSTEM
 from app.llm.structured import complete_model
 from app.models import DomainModel, Offer, Position
@@ -82,6 +82,8 @@ async def extract_offers(
             Extracted,
             "offers",
         )
+    except LLMAuthError:
+        raise
     except LLMError as exc:
         return [], [ExtractFailure(page=page, reason=str(exc))]
     offers, failures = [], []

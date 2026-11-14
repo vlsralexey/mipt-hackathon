@@ -78,3 +78,11 @@ async def test_missing_brand_question_is_added_without_weakening_requirement():
     parsed = await parse_tz(FakeLLM([raw_tz(positions=[pos.model_dump(mode="json")])]), "ТЗ")
     assert parsed.questions[0].default_answer == "Нет, только SvetoCopy"
     assert parsed.positions[0].characteristics[0].essential
+
+
+async def test_mass_inside_piece_has_question_even_if_model_omits_it():
+    pos = paper_position(name="Реагент", unit="шт", basis={"unit": "мкг", "per_tz_unit": "10"})
+    parsed = await parse_tz(FakeLLM([raw_tz(positions=[pos.model_dump(mode="json")])]), "ТЗ")
+    assert len(parsed.questions) == 1
+    assert "10 мкг" in parsed.questions[0].default_answer
+    assert parsed.positions[0].basis.per_tz_unit == 10

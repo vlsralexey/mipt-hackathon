@@ -2,7 +2,9 @@ import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { useState } from 'react'
 import { useNavigate } from 'react-router'
 import { api, ApiError } from '../api/client'
+import buildingUrl from '../assets/mipt-building.png'
 import { Composer } from '../components/Composer'
+import { Doodles } from './Doodles'
 import styles from './NewProcurementPage.module.css'
 
 export interface RunNoticeState {
@@ -47,22 +49,27 @@ export function NewProcurementPage() {
 
   return (
     <div className={styles.page}>
-      <div className={styles.intro}>
-        <h1>Новая закупка</h1>
-        <p>Приложите техническое задание или вставьте его текст.</p>
+      <Doodles />
+      <div className={styles.stack}>
+        <div className={styles.intro}>
+          <h1>Новая закупка</h1>
+          <p>Приложите техническое задание или вставьте его текст.</p>
+        </div>
+        <Composer
+          text={text}
+          onTextChange={setText}
+          file={file}
+          onFileChange={setFile}
+          placeholder={file ? 'Добавьте пожелания к расчёту (необязательно)' : 'Вставьте текст ТЗ или перетащите файл'}
+          label="Техническое задание"
+          pending={create.isPending}
+          error={create.error?.message ?? null}
+          onSubmit={() => create.mutate()}
+        />
+        <p className={styles.formats}>.docx, .pdf, .txt или .md, до 20&nbsp;МБ</p>
       </div>
-      <Composer
-        text={text}
-        onTextChange={setText}
-        file={file}
-        onFileChange={setFile}
-        placeholder={file ? 'Добавьте пожелания к расчёту (необязательно)' : 'Вставьте текст ТЗ или перетащите файл'}
-        label="Техническое задание"
-        pending={create.isPending}
-        error={create.error?.message ?? null}
-        onSubmit={() => create.mutate()}
-      />
-      <p className={styles.formats}>.docx, .pdf, .txt или .md, до 20&nbsp;МБ</p>
+      {/* Главное здание МФТИ стоит на нижнем краю, как горизонт; украшение, не содержимое */}
+      <img className={styles.building} src={buildingUrl} alt="" width={1400} height={538} />
     </div>
   )
 }

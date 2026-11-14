@@ -41,9 +41,9 @@ def active_edits(edits: list[Edit]) -> list[Edit]:
         if edit.status != "active":
             continue
         if edit.kind in ("include", "exclude"):
-            key = ("selection", edit.payload.offer_id)
+            key = ("selection", edit.position_index, edit.payload.offer_id)
         elif edit.kind == "correct_offer":
-            key = (edit.kind, edit.payload.offer_id, edit.payload.field)
+            key = (edit.kind, edit.position_index, edit.payload.offer_id, edit.payload.field)
         elif edit.kind == "answer_question":
             key = (edit.kind, edit.payload.question_id)
         else:
@@ -52,13 +52,44 @@ def active_edits(edits: list[Edit]) -> list[Edit]:
     return sorted(latest.values(), key=lambda e: e.seq)
 
 
+def _answer_changes(current, previous, updated):
+    if isinstance(previous, dict) and isinstance(updated, dict):
+        return {
+            key: _answer_changes(current.get(key), previous.get(key), value)
+            for key, value in updated.items()
+        }
+    if updated == previous:
+        return current
+    if (
+        isinstance(updated, list)
+        and updated
+        and all(isinstance(c, dict) and "name" in c for c in updated)
+    ):
+        old = {c["name"]: c for c in previous}
+        actual = {c["name"]: c for c in current}
+        return [
+            _answer_changes(actual.get(c["name"], c), old.get(c["name"], {}), c) for c in updated
+        ]
+    return updated
+
+
 def effective_position(position: Position, edits: list[Edit]) -> Position:
     current = position.model_copy(deep=True)
     for edit in active_edits(edits):
         if edit.kind == "answer_question" and edit.position_index == position.index:
             if edit.payload.position.index != position.index:
                 raise ValueError("Правка ответа ссылается на другую позицию")
-            current = edit.payload.position.model_copy(deep=True)
+            updated = edit.payload.position
+            previous = edit.payload.previous_position
+            if previous is None:
+                current = updated.model_copy(deep=True)
+            else:
+                # Ответ хранит результат LLM и вход к нему. Применяем только его
+                # изменения: отмена другого вопроса не воскресит его старый ответ.
+                data = _answer_changes(
+                    current.model_dump(), previous.model_dump(), updated.model_dump()
+                )
+                current = Position.model_validate(data)
     return current
 
 
@@ -300,7 +331,9 @@ def build_report(
         )
     justified = [p.total for p in positions if p.status == "ok" and p.total is not None]
     applied = []
-    entries = {e.offer.id: e for p in positions for e in p.included + p.excluded}
+    entries = {
+        (p.position.index, e.offer.id): e for p in positions for e in p.included + p.excluded
+    }
     for edit in effective:
         if edit.kind == "answer_question":
             exists = any(
@@ -309,7 +342,16 @@ def build_report(
             )
             effect = "Ответ применён к позиции" if exists else "Вопрос не найден"
         elif edit.kind in ("include", "exclude", "correct_offer"):
-            target = entries.get(edit.payload.offer_id)
+            target = entries.get((edit.position_index, edit.payload.offer_id))
+            if edit.position_index is None:
+                target = next(
+                    (
+                        entry
+                        for (index, oid), entry in entries.items()
+                        if oid == edit.payload.offer_id
+                    ),
+                    None,
+                )
             exists = target is not None
             effect = (
                 "Применено к предложению"

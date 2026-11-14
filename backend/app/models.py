@@ -306,6 +306,7 @@ class AnswerPayload(DomainModel):
     question_id: str = Field(min_length=1)
     answer: str = Field(min_length=1)
     position: Position
+    previous_position: Position | None = None
 
 
 class ExcludeEdit(EditBase):
@@ -427,6 +428,13 @@ class AppliedEdit(DomainModel):
 
 
 class Report(DomainModel):
+    @model_serializer(mode="wrap")
+    def public_strings(self, handler, info):
+        from app.presentation import public_text
+
+        data = handler(self)
+        return public_text(data) if info.mode == "json" else data
+
     procurement_id: str
     version: int = Field(ge=1)
     created_at: AwareDatetime
