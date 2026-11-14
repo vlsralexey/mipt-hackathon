@@ -1,0 +1,134 @@
+{
+  "id": "5f0c2e9a41b84d6f9a1e7c3b2d8f6a10",
+  "title": "Поставка бумаги для офисной техники и писчей (офсетной) бумаги",
+  "created_at": "2026-11-13T10:01:00+03:00",
+  "updated_at": "2026-11-13T10:20:05+03:00",
+  "status": "ready",
+  "latest_version": 1,
+  "total": null,
+  "total_justified": "761250.00",
+  "positions_total": 2,
+  "positions_unjustified": 1,
+  "filename": "ТЗ поставка бумаги.docx",
+  "agent_busy": false,
+  "messages": [
+    {
+      "id": "m_01",
+      "created_at": "2026-11-13T10:01:00+03:00",
+      "role": "user",
+      "kind": "file",
+      "text": null,
+      "data": {"filename": "ТЗ поставка бумаги.docx", "size_bytes": 43008}
+    },
+    {
+      "id": "m_02",
+      "created_at": "2026-11-13T10:01:00+03:00",
+      "role": "user",
+      "kind": "text",
+      "text": "Обоснуй НМЦК по этому ТЗ.",
+      "data": null
+    },
+    {
+      "id": "m_03",
+      "created_at": "2026-11-13T10:01:40+03:00",
+      "role": "agent",
+      "kind": "tz_summary",
+      "text": "В ТЗ две позиции. Первая — конкретная марка SvetoCopy, вторую сравниваю по характеристикам.",
+      "data": {
+        "title": "Поставка бумаги для офисной техники и писчей (офсетной) бумаги",
+        "positions": [
+          {"index": 1, "name": "Бумага А4 SvetoCopy, 80 г/м²", "quantity": "2500", "unit": "пачка"},
+          {"index": 2, "name": "Бумага писчая офсетная А4, 65 г/м²", "quantity": "50", "unit": "пачка"}
+        ]
+      }
+    },
+    {
+      "id": "m_04",
+      "created_at": "2026-11-13T10:01:41+03:00",
+      "role": "agent",
+      "kind": "question",
+      "text": null,
+      "data": {
+        "id": "q1-1",
+        "position_index": 1,
+        "text": "Учитывать аналоги без марки SvetoCopy с теми же характеристиками?",
+        "hint": "Марка названа в ТЗ без «или эквивалент», поэтому по умолчанию ищу только SvetoCopy.",
+        "options": ["Нет, только SvetoCopy", "Да, учитывать аналоги"],
+        "default_answer": "Нет, только SvetoCopy",
+        "answer": null
+      }
+    },
+    {
+      "id": "m_05",
+      "created_at": "2026-11-13T10:01:42+03:00",
+      "role": "system",
+      "kind": "run",
+      "text": null,
+      "data": {
+        "run_id": "run_01",
+        "kind": "full",
+        "state": "done",
+        "summary": "Проверено 3 источника, подходят 6 цен",
+        "position_indexes": [1, 2],
+        "started_at": "2026-11-13T10:01:42+03:00",
+        "finished_at": "2026-11-13T10:20:00+03:00",
+        "steps": [
+          {"source_id": "eis", "name": "ЕИС Закупки", "level": 1, "position_index": 1, "status": "ok", "found": 3, "relevant": 3, "note": null},
+          {"source_id": "web_suppliers", "name": "Каталоги производителей и дистрибьюторов", "level": 1, "position_index": 1, "status": "ok", "found": 2, "relevant": 1, "note": null},
+          {"source_id": "eis", "name": "ЕИС Закупки", "level": 1, "position_index": 2, "status": "empty", "found": 0, "relevant": 0, "note": null},
+          {"source_id": "web_suppliers", "name": "Каталоги производителей и дистрибьюторов", "level": 1, "position_index": 2, "status": "ok", "found": 1, "relevant": 1, "note": null},
+          {"source_id": "web_shops", "name": "Маркетплейсы и интернет-магазины", "level": 2, "position_index": 2, "status": "ok", "found": 1, "relevant": 1, "note": "Подключён: на уровне 1 найдена 1 цена"}
+        ]
+      }
+    },
+    {
+      "id": "m_06",
+      "created_at": "2026-11-13T10:20:01+03:00",
+      "role": "system",
+      "kind": "version",
+      "text": null,
+      "data": {
+        "version": 1,
+        "cause": "Первый прогон",
+        "edit_ids": [],
+        "cancellable": false,
+        "diff": {
+          "from_version": null,
+          "to_version": 1,
+          "total": {"before": null, "after": null},
+          "total_justified": {"before": null, "after": "761250.00"},
+          "positions": [
+            {
+              "index": 1,
+              "name": "Бумага А4 SvetoCopy, 80 г/м²",
+              "status": {"before": null, "after": "ok"},
+              "unit_price": {"before": null, "after": "304.50"},
+              "n": {"before": null, "after": 3},
+              "cv": {"before": null, "after": "0.0468"}
+            },
+            {
+              "index": 2,
+              "name": "Бумага писчая офсетная А4, 65 г/м²",
+              "status": {"before": null, "after": "insufficient"},
+              "unit_price": {"before": null, "after": null},
+              "n": {"before": null, "after": 2},
+              "cv": {"before": null, "after": "0.0347"}
+            }
+          ],
+          "offers_moved": [],
+          "edits_added": [],
+          "edits_cancelled": [],
+          "rules_changed": []
+        }
+      }
+    },
+    {
+      "id": "m_07",
+      "created_at": "2026-11-13T10:20:05+03:00",
+      "role": "agent",
+      "kind": "text",
+      "text": "Позиция 1 посчитана. По позиции 2 нашлось только 2 сопоставимые цены, а нужно не меньше 3 — её цена в отчёте справочная. Могу поискать ещё или уточнить требования.",
+      "data": null
+    }
+  ]
+}

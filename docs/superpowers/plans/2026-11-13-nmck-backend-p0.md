@@ -819,6 +819,7 @@ def test_settings_roundtrip(tmp_path):
   - `GET /procurements/{id}/reports` → версии; `GET /procurements/{id}/reports/{version|latest}` → `Report` JSON.
   - `GET /procurements/{id}/reports/{version}/export.docx` (Task 14).
 - `docs/api.md` — эти эндпоинты, примеры запросов/ответов и пример `Report` JSON (из `make_sample_report`), чтобы фронтенд мог работать на моках.
+- **Контракт уже согласован заранее** (`docs/api.md`, примеры в `docs/api-examples/`) и главнее списка выше: эндпоинты, модели и события реализуются по нему, отличия от этого плана перечислены в его §8. Тест `test_api_contract.py` валидирует примеры моделями (§9 контракта). Расхождение реализации с контрактом — правка контракта отдельным коммитом.
 
 - [ ] **Step 1: Тесты (TestClient, зависимость Repo/LLM подменяется через `app.dependency_overrides`)**
 
