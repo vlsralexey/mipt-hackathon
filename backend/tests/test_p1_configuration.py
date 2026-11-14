@@ -319,6 +319,11 @@ async def test_restart_date_is_an_edit_and_cancel_restores_original_snapshot(tmp
             "Дата обновлена после подтверждения полного поиска",
         )
         assert effective_snapshot(snapshot, turn.edits).calc_date == date(2026, 11, 14)
+        service.configuration.perform_rebase(turn)
+        # Обычный rebase правил не должен возвращать дату базы, которую
+        # предыдущий подтверждённый полный поиск уже обновил.
+        assert effective_snapshot(snapshot, turn.edits).calc_date == date(2026, 11, 14)
+        turn.edits[-1].status = "cancelled"
         turn.edits[0].status = "cancelled"
         assert effective_snapshot(snapshot, turn.edits).calc_date == date(2020, 1, 1)
         assert snapshot.calc_date == date(2020, 1, 1)

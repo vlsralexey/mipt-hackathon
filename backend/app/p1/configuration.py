@@ -512,11 +512,12 @@ class Configuration:
         await self.service.enqueue(pid, "rebase", {})
 
     def perform_rebase(self, turn):
+        calc_date = effective_snapshot(turn.state["snapshot"], turn.edits).calc_date
         turn.add(
             "rebase_settings",
             None,
             "base",
-            {"rules": self.document["rules"], "cpi": self.document["cpi"]},
+            {"rules": self.document["rules"], "cpi": self.document["cpi"], "calc_date": calc_date},
             "Пересчитать по общим настройкам",
             "База обновлена по общим настройкам",
         )
@@ -581,11 +582,16 @@ async def execute(turn, name, args):
         candidate.add("local_setting", None, key, {"key": key, "value": value}, reason, summary)
     elif name == "rebase_settings":
         summary = "Для этой закупки: пересчитать по текущим общим настройкам"
+        calc_date = effective_snapshot(turn.state["snapshot"], turn.edits).calc_date
         candidate.add(
             "rebase_settings",
             None,
             "base",
-            {"rules": config.document["rules"], "cpi": config.document["cpi"]},
+            {
+                "rules": config.document["rules"],
+                "cpi": config.document["cpi"],
+                "calc_date": calc_date,
+            },
             summary,
             summary,
         )
