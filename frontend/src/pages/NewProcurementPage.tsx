@@ -67,7 +67,7 @@ export function NewProcurementPage() {
         <p className={styles.formats}>.docx, .pdf, .txt или .md, до 20&nbsp;МБ</p>
       </div>
       {/* Главное здание МФТИ стоит на нижнем краю, как горизонт; украшение, не содержимое */}
-      <img className={styles.building} src={buildingUrl} alt="" width={1400} height={559} />
+      <img className={styles.building} src={buildingUrl} alt="" width={1400} height={538} />
     </div>
   )
 }
