@@ -41,7 +41,7 @@ export function GlobalSettingsPanel() {
   const problem = config.error ?? changes.error ?? messages.error
   return <div className={styles.section}>
     <h2>Общие источники и правила</h2>
-    <p>Эти настройки используются для новых закупок. Уже созданные сохраняют свою базу, пока вы не выберете пересчёт по общим.</p>
+    <p>Новые закупки используют эти правила. У существующих правила и ИПЦ сохраняются до пересчёта по общим. Каждый новый поиск использует актуальные источники с учётом локальных настроек.</p>
     {config.isPending && <p role="status">Загрузка правил и источников…</p>}
     {problem && <div className={styles.error} role="alert"><p>{problem.message}</p><button type="button" onClick={() => { void config.refetch(); void changes.refetch(); void messages.refetch() }}>Повторить загрузку</button></div>}
     <details><summary>Правила расчёта</summary><dl className={styles.values}>{config.data?.rules.map((rule) => <div key={rule.key}><dt title={rule.description}>{rule.title}</dt><dd>{rule.display}<small>{rule.description}</small></dd></div>)}</dl></details>
