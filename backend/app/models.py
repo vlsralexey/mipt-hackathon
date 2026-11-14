@@ -365,6 +365,29 @@ class EditPositionPayload(DomainModel):
     field: str
     value: str | bool | Decimal
 
+    @model_validator(mode="after")
+    def validate_position_value(self):
+        from app.units import parse_price
+
+        if self.field == "quantity":
+            if isinstance(self.value, bool):
+                raise ValueError("Количество должно быть положительным числом")
+            amount = parse_price(str(self.value))
+            if amount <= 0:
+                raise ValueError("Количество должно быть положительным числом")
+            self.value = amount
+        elif self.field.startswith("essential:"):
+            if not self.field.partition(":")[2].strip() or not isinstance(self.value, bool):
+                raise ValueError("Существенность характеристики должна быть true или false")
+        elif self.field == "name" or self.field.startswith("characteristic:"):
+            if not isinstance(self.value, str) or not self.value.strip():
+                raise ValueError("Укажите непустое название или значение характеристики")
+            if self.field != "name" and not self.field.partition(":")[2].strip():
+                raise ValueError("Укажите название характеристики")
+        else:
+            raise ValueError("Недопустимое поле позиции")
+        return self
+
 
 class LocalSettingPayload(DomainModel):
     key: str
@@ -374,6 +397,7 @@ class LocalSettingPayload(DomainModel):
 class RebasePayload(DomainModel):
     rules: dict[str, Any]
     cpi: dict[str, Decimal]
+    calc_date: date | None = None
 
 
 class AddOfferEdit(EditBase):

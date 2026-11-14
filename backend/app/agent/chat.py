@@ -5,6 +5,8 @@ import json
 from pydantic import TypeAdapter, ValidationError
 
 from app.models import CorrectOfferPayload, Edit
+from app.p1.actions import actions_for, schemas
+from app.p1.configuration import CONFIG_TOOLS
 from app.pipeline.parse_tz import apply_answer
 from app.pipeline.report import active_edits, effective_position
 from app.report.diff import version_diff
@@ -17,9 +19,12 @@ CHAT_SYSTEM = """Ты помощник сотрудника закупок. От
 Не исключай цены самостоятельно. Меняй данные только по явной просьбе пользователя.
 Для exclude_offer всегда укажи причину из сообщения пользователя; если причина только
 в цене или желаемом итоге, reason_kind=price. Не скрывай такое исключение.
-Без ссылки/файла нельзя добавить новую цену. Добавление предложений, массовые исключения,
-изменение правил, общих/локальных настроек и полный перезапуск с подтверждением относятся
-к P1 и пока недоступны. Объясни ограничение, не имитируй выполнение.
+Без ссылки нельзя добавить новую цену. Массовые исключения, изменение локальных правил
+и возврат к версии выполняются только через карточку подтверждения. Никогда не вызывай
+apply_proposal в том же ходе, где предложение создано: дождись согласия пользователя.
+Общие правила меняет отдельный агент страницы настроек. Для допоиска используй search_more,
+для ссылки пользователя add_offer_from_url. Просьба «начни заново» требует restart_research
+с подтверждением, новой датой расчёта и сохранением правок. Не имитируй поиск текстом.
 Если ссылка на предложение неоднозначна, задай вопрос с вариантами, не изменяй данные.
 viewing_version показывает, какую таблицу видел пользователь: опирайся на её метки и ID.
 Правки всегда применяются к последним данным. Инструмент возвращает ошибку, если ID исчез.
@@ -108,6 +113,10 @@ TOOLS = [
 ]
 
 
+TOOLS.extend(schemas(tool, STR, IDX))
+TOOLS.extend(CONFIG_TOOLS)
+
+
 class Turn:
     def __init__(self, service, pid, llm, adapters, origin="chat"):
         self.service, self.pid, self.llm, self.adapters = service, pid, llm, adapters
@@ -119,12 +128,22 @@ class Turn:
         self.search_indexes = set()
         self.answer_search_indexes = set()
         self.applied_to_version = None
+        self.turn_id = new_id("turn")
+        self.extra_runs = []
+        self.restore_runs = None
+        self.applied_proposals = []
+        self.restart_search = False
+        self.actions = actions_for(service)
+
+    def current_runs(self):
+        base = self.restore_runs if self.restore_runs is not None else self.repo.runs(self.pid)
+        return base + self.extra_runs
 
     def report(self):
         if self.state["parsed"] is None:
             raise ActionError("ТЗ ещё не разобрано. Дождитесь уточняющих вопросов.")
         return self.service.make_report(
-            self.pid, edits=self.edits, runs=self.repo.runs(self.pid), cause="Предпросмотр"
+            self.pid, edits=self.edits, runs=self.current_runs(), cause="Предпросмотр"
         )
 
     def get_position(self, position_index):
@@ -155,7 +174,7 @@ class Turn:
             same = edit.target == target and edit.position_index == position_index
             if kind in ("exclude", "include"):
                 same = same and edit.kind in ("exclude", "include")
-            elif kind == "correct_offer":
+            elif kind in ("correct_offer", "edit_position"):
                 same = same and edit.kind == kind and edit.payload.field == payload["field"]
             else:
                 same = same and edit.kind == kind
@@ -209,6 +228,12 @@ class Turn:
                 for e in active_edits(self.edits)
                 if e.kind == "exclude" and e.target == offer_id and e.position_index == index
             ]
+            if not ids:
+                raise ActionError(
+                    "Предложение исключено действующим условием или настройкой закупки. "
+                    "Отмените соответствующую правку в разделе «Правки пользователя» "
+                    "или измените локальные настройки."
+                )
             await self.cancel(ids)
             return
         if entry.exclusion is None:
@@ -325,7 +350,7 @@ class Turn:
         elif name in methods:
             await methods[name](**args)
         else:
-            raise ActionError("Инструмент недоступен")
+            return await self.actions.execute(self, name, args)
         report = self.report()
         return {
             "detail": self.causes[-1],
@@ -333,23 +358,38 @@ class Turn:
         }
 
     async def commit(self):
-        if self.changed:
-            async with self.service.locks[self.pid]:
-                # Поиск мог закончиться, пока LLM составляла ответ: берём свежие результаты.
-                previous = self.repo.get_report(self.pid)
-                self.applied_to_version = previous.version if previous else None
-                create = previous is not None and not self.answer_search_indexes
-                await self.service.commit(
-                    self.pid,
-                    self.edits,
-                    self.repo.runs(self.pid),
-                    "; ".join(self.causes),
-                    create_version=create,
-                )
-        if self.search_indexes:
-            self.service.rerun(self.pid, sorted(self.search_indexes))
-        if self.answer_search_indexes:
-            self.service.research_after_answer(self.pid, sorted(self.answer_search_indexes))
+        try:
+            if self.changed:
+                async with self.service.locks[self.pid]:
+                    # Повторно проверяем предпросмотр под блокировкой: поиск или
+                    # ответ могли изменить закупку, пока модель составляла ответ.
+                    for proposal_id in self.applied_proposals:
+                        self.actions.pending(self.pid, proposal_id)
+                    if self.restart_search:
+                        self.actions.ensure_not_searching(self.pid)
+                    previous = self.repo.get_report(self.pid)
+                    self.applied_to_version = previous.version if previous else None
+                    create = previous is not None and not self.answer_search_indexes
+                    self.actions.applying.update(self.applied_proposals)
+                    await self.service.commit(
+                        self.pid,
+                        self.edits,
+                        self.current_runs(),
+                        "; ".join(self.causes),
+                        create_version=create,
+                    )
+                    for proposal_id in self.applied_proposals:
+                        await self.actions.mark_applied(self.pid, proposal_id)
+        finally:
+            for proposal_id in self.applied_proposals:
+                self.actions.applying.discard(proposal_id)
+        if self.restart_search:
+            self.service.rerun(self.pid, sorted(self.answer_search_indexes))
+        else:
+            if self.search_indexes:
+                self.service.rerun(self.pid, sorted(self.search_indexes))
+            if self.answer_search_indexes:
+                self.service.research_after_answer(self.pid, sorted(self.answer_search_indexes))
 
 
 async def handle_message(turn, payload):
@@ -364,6 +404,11 @@ async def handle_message(turn, payload):
         "status": state.status,
         "viewing_version": viewing,
         "latest_version": latest.version if latest else None,
+        "proposals": [
+            message.data.model_dump(mode="json")
+            for message in state.messages
+            if message.kind == "proposal"
+        ][-10:],
         "edits": [TypeAdapter(Edit).dump_python(e, mode="json") for e in turn.edits],
         "questions": [q.model_dump(mode="json") for q in turn.state["parsed"].questions]
         if turn.state["parsed"]

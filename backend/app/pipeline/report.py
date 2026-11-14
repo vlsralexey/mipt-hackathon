@@ -21,6 +21,12 @@ from app.models import (
     Report,
     ResearchRun,
 )
+from app.p1.configuration_helpers import (
+    effective_snapshot,
+    local_setting_descriptions,
+    source_disabled,
+)
+from app.p1.filters import matches
 from app.pipeline.calc import calculate, find_outliers, money
 from app.pipeline.match import decide, dedupe
 from app.pipeline.normalize import (
@@ -46,6 +52,10 @@ def active_edits(edits: list[Edit]) -> list[Edit]:
             key = (edit.kind, edit.position_index, edit.payload.offer_id, edit.payload.field)
         elif edit.kind == "answer_question":
             key = (edit.kind, edit.payload.question_id)
+        elif edit.kind == "edit_position":
+            key = (edit.kind, edit.position_index, edit.payload.field)
+        elif edit.kind == "local_setting":
+            key = (edit.kind, edit.payload.key)
         else:
             key = (edit.kind, edit.id)
         latest[key] = edit
@@ -90,6 +100,21 @@ def effective_position(position: Position, edits: list[Edit]) -> Position:
                     current.model_dump(), previous.model_dump(), updated.model_dump()
                 )
                 current = Position.model_validate(data)
+        elif edit.kind == "edit_position" and edit.position_index == position.index:
+            data = current.model_dump()
+            field, value = edit.payload.field, edit.payload.value
+            if field in ("quantity", "name"):
+                data[field] = value
+            else:
+                prefix, _, name = field.partition(":")
+                matched = False
+                for characteristic in data["characteristics"]:
+                    if characteristic["name"].casefold() == name.casefold():
+                        characteristic["essential" if prefix == "essential" else "value"] = value
+                        matched = True
+                if not matched:
+                    raise ValueError("Характеристика позиции не найдена")
+            current = Position.model_validate(data)
     return current
 
 
@@ -127,8 +152,12 @@ def build_position(
     edits: list[Edit] | None = None,
 ) -> PositionReport:
     edits = [e for e in active_edits(edits or []) if e.position_index in (None, position.index)]
+    snapshot = effective_snapshot(snapshot, edits)
     position = effective_position(position, edits)
     runs = [r for r in runs if r.position_index == position.index]
+    added_runs = {e.payload.run_id for e in edits if e.kind == "add_offer"}
+    runs = [r for r in runs if r.kind != "user" or r.id in added_runs]
+    added_offers = {f.offer.id for r in runs if r.kind == "user" for f in r.offers}
     found = _found_offers(runs)
     _, duplicate_offers = dedupe([f.offer for f in found])
     duplicate_ids = {o.id for o in duplicate_offers}
@@ -136,7 +165,7 @@ def build_position(
     rules = snapshot.rules
     for f in found:
         offer = f.offer.model_copy(deep=True)
-        original, marks = {}, []
+        original, marks = {}, ["added"] if offer.id in added_offers else []
         for edit in edits:
             if edit.kind == "correct_offer" and edit.payload.offer_id == offer.id:
                 field = edit.payload.field
@@ -187,6 +216,21 @@ def build_position(
                 entry.reason = "Включено пользователем: " + edit.reason
                 entry.user_marks.append("included")
                 forced.add(offer.id)
+        for edit in edits:
+            if edit.kind == "exclude_where" and edit.payload.position_index in (
+                None,
+                position.index,
+            ):
+                if matches(entry, edit.payload.filter):
+                    entry.exclusion = "user_excluded"
+                    entry.reason = "Исключено пользователем по условию: " + edit.reason
+                    entry.user_marks.append(
+                        "excluded_by_price" if edit.reason_kind == "price" else "excluded"
+                    )
+        if source_disabled(offer, edits):
+            entry.exclusion = "user_excluded"
+            entry.reason = "Источник отключён в настройках закупки"
+            entry.user_marks.append("excluded")
         entries.append(entry)
     eligible = [e for e in entries if e.exclusion is None and e.offer.id not in forced]
     kept, dropped = pick_per_supplier(eligible, rules)
@@ -291,6 +335,10 @@ def build_report(
     if len({p.index for p in parsed_tz.positions}) != len(parsed_tz.positions):
         raise ValueError("Повторные индексы позиций")
     effective = active_edits(edits)
+    base_snapshot = snapshot
+    snapshot = effective_snapshot(snapshot, effective)
+    added_runs = {e.payload.run_id for e in effective if e.kind == "add_offer"}
+    runs = [r for r in runs if r.kind != "user" or r.id in added_runs]
     questions = [q.model_copy(deep=True) for q in parsed_tz.questions]
     for edit in effective:
         if edit.kind == "answer_question":
@@ -317,6 +365,13 @@ def build_report(
                 )
     sources = [s for r in runs for s in r.sources]
     warnings = [w for pr in positions for w in _warnings(pr)]
+    if snapshot.rules.cv_threshold > Decimal(".33"):
+        percent = format((snapshot.rules.cv_threshold * 100).normalize(), "f").replace(".", ",")
+        warnings.append(f"Порог однородности {percent} % мягче методических рекомендаций (33 %)")
+    if snapshot.rules.min_prices < 3:
+        warnings.append(
+            f"Минимум цен {snapshot.rules.min_prices} мягче методических рекомендаций (3 цены)"
+        )
     for source in sources:
         if source.error or source.status in ("unavailable", "error", "needs_login"):
             warnings.append(
@@ -364,10 +419,25 @@ def build_report(
                 and target.exclusion in ("unit_mismatch", "duplicate", "anomalous_price")
             ):
                 exists, effect = False, "Включение невозможно: " + target.reason
+        elif edit.kind in ("local_setting", "rebase_settings"):
+            exists, effect = True, "Настройки применены к закупке"
+        elif edit.kind == "edit_position":
+            exists = any(p.position.index == edit.position_index for p in positions)
+            effect = "Позиция изменена" if exists else "Позиция не найдена"
+        elif edit.kind == "exclude_where":
+            count = sum(
+                matches(entry, edit.payload.filter)
+                for (index, _), entry in entries.items()
+                if edit.payload.position_index in (None, index)
+            )
+            exists, effect = True, f"Исключение по условию: найдено предложений {count}"
+        elif edit.kind == "add_offer":
+            exists = any(r.id == edit.payload.run_id for r in runs)
+            effect = "Добавлено предложение по ссылке" if exists else "Результат не найден"
         else:
-            exists, effect = False, "Этот вид правки не входит в P0"
+            exists, effect = False, "Правка не применена"
         applied.append(AppliedEdit(edit=edit, applied=exists, effect=effect))
-        if edit.kind == "exclude" and exists and edit.reason_kind == "price":
+        if edit.kind in ("exclude", "exclude_where") and exists and edit.reason_kind == "price":
             warnings.append(
                 "Предложение исключено пользователем по цене; это влияет на обоснование НМЦК"
             )
@@ -395,4 +465,5 @@ def build_report(
         warnings=list(dict.fromkeys(warnings)),
         edits=applied,
         rules=snapshot.rules.model_dump(mode="json"),
+        local_settings=local_setting_descriptions(base_snapshot, effective),
     )
