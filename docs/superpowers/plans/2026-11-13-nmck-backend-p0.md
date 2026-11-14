@@ -1,6 +1,9 @@
 # Бэкенд агента НМЦК (P0) — план реализации
 
-> **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
+> **Актуальная точка входа:** [маршрут бэкенда](../../backend-roadmap.md).
+> Этот документ содержит подробные задачи. Порядок этапов и состояние работ —
+> в маршруте; API-контракт и спека правок имеют приоритет над старыми интерфейсами
+> ниже. Подготовка репозитория вынесена в отдельный этап 0.
 
 **Goal:** Локальный бэкенд, который по ТЗ ищет предложения в открытых источниках (каскад уровней), сопоставляет, нормализует, считает НМЦК и отдаёт структурированный отчёт через API, CLI и DOCX, запускаясь через `docker compose up`.
 
@@ -14,7 +17,9 @@
 
 ## Порядок выполнения
 
-Ветка: `dev`. Исполнение: superpowers:subagent-driven-development, тремя сессиями; каждая заканчивается рабочим протестированным состоянием и сводкой.
+Ветка: `agents/<тема>` от актуального `dev`, согласно `AGENTS.md`. Напрямую в
+`dev` не коммитить. Каждая сессия заканчивается рабочим протестированным
+состоянием, коммитами и обновлением маршрута. Субагенты необязательны.
 
 | Сессия | Задачи | Результат | Нужно заранее |
 |---|---|---|---|
@@ -25,9 +30,10 @@
 Запуск сессии:
 
 ```
-Используй superpowers:subagent-driven-development и выполни задачи N–M из плана
+Прочитай AGENTS.md и docs/backend-roadmap.md и выполни задачи N–M из плана
 docs/superpowers/plans/2026-11-13-nmck-backend-p0.md (спека: docs/superpowers/specs/2026-11-13-nmck-agent-design.md).
-Работаем в ветке dev. После задачи M остановись и дай сводку.
+Учитывай docs/api.md и docs/superpowers/specs/2026-11-14-report-edits-design.md.
+Работаем в ветке agents/<тема>. После задачи M обнови маршрут и дай сводку.
 ```
 
 ## Global Constraints
