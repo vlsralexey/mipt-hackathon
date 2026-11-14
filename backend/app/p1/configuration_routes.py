@@ -107,7 +107,7 @@ async def check(service: Dep, http: Annotated[httpx.AsyncClient, Depends(key_htt
         return {"ok": False, "detail": "Не задан ключ OpenRouter. Укажите его в настройках."}
     try:
         response = await http.get(
-            "https://openrouter.ai/api/v1/auth/key", headers={"Authorization": f"Bearer {key}"}
+            "https://openrouter.ai/api/v1/key", headers={"Authorization": f"Bearer {key}"}
         )
         if response.status_code in (401, 403):
             return {"ok": False, "detail": "Ключ OpenRouter недействителен"}
