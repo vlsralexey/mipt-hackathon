@@ -1,0 +1,33 @@
+.thread { flex: 1; overflow: auto; padding: 12px 24px 16px; min-height: 0; }
+.inner { max-width: var(--chat-width); margin: 0 auto; display: flex; flex-direction: column; gap: 28px; }
+
+.userBlock { align-self: flex-end; max-width: 85%; display: flex; flex-direction: column; align-items: flex-end; gap: 6px; }
+.bubble {
+  background: var(--second);
+  border-radius: var(--r-lg);
+  padding: 10px 16px;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+.attach {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  border: 1px solid var(--line);
+  border-radius: var(--r-md);
+  padding: 8px 14px 8px 10px;
+}
+.attach > svg { color: var(--muted); }
+.attachName { display: block; font-size: var(--t-sm); font-weight: 500; overflow-wrap: anywhere; }
+.attachSize { font-size: var(--t-xs); color: var(--muted); }
+
+.agent { display: flex; flex-direction: column; gap: 12px; overflow-wrap: anywhere; }
+.agent p { margin: 0; }
+
+.busy { min-height: 1.55em; margin-top: -12px; font-size: var(--t-sm); color: var(--muted); }
+.dots::after { content: '…'; display: inline-block; animation: blink 1.4s steps(1) infinite; }
+@keyframes blink { 50% { opacity: 0.2; } }
+
+@media (prefers-reduced-motion: reduce) {
+  .dots::after { animation: none; }
+}

@@ -1,0 +1,21 @@
+/* Стартовый экран: заголовок, поле и подсказка стоят по одной центральной оси. */
+.page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 24px;
+  min-width: 0;
+  padding: 24px 32px 72px;
+}
+.intro { max-width: var(--chat-width); width: 100%; text-align: center; }
+.intro h1 {
+  font-size: var(--t-xl);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+  margin: 0 0 8px;
+  text-wrap: balance;
+}
+.intro p { margin: 0; font-size: var(--t-md); color: var(--muted); text-wrap: balance; }
+.formats { max-width: var(--chat-width); margin: -8px 0 0; width: 100%; text-align: center; font-size: var(--t-xs); color: var(--muted); }
