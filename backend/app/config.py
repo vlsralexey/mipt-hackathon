@@ -15,7 +15,7 @@ from pydantic_settings import BaseSettings, SettingsConfigDict
 
 from app.models import DeliveryPolicy, DomainModel
 
-DEFAULT_MODEL = "openai/gpt-4.1-mini"
+DEFAULT_MODEL = "deepseek/deepseek-v4.1-flash"
 _PACKAGED_CONFIG = Path(__file__).parent / "default_config"
 DEFAULT_CONFIG_DIR = (
     _PACKAGED_CONFIG if _PACKAGED_CONFIG.is_dir() else Path(__file__).parents[1] / "config"

@@ -102,9 +102,9 @@ TXT/MD читаются как UTF-8 с поддержкой BOM. Для PDF и�
 
 ## OpenRouter
 
-Модель по умолчанию — `openai/gpt-4.1-mini`; пустая переменная окружения тоже
+Модель по умолчанию — `deepseek/deepseek-v4.1-flash`; пустая переменная окружения тоже
 выбирает её. Идентификатор и поддержка инструментов/JSON-схем проверены по
-[карточке OpenRouter](https://openrouter.ai/openai/gpt-4.1-mini).
+[карточке OpenRouter](https://openrouter.ai/deepseek/deepseek-v4.1-flash).
 
 `complete_json` отправляет `response_format=json_schema`, `strict=true` и
 `provider.require_parameters=true`, проверяет ответ локально по JSON Schema.

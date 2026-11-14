@@ -71,7 +71,7 @@ uv run --project backend --locked uvicorn app.main:app --reload --reload-dir bac
 | Переменная | По умолчанию | Назначение |
 |---|---|---|
 | `OPENROUTER_API_KEY` | пусто | Ключ OpenRouter для LLM-запросов |
-| `OPENROUTER_MODEL` | `openai/gpt-4.1-mini` | Модель OpenRouter; пустое значение выбирает модель по умолчанию |
+| `OPENROUTER_MODEL` | `deepseek/deepseek-v4.1-flash` | Модель OpenRouter; пустое значение выбирает модель по умолчанию |
 | `DATA_DIR` | `./data` локально, `/data` в Docker | Постоянные данные |
 | `CONFIG_DIR` | `<DATA_DIR>/config` | Локальный путь к методическим конфигам |
 | `FRONTEND_DIR` | не задан локально, `/app/frontend` в Docker | Каталог сборки интерфейса для раздачи через FastAPI |

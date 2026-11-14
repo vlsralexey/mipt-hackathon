@@ -16,7 +16,8 @@ describe('оболочка', () => {
     expect(item).not.toHaveTextContent(/обоснован/)
     expect(within(nav).getByRole('link', { name: /Новая закупка/ })).toHaveAttribute('href', '/new')
     expect(within(nav).getByRole('link', { name: /Настройки/ })).toHaveAttribute('href', '/settings')
-    expect(screen.getByRole('heading', { name: 'Выберите закупку' })).toBeInTheDocument()
+    // по умолчанию открыта страница новой закупки
+    expect(screen.getByRole('heading', { name: 'Новая закупка', level: 1 })).toBeInTheDocument()
     // цвет один, оранжевый: переключателя тем в навигации нет
     expect(within(nav).queryByRole('group', { name: 'Цветовая тема' })).not.toBeInTheDocument()
     expect(document.documentElement.dataset.theme).toBeUndefined()

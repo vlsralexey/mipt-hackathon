@@ -183,7 +183,7 @@ function ModelRow({ settings }: { settings: Settings }) {
             <input
               aria-labelledby="model-label"
               aria-describedby="model-help"
-              placeholder="ID модели, например openai/gpt-4.1-mini"
+              placeholder="ID модели, например deepseek/deepseek-v4.1-flash"
               spellCheck={false}
               value={manual}
               disabled={save.isPending}

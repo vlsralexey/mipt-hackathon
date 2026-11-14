@@ -294,7 +294,7 @@ describe('выход из настроек', () => {
     const user = userEvent.setup()
     renderApp('/settings')
     await user.click(close())
-    expect(screen.getByRole('heading', { name: 'Выберите закупку' })).toBeInTheDocument()
+    expect(screen.getByRole('heading', { name: 'Новая закупка', level: 1 })).toBeInTheDocument()
   })
 
   it('несколько переходов подряд: крестик возвращает на один шаг, а не в начало', async () => {
