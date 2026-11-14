@@ -5,6 +5,13 @@ import styles from './BrowserPanel.module.css'
 type Frame = { tab_id: string; data: string; width: number; height: number }
 /** Все вкладки управляемого браузера; кадры приходят только для выбранной. */
 export function BrowserPanel({ procurementId, active }: { procurementId: string; active: boolean }) {
+  return <BrowserSession key={procurementId} procurementId={procurementId} active={active} />
+}
+function BrowserSession({ procurementId, active }: { procurementId: string; active: boolean }) {
+  const viewport = useRef<HTMLDivElement>(null)
+  const pressedMouse = useRef(false)
+  const pointer = useRef({ x: 0, y: 0 })
+  const pressedKeys = useRef(new Set<string>())
   const socket = useRef<WebSocket | null>(null)
   const lastMove = useRef(0)
   const selectedRef = useRef<string | null>(null)
@@ -25,8 +32,12 @@ export function BrowserPanel({ procurementId, active }: { procurementId: string;
       const protocol = location.protocol === 'https:' ? 'wss:' : 'ws:'
       const ws = new WebSocket(`${protocol}//${location.host}/api/browser?procurement_id=${encodeURIComponent(procurementId)}`)
       socket.current = ws
-      ws.onopen = () => { setConnection('Браузер подключён'); setError(null) }
+      setControllers({})
+      pressedKeys.current.clear()
+      pressedMouse.current = false
+      ws.onopen = () => { if (disposed || socket.current !== ws) return; setConnection('Браузер подключён'); setError(null) }
       ws.onmessage = (event) => {
+        if (disposed || socket.current !== ws) return
         try {
           const value = JSON.parse(String(event.data))
           if (value.type === 'tabs') {
@@ -45,9 +56,9 @@ export function BrowserPanel({ procurementId, active }: { procurementId: string;
         } catch { setError('Не удалось прочитать обновление браузера. Переподключитесь.') }
       }
       ws.onclose = () => {
-        if (!disposed) { setConnection('Связь прервана. Переподключение…'); timer = setTimeout(connect, 2000) }
+        if (!disposed && socket.current === ws) { setControllers({}); setConnection('Связь прервана. Переподключение…'); timer = setTimeout(connect, 2000) }
       }
-      ws.onerror = () => setError('Нет связи с браузером агента. Проверьте подключение к серверу.')
+      ws.onerror = () => { if (!disposed) setError('Нет связи с браузером агента. Проверьте подключение к серверу.') }
     }
     connect()
     return () => { disposed = true; clearTimeout(timer); socket.current?.close(); socket.current = null }
@@ -63,12 +74,44 @@ export function BrowserPanel({ procurementId, active }: { procurementId: string;
   function mouse(e: MouseEvent<HTMLImageElement>, event: string) {
     if (!userControl || !frame) return
     const bounds = e.currentTarget.getBoundingClientRect()
-    send({ type: 'mouse', event, x: Math.round((e.clientX - bounds.left) * frame.width / bounds.width), y: Math.round((e.clientY - bounds.top) * frame.height / bounds.height), button: 'left' })
+    if (event === 'down') e.currentTarget.focus({ preventScroll: true })
+    pointer.current = { x: Math.max(0, Math.min(frame.width, Math.round((e.clientX - bounds.left) * frame.width / bounds.width))), y: Math.max(0, Math.min(frame.height, Math.round((e.clientY - bounds.top) * frame.height / bounds.height))) }
+    if (event === 'down') pressedMouse.current = true
+    if (event === 'up') pressedMouse.current = false
+    send({ type: 'mouse', event, ...pointer.current, button: 'left' })
   }
   function keyboard(e: KeyboardEvent, event: string) {
-    if (!userControl) return
+    if (!userControl || e.nativeEvent.isComposing || e.key === 'Unidentified' || e.key === 'Dead') return
     e.preventDefault()
-    send({ type: 'key', event, key: e.key })
+    const key = e.key === ' ' ? 'Space' : e.key
+    if (event === 'down') pressedKeys.current.add(key)
+    else pressedKeys.current.delete(key)
+    send({ type: 'key', event, key })
+  }
+  // React делегирует wheel пассивно: native listener нужен, чтобы не прокручивать сам интерфейс.
+  useEffect(() => {
+    const element = viewport.current
+    if (!element || !userControl) return
+    const up = () => {
+      if (pressedMouse.current) {
+        send({ type: 'mouse', event: 'up', ...pointer.current, button: 'left' })
+        pressedMouse.current = false
+      }
+    }
+    const wheel = (event: WheelEvent) => {
+      event.preventDefault()
+      send({ type: 'wheel', dx: event.deltaX, dy: event.deltaY })
+    }
+    element.addEventListener('wheel', wheel, { passive: false })
+    window.addEventListener('mouseup', up)
+    return () => { element.removeEventListener('wheel', wheel); window.removeEventListener('mouseup', up) }
+  }, [userControl, selected, frame?.tab_id])
+  function releaseKeys() {
+    if (!userControl) return
+    for (const key of pressedKeys.current) send({ type: 'key', event: 'up', key })
+    pressedKeys.current.clear()
+    if (pressedMouse.current) send({ type: 'mouse', event: 'up', ...pointer.current, button: 'left' })
+    pressedMouse.current = false
   }
   return (
     <div className={styles.browser}>
@@ -84,7 +127,7 @@ export function BrowserPanel({ procurementId, active }: { procurementId: string;
           </div>
           {tab && <><div className={styles.toolbar}><span className={styles.url} title={tab.url}>{tab.url}</span><button type="button" onClick={() => send({ type: 'control', by: userControl ? 'agent' : 'user' })}>{userControl ? 'Вернуть агенту' : 'Взять управление'}</button>{tab.blocked && <button type="button" onClick={() => send({ type: 'resume' })}>Проверка пройдена</button>}</div>
           <p className={styles.action} role="status">{userControl ? 'Управляете вы. Кликните по странице для ввода с клавиатуры.' : tab.action || 'Агент работает на странице'}</p></>}
-          {frame ? <div className={styles.viewport}><img src={`data:image/jpeg;base64,${frame.data}`} alt={`Страница: ${tab?.title ?? 'браузер агента'}`} tabIndex={userControl ? 0 : -1} draggable={false} onMouseDown={(e) => mouse(e, 'down')} onMouseUp={(e) => mouse(e, 'up')} onMouseMove={(e) => { if (Date.now() - lastMove.current > 40) { lastMove.current = Date.now(); mouse(e, 'move') } }} onKeyDown={(e) => keyboard(e, 'down')} onKeyUp={(e) => keyboard(e, 'up')} onWheel={(e) => { if (userControl) send({ type: 'wheel', dx: e.deltaX, dy: e.deltaY }) }} /></div> : <p className={styles.empty}>Ожидаем изображение выбранной вкладки…</p>}
+          {frame ? <div className={styles.viewport} ref={viewport}><img src={`data:image/jpeg;base64,${frame.data}`} alt={`Страница: ${tab?.title ?? 'браузер агента'}`} tabIndex={userControl ? 0 : -1} draggable={false} onMouseDown={(e) => mouse(e, 'down')} onMouseUp={(e) => mouse(e, 'up')} onMouseMove={(e) => { if (Date.now() - lastMove.current > 40) { lastMove.current = Date.now(); mouse(e, 'move') } }} onKeyDown={(e) => keyboard(e, 'down')} onKeyUp={(e) => keyboard(e, 'up')} onBlur={releaseKeys} /></div> : <p className={styles.empty}>Ожидаем изображение выбранной вкладки…</p>}
           {userControl && <form className={styles.textInput} onSubmit={(e) => { e.preventDefault(); if (text) { send({ type: 'text', text }); setText('') } }}><input aria-label="Текст для страницы браузера" value={text} onChange={(e) => setText(e.target.value)} placeholder="Текст для поля на странице" /><button type="submit" disabled={!text}>Ввести</button></form>}
         </>
       )}

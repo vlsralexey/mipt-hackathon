@@ -11,7 +11,7 @@ const question: Question = { id: 'q1', position_index: 1, text: 'Учитыва�
 function setup() {
   const client = new QueryClient({ defaultOptions: { queries: { retry: false } } })
   const content = (answer: string | null) => <QueryClientProvider client={client}><ChatContext.Provider value={{ procurementId: 'p1', openVersion: vi.fn() }}><QuestionCard data={{ ...question, answer }} /></ChatContext.Provider></QueryClientProvider>
-  return { ...render(content(null)), content }
+  return { ...render(content(null)), content, client }
 }
 describe('состояние ответа на вопрос', () => {
   it('выделяет кнопку до ответа сервера и удерживает выбор после 202 до подтверждения SSE', async () => {
@@ -36,4 +36,18 @@ describe('состояние ответа на вопрос', () => {
     expect(await screen.findByRole('alert')).toHaveTextContent('Не удалось сохранить ответ')
     expect(screen.getByRole('button', { name: 'Да', pressed: false })).toBeEnabled()
   })
+  it('не восстанавливает ожидание, если SSE подтвердил ответ раньше HTTP 202', async () => {
+    let resolve!: (value: unknown) => void
+    vi.spyOn(api, 'answerQuestion').mockImplementationOnce(() => new Promise((r) => { resolve = r }))
+    const view = setup()
+    await userEvent.click(screen.getByRole('button', { name: 'Да' }))
+    view.rerender(view.content('Да'))
+    await waitFor(() => expect(view.client.getQueryData(['question-answer', 'p1', 'q1'])).toBeNull())
+    // Старая копия закупки из параллельного GET не должна оживить уже подтверждённый pending.
+    view.rerender(view.content(null))
+    await act(async () => resolve({}))
+    await waitFor(() => expect(screen.getByRole('button', { name: 'Да' })).toBeEnabled())
+    expect(screen.queryByText('Ответ принят, применяем…')).not.toBeInTheDocument()
+  })
+
 })

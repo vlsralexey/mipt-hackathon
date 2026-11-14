@@ -33,6 +33,11 @@ export function useProcurementEvents(id: string) {
     source.addEventListener('message', (e) => {
       const message = data<Message>(e)
       update((p) => ({ ...p, messages: mergeMessage(p.messages, message) }))
+      if (message.kind === 'question') {
+        const key = ['question-answer', id, message.data.id]
+        const pending = queryClient.getQueryData<{ value: string } | null>(key)
+        if (pending?.value === message.data.answer) queryClient.setQueryData(key, null)
+      }
       if (message.kind === 'error') {
         queryClient.setQueriesData({ queryKey: ['question-answer', id] }, null)
         void queryClient.invalidateQueries({ queryKey: procurementKey(id) })
@@ -42,7 +47,7 @@ export function useProcurementEvents(id: string) {
       const { busy } = data<AgentEvent>(e)
       update((p) => ({ ...p, agent_busy: busy }))
       if (!busy) {
-        queryClient.setQueriesData({ queryKey: ['question-answer', id] }, null)
+        queryClient.setQueriesData<{ value: string; accepted: boolean } | null>({ queryKey: ['question-answer', id] }, (current) => current?.accepted ? null : current)
         void queryClient.invalidateQueries({ queryKey: procurementKey(id) })
       }
     })

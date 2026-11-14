@@ -28,7 +28,8 @@ export function QuestionCard({ data, variant = 'card', onAnswered }: QuestionCar
     mutationFn: (value: string) => api.answerQuestion(procurementId, data.id, value),
     onMutate: (value) => { queryClient.setQueryData(pendingKey, { value, accepted: false }) },
     onSuccess: (_result, value) => {
-      queryClient.setQueryData(pendingKey, { value, accepted: true })
+      // SSE мог подтвердить ответ раньше HTTP 202. Не восстанавливаем уже снятое ожидание.
+      queryClient.setQueryData<{ value: string; accepted: boolean } | null>(pendingKey, (current) => current?.value === value ? { value, accepted: true } : current ?? null)
       onAnswered?.()
     },
     onError: () => { queryClient.setQueryData(pendingKey, null) },

@@ -69,8 +69,10 @@
   gap: 10px;
   font-size: var(--t-sm);
 }
-.versionHead { display: flex; align-items: baseline; gap: 12px; }
-.versionTitle { flex: 1; min-width: 0; }
+.versionHead { display: flex; flex-wrap: wrap; align-items: baseline; gap: 8px 12px; }
+.versionTitle { flex: 1 0 100%; min-width: 0; overflow-wrap: break-word; }
+.versionActions { display: flex; flex-wrap: wrap; gap: 4px 8px; max-width: 100%; }
+.versionActions .btn { flex: 0 1 auto; overflow-wrap: normal; }
 .versionTitle b { font-weight: 600; }
 .versionCause { display: block; color: var(--muted); font-size: var(--t-xs); margin-top: 1px; }
 .lines { margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 6px; }
