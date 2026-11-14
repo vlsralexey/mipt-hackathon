@@ -112,9 +112,42 @@ async def parse_tz(llm: LLM, tz_text: str) -> ParsedTZ:
     )
 
 
+def button_answer(position: Position, question: Question, answer: str) -> Position | None:
+    """Известные варианты применяем без очередного сетевого запроса к модели."""
+    if answer == question.default_answer:
+        return position.model_copy(deep=True)
+    text = question.text.casefold()
+    if answer not in question.options or not any(w in text for w in ("аналог", "эквивалент")):
+        return None
+    normalized = answer.strip().casefold()
+    if not normalized.startswith(("да", "нет")):
+        return None
+    brands = [
+        c
+        for c in position.characteristics
+        if c.name.casefold() in {"товарный знак", "производитель", "модель", "марка", "бренд"}
+    ]
+    if not brands:
+        return None
+    result = position.model_copy(deep=True)
+    for characteristic in result.characteristics:
+        if characteristic.name.casefold() in {
+            "товарный знак",
+            "производитель",
+            "модель",
+            "марка",
+            "бренд",
+        }:
+            characteristic.essential = normalized.startswith("нет")
+    return result
+
+
 async def apply_answer(llm: LLM, position: Position, question: Question, answer: str) -> Position:
     if question.position_index != position.index or not answer.strip():
         raise ValueError("Ответ должен относиться к вопросу этой позиции и быть непустым")
+    direct = button_answer(position, question, answer)
+    if direct is not None:
+        return direct
     result = await complete_model(
         llm,
         ANSWER_SYSTEM,

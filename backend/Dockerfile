@@ -18,12 +18,19 @@ ENV PYTHONDONTWRITEBYTECODE=1 \
     UV_PYTHON_DOWNLOADS=never \
     PATH="/app/.venv/bin:$PATH" \
     DATA_DIR=/data \
-    FRONTEND_DIR=/app/frontend
+    FRONTEND_DIR=/app/frontend \
+    PLAYWRIGHT_BROWSERS_PATH=/opt/playwright
 
 WORKDIR /app
 
 COPY backend/pyproject.toml backend/uv.lock ./
-RUN uv sync --frozen --no-dev --no-install-project
+RUN apt-get update \
+    && apt-get install -y --no-install-recommends libatomic1 \
+    && uv sync --frozen --no-dev --no-install-project \
+    && .venv/bin/playwright install --with-deps chromium \
+    && chmod -R a+rX /opt/playwright \
+    && rm -rf /var/lib/apt/lists/*
+
 
 COPY backend/app ./app
 COPY backend/config ./config

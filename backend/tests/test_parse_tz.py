@@ -86,3 +86,28 @@ async def test_mass_inside_piece_has_question_even_if_model_omits_it():
     assert len(parsed.questions) == 1
     assert "10 мкг" in parsed.questions[0].default_answer
     assert parsed.positions[0].basis.per_tz_unit == 10
+
+
+async def test_standard_printer_analog_button_does_not_call_model():
+    from app.models import Question
+
+    pos = paper_position(
+        characteristics=[
+            {"name": "Модель", "value": "D600 PRO", "essential": True},
+            {"name": "Высота печати", "value": "600", "unit": "мм", "essential": True},
+        ]
+    )
+    q = Question(
+        id="q1",
+        position_index=1,
+        text="Учитывать аналоги D600 PRO?",
+        options=["Нет, только D600 PRO", "Да, учитывать аналоги"],
+        default_answer="Нет, только D600 PRO",
+    )
+    llm = FakeLLM()
+    result = await apply_answer(llm, pos, q, "Да, учитывать аналоги")
+    assert not result.characteristics[0].essential
+    assert result.characteristics[1].essential and pos.characteristics[0].essential
+    assert not llm.calls
+    default = await apply_answer(llm, pos, q, q.default_answer)
+    assert default == pos and default is not pos and not llm.calls

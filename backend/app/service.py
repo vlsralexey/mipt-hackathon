@@ -10,6 +10,7 @@ from zoneinfo import ZoneInfo
 from pydantic import TypeAdapter
 
 from app.api.models import (
+    BlockedMessage,
     ErrorData,
     ErrorMessage,
     QuestionMessage,
@@ -17,6 +18,7 @@ from app.api.models import (
     RunState,
     RunStep,
     SettingsView,
+    SourceBlocked,
     SummaryMessage,
     TextMessage,
     TzSummary,
@@ -26,6 +28,7 @@ from app.api.models import (
 from app.config import CalculationSnapshot, SourceConfig, load_cpi, load_rules, load_sources
 from app.events import Event, EventBus
 from app.llm.client import LLMAuthError, LLMError, LLMFormatError, OpenRouterLLM
+from app.p1.configuration_helpers import effective_snapshot
 from app.pipeline.parse_tz import parse_tz
 from app.pipeline.report import build_report, effective_position
 from app.pipeline.research import research_position
@@ -49,13 +52,13 @@ def search_signature(position):
 
 
 @asynccontextmanager
-async def open_runtime(key, model, sources):
+async def open_runtime(key, model, sources, *, fetcher=None):
     async with (
         OpenRouterLLM(key, model) as llm,
         source_client() as http,
         OpenRouterWebSearch(key, model) as search,
     ):
-        yield llm, build_adapters(sources, search, http)
+        yield llm, build_adapters(sources, search, http, fetcher=fetcher)
 
 
 class ActionError(ValueError):
@@ -74,6 +77,62 @@ class Service:
         self.search_positions = {}
         self.pending_searches = defaultdict(set)
         self.closed = False
+        from app.browser.manager import BrowserManager
+
+        self.browser = BrowserManager(self.source_blocked)
+        self.blocked_messages = {}
+        from app.p1.actions import Actions
+        from app.p1.configuration import Configuration
+
+        self.actions = Actions(self)
+        self.configuration = Configuration(self)
+
+    @asynccontextmanager
+    async def runtime(self, pid, sources):
+        from app.p1.configuration_helpers import effective_sources
+
+        sources = effective_sources(
+            load_sources(self.settings.effective_config_dir / "sources.yaml"), self.repo.edits(pid)
+        )
+        key, model = self.require_key()
+        if self.runtime_factory is open_runtime:
+
+            async def fetcher(cfg, index, url, limit):
+                return await self.browser.fetch(pid, cfg, index, url, limit)
+
+            async with (
+                self.browser.scope(pid),
+                open_runtime(key, model, sources, fetcher=fetcher) as pair,
+            ):
+                yield pair
+        else:
+            async with self.runtime_factory(key, model, sources) as pair:
+                yield pair
+
+    async def source_blocked(self, tab, reason, status):
+        key = (tab.procurement_id, tab.id)
+        message = self.blocked_messages.get(key)
+        if message is None or (status == "waiting" and message.data.status != "waiting"):
+            message = BlockedMessage(
+                id=new_id("m"),
+                role="system",
+                created_at=now(),
+                data=SourceBlocked(
+                    source_id=tab.source_id,
+                    name=tab.name,
+                    url=tab.page.url,
+                    reason=reason,
+                    status=status,
+                ),
+            )
+            self.blocked_messages[key] = message
+        message.data.status = status
+        await self.message(tab.procurement_id, message)
+        if status == "waiting":
+            self.repo.update(tab.procurement_id, status="needs_user")
+        elif not any(t.blocked for t in self.browser.tabs_for(tab.procurement_id)):
+            self.repo.update(tab.procurement_id, status="running")
+        await self.publish_summary(tab.procurement_id)
 
     def require(self, pid):
         state = self.repo.state(pid)
@@ -94,6 +153,25 @@ class Service:
         if not view.has_api_key:
             raise ActionError("Не задан ключ OpenRouter. Укажите его в настройках.", 400)
         return key, view.model
+
+    def deterministic_answer(self, pid, question_id, answer):
+        from app.pipeline.parse_tz import button_answer
+
+        state = self.require(pid)
+        parsed = state["parsed"]
+        if parsed is None:
+            return False
+        question = next((q for q in parsed.questions if q.id == question_id), None)
+        if question is None:
+            return False
+        base = next(p for p in parsed.positions if p.index == question.position_index)
+        edits = [
+            e
+            for e in self.repo.edits(pid)
+            if not (e.kind == "answer_question" and e.target == question_id)
+        ]
+        previous = effective_position(base, edits)
+        return button_answer(previous, question, answer) is not None
 
     async def publish_summary(self, pid):
         summary = next(p for p in self.repo.list_procurements() if p.id == pid)
@@ -138,6 +216,7 @@ class Service:
         )
 
     async def start(self):
+        await self.configuration.start()
         interrupted, queued = self.repo.recover()
         for pid in interrupted:
             for message in self.repo.list_messages(pid):
@@ -158,6 +237,8 @@ class Service:
         for task in tasks:
             task.cancel()
         await asyncio.gather(*tasks, return_exceptions=True)
+        await self.browser.close()
+        await self.configuration.close()
 
     def kick(self, pid):
         if not self.closed and (pid not in self.workers or self.workers[pid].done()):
@@ -182,11 +263,13 @@ class Service:
 
                     @asynccontextmanager
                     async def runtime(sources=state["sources"]):
-                        if job["kind"] == "cancel":
+                        if job["kind"] in ("cancel", "apply_proposal", "rebase") or (
+                            job["kind"] == "answer"
+                            and self.deterministic_answer(pid, **job["payload"])
+                        ):
                             yield None, {}
                         else:
-                            key, model = self.require_key()
-                            async with self.runtime_factory(key, model, sources) as pair:
+                            async with self.runtime(pid, sources) as pair:
                                 yield pair
 
                     async with runtime() as (llm, adapters):
@@ -204,6 +287,12 @@ class Service:
                             await turn.commit()
                         elif job["kind"] == "cancel":
                             await turn.cancel(job["payload"]["edit_ids"])
+                            await turn.commit()
+                        elif job["kind"] == "apply_proposal":
+                            await self.actions.apply_into(turn, job["payload"]["proposal_id"])
+                            await turn.commit()
+                        elif job["kind"] == "rebase":
+                            self.configuration.perform_rebase(turn)
                             await turn.commit()
                 except Exception as exc:
                     await self.error(pid, exc)
@@ -270,6 +359,8 @@ class Service:
                     msg.data.answer = answer
                     messages.append(msg)
         self.repo.commit_state(pid, edits=edits, runs=runs, report=report, messages=messages)
+        if report:
+            await self.actions.expire(pid, report.version)
         for message in messages:
             await self.bus.publish(pid, Event(type="message", data=message.model_dump(mode="json")))
         if report:
@@ -346,8 +437,7 @@ class Service:
         try:
             await self.message(pid, message)
             state = self.require(pid)
-            key, model = self.require_key()
-            async with self.runtime_factory(key, model, state["sources"]) as (llm, adapters):
+            async with self.runtime(pid, state["sources"]) as (llm, adapters):
                 parsed = state["parsed"]
                 if parsed is None:
                     parsed = await parse_tz(llm, state["tz_text"])
@@ -416,7 +506,7 @@ class Service:
                                 current,
                                 adapters,
                                 llm,
-                                state["snapshot"],
+                                effective_snapshot(state["snapshot"], edits),
                                 emit,
                                 procurement_id=pid,
                                 edits=edits,
@@ -448,7 +538,8 @@ class Service:
                             old_runs = [
                                 r
                                 for r in self.repo.runs(pid)
-                                if r.position_index not in message.data.position_indexes
+                                if r.kind == "user"
+                                or r.position_index not in message.data.position_indexes
                             ]
                             report = await self.commit(
                                 pid,

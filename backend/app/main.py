@@ -12,7 +12,10 @@ from starlette.staticfiles import StaticFiles
 
 from app.api.limits import UploadLimitMiddleware
 from app.api.routes import router
+from app.browser.routes import router as browser_router
 from app.config import Settings
+from app.p1.actions import router as actions_router
+from app.p1.configuration_routes import router as configuration_router
 from app.service import ActionError, Service, open_runtime
 from app.store.repo import Repo
 
@@ -42,6 +45,9 @@ def create_app(settings: Settings | None = None, *, runtime_factory=open_runtime
 
     application = FastAPI(title="Агент НМЦК", version="0.1.0", lifespan=lifespan)
     application.include_router(router)
+    application.include_router(browser_router)
+    application.include_router(actions_router)
+    application.include_router(configuration_router)
     application.add_middleware(UploadLimitMiddleware)
 
     @application.exception_handler(ActionError)

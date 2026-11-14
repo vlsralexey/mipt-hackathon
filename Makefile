@@ -1,6 +1,9 @@
 UV ?= uv
 
-.PHONY: setup dev test lint format check docker-up docker-down frontend-setup frontend-dev frontend-check
+.PHONY: browser-setup setup dev test lint format check docker-up docker-down frontend-setup frontend-dev frontend-check
+
+browser-setup:
+	$(UV) run --project backend --locked playwright install chromium
 
 setup:
 	$(UV) sync --project backend --locked

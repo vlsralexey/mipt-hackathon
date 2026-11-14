@@ -53,8 +53,9 @@ class OpenRouterWebSearch(OpenRouterLLM):
 
 
 class WebSource:
-    def __init__(self, cfg: SourceConfig, search: WebSearch, http: httpx.AsyncClient):
+    def __init__(self, cfg: SourceConfig, search: WebSearch, http: httpx.AsyncClient, fetcher=None):
         self.cfg, self._search, self.http = cfg, search, http
+        self.fetcher = fetcher
         self.id, self.name, self.level = cfg.id, cfg.name, cfg.level
 
     async def search(self, position: Position, rules: Rules) -> SourceResult:
@@ -94,7 +95,11 @@ class WebSource:
                         continue
                     seen.add(url)
                     try:
-                        page = await fetch_page(self.http, url, rules.page_text_limit)
+                        page = (
+                            await self.fetcher(self.cfg, position.index, url, rules.page_text_limit)
+                            if self.fetcher
+                            else await fetch_page(self.http, url, rules.page_text_limit)
+                        )
                         final_host = (
                             (urlsplit(page.url).hostname or "").lower().removeprefix("www.")
                         )
