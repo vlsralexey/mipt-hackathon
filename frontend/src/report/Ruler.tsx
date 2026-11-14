@@ -1,6 +1,6 @@
 import type { PositionReport } from '../api/types'
 import { formatMoney } from '../format'
-import { layoutRuler } from './ruler'
+import { layoutRuler } from './ruler-layout'
 import styles from './report.module.css'
 
 const numbers = (values: (string | null)[]) => values.filter((v): v is string => v !== null).map(Number)

@@ -13,7 +13,7 @@ export default defineConfig({
     fs: { allow: ['..'] },
   },
   test: {
-    environment: 'jsdom',
+    environment: './src/test/jsdom-fetch.ts',
     setupFiles: ['./src/test/setup.ts'],
     globals: false,
     css: false,

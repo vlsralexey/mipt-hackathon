@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { layoutRuler } from './ruler'
+import { layoutRuler } from './ruler-layout'
 
 describe('layoutRuler', () => {
   it('все значения попадают на ось, порядок сохраняется', () => {
