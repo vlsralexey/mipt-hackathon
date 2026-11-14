@@ -236,3 +236,16 @@ async def test_sse_publishes_settings_mutation(tmp_path, monkeypatch):
             while not queue.empty():
                 events.append(await asyncio.wait_for(queue.get(), 1))
         assert [event.type for event in events] == ["message", "message", "config"]
+
+
+async def test_agent_undo_always_needs_confirmation(tmp_path, monkeypatch):
+    async with api(tmp_path, monkeypatch) as (_, service, _, _):
+        config = configuration_for(service)
+        proposal = await config.propose("rules.min_prices", 4, "Положение", "first")
+        await config.decide(proposal["id"], True)
+        pending = await config.cancel_change(config.changes()[0]["id"], turn_id="second")
+        assert config.document["rules"]["min_prices"] == 4
+        with pytest.raises(ActionError, match="следующем"):
+            await config.decide(pending["id"], True, turn_id="second")
+        await config.decide(pending["id"], True, turn_id="third")
+        assert config.document["rules"]["min_prices"] == 3

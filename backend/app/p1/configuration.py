@@ -215,6 +215,8 @@ class Configuration:
 
     async def propose(self, path, value, reason, turn_id, cancel_id=None):
         async with self.lock:
+            if not isinstance(reason, str) or not reason.strip():
+                raise ActionError("Для изменения настройки нужна причина", 400)
             candidate = self.candidate(path, value)
             before, after = self.path_value(path), self.path_value(path, candidate)
             if before == after:
@@ -330,7 +332,9 @@ class Configuration:
             c["path"] == change["path"] and c["id"] != change_id and c["status"] == "active"
             for c in self.document["changes"][self.document["changes"].index(change) + 1 :]
         )
-        if not later:
+        # Прямая кнопка отмены однозначна. Просьба в чате, как и другие
+        # изменения общих настроек, обязательно проходит подтверждение.
+        if not later and turn_id is None:
             await self.decide(proposal["id"], True)
         return proposal
 
