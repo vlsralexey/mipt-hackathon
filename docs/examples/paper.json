@@ -1,0 +1,3499 @@
+{
+  "procurement_id": "p_56d40467d4674e2382947424df7b1f5c",
+  "version": 1,
+  "created_at": "2026-11-14T13:42:13.390223Z",
+  "title": "Поставка бумаги для офисной техники и писчей бумаги",
+  "calc_date": "2026-11-14",
+  "methodology": "Метод сопоставимых рыночных цен (анализа рынка). Формулы : по аналогии с Методическими рекомендациями, утверждёнными приказом Минэкономразвития России от 02.10.2013 № 567; для закупок по 44-ФЗ рекомендации применяются с учётом действующего законодательства, для закупок по 223-ФЗ : положения о закупке заказчика.",
+  "cause": "Первый прогон",
+  "positions": [
+    {
+      "position": {
+        "index": 1,
+        "name": "Бумага для офисной техники А4 SvetoCopy",
+        "unit": "пачка",
+        "quantity": "2500",
+        "okpd2": "17.12.14.160",
+        "characteristics": [
+          {
+            "name": "Товарный знак",
+            "value": "SvetoCopy",
+            "unit": null,
+            "essential": true
+          },
+          {
+            "name": "Производитель",
+            "value": "НПАО Светогорский ЦБК",
+            "unit": null,
+            "essential": true
+          },
+          {
+            "name": "Формат бумаги",
+            "value": "А4",
+            "unit": null,
+            "essential": true
+          },
+          {
+            "name": "Марка бумаги",
+            "value": "С",
+            "unit": null,
+            "essential": true
+          },
+          {
+            "name": "Количество листов в пачке",
+            "value": "500 (±2%)",
+            "unit": "лист",
+            "essential": true
+          },
+          {
+            "name": "Цвет",
+            "value": "белый",
+            "unit": null,
+            "essential": false
+          },
+          {
+            "name": "Белизна CIE",
+            "value": "146 ± 3%",
+            "unit": "%",
+            "essential": false
+          },
+          {
+            "name": "Масса листа бумаги площадью 1 м2",
+            "value": "80 ± 3",
+            "unit": "г/м2",
+            "essential": true
+          },
+          {
+            "name": "Толщина",
+            "value": "104 ± 2",
+            "unit": "мкм",
+            "essential": true
+          },
+          {
+            "name": "Соответствие ГОСТ",
+            "value": "Р 57641-2017",
+            "unit": null,
+            "essential": false
+          }
+        ],
+        "basis": {
+          "unit": "пачка",
+          "per_tz_unit": "1"
+        },
+        "search_terms": [
+          "SvetoCopy",
+          "бумага для офисной техники"
+        ]
+      },
+      "status": "ok",
+      "levels_used": [
+        1
+      ],
+      "included": [
+        {
+          "label": "1.1",
+          "caption": "ЕИС, контракт № 2610300092726000086",
+          "offer": {
+            "id": "132f35db23da",
+            "source_id": "eis",
+            "source_name": "ЕИС : реестр контрактов",
+            "level": 1,
+            "url": "https://zakupki.gov.ru/epz/contract/contractCard/payment-info-and-target-of-order.html?reestrNumber=2610300092726000086",
+            "retrieved_at": "2026-11-14T13:40:49.163410Z",
+            "title": "1. Бумага для офисной техники. Товарный знак: Svetocopy",
+            "price": "291.40",
+            "currency": "RUB",
+            "amount": "1",
+            "amount_unit": "пачка",
+            "vat": "exempt",
+            "vat_rate": null,
+            "supplier": "ГАБИБОВ МАЛИК АРТУРОВИЧ",
+            "supplier_inn": "051205954080",
+            "delivery": "unknown",
+            "delivery_cost": null,
+            "delivery_free_from": null,
+            "delivery_note": null,
+            "price_date": "2026-10-19",
+            "characteristics": {
+              "Формат": "А4",
+              "Цветность": "Белая",
+              "Количество листов в пачке": "500Штука",
+              "Масса бумаги площадью 1м2": "80Грамм",
+              "Белизна по CIE": "146",
+              "Отбелка целлюлозы без хлора (ECF)": "Да",
+              "Марка бумаги": "не ниже С"
+            }
+          },
+          "base_price": "291.40",
+          "vat": {
+            "status": "exempt",
+            "factor": "1",
+            "note": "НДС не облагается : цена конечная"
+          },
+          "indexation": {
+            "status": "not_needed",
+            "factor": "1",
+            "note": "Цена не старше 6 месяцев"
+          },
+          "delivery": {
+            "status": "included",
+            "added_per_unit": "0.00",
+            "note": "Допущение: цена контракта по 44-ФЗ, как правило, включает доставку до заказчика"
+          },
+          "normalized_price": "291.40",
+          "comparison": [
+            {
+              "name": "Товарный знак",
+              "required": "SvetoCopy",
+              "offered": "Svetocopy",
+              "essential": true,
+              "ok": true
+            },
+            {
+              "name": "Производитель",
+              "required": "НПАО Светогорский ЦБК",
+              "offered": null,
+              "essential": true,
+              "ok": null
+            },
+            {
+              "name": "Формат бумаги",
+              "required": "А4",
+              "offered": "А4",
+              "essential": true,
+              "ok": true
+            },
+            {
+              "name": "Марка бумаги",
+              "required": "С",
+              "offered": "не ниже С",
+              "essential": true,
+              "ok": true
+            },
+            {
+              "name": "Количество листов в пачке",
+              "required": "500 (±2%)",
+              "offered": "500Штука",
+              "essential": true,
+              "ok": true
+            },
+            {
+              "name": "Цвет",
+              "required": "белый",
+              "offered": "Белая",
+              "essential": false,
+              "ok": true
+            },
+            {
+              "name": "Белизна CIE",
+              "required": "146 ± 3%",
+              "offered": "146",
+              "essential": false,
+              "ok": true
+            },
+            {
+              "name": "Масса листа бумаги площадью 1 м2",
+              "required": "80 ± 3",
+              "offered": "80Грамм",
+              "essential": true,
+              "ok": true
+            },
+            {
+              "name": "Толщина",
+              "required": "104 ± 2",
+              "offered": null,
+              "essential": true,
+              "ok": null
+            },
+            {
+              "name": "Соответствие ГОСТ",
+              "required": "Р 57641-2017",
+              "offered": null,
+              "essential": false,
+              "ok": null
+            }
+          ],
+          "reason": "Совпадают: Товарный знак, Формат бумаги, Марка бумаги, Количество листов в пачке, Масса листа бумаги площадью 1 м2",
+          "exclusion": null,
+          "original": null,
+          "user_marks": []
+        },
+        {
+          "label": "1.2",
+          "caption": "ЕИС, контракт № 2332810135826000059",
+          "offer": {
+            "id": "e7f3b768226c",
+            "source_id": "eis",
+            "source_name": "ЕИС : реестр контрактов",
+            "level": 1,
+            "url": "https://zakupki.gov.ru/epz/contract/contractCard/payment-info-and-target-of-order.html?reestrNumber=2332810135826000059",
+            "retrieved_at": "2026-11-14T13:40:50.719394Z",
+            "title": "1. Бумага для офисной техники. Товарный знак: SVETOCOPY",
+            "price": "320.80",
+            "currency": "RUB",
+            "amount": "1",
+            "amount_unit": "пачка",
+            "vat": "included",
+            "vat_rate": "0.22",
+            "supplier": "ЗАБЕЛИН АЛЕКСЕЙ ВИТАЛЬЕВИЧ",
+            "supplier_inn": "330301343802",
+            "delivery": "unknown",
+            "delivery_cost": null,
+            "delivery_free_from": null,
+            "delivery_note": null,
+            "price_date": "2026-09-02",
+            "characteristics": {
+              "Масса бумаги площадью 1м2": "80Грамм",
+              "Формат": "А4",
+              "Количество листов в пачке": "500Штука",
+              "Цветность": "Белая"
+            }
+          },
+          "base_price": "320.80",
+          "vat": {
+            "status": "included",
+            "factor": "1",
+            "note": "НДС включён по данным страницы"
+          },
+          "indexation": {
+            "status": "not_needed",
+            "factor": "1",
+            "note": "Цена не старше 6 месяцев"
+          },
+          "delivery": {
+            "status": "included",
+            "added_per_unit": "0.00",
+            "note": "Допущение: цена контракта по 44-ФЗ, как правило, включает доставку до заказчика"
+          },
+          "normalized_price": "320.80",
+          "comparison": [
+            {
+              "name": "Товарный знак",
+              "required": "SvetoCopy",
+              "offered": null,
+              "essential": true,
+              "ok": null
+            },
+            {
+              "name": "Производитель",
+              "required": "НПАО Светогорский ЦБК",
+              "offered": null,
+              "essential": true,
+              "ok": null
+            },
+            {
+              "name": "Формат бумаги",
+              "required": "А4",
+              "offered": "А4",
+              "essential": true,
+              "ok": true
+            },
+            {
+              "name": "Марка бумаги",
+              "required": "С",
+              "offered": null,
+              "essential": true,
+              "ok": null
+            },
+            {
+              "name": "Количество листов в пачке",
+              "required": "500 (±2%)",
+              "offered": "500Штука",
+              "essential": true,
+              "ok": true
+            },
+            {
+              "name": "Цвет",
+              "required": "белый",
+              "offered": "Белая",
+              "essential": false,
+              "ok": true
+            },
+            {
+              "name": "Белизна CIE",
+              "required": "146 ± 3%",
+              "offered": null,
+              "essential": false,
+              "ok": null
+            },
+            {
+              "name": "Масса листа бумаги площадью 1 м2",
+              "required": "80 ± 3",
+              "offered": "80Грамм",
+              "essential": true,
+              "ok": true
+            },
+            {
+              "name": "Толщина",
+              "required": "104 ± 2",
+              "offered": null,
+              "essential": true,
+              "ok": null
+            },
+            {
+              "name": "Соответствие ГОСТ",
+              "required": "Р 57641-2017",
+              "offered": null,
+              "essential": false,
+              "ok": null
+            }
+          ],
+          "reason": "Совпадают: Формат бумаги, Количество листов в пачке, Масса листа бумаги площадью 1 м2",
+          "exclusion": null,
+          "original": null,
+          "user_marks": []
+        },
+        {
+          "label": "1.3",
+          "caption": "ЕИС, контракт № 3263513038026000046",
+          "offer": {
+            "id": "8b05526e6715",
+            "source_id": "eis",
+            "source_name": "ЕИС : реестр контрактов",
+            "level": 1,
+            "url": "https://zakupki.gov.ru/epz/contract/contractCard/payment-info-and-target-of-order.html?reestrNumber=3263513038026000046",
+            "retrieved_at": "2026-11-14T13:40:52.321008Z",
+            "title": "1. Бумага для офисной техники. Товарный знак: SvetoCopy",
+            "price": "291.58",
+            "currency": "RUB",
+            "amount": "1",
+            "amount_unit": "пачка",
+            "vat": "exempt",
+            "vat_rate": null,
+            "supplier": "ХАЧАТУРЯН АРАМ СЕРГЕЕВИЧ",
+            "supplier_inn": "183002186656",
+            "delivery": "unknown",
+            "delivery_cost": null,
+            "delivery_free_from": null,
+            "delivery_note": null,
+            "price_date": "2026-11-02",
+            "characteristics": {
+              "Масса бумаги площадью 1м2": "80Грамм",
+              "Количество листов в пачке": "500Штука",
+              "Формат": "А4",
+              "Цветность": "Белая"
+            }
+          },
+          "base_price": "291.58",
+          "vat": {
+            "status": "exempt",
+            "factor": "1",
+            "note": "НДС не облагается : цена конечная"
+          },
+          "indexation": {
+            "status": "not_needed",
+            "factor": "1",
+            "note": "Цена не старше 6 месяцев"
+          },
+          "delivery": {
+            "status": "included",
+            "added_per_unit": "0.00",
+            "note": "Допущение: цена контракта по 44-ФЗ, как правило, включает доставку до заказчика"
+          },
+          "normalized_price": "291.58",
+          "comparison": [
+            {
+              "name": "Товарный знак",
+              "required": "SvetoCopy",
+              "offered": "SvetoCopy",
+              "essential": true,
+              "ok": true
+            },
+            {
+              "name": "Производитель",
+              "required": "НПАО Светогорский ЦБК",
+              "offered": null,
+              "essential": true,
+              "ok": null
+            },
+            {
+              "name": "Формат бумаги",
+              "required": "А4",
+              "offered": "А4",
+              "essential": true,
+              "ok": true
+            },
+            {
+              "name": "Марка бумаги",
+              "required": "С",
+              "offered": null,
+              "essential": true,
+              "ok": null
+            },
+            {
+              "name": "Количество листов в пачке",
+              "required": "500 (±2%)",
+              "offered": "500Штука",
+              "essential": true,
+              "ok": true
+            },
+            {
+              "name": "Цвет",
+              "required": "белый",
+              "offered": "Белая",
+              "essential": false,
+              "ok": true
+            },
+            {
+              "name": "Белизна CIE",
+              "required": "146 ± 3%",
+              "offered": null,
+              "essential": false,
+              "ok": null
+            },
+            {
+              "name": "Масса листа бумаги площадью 1 м2",
+              "required": "80 ± 3",
+              "offered": "80Грамм",
+              "essential": true,
+              "ok": true
+            },
+            {
+              "name": "Толщина",
+              "required": "104 ± 2",
+              "offered": null,
+              "essential": true,
+              "ok": null
+            },
+            {
+              "name": "Соответствие ГОСТ",
+              "required": "Р 57641-2017",
+              "offered": null,
+              "essential": false,
+              "ok": null
+            }
+          ],
+          "reason": "Совпадают: Товарный знак, Формат бумаги, Количество листов в пачке, Масса листа бумаги площадью 1 м2",
+          "exclusion": null,
+          "original": null,
+          "user_marks": []
+        },
+        {
+          "label": "1.4",
+          "caption": "ЕИС, контракт № 3191000853226000019",
+          "offer": {
+            "id": "ff89177e660d",
+            "source_id": "eis",
+            "source_name": "ЕИС : реестр контрактов",
+            "level": 1,
+            "url": "https://zakupki.gov.ru/epz/contract/contractCard/payment-info-and-target-of-order.html?reestrNumber=3191000853226000019",
+            "retrieved_at": "2026-11-14T13:40:53.574229Z",
+            "title": "1. Бумага для офисной техники. Товарный знак: SvetoCopy",
+            "price": "316.21",
+            "currency": "RUB",
+            "amount": "1",
+            "amount_unit": "пачка",
+            "vat": "included",
+            "vat_rate": "0.22",
+            "supplier": "ОБЩЕСТВО С ОГРАНИЧЕННОЙ ОТВЕТСТВЕННОСТЬЮ \"ТОРГОВЫЙ ДОМ \"ТЕМА\"",
+            "supplier_inn": "1901128456",
+            "delivery": "unknown",
+            "delivery_cost": null,
+            "delivery_free_from": null,
+            "delivery_note": null,
+            "price_date": "2026-11-06",
+            "characteristics": {
+              "Формат": "А4",
+              "Цветность": "Белая",
+              "Масса бумаги площадью 1м2": "80Грамм",
+              "Количество листов в пачке": "500Штука"
+            }
+          },
+          "base_price": "316.21",
+          "vat": {
+            "status": "included",
+            "factor": "1",
+            "note": "НДС включён по данным страницы"
+          },
+          "indexation": {
+            "status": "not_needed",
+            "factor": "1",
+            "note": "Цена не старше 6 месяцев"
+          },
+          "delivery": {
+            "status": "included",
+            "added_per_unit": "0.00",
+            "note": "Допущение: цена контракта по 44-ФЗ, как правило, включает доставку до заказчика"
+          },
+          "normalized_price": "316.21",
+          "comparison": [
+            {
+              "name": "Товарный знак",
+              "required": "SvetoCopy",
+              "offered": null,
+              "essential": true,
+              "ok": null
+            },
+            {
+              "name": "Производитель",
+              "required": "НПАО Светогорский ЦБК",
+              "offered": null,
+              "essential": true,
+              "ok": null
+            },
+            {
+              "name": "Формат бумаги",
+              "required": "А4",
+              "offered": "А4",
+              "essential": true,
+              "ok": true
+            },
+            {
+              "name": "Марка бумаги",
+              "required": "С",
+              "offered": null,
+              "essential": true,
+              "ok": null
+            },
+            {
+              "name": "Количество листов в пачке",
+              "required": "500 (±2%)",
+              "offered": "500Штука",
+              "essential": true,
+              "ok": true
+            },
+            {
+              "name": "Цвет",
+              "required": "белый",
+              "offered": "Белая",
+              "essential": false,
+              "ok": true
+            },
+            {
+              "name": "Белизна CIE",
+              "required": "146 ± 3%",
+              "offered": null,
+              "essential": false,
+              "ok": null
+            },
+            {
+              "name": "Масса листа бумаги площадью 1 м2",
+              "required": "80 ± 3",
+              "offered": "80Грамм",
+              "essential": true,
+              "ok": true
+            },
+            {
+              "name": "Толщина",
+              "required": "104 ± 2",
+              "offered": null,
+              "essential": true,
+              "ok": null
+            },
+            {
+              "name": "Соответствие ГОСТ",
+              "required": "Р 57641-2017",
+              "offered": null,
+              "essential": false,
+              "ok": null
+            }
+          ],
+          "reason": "Совпадают: Формат бумаги, Количество листов в пачке, Масса листа бумаги площадью 1 м2",
+          "exclusion": null,
+          "original": null,
+          "user_marks": []
+        },
+        {
+          "label": "1.5",
+          "caption": "ЕИС, контракт № 2621500302725000139",
+          "offer": {
+            "id": "f43a43cecc4b",
+            "source_id": "eis",
+            "source_name": "ЕИС : реестр контрактов",
+            "level": 1,
+            "url": "https://zakupki.gov.ru/epz/contract/contractCard/payment-info-and-target-of-order.html?reestrNumber=2621500302725000139",
+            "retrieved_at": "2026-11-14T13:40:54.935329Z",
+            "title": "1. Бумага для офисной техники. Товарный знак: SvetoCopy",
+            "price": "262.08",
+            "currency": "RUB",
+            "amount": "1",
+            "amount_unit": "пачка",
+            "vat": "included",
+            "vat_rate": "0.22",
+            "supplier": null,
+            "supplier_inn": null,
+            "delivery": "unknown",
+            "delivery_cost": null,
+            "delivery_free_from": null,
+            "delivery_note": null,
+            "price_date": "2025-10-17",
+            "characteristics": {
+              "Марка бумаги": "C",
+              "Количество листов в пачке": "500Штука",
+              "Формат": "А4",
+              "Масса бумаги площадью 1м²": "80Грамм"
+            }
+          },
+          "base_price": "262.08",
+          "vat": {
+            "status": "included",
+            "factor": "1",
+            "note": "НДС включён по данным страницы"
+          },
+          "indexation": {
+            "status": "no_data",
+            "factor": "1",
+            "note": "Индексация за 2025-11 : 2026-10; использовано месяцев: 0; нет данных ИПЦ за: 2025-11, 2025-12, 2026-01, 2026-02, 2026-03, 2026-04, 2026-05, 2026-06, 2026-07, 2026-08, 2026-09, 2026-10"
+          },
+          "delivery": {
+            "status": "included",
+            "added_per_unit": "0.00",
+            "note": "Допущение: цена контракта по 44-ФЗ, как правило, включает доставку до заказчика"
+          },
+          "normalized_price": "262.08",
+          "comparison": [
+            {
+              "name": "Товарный знак",
+              "required": "SvetoCopy",
+              "offered": null,
+              "essential": true,
+              "ok": null
+            },
+            {
+              "name": "Производитель",
+              "required": "НПАО Светогорский ЦБК",
+              "offered": null,
+              "essential": true,
+              "ok": null
+            },
+            {
+              "name": "Формат бумаги",
+              "required": "А4",
+              "offered": "А4",
+              "essential": true,
+              "ok": true
+            },
+            {
+              "name": "Марка бумаги",
+              "required": "С",
+              "offered": "C",
+              "essential": true,
+              "ok": true
+            },
+            {
+              "name": "Количество листов в пачке",
+              "required": "500 (±2%)",
+              "offered": "500Штука",
+              "essential": true,
+              "ok": true
+            },
+            {
+              "name": "Цвет",
+              "required": "белый",
+              "offered": null,
+              "essential": false,
+              "ok": null
+            },
+            {
+              "name": "Белизна CIE",
+              "required": "146 ± 3%",
+              "offered": null,
+              "essential": false,
+              "ok": null
+            },
+            {
+              "name": "Масса листа бумаги площадью 1 м2",
+              "required": "80 ± 3",
+              "offered": "80Грамм",
+              "essential": true,
+              "ok": true
+            },
+            {
+              "name": "Толщина",
+              "required": "104 ± 2",
+              "offered": null,
+              "essential": true,
+              "ok": null
+            },
+            {
+              "name": "Соответствие ГОСТ",
+              "required": "Р 57641-2017",
+              "offered": null,
+              "essential": false,
+              "ok": null
+            }
+          ],
+          "reason": "Совпадают: Формат бумаги, Марка бумаги, Количество листов в пачке, Масса листа бумаги площадью 1 м2",
+          "exclusion": null,
+          "original": null,
+          "user_marks": []
+        },
+        {
+          "label": "1.6",
+          "caption": "Производители и дистрибьюторы: Бумага для офисной техники \"SvetoCopy\" Класс C 500л A4 (297 × 210 мм) 80г/м2",
+          "offer": {
+            "id": "f48d286f0036",
+            "source_id": "web_suppliers",
+            "source_name": "Производители и дистрибьюторы",
+            "level": 1,
+            "url": "https://finsib.com/catalog/view/7ab5e605-934b-11dc-b7f0-000e0ca46c81",
+            "retrieved_at": "2026-11-14T13:40:53.751198Z",
+            "title": "Бумага для офисной техники \"SvetoCopy\" Класс C 500л A4 (297 × 210 мм) 80г/м2",
+            "price": "350.00",
+            "currency": "RUB",
+            "amount": "1",
+            "amount_unit": "пачка",
+            "vat": "included",
+            "vat_rate": null,
+            "supplier": null,
+            "supplier_inn": null,
+            "delivery": "unknown",
+            "delivery_cost": null,
+            "delivery_free_from": "3000.00",
+            "delivery_note": "Бесплатная доставка по Новосибирску осуществляется только от суммы покупки 3 000 ₽.",
+            "price_date": null,
+            "characteristics": {
+              "Товарный знак": "SvetoCopy",
+              "Производитель": "НПАО Светогорский ЦБК",
+              "Формат бумаги": "А4",
+              "Марка бумаги": "С",
+              "Количество листов в пачке": "500 (±2%)",
+              "Белизна CIE": "146 ± 3%",
+              "Масса листа бумаги площадью 1 м2": "80 ± 3 г/м2",
+              "Толщина": "104 ± 2 мкм",
+              "Соответствие ГОСТ": "Р 57641-2017"
+            }
+          },
+          "base_price": "350.00",
+          "vat": {
+            "status": "included",
+            "factor": "1",
+            "note": "НДС включён по данным страницы"
+          },
+          "indexation": {
+            "status": "not_needed",
+            "factor": "1",
+            "note": "Дата цены неизвестна; цена считается текущей"
+          },
+          "delivery": {
+            "status": "included",
+            "added_per_unit": "0.00",
+            "note": "Бесплатно от 3000 ₽ со страницы; заказ по ТЗ 875000.00 ₽; Бесплатная доставка по Новосибирску осуществляется только от суммы покупки 3 000 ₽."
+          },
+          "normalized_price": "350.00",
+          "comparison": [
+            {
+              "name": "Товарный знак",
+              "required": "SvetoCopy",
+              "offered": "SvetoCopy",
+              "essential": true,
+              "ok": true
+            },
+            {
+              "name": "Производитель",
+              "required": "НПАО Светогорский ЦБК",
+              "offered": "НПАО Светогорский ЦБК",
+              "essential": true,
+              "ok": true
+            },
+            {
+              "name": "Формат бумаги",
+              "required": "А4",
+              "offered": "А4",
+              "essential": true,
+              "ok": true
+            },
+            {
+              "name": "Марка бумаги",
+              "required": "С",
+              "offered": "С",
+              "essential": true,
+              "ok": true
+            },
+            {
+              "name": "Количество листов в пачке",
+              "required": "500 (±2%)",
+              "offered": "500 (±2%)",
+              "essential": true,
+              "ok": true
+            },
+            {
+              "name": "Цвет",
+              "required": "белый",
+              "offered": null,
+              "essential": false,
+              "ok": null
+            },
+            {
+              "name": "Белизна CIE",
+              "required": "146 ± 3%",
+              "offered": "146 ± 3%",
+              "essential": false,
+              "ok": true
+            },
+            {
+              "name": "Масса листа бумаги площадью 1 м2",
+              "required": "80 ± 3",
+              "offered": "80 ± 3 г/м2",
+              "essential": true,
+              "ok": true
+            },
+            {
+              "name": "Толщина",
+              "required": "104 ± 2",
+              "offered": "104 ± 2 мкм",
+              "essential": true,
+              "ok": true
+            },
+            {
+              "name": "Соответствие ГОСТ",
+              "required": "Р 57641-2017",
+              "offered": "Р 57641-2017",
+              "essential": false,
+              "ok": true
+            }
+          ],
+          "reason": "Совпадают: Товарный знак, Производитель, Формат бумаги, Марка бумаги, Количество листов в пачке, Масса листа бумаги площадью 1 м2, Толщина",
+          "exclusion": null,
+          "original": null,
+          "user_marks": []
+        },
+        {
+          "label": "1.7",
+          "caption": "Производители и дистрибьюторы: Бумага офисная Светокопи SVETOCOPY А4 (500л) 80г/м2 146CIE Светогорск",
+          "offer": {
+            "id": "5af63a5103c2",
+            "source_id": "web_suppliers",
+            "source_name": "Производители и дистрибьюторы",
+            "level": 1,
+            "url": "https://www.ds66.ru/goods/1607243/",
+            "retrieved_at": "2026-11-14T13:40:54.091527Z",
+            "title": "Бумага офисная Светокопи SVETOCOPY А4 (500л) 80г/м2 146CIE Светогорск",
+            "price": "370.00",
+            "currency": "RUB",
+            "amount": "1",
+            "amount_unit": "пачка",
+            "vat": "unknown",
+            "vat_rate": null,
+            "supplier": null,
+            "supplier_inn": null,
+            "delivery": "unknown",
+            "delivery_cost": null,
+            "delivery_free_from": null,
+            "delivery_note": null,
+            "price_date": null,
+            "characteristics": {
+              "Товарный знак": "SvetoCopy",
+              "Производитель": "НПАО Светогорский ЦБК",
+              "Формат бумаги": "А4",
+              "Марка бумаги": "С",
+              "Количество листов в пачке": "500 (±2%)",
+              "Цвет": "белый",
+              "Белизна CIE": "146 ± 3%",
+              "Масса листа бумаги площадью 1 м2": "80 ± 3 г/м2",
+              "Толщина": "104 ± 2 мкм",
+              "Соответствие ГОСТ": "Р 57641-2017"
+            }
+          },
+          "base_price": "370.00",
+          "vat": {
+            "status": "unknown",
+            "factor": "1",
+            "note": "НДС на странице не указан"
+          },
+          "indexation": {
+            "status": "not_needed",
+            "factor": "1",
+            "note": "Дата цены неизвестна; цена считается текущей"
+          },
+          "delivery": {
+            "status": "unknown",
+            "added_per_unit": "0.00",
+            "note": "Стоимость доставки не указана на странице"
+          },
+          "normalized_price": "370.00",
+          "comparison": [
+            {
+              "name": "Товарный знак",
+              "required": "SvetoCopy",
+              "offered": "SvetoCopy",
+              "essential": true,
+              "ok": true
+            },
+            {
+              "name": "Производитель",
+              "required": "НПАО Светогорский ЦБК",
+              "offered": "НПАО Светогорский ЦБК",
+              "essential": true,
+              "ok": true
+            },
+            {
+              "name": "Формат бумаги",
+              "required": "А4",
+              "offered": "А4",
+              "essential": true,
+              "ok": true
+            },
+            {
+              "name": "Марка бумаги",
+              "required": "С",
+              "offered": "С",
+              "essential": true,
+              "ok": true
+            },
+            {
+              "name": "Количество листов в пачке",
+              "required": "500 (±2%)",
+              "offered": "500 (±2%)",
+              "essential": true,
+              "ok": true
+            },
+            {
+              "name": "Цвет",
+              "required": "белый",
+              "offered": "белый",
+              "essential": false,
+              "ok": true
+            },
+            {
+              "name": "Белизна CIE",
+              "required": "146 ± 3%",
+              "offered": "146 ± 3%",
+              "essential": false,
+              "ok": true
+            },
+            {
+              "name": "Масса листа бумаги площадью 1 м2",
+              "required": "80 ± 3",
+              "offered": "80 ± 3 г/м2",
+              "essential": true,
+              "ok": true
+            },
+            {
+              "name": "Толщина",
+              "required": "104 ± 2",
+              "offered": "104 ± 2 мкм",
+              "essential": true,
+              "ok": true
+            },
+            {
+              "name": "Соответствие ГОСТ",
+              "required": "Р 57641-2017",
+              "offered": "Р 57641-2017",
+              "essential": false,
+              "ok": true
+            }
+          ],
+          "reason": "Совпадают: Товарный знак, Производитель, Формат бумаги, Марка бумаги, Количество листов в пачке, Масса листа бумаги площадью 1 м2, Толщина",
+          "exclusion": null,
+          "original": null,
+          "user_marks": []
+        },
+        {
+          "label": "1.8",
+          "caption": "Производители и дистрибьюторы: Бумага офисная А4, 80 г/м2, 500 л., марка С, SVETOCOPY CLASSIC, Россия, 146% (CIE)",
+          "offer": {
+            "id": "fc3eb174ae5c",
+            "source_id": "web_suppliers",
+            "source_name": "Производители и дистрибьюторы",
+            "level": 1,
+            "url": "https://pro100snab.ru/catalog/bumaga/bumaga_dlya_ofisnoy_tekhniki-419524/bumaga_belaya_marok_a_v_s/bumaga-ofisnaya-svetocopy-classic-a4-80-gm2-500-l-marka-s-international-paper-belizna-146/",
+            "retrieved_at": "2026-11-14T13:40:55.893369Z",
+            "title": "Бумага офисная А4, 80 г/м2, 500 л., марка С, SVETOCOPY CLASSIC, Россия, 146% (CIE)",
+            "price": "345.00",
+            "currency": "RUB",
+            "amount": "1",
+            "amount_unit": "пачка",
+            "vat": "unknown",
+            "vat_rate": null,
+            "supplier": null,
+            "supplier_inn": null,
+            "delivery": "unknown",
+            "delivery_cost": null,
+            "delivery_free_from": null,
+            "delivery_note": null,
+            "price_date": null,
+            "characteristics": {
+              "Товарный знак": "SvetoCopy",
+              "Производитель": "НПАО Светогорский ЦБК",
+              "Формат бумаги": "А4",
+              "Марка бумаги": "С",
+              "Количество листов в пачке": "500 (±2%)",
+              "Цвет": "белый",
+              "Белизна CIE": "146 ± 3%",
+              "Масса листа бумаги площадью 1 м2": "80 ± 3 г/м2",
+              "Толщина": "104 ± 2 мкм",
+              "Соответствие ГОСТ": "Р 57641-2017"
+            }
+          },
+          "base_price": "345.00",
+          "vat": {
+            "status": "unknown",
+            "factor": "1",
+            "note": "НДС на странице не указан"
+          },
+          "indexation": {
+            "status": "not_needed",
+            "factor": "1",
+            "note": "Дата цены неизвестна; цена считается текущей"
+          },
+          "delivery": {
+            "status": "unknown",
+            "added_per_unit": "0.00",
+            "note": "Стоимость доставки не указана на странице"
+          },
+          "normalized_price": "345.00",
+          "comparison": [
+            {
+              "name": "Товарный знак",
+              "required": "SvetoCopy",
+              "offered": "SvetoCopy",
+              "essential": true,
+              "ok": true
+            },
+            {
+              "name": "Производитель",
+              "required": "НПАО Светогорский ЦБК",
+              "offered": "НПАО Светогорский ЦБК",
+              "essential": true,
+              "ok": true
+            },
+            {
+              "name": "Формат бумаги",
+              "required": "А4",
+              "offered": "А4",
+              "essential": true,
+              "ok": true
+            },
+            {
+              "name": "Марка бумаги",
+              "required": "С",
+              "offered": "С",
+              "essential": true,
+              "ok": true
+            },
+            {
+              "name": "Количество листов в пачке",
+              "required": "500 (±2%)",
+              "offered": "500 (±2%)",
+              "essential": true,
+              "ok": true
+            },
+            {
+              "name": "Цвет",
+              "required": "белый",
+              "offered": "белый",
+              "essential": false,
+              "ok": true
+            },
+            {
+              "name": "Белизна CIE",
+              "required": "146 ± 3%",
+              "offered": "146 ± 3%",
+              "essential": false,
+              "ok": true
+            },
+            {
+              "name": "Масса листа бумаги площадью 1 м2",
+              "required": "80 ± 3",
+              "offered": "80 ± 3 г/м2",
+              "essential": true,
+              "ok": true
+            },
+            {
+              "name": "Толщина",
+              "required": "104 ± 2",
+              "offered": "104 ± 2 мкм",
+              "essential": true,
+              "ok": true
+            },
+            {
+              "name": "Соответствие ГОСТ",
+              "required": "Р 57641-2017",
+              "offered": "Р 57641-2017",
+              "essential": false,
+              "ok": true
+            }
+          ],
+          "reason": "Совпадают: Товарный знак, Производитель, Формат бумаги, Марка бумаги, Количество листов в пачке, Масса листа бумаги площадью 1 м2, Толщина",
+          "exclusion": null,
+          "original": null,
+          "user_marks": []
+        }
+      ],
+      "excluded": [
+        {
+          "label": "1.9",
+          "caption": "Производители и дистрибьюторы: Бумага SvetoCopy (А4, 500 листов, 80г/м2, белизна 146% CIE, класс C) Арт. 13500",
+          "offer": {
+            "id": "270afed858b5",
+            "source_id": "web_suppliers",
+            "source_name": "Производители и дистрибьюторы",
+            "level": 1,
+            "url": "https://oficity.ru/bumaga-dlya-ofisnoj-tehniki/7911-bumaga-sveto-copy-a4-80g-m2-belizna-146-cie-500-listov-13500.html?results=1&search_query=13500",
+            "retrieved_at": "2026-11-14T13:40:54.397168Z",
+            "title": "Бумага SvetoCopy (А4, 500 листов, 80г/м2, белизна 146% CIE, класс C) Арт. 13500",
+            "price": "420.00",
+            "currency": "RUB",
+            "amount": "5",
+            "amount_unit": "пачка",
+            "vat": "excluded",
+            "vat_rate": null,
+            "supplier": "International Paper",
+            "supplier_inn": null,
+            "delivery": "separate",
+            "delivery_cost": "500.00",
+            "delivery_free_from": "3000.00",
+            "delivery_note": "Заказ на сумму более 3 000 рублей - БЕСПЛАТНО. Заказ на сумму менее 3 000 рублей - 500 рублей. Доставка от МКАД до 100км - от 500 рублей.",
+            "price_date": null,
+            "characteristics": {
+              "Торговая марка": "SvetoCopy",
+              "Формат листов": "А4",
+              "Класс бумаги": "C",
+              "Плотность бумаги": "80 г/м2",
+              "Белизна": "146 % CIE",
+              "Листов в пачке": "500",
+              "Толщина бумаги": "104 мкм",
+              "Производитель": "International Paper"
+            }
+          },
+          "base_price": "84.00",
+          "vat": {
+            "status": "added",
+            "factor": "1.22",
+            "note": "Начислен НДС 22.00 %; ставка из настроек"
+          },
+          "indexation": {
+            "status": "not_needed",
+            "factor": "1",
+            "note": "Дата цены неизвестна; цена считается текущей"
+          },
+          "delivery": {
+            "status": "included",
+            "added_per_unit": "0.00",
+            "note": "Бесплатно от 3000 ₽ со страницы; заказ по ТЗ 210000.00 ₽; Заказ на сумму более 3 000 рублей - БЕСПЛАТНО. Заказ на сумму менее 3 000 рублей - 500 рублей. Доставка от МКАД до 100км - от 500 рублей."
+          },
+          "normalized_price": "102.48",
+          "comparison": [
+            {
+              "name": "Товарный знак",
+              "required": "SvetoCopy",
+              "offered": "SvetoCopy",
+              "essential": true,
+              "ok": true
+            },
+            {
+              "name": "Производитель",
+              "required": "НПАО Светогорский ЦБК",
+              "offered": "International Paper",
+              "essential": true,
+              "ok": false
+            },
+            {
+              "name": "Формат бумаги",
+              "required": "А4",
+              "offered": "А4",
+              "essential": true,
+              "ok": true
+            },
+            {
+              "name": "Марка бумаги",
+              "required": "С",
+              "offered": "C",
+              "essential": true,
+              "ok": true
+            },
+            {
+              "name": "Количество листов в пачке",
+              "required": "500 (±2%)",
+              "offered": "500",
+              "essential": true,
+              "ok": true
+            },
+            {
+              "name": "Цвет",
+              "required": "белый",
+              "offered": null,
+              "essential": false,
+              "ok": null
+            },
+            {
+              "name": "Белизна CIE",
+              "required": "146 ± 3%",
+              "offered": "146 % CIE",
+              "essential": false,
+              "ok": true
+            },
+            {
+              "name": "Масса листа бумаги площадью 1 м2",
+              "required": "80 ± 3",
+              "offered": "80 г/м2",
+              "essential": true,
+              "ok": true
+            },
+            {
+              "name": "Толщина",
+              "required": "104 ± 2",
+              "offered": "104 мкм",
+              "essential": true,
+              "ok": true
+            },
+            {
+              "name": "Соответствие ГОСТ",
+              "required": "Р 57641-2017",
+              "offered": null,
+              "essential": false,
+              "ok": null
+            }
+          ],
+          "reason": "Не соответствует: Производитель",
+          "exclusion": "incomparable",
+          "original": null,
+          "user_marks": []
+        },
+        {
+          "label": "1.10",
+          "caption": "Производители и дистрибьюторы: Бумага SvetoCopy \"Classic\" А4, Марка С, 500л.",
+          "offer": {
+            "id": "383992927b4c",
+            "source_id": "web_suppliers",
+            "source_name": "Производители и дистрибьюторы",
+            "level": 1,
+            "url": "https://spb.kancmag.org/product/4010/",
+            "retrieved_at": "2026-11-14T13:40:55.486411Z",
+            "title": "Бумага SvetoCopy \"Classic\" А4, Марка С, 500л.",
+            "price": "530.56",
+            "currency": "RUB",
+            "amount": "5",
+            "amount_unit": "пачка",
+            "vat": "unknown",
+            "vat_rate": null,
+            "supplier": null,
+            "supplier_inn": null,
+            "delivery": "separate",
+            "delivery_cost": "390.00",
+            "delivery_free_from": null,
+            "delivery_note": "Доставка внутри КАД от 390 руб., при заказе до 15:00 в течение 2-5 дней",
+            "price_date": null,
+            "characteristics": {
+              "Товарный знак": "SvetoCopy",
+              "Производитель": "НПАО Светогорский ЦБК",
+              "Формат бумаги": "А4",
+              "Марка бумаги": "С",
+              "Количество листов в пачке": "500 (±2%)",
+              "Плотность бумаги": "72-80 +/- 2-3",
+              "Толщина": "104 +/- 2",
+              "Белизна CIE": "140-150 +/- 3",
+              "Соответствие ГОСТ": "Р 57641-2017",
+              "Класс": "C",
+              "Страна производитель": "РОССИЯ"
+            }
+          },
+          "base_price": "106.11",
+          "vat": {
+            "status": "unknown",
+            "factor": "1",
+            "note": "НДС на странице не указан"
+          },
+          "indexation": {
+            "status": "not_needed",
+            "factor": "1",
+            "note": "Дата цены неизвестна; цена считается текущей"
+          },
+          "delivery": {
+            "status": "added",
+            "added_per_unit": "0.16",
+            "note": "Доставка 390 ₽ на весь объём ТЗ: Доставка внутри КАД от 390 руб., при заказе до 15:00 в течение 2-5 дней"
+          },
+          "normalized_price": "106.27",
+          "comparison": [
+            {
+              "name": "Товарный знак",
+              "required": "SvetoCopy",
+              "offered": "SvetoCopy",
+              "essential": true,
+              "ok": true
+            },
+            {
+              "name": "Производитель",
+              "required": "НПАО Светогорский ЦБК",
+              "offered": "НПАО Светогорский ЦБК",
+              "essential": true,
+              "ok": true
+            },
+            {
+              "name": "Формат бумаги",
+              "required": "А4",
+              "offered": "А4",
+              "essential": true,
+              "ok": true
+            },
+            {
+              "name": "Марка бумаги",
+              "required": "С",
+              "offered": "С",
+              "essential": true,
+              "ok": true
+            },
+            {
+              "name": "Количество листов в пачке",
+              "required": "500 (±2%)",
+              "offered": "500 (±2%)",
+              "essential": true,
+              "ok": true
+            },
+            {
+              "name": "Цвет",
+              "required": "белый",
+              "offered": null,
+              "essential": false,
+              "ok": null
+            },
+            {
+              "name": "Белизна CIE",
+              "required": "146 ± 3%",
+              "offered": "140-150 +/- 3",
+              "essential": false,
+              "ok": true
+            },
+            {
+              "name": "Масса листа бумаги площадью 1 м2",
+              "required": "80 ± 3",
+              "offered": "72-80 +/- 2-3",
+              "essential": true,
+              "ok": true
+            },
+            {
+              "name": "Толщина",
+              "required": "104 ± 2",
+              "offered": "104 +/- 2",
+              "essential": true,
+              "ok": true
+            },
+            {
+              "name": "Соответствие ГОСТ",
+              "required": "Р 57641-2017",
+              "offered": "Р 57641-2017",
+              "essential": false,
+              "ok": true
+            }
+          ],
+          "reason": "Аномальная цена: IQR: [Q1 − 1.5 × IQR; Q3 + 1.5 × IQR]",
+          "exclusion": "anomalous_price",
+          "original": null,
+          "user_marks": []
+        },
+        {
+          "label": "1.11",
+          "caption": "Производители и дистрибьюторы: Бумага для офисной техники \"SvetoCopy ECO\" 500 л. ф.А4 (210*297 мм), класс Сэ, 80 г/м2, белизна 60% (кремовая бумага), \"Светогорский ЦБК\" арт.1556235",
+          "offer": {
+            "id": "1f6f99a01c32",
+            "source_id": "web_suppliers",
+            "source_name": "Производители и дистрибьюторы",
+            "level": 1,
+            "url": "https://enola.ru/catalog/bumaga_dlya_tekhniki_roliki/69932/",
+            "retrieved_at": "2026-11-14T13:40:56.691216Z",
+            "title": "Бумага для офисной техники \"SvetoCopy ECO\" 500 л. ф.А4 (210*297 мм), класс Сэ, 80 г/м2, белизна 60% (кремовая бумага), \"Светогорский ЦБК\" арт.1556235",
+            "price": "464.00",
+            "currency": "RUB",
+            "amount": "1",
+            "amount_unit": "упаковка",
+            "vat": "unknown",
+            "vat_rate": null,
+            "supplier": null,
+            "supplier_inn": null,
+            "delivery": "unknown",
+            "delivery_cost": null,
+            "delivery_free_from": null,
+            "delivery_note": null,
+            "price_date": null,
+            "characteristics": {
+              "Количество листов в пачке": "500",
+              "Формат бумаги": "А4",
+              "Марка бумаги": "С",
+              "Масса листа бумаги площадью 1 м2": "80 +/- 3 г",
+              "Толщина": "104 +/- 2 мкм",
+              "Цвет": "кремовая",
+              "Производитель": "Светогорский ЦБК",
+              "Товарный знак": "SvetoCopy ECO",
+              "Белизна ISO": "60%"
+            }
+          },
+          "base_price": null,
+          "vat": null,
+          "indexation": null,
+          "delivery": null,
+          "normalized_price": null,
+          "comparison": [
+            {
+              "name": "Товарный знак",
+              "required": "SvetoCopy",
+              "offered": "SvetoCopy ECO",
+              "essential": true,
+              "ok": false
+            },
+            {
+              "name": "Производитель",
+              "required": "НПАО Светогорский ЦБК",
+              "offered": "Светогорский ЦБК",
+              "essential": true,
+              "ok": true
+            },
+            {
+              "name": "Формат бумаги",
+              "required": "А4",
+              "offered": "А4",
+              "essential": true,
+              "ok": true
+            },
+            {
+              "name": "Марка бумаги",
+              "required": "С",
+              "offered": "С",
+              "essential": true,
+              "ok": true
+            },
+            {
+              "name": "Количество листов в пачке",
+              "required": "500 (±2%)",
+              "offered": "500",
+              "essential": true,
+              "ok": true
+            },
+            {
+              "name": "Цвет",
+              "required": "белый",
+              "offered": "кремовая",
+              "essential": false,
+              "ok": false
+            },
+            {
+              "name": "Белизна CIE",
+              "required": "146 ± 3%",
+              "offered": "60%",
+              "essential": false,
+              "ok": false
+            },
+            {
+              "name": "Масса листа бумаги площадью 1 м2",
+              "required": "80 ± 3",
+              "offered": "80 +/- 3 г",
+              "essential": true,
+              "ok": true
+            },
+            {
+              "name": "Толщина",
+              "required": "104 ± 2",
+              "offered": "104 +/- 2 мкм",
+              "essential": true,
+              "ok": true
+            },
+            {
+              "name": "Соответствие ГОСТ",
+              "required": "Р 57641-2017",
+              "offered": null,
+              "essential": false,
+              "ok": null
+            }
+          ],
+          "reason": "Нельзя перевести упаковка в пачка",
+          "exclusion": "unit_mismatch",
+          "original": null,
+          "user_marks": []
+        }
+      ],
+      "stats": {
+        "n": 8,
+        "min": "262.08",
+        "max": "370.00",
+        "mean": "318.38",
+        "std": "35.86",
+        "cv": "0.1126",
+        "outlier_rule": "IQR: [Q1 − 1.5 × IQR; Q3 + 1.5 × IQR]",
+        "median": "316.21",
+        "lower_bound": "211.00",
+        "upper_bound": "425.40"
+      },
+      "unit_price": "318.38",
+      "reference_price": null,
+      "total": "795950.00",
+      "assumptions": [
+        "Принято по умолчанию: Нет, только SvetoCopy"
+      ],
+      "spread_hints": [],
+      "skipped_pages": [
+        {
+          "url": "https://zakupki.gov.ru/epz/contract/contractCard/common-info.html?reestrNumber=2230103264126000007",
+          "source_id": "eis",
+          "reason": "Источник недоступен: ошибка сети, таймаут или ограничение запросов"
+        },
+        {
+          "url": "https://zakupki.gov.ru/epz/contract/contractCard/common-info.html?reestrNumber=3370252509026000005",
+          "source_id": "eis",
+          "reason": "Источник недоступен: ошибка сети, таймаут или ограничение запросов"
+        },
+        {
+          "url": "https://zakupki.gov.ru/epz/contract/contractCard/common-info.html?reestrNumber=2526047074426000021",
+          "source_id": "eis",
+          "reason": "Источник недоступен: ошибка сети, таймаут или ограничение запросов"
+        },
+        {
+          "url": "https://russcarton.ru/catalog/ofisnaya-bumaga/svetocopy/bumaga_ofisnaya_svetocopy_classic_a4_marka_c_80_g_kv_m_500_listov/",
+          "source_id": "web_suppliers",
+          "reason": "Источник требует входа или проверки капчи"
+        },
+        {
+          "url": "https://sveto-paper.com/company/",
+          "source_id": "web_suppliers",
+          "reason": "Источник требует входа или проверки капчи"
+        }
+      ],
+      "excluded_by_user": false
+    },
+    {
+      "position": {
+        "index": 2,
+        "name": "Бумага для офисной техники А3 SvetoCopy",
+        "unit": "пачка",
+        "quantity": "25",
+        "okpd2": "17.12.14.160",
+        "characteristics": [
+          {
+            "name": "Товарный знак",
+            "value": "SvetoCopy",
+            "unit": null,
+            "essential": true
+          },
+          {
+            "name": "Производитель",
+            "value": "НПАО Светогорский ЦБК",
+            "unit": null,
+            "essential": true
+          },
+          {
+            "name": "Формат бумаги",
+            "value": "А3",
+            "unit": null,
+            "essential": true
+          },
+          {
+            "name": "Марка бумаги",
+            "value": "С",
+            "unit": null,
+            "essential": true
+          },
+          {
+            "name": "Количество листов в пачке",
+            "value": "500 (±2%)",
+            "unit": "лист",
+            "essential": true
+          },
+          {
+            "name": "Цвет",
+            "value": "белый",
+            "unit": null,
+            "essential": false
+          },
+          {
+            "name": "Белизна CIE",
+            "value": "146 ± 3%",
+            "unit": "%",
+            "essential": false
+          },
+          {
+            "name": "Масса листа бумаги площадью 1 м2",
+            "value": "80 ± 3",
+            "unit": "г/м2",
+            "essential": true
+          },
+          {
+            "name": "Толщина",
+            "value": "104 ± 2",
+            "unit": "мкм",
+            "essential": true
+          },
+          {
+            "name": "Соответствие ГОСТ",
+            "value": "Р 57641-2017",
+            "unit": null,
+            "essential": false
+          }
+        ],
+        "basis": {
+          "unit": "пачка",
+          "per_tz_unit": "1"
+        },
+        "search_terms": [
+          "SvetoCopy",
+          "бумага для офисной техники"
+        ]
+      },
+      "status": "ok",
+      "levels_used": [
+        1
+      ],
+      "included": [
+        {
+          "label": "2.1",
+          "caption": "Производители и дистрибьюторы: Бумага SvetoCopy \"Classic\" А3, Марка С, 500л.",
+          "offer": {
+            "id": "0c0d9409c464",
+            "source_id": "web_suppliers",
+            "source_name": "Производители и дистрибьюторы",
+            "level": 1,
+            "url": "https://kancmag.org/product/101656/",
+            "retrieved_at": "2026-11-14T13:40:52.367154Z",
+            "title": "Бумага SvetoCopy \"Classic\" А3, Марка С, 500л.",
+            "price": "1061.12",
+            "currency": "RUB",
+            "amount": "1",
+            "amount_unit": "пачка",
+            "vat": "included",
+            "vat_rate": null,
+            "supplier": null,
+            "supplier_inn": null,
+            "delivery": "unknown",
+            "delivery_cost": null,
+            "delivery_free_from": null,
+            "delivery_note": "Доставка внутри МКАД от 360 руб., за МКАД от 540 руб., самовывоз от 180 руб.",
+            "price_date": null,
+            "characteristics": {
+              "Товарный знак": "SvetoCopy",
+              "Производитель": "НПАО Светогорский ЦБК",
+              "Формат бумаги": "А3",
+              "Марка бумаги": "С",
+              "Количество листов в пачке": "500 (±2%)",
+              "Масса листа бумаги площадью 1 м2": "80 ± 3",
+              "Толщина": "104 ± 2",
+              "Соответствие ГОСТ": "Р 57641-2017"
+            }
+          },
+          "base_price": "1061.12",
+          "vat": {
+            "status": "included",
+            "factor": "1",
+            "note": "НДС включён по данным страницы"
+          },
+          "indexation": {
+            "status": "not_needed",
+            "factor": "1",
+            "note": "Дата цены неизвестна; цена считается текущей"
+          },
+          "delivery": {
+            "status": "unknown",
+            "added_per_unit": "0.00",
+            "note": "Стоимость доставки не указана на странице; Доставка внутри МКАД от 360 руб., за МКАД от 540 руб., самовывоз от 180 руб."
+          },
+          "normalized_price": "1061.12",
+          "comparison": [
+            {
+              "name": "Товарный знак",
+              "required": "SvetoCopy",
+              "offered": "SvetoCopy",
+              "essential": true,
+              "ok": true
+            },
+            {
+              "name": "Производитель",
+              "required": "НПАО Светогорский ЦБК",
+              "offered": "НПАО Светогорский ЦБК",
+              "essential": true,
+              "ok": true
+            },
+            {
+              "name": "Формат бумаги",
+              "required": "А3",
+              "offered": "А3",
+              "essential": true,
+              "ok": true
+            },
+            {
+              "name": "Марка бумаги",
+              "required": "С",
+              "offered": "С",
+              "essential": true,
+              "ok": true
+            },
+            {
+              "name": "Количество листов в пачке",
+              "required": "500 (±2%)",
+              "offered": "500 (±2%)",
+              "essential": true,
+              "ok": true
+            },
+            {
+              "name": "Цвет",
+              "required": "белый",
+              "offered": null,
+              "essential": false,
+              "ok": null
+            },
+            {
+              "name": "Белизна CIE",
+              "required": "146 ± 3%",
+              "offered": null,
+              "essential": false,
+              "ok": null
+            },
+            {
+              "name": "Масса листа бумаги площадью 1 м2",
+              "required": "80 ± 3",
+              "offered": "80 ± 3",
+              "essential": true,
+              "ok": true
+            },
+            {
+              "name": "Толщина",
+              "required": "104 ± 2",
+              "offered": "104 ± 2",
+              "essential": true,
+              "ok": true
+            },
+            {
+              "name": "Соответствие ГОСТ",
+              "required": "Р 57641-2017",
+              "offered": "Р 57641-2017",
+              "essential": false,
+              "ok": true
+            }
+          ],
+          "reason": "Совпадают: Товарный знак, Производитель, Формат бумаги, Марка бумаги, Количество листов в пачке, Масса листа бумаги площадью 1 м2, Толщина",
+          "exclusion": null,
+          "original": null,
+          "user_marks": []
+        },
+        {
+          "label": "2.2",
+          "caption": "Производители и дистрибьюторы: Бумага офисная БОЛЬШОГО ФОРМАТА (297х420), А3, 80 г/м2, 500 л., марка С, SVETOCOPY CLASSIC, 146% (CIE)",
+          "offer": {
+            "id": "3b6ac17641e1",
+            "source_id": "web_suppliers",
+            "source_name": "Производители и дистрибьюторы",
+            "level": 1,
+            "url": "https://xn--80atckz0df.xn--p1ai/bumaga-ofisnaya-bolshogo-formata-297h420-a3-80-g-m2-500-l-marka-s-svetocopy-classic-146-cie",
+            "retrieved_at": "2026-11-14T13:40:54.244514Z",
+            "title": "Бумага офисная БОЛЬШОГО ФОРМАТА (297х420), А3, 80 г/м2, 500 л., марка С, SVETOCOPY CLASSIC, 146% (CIE)",
+            "price": "1061.00",
+            "currency": "RUB",
+            "amount": "1",
+            "amount_unit": "пачка",
+            "vat": "unknown",
+            "vat_rate": null,
+            "supplier": null,
+            "supplier_inn": null,
+            "delivery": "separate",
+            "delivery_cost": "500.00",
+            "delivery_free_from": null,
+            "delivery_note": "Доставка по Екатеринбургу 500₽",
+            "price_date": null,
+            "characteristics": {
+              "Формат бумаги": "А3",
+              "Марка бумаги": "С",
+              "Количество листов в пачке": "500",
+              "Цвет": "белый",
+              "Белизна CIE": "146 ± 3%",
+              "Масса листа бумаги площадью 1 м2": "80 ± 3",
+              "Толщина": "104 ± 2",
+              "Соответствие ГОСТ": "Р 57641-2017",
+              "Товарный знак": "SvetoCopy",
+              "Производитель": "НПАО Светогорский ЦБК"
+            }
+          },
+          "base_price": "1061.00",
+          "vat": {
+            "status": "unknown",
+            "factor": "1",
+            "note": "НДС на странице не указан"
+          },
+          "indexation": {
+            "status": "not_needed",
+            "factor": "1",
+            "note": "Дата цены неизвестна; цена считается текущей"
+          },
+          "delivery": {
+            "status": "added",
+            "added_per_unit": "20.00",
+            "note": "Доставка 500 ₽ на весь объём ТЗ: Доставка по Екатеринбургу 500₽"
+          },
+          "normalized_price": "1081.00",
+          "comparison": [
+            {
+              "name": "Товарный знак",
+              "required": "SvetoCopy",
+              "offered": "SvetoCopy",
+              "essential": true,
+              "ok": true
+            },
+            {
+              "name": "Производитель",
+              "required": "НПАО Светогорский ЦБК",
+              "offered": "НПАО Светогорский ЦБК",
+              "essential": true,
+              "ok": true
+            },
+            {
+              "name": "Формат бумаги",
+              "required": "А3",
+              "offered": "А3",
+              "essential": true,
+              "ok": true
+            },
+            {
+              "name": "Марка бумаги",
+              "required": "С",
+              "offered": "С",
+              "essential": true,
+              "ok": true
+            },
+            {
+              "name": "Количество листов в пачке",
+              "required": "500 (±2%)",
+              "offered": "500",
+              "essential": true,
+              "ok": true
+            },
+            {
+              "name": "Цвет",
+              "required": "белый",
+              "offered": "белый",
+              "essential": false,
+              "ok": true
+            },
+            {
+              "name": "Белизна CIE",
+              "required": "146 ± 3%",
+              "offered": "146 ± 3%",
+              "essential": false,
+              "ok": true
+            },
+            {
+              "name": "Масса листа бумаги площадью 1 м2",
+              "required": "80 ± 3",
+              "offered": "80 ± 3",
+              "essential": true,
+              "ok": true
+            },
+            {
+              "name": "Толщина",
+              "required": "104 ± 2",
+              "offered": "104 ± 2",
+              "essential": true,
+              "ok": true
+            },
+            {
+              "name": "Соответствие ГОСТ",
+              "required": "Р 57641-2017",
+              "offered": "Р 57641-2017",
+              "essential": false,
+              "ok": true
+            }
+          ],
+          "reason": "Совпадают: Товарный знак, Производитель, Формат бумаги, Марка бумаги, Количество листов в пачке, Масса листа бумаги площадью 1 м2, Толщина",
+          "exclusion": null,
+          "original": null,
+          "user_marks": []
+        },
+        {
+          "label": "2.3",
+          "caption": "Производители и дистрибьюторы: Бумага А3 SvetoCopy Светогорский ЦБК 80 гр 94% С 500л. 64872/5/120",
+          "offer": {
+            "id": "34950a3df101",
+            "source_id": "web_suppliers",
+            "source_name": "Производители и дистрибьюторы",
+            "level": 1,
+            "url": "https://tema19.ru/catalog/7/531312",
+            "retrieved_at": "2026-11-14T13:40:54.776439Z",
+            "title": "Бумага А3 SvetoCopy Светогорский ЦБК 80 гр 94% С 500л. 64872/5/120",
+            "price": "760.00",
+            "currency": "RUB",
+            "amount": "1",
+            "amount_unit": "пачка",
+            "vat": "unknown",
+            "vat_rate": null,
+            "supplier": null,
+            "supplier_inn": null,
+            "delivery": "unknown",
+            "delivery_cost": null,
+            "delivery_free_from": null,
+            "delivery_note": null,
+            "price_date": null,
+            "characteristics": {
+              "Товарный знак": "SvetoCopy",
+              "Производитель": "НПАО Светогорский ЦБК",
+              "Формат бумаги": "А3",
+              "Марка бумаги": "С",
+              "Количество листов в пачке": "500 (±2%)",
+              "Цвет": "белый",
+              "Белизна CIE": "94%",
+              "Масса листа бумаги площадью 1 м2": "80 г/м2",
+              "Соответствие ГОСТ": "Р 57641-2017"
+            }
+          },
+          "base_price": "760.00",
+          "vat": {
+            "status": "unknown",
+            "factor": "1",
+            "note": "НДС на странице не указан"
+          },
+          "indexation": {
+            "status": "not_needed",
+            "factor": "1",
+            "note": "Дата цены неизвестна; цена считается текущей"
+          },
+          "delivery": {
+            "status": "unknown",
+            "added_per_unit": "0.00",
+            "note": "Стоимость доставки не указана на странице"
+          },
+          "normalized_price": "760.00",
+          "comparison": [
+            {
+              "name": "Товарный знак",
+              "required": "SvetoCopy",
+              "offered": "SvetoCopy",
+              "essential": true,
+              "ok": true
+            },
+            {
+              "name": "Производитель",
+              "required": "НПАО Светогорский ЦБК",
+              "offered": "НПАО Светогорский ЦБК",
+              "essential": true,
+              "ok": true
+            },
+            {
+              "name": "Формат бумаги",
+              "required": "А3",
+              "offered": "А3",
+              "essential": true,
+              "ok": true
+            },
+            {
+              "name": "Марка бумаги",
+              "required": "С",
+              "offered": "С",
+              "essential": true,
+              "ok": true
+            },
+            {
+              "name": "Количество листов в пачке",
+              "required": "500 (±2%)",
+              "offered": "500 (±2%)",
+              "essential": true,
+              "ok": true
+            },
+            {
+              "name": "Цвет",
+              "required": "белый",
+              "offered": "белый",
+              "essential": false,
+              "ok": true
+            },
+            {
+              "name": "Белизна CIE",
+              "required": "146 ± 3%",
+              "offered": "94%",
+              "essential": false,
+              "ok": false
+            },
+            {
+              "name": "Масса листа бумаги площадью 1 м2",
+              "required": "80 ± 3",
+              "offered": "80 г/м2",
+              "essential": true,
+              "ok": true
+            },
+            {
+              "name": "Толщина",
+              "required": "104 ± 2",
+              "offered": null,
+              "essential": true,
+              "ok": null
+            },
+            {
+              "name": "Соответствие ГОСТ",
+              "required": "Р 57641-2017",
+              "offered": "Р 57641-2017",
+              "essential": false,
+              "ok": true
+            }
+          ],
+          "reason": "Совпадают: Товарный знак, Производитель, Формат бумаги, Марка бумаги, Количество листов в пачке, Масса листа бумаги площадью 1 м2",
+          "exclusion": null,
+          "original": null,
+          "user_marks": []
+        }
+      ],
+      "excluded": [
+        {
+          "label": "2.4",
+          "caption": "ЕИС, контракт № 2610300092726000086",
+          "offer": {
+            "id": "132f35db23da",
+            "source_id": "eis",
+            "source_name": "ЕИС : реестр контрактов",
+            "level": 1,
+            "url": "https://zakupki.gov.ru/epz/contract/contractCard/payment-info-and-target-of-order.html?reestrNumber=2610300092726000086",
+            "retrieved_at": "2026-11-14T13:40:48.849692Z",
+            "title": "1. Бумага для офисной техники. Товарный знак: Svetocopy",
+            "price": "291.40",
+            "currency": "RUB",
+            "amount": "1",
+            "amount_unit": "пачка",
+            "vat": "exempt",
+            "vat_rate": null,
+            "supplier": "ГАБИБОВ МАЛИК АРТУРОВИЧ",
+            "supplier_inn": "051205954080",
+            "delivery": "unknown",
+            "delivery_cost": null,
+            "delivery_free_from": null,
+            "delivery_note": null,
+            "price_date": "2026-10-19",
+            "characteristics": {
+              "Формат": "А4",
+              "Цветность": "Белая",
+              "Количество листов в пачке": "500Штука",
+              "Масса бумаги площадью 1м2": "80Грамм",
+              "Белизна по CIE": "146",
+              "Отбелка целлюлозы без хлора (ECF)": "Да",
+              "Марка бумаги": "не ниже С"
+            }
+          },
+          "base_price": "291.40",
+          "vat": {
+            "status": "exempt",
+            "factor": "1",
+            "note": "НДС не облагается : цена конечная"
+          },
+          "indexation": {
+            "status": "not_needed",
+            "factor": "1",
+            "note": "Цена не старше 6 месяцев"
+          },
+          "delivery": {
+            "status": "included",
+            "added_per_unit": "0.00",
+            "note": "Допущение: цена контракта по 44-ФЗ, как правило, включает доставку до заказчика"
+          },
+          "normalized_price": "291.40",
+          "comparison": [
+            {
+              "name": "Товарный знак",
+              "required": "SvetoCopy",
+              "offered": null,
+              "essential": true,
+              "ok": null
+            },
+            {
+              "name": "Производитель",
+              "required": "НПАО Светогорский ЦБК",
+              "offered": null,
+              "essential": true,
+              "ok": null
+            },
+            {
+              "name": "Формат бумаги",
+              "required": "А3",
+              "offered": "А4",
+              "essential": true,
+              "ok": false
+            },
+            {
+              "name": "Марка бумаги",
+              "required": "С",
+              "offered": "не ниже С",
+              "essential": true,
+              "ok": true
+            },
+            {
+              "name": "Количество листов в пачке",
+              "required": "500 (±2%)",
+              "offered": "500Штука",
+              "essential": true,
+              "ok": true
+            },
+            {
+              "name": "Цвет",
+              "required": "белый",
+              "offered": "Белая",
+              "essential": false,
+              "ok": true
+            },
+            {
+              "name": "Белизна CIE",
+              "required": "146 ± 3%",
+              "offered": "146",
+              "essential": false,
+              "ok": true
+            },
+            {
+              "name": "Масса листа бумаги площадью 1 м2",
+              "required": "80 ± 3",
+              "offered": "80Грамм",
+              "essential": true,
+              "ok": true
+            },
+            {
+              "name": "Толщина",
+              "required": "104 ± 2",
+              "offered": null,
+              "essential": true,
+              "ok": null
+            },
+            {
+              "name": "Соответствие ГОСТ",
+              "required": "Р 57641-2017",
+              "offered": null,
+              "essential": false,
+              "ok": null
+            }
+          ],
+          "reason": "Не соответствует: Формат бумаги",
+          "exclusion": "incomparable",
+          "original": null,
+          "user_marks": []
+        },
+        {
+          "label": "2.5",
+          "caption": "ЕИС, контракт № 2332810135826000059",
+          "offer": {
+            "id": "05caf671fec0",
+            "source_id": "eis",
+            "source_name": "ЕИС : реестр контрактов",
+            "level": 1,
+            "url": "https://zakupki.gov.ru/epz/contract/contractCard/payment-info-and-target-of-order.html?reestrNumber=2332810135826000059",
+            "retrieved_at": "2026-11-14T13:40:50.379216Z",
+            "title": "3. Бумага для офисной техники. Товарный знак: Отсутствует",
+            "price": "611.54",
+            "currency": "RUB",
+            "amount": "1",
+            "amount_unit": "пачка",
+            "vat": "included",
+            "vat_rate": "0.22",
+            "supplier": null,
+            "supplier_inn": null,
+            "delivery": "unknown",
+            "delivery_cost": null,
+            "delivery_free_from": null,
+            "delivery_note": null,
+            "price_date": null,
+            "characteristics": {
+              "Масса бумаги площадью 1м2": "80Грамм",
+              "Цветность": "Белая",
+              "Количество листов в пачке": "500Штука",
+              "Формат": "А3"
+            }
+          },
+          "base_price": "611.54",
+          "vat": {
+            "status": "included",
+            "factor": "1",
+            "note": "НДС включён по данным страницы"
+          },
+          "indexation": {
+            "status": "not_needed",
+            "factor": "1",
+            "note": "Дата цены неизвестна; цена считается текущей"
+          },
+          "delivery": {
+            "status": "included",
+            "added_per_unit": "0.00",
+            "note": "Допущение: цена контракта по 44-ФЗ, как правило, включает доставку до заказчика"
+          },
+          "normalized_price": "611.54",
+          "comparison": [
+            {
+              "name": "Товарный знак",
+              "required": "SvetoCopy",
+              "offered": "Отсутствует",
+              "essential": true,
+              "ok": false
+            },
+            {
+              "name": "Производитель",
+              "required": "НПАО Светогорский ЦБК",
+              "offered": null,
+              "essential": true,
+              "ok": null
+            },
+            {
+              "name": "Формат бумаги",
+              "required": "А3",
+              "offered": "А3",
+              "essential": true,
+              "ok": true
+            },
+            {
+              "name": "Марка бумаги",
+              "required": "С",
+              "offered": null,
+              "essential": true,
+              "ok": null
+            },
+            {
+              "name": "Количество листов в пачке",
+              "required": "500 (±2%)",
+              "offered": "500Штука",
+              "essential": true,
+              "ok": true
+            },
+            {
+              "name": "Цвет",
+              "required": "белый",
+              "offered": "Белая",
+              "essential": false,
+              "ok": true
+            },
+            {
+              "name": "Белизна CIE",
+              "required": "146 ± 3%",
+              "offered": null,
+              "essential": false,
+              "ok": null
+            },
+            {
+              "name": "Масса листа бумаги площадью 1 м2",
+              "required": "80 ± 3",
+              "offered": "80Грамм",
+              "essential": true,
+              "ok": true
+            },
+            {
+              "name": "Толщина",
+              "required": "104 ± 2",
+              "offered": null,
+              "essential": true,
+              "ok": null
+            },
+            {
+              "name": "Соответствие ГОСТ",
+              "required": "Р 57641-2017",
+              "offered": null,
+              "essential": false,
+              "ok": null
+            }
+          ],
+          "reason": "Не соответствует: Товарный знак",
+          "exclusion": "incomparable",
+          "original": null,
+          "user_marks": []
+        },
+        {
+          "label": "2.6",
+          "caption": "Производители и дистрибьюторы: Бумага SvetoCopy \"Classic\" А3, Марка С, 500л.",
+          "offer": {
+            "id": "d6e71558dd6e",
+            "source_id": "web_suppliers",
+            "source_name": "Производители и дистрибьюторы",
+            "level": 1,
+            "url": "https://spb.otc.ru/product/93830-bumaga-svetocopy-classic-a3-marka-s-500l/",
+            "retrieved_at": "2026-11-14T13:40:53.669968Z",
+            "title": "Бумага SvetoCopy \"Classic\" А3, Марка С, 500л.",
+            "price": "979.92",
+            "currency": "RUB",
+            "amount": "1",
+            "amount_unit": "шт",
+            "vat": "included",
+            "vat_rate": null,
+            "supplier": "ИП Гулова Наталья Леонидовна",
+            "supplier_inn": null,
+            "delivery": "unknown",
+            "delivery_cost": null,
+            "delivery_free_from": null,
+            "delivery_note": null,
+            "price_date": null,
+            "characteristics": {
+              "Товарный знак": "SvetoCopy",
+              "Производитель": "РОССИЯ",
+              "Формат бумаги": "А3",
+              "Марка бумаги": "С",
+              "Количество листов в пачке": "500",
+              "Цвет": "белый",
+              "Белизна CIE": "146 ± 3%",
+              "Масса листа бумаги площадью 1 м2": "80",
+              "Толщина": "104",
+              "Соответствие ГОСТ": "Р 57641-2017"
+            }
+          },
+          "base_price": null,
+          "vat": null,
+          "indexation": null,
+          "delivery": null,
+          "normalized_price": null,
+          "comparison": [
+            {
+              "name": "Товарный знак",
+              "required": "SvetoCopy",
+              "offered": "SvetoCopy",
+              "essential": true,
+              "ok": true
+            },
+            {
+              "name": "Производитель",
+              "required": "НПАО Светогорский ЦБК",
+              "offered": "РОССИЯ",
+              "essential": true,
+              "ok": false
+            },
+            {
+              "name": "Формат бумаги",
+              "required": "А3",
+              "offered": "А3",
+              "essential": true,
+              "ok": true
+            },
+            {
+              "name": "Марка бумаги",
+              "required": "С",
+              "offered": "С",
+              "essential": true,
+              "ok": true
+            },
+            {
+              "name": "Количество листов в пачке",
+              "required": "500 (±2%)",
+              "offered": "500",
+              "essential": true,
+              "ok": true
+            },
+            {
+              "name": "Цвет",
+              "required": "белый",
+              "offered": "белый",
+              "essential": false,
+              "ok": true
+            },
+            {
+              "name": "Белизна CIE",
+              "required": "146 ± 3%",
+              "offered": "146 ± 3%",
+              "essential": false,
+              "ok": true
+            },
+            {
+              "name": "Масса листа бумаги площадью 1 м2",
+              "required": "80 ± 3",
+              "offered": "80",
+              "essential": true,
+              "ok": true
+            },
+            {
+              "name": "Толщина",
+              "required": "104 ± 2",
+              "offered": "104",
+              "essential": true,
+              "ok": true
+            },
+            {
+              "name": "Соответствие ГОСТ",
+              "required": "Р 57641-2017",
+              "offered": "Р 57641-2017",
+              "essential": false,
+              "ok": true
+            }
+          ],
+          "reason": "Нельзя перевести шт в пачка",
+          "exclusion": "unit_mismatch",
+          "original": null,
+          "user_marks": []
+        },
+        {
+          "label": "2.7",
+          "caption": "Производители и дистрибьюторы: Бумага А3 SvetoCopy 500л. класс С",
+          "offer": {
+            "id": "63442d36490f",
+            "source_id": "web_suppliers",
+            "source_name": "Производители и дистрибьюторы",
+            "level": 1,
+            "url": "https://linerirk.ru/catalog/ofisnaya_bumaga_dlya_printerov/bumaga_a3_svetocopy_500l_klass_s/",
+            "retrieved_at": "2026-11-14T13:40:54.966324Z",
+            "title": "Бумага А3 SvetoCopy 500л. класс С",
+            "price": "868.00",
+            "currency": "RUB",
+            "amount": "1",
+            "amount_unit": "шт",
+            "vat": "unknown",
+            "vat_rate": null,
+            "supplier": null,
+            "supplier_inn": null,
+            "delivery": "unknown",
+            "delivery_cost": null,
+            "delivery_free_from": null,
+            "delivery_note": null,
+            "price_date": null,
+            "characteristics": {
+              "Товарный знак": "Светогорск",
+              "Формат листов": "А3",
+              "Количество листов в пачке": "500",
+              "Класс бумаги": "С",
+              "Толщина": "104 мкм",
+              "Плотность": "80 г/кв.м",
+              "Белизна CIE": "146 %",
+              "Цвет": "Белый"
+            }
+          },
+          "base_price": null,
+          "vat": null,
+          "indexation": null,
+          "delivery": null,
+          "normalized_price": null,
+          "comparison": [
+            {
+              "name": "Товарный знак",
+              "required": "SvetoCopy",
+              "offered": "Светогорск",
+              "essential": true,
+              "ok": false
+            },
+            {
+              "name": "Производитель",
+              "required": "НПАО Светогорский ЦБК",
+              "offered": null,
+              "essential": true,
+              "ok": null
+            },
+            {
+              "name": "Формат бумаги",
+              "required": "А3",
+              "offered": "А3",
+              "essential": true,
+              "ok": true
+            },
+            {
+              "name": "Марка бумаги",
+              "required": "С",
+              "offered": "С",
+              "essential": true,
+              "ok": true
+            },
+            {
+              "name": "Количество листов в пачке",
+              "required": "500 (±2%)",
+              "offered": "500",
+              "essential": true,
+              "ok": true
+            },
+            {
+              "name": "Цвет",
+              "required": "белый",
+              "offered": "Белый",
+              "essential": false,
+              "ok": true
+            },
+            {
+              "name": "Белизна CIE",
+              "required": "146 ± 3%",
+              "offered": "146 %",
+              "essential": false,
+              "ok": true
+            },
+            {
+              "name": "Масса листа бумаги площадью 1 м2",
+              "required": "80 ± 3",
+              "offered": "80 г/кв.м",
+              "essential": true,
+              "ok": true
+            },
+            {
+              "name": "Толщина",
+              "required": "104 ± 2",
+              "offered": "104 мкм",
+              "essential": true,
+              "ok": true
+            },
+            {
+              "name": "Соответствие ГОСТ",
+              "required": "Р 57641-2017",
+              "offered": null,
+              "essential": false,
+              "ok": null
+            }
+          ],
+          "reason": "Нельзя перевести шт в пачка",
+          "exclusion": "unit_mismatch",
+          "original": null,
+          "user_marks": []
+        },
+        {
+          "label": "2.8",
+          "caption": "Производители и дистрибьюторы: Бумага SvetoCopy A3 80 г/кв м, 500 листов",
+          "offer": {
+            "id": "f5f013ee33b7",
+            "source_id": "web_suppliers",
+            "source_name": "Производители и дистрибьюторы",
+            "level": 1,
+            "url": "https://www.regtorg.ru/goods/ofisnaya-bumaga/",
+            "retrieved_at": "2026-11-14T13:40:58.608633Z",
+            "title": "Бумага SvetoCopy A3 80 г/кв м, 500 листов",
+            "price": "469.00",
+            "currency": "RUB",
+            "amount": "1",
+            "amount_unit": "пачка",
+            "vat": "unknown",
+            "vat_rate": null,
+            "supplier": "Pack-store, ТД \"Циркон\" ООО",
+            "supplier_inn": null,
+            "delivery": "unknown",
+            "delivery_cost": null,
+            "delivery_free_from": null,
+            "delivery_note": null,
+            "price_date": "2026-06-01",
+            "characteristics": {
+              "Товарный знак": "SvetoCopy",
+              "Формат бумаги": "А3",
+              "Производитель": "SvetoCopy",
+              "Количество листов в пачке": "500",
+              "Масса листа бумаги площадью 1 м2": "80 г/м²"
+            }
+          },
+          "base_price": "469.00",
+          "vat": {
+            "status": "unknown",
+            "factor": "1",
+            "note": "НДС на странице не указан"
+          },
+          "indexation": {
+            "status": "not_needed",
+            "factor": "1",
+            "note": "Цена не старше 6 месяцев"
+          },
+          "delivery": {
+            "status": "unknown",
+            "added_per_unit": "0.00",
+            "note": "Стоимость доставки не указана на странице"
+          },
+          "normalized_price": "469.00",
+          "comparison": [
+            {
+              "name": "Товарный знак",
+              "required": "SvetoCopy",
+              "offered": "SvetoCopy",
+              "essential": true,
+              "ok": true
+            },
+            {
+              "name": "Производитель",
+              "required": "НПАО Светогорский ЦБК",
+              "offered": "SvetoCopy",
+              "essential": true,
+              "ok": false
+            },
+            {
+              "name": "Формат бумаги",
+              "required": "А3",
+              "offered": "А3",
+              "essential": true,
+              "ok": true
+            },
+            {
+              "name": "Марка бумаги",
+              "required": "С",
+              "offered": null,
+              "essential": true,
+              "ok": null
+            },
+            {
+              "name": "Количество листов в пачке",
+              "required": "500 (±2%)",
+              "offered": "500",
+              "essential": true,
+              "ok": true
+            },
+            {
+              "name": "Цвет",
+              "required": "белый",
+              "offered": null,
+              "essential": false,
+              "ok": null
+            },
+            {
+              "name": "Белизна CIE",
+              "required": "146 ± 3%",
+              "offered": null,
+              "essential": false,
+              "ok": null
+            },
+            {
+              "name": "Масса листа бумаги площадью 1 м2",
+              "required": "80 ± 3",
+              "offered": "80 г/м²",
+              "essential": true,
+              "ok": true
+            },
+            {
+              "name": "Толщина",
+              "required": "104 ± 2",
+              "offered": null,
+              "essential": true,
+              "ok": null
+            },
+            {
+              "name": "Соответствие ГОСТ",
+              "required": "Р 57641-2017",
+              "offered": null,
+              "essential": false,
+              "ok": null
+            }
+          ],
+          "reason": "Не соответствует: Производитель",
+          "exclusion": "incomparable",
+          "original": null,
+          "user_marks": []
+        }
+      ],
+      "stats": {
+        "n": 3,
+        "min": "760.00",
+        "max": "1081.00",
+        "mean": "967.37",
+        "std": "179.87",
+        "cv": "0.1859",
+        "outlier_rule": "Отклонение от медианы более 50.0 %",
+        "median": "1061.12",
+        "lower_bound": "530.56",
+        "upper_bound": "1591.68"
+      },
+      "unit_price": "967.37",
+      "reference_price": null,
+      "total": "24184.25",
+      "assumptions": [
+        "Принято по умолчанию: Нет, только SvetoCopy"
+      ],
+      "spread_hints": [],
+      "skipped_pages": [
+        {
+          "url": "https://zakupki.gov.ru/epz/contract/contractCard/common-info.html?reestrNumber=2230103264126000007",
+          "source_id": "eis",
+          "reason": "Источник недоступен: ошибка сети, таймаут или ограничение запросов"
+        },
+        {
+          "url": "https://zakupki.gov.ru/epz/contract/contractCard/common-info.html?reestrNumber=3370252509026000005",
+          "source_id": "eis",
+          "reason": "Источник недоступен: ошибка сети, таймаут или ограничение запросов"
+        },
+        {
+          "url": "https://zakupki.gov.ru/epz/contract/contractCard/common-info.html?reestrNumber=2526047074426000021",
+          "source_id": "eis",
+          "reason": "Источник недоступен: ошибка сети, таймаут или ограничение запросов"
+        },
+        {
+          "url": "https://zakupki.gov.ru/epz/contract/contractCard/payment-info-and-target-of-order.html?reestrNumber=3263513038026000046",
+          "source_id": "eis",
+          "reason": "Не указан номер строки объекта закупки ЕИС"
+        },
+        {
+          "url": "https://zakupki.gov.ru/epz/contract/contractCard/payment-info-and-target-of-order.html?reestrNumber=3191000853226000019",
+          "source_id": "eis",
+          "reason": "Не указан номер строки объекта закупки ЕИС"
+        },
+        {
+          "url": "https://zakupki.gov.ru/epz/contract/contractCard/payment-info-and-target-of-order.html?reestrNumber=2621500302725000139",
+          "source_id": "eis",
+          "reason": "Не указан номер строки объекта закупки ЕИС"
+        },
+        {
+          "url": "https://ulan-ude.optmarkett.ru/catalog/bumaga/bumaga_dlya_kopirov_i_printerov/2831/",
+          "source_id": "web_suppliers",
+          "reason": "Источник требует входа или проверки капчи"
+        },
+        {
+          "url": "https://nvprint-opt.ru/bumaga-svetocopy/bumaga-svetocopy-a3/",
+          "source_id": "web_suppliers",
+          "reason": "Источник недоступен: ошибка сети, таймаут или ограничение запросов"
+        }
+      ],
+      "excluded_by_user": false
+    },
+    {
+      "position": {
+        "index": 3,
+        "name": "Бумага писчая (офсетная) в листах А4",
+        "unit": "пачка",
+        "quantity": "50",
+        "okpd2": "17.12.14.112",
+        "characteristics": [
+          {
+            "name": "Формат листов",
+            "value": "А4",
+            "unit": null,
+            "essential": true
+          },
+          {
+            "name": "Плотность листа бумаги",
+            "value": "65",
+            "unit": "г/м2",
+            "essential": true
+          },
+          {
+            "name": "Вид бумаги",
+            "value": "офсет",
+            "unit": null,
+            "essential": true
+          },
+          {
+            "name": "Белизна",
+            "value": "142-148",
+            "unit": "%",
+            "essential": false
+          },
+          {
+            "name": "Количество листов в упаковке",
+            "value": "500",
+            "unit": "лист",
+            "essential": true
+          },
+          {
+            "name": "Яркость бумаги",
+            "value": "102-105",
+            "unit": "%",
+            "essential": false
+          }
+        ],
+        "basis": {
+          "unit": "пачка",
+          "per_tz_unit": "1"
+        },
+        "search_terms": [
+          "офсетная бумага",
+          "бумага для письма"
+        ]
+      },
+      "status": "insufficient",
+      "levels_used": [
+        1,
+        2
+      ],
+      "included": [
+        {
+          "label": "3.1",
+          "caption": "Производители и дистрибьюторы: Бумага писчая А4 65 Универсал.500л, арт. пс65Универ",
+          "offer": {
+            "id": "90cd0832a5a7",
+            "source_id": "web_suppliers",
+            "source_name": "Производители и дистрибьюторы",
+            "level": 1,
+            "url": "https://irkformat.ru/catalog/bumaga_i_bumazhnaya_produktsiya/bumaga_dlya_orgtekhniki/bumaga_pischaya/bumaga_pischaya_a4_65_universal_500l/",
+            "retrieved_at": "2026-11-14T13:40:57.997206Z",
+            "title": "Бумага писчая А4 65 Универсал.500л, арт. пс65Универ",
+            "price": "663.80",
+            "currency": "RUB",
+            "amount": "1",
+            "amount_unit": "пачка",
+            "vat": "included",
+            "vat_rate": null,
+            "supplier": null,
+            "supplier_inn": null,
+            "delivery": "included",
+            "delivery_cost": null,
+            "delivery_free_from": "10000.00",
+            "delivery_note": "БЕСПЛАТНАЯ ДОСТАВКА при заказе от 10 000 руб.",
+            "price_date": null,
+            "characteristics": {
+              "Формат листов": "А4",
+              "Вид бумаги": "офсет",
+              "Плотность листа бумаги": "65 г/кв.м",
+              "Белизна": "142-148 %",
+              "Количество листов в упаковке": "500 лист",
+              "Наименование": "Бумага писчая А4 65 Универсал.500л"
+            }
+          },
+          "base_price": "663.80",
+          "vat": {
+            "status": "included",
+            "factor": "1",
+            "note": "НДС включён по данным страницы"
+          },
+          "indexation": {
+            "status": "not_needed",
+            "factor": "1",
+            "note": "Дата цены неизвестна; цена считается текущей"
+          },
+          "delivery": {
+            "status": "included",
+            "added_per_unit": "0.00",
+            "note": "Доставка включена: БЕСПЛАТНАЯ ДОСТАВКА при заказе от 10 000 руб."
+          },
+          "normalized_price": "663.80",
+          "comparison": [
+            {
+              "name": "Формат листов",
+              "required": "А4",
+              "offered": "А4",
+              "essential": true,
+              "ok": true
+            },
+            {
+              "name": "Плотность листа бумаги",
+              "required": "65",
+              "offered": "65 г/кв.м",
+              "essential": true,
+              "ok": true
+            },
+            {
+              "name": "Вид бумаги",
+              "required": "офсет",
+              "offered": "офсет",
+              "essential": true,
+              "ok": true
+            },
+            {
+              "name": "Белизна",
+              "required": "142-148",
+              "offered": "142-148 %",
+              "essential": false,
+              "ok": true
+            },
+            {
+              "name": "Количество листов в упаковке",
+              "required": "500",
+              "offered": "500 лист",
+              "essential": true,
+              "ok": true
+            },
+            {
+              "name": "Яркость бумаги",
+              "required": "102-105",
+              "offered": null,
+              "essential": false,
+              "ok": null
+            }
+          ],
+          "reason": "Совпадают: Формат листов, Плотность листа бумаги, Вид бумаги, Количество листов в упаковке",
+          "exclusion": null,
+          "original": null,
+          "user_marks": []
+        }
+      ],
+      "excluded": [
+        {
+          "label": "3.2",
+          "caption": "ЕИС, контракт № 2222119522426000008",
+          "offer": {
+            "id": "94cccb605087",
+            "source_id": "eis",
+            "source_name": "ЕИС : реестр контрактов",
+            "level": 1,
+            "url": "https://zakupki.gov.ru/epz/contract/contractCard/payment-info-and-target-of-order.html?reestrNumber=2222119522426000008",
+            "retrieved_at": "2026-11-14T13:40:50.031048Z",
+            "title": "1. Бумага офсетная. Товарный знак: Komioffset",
+            "price": "3140.80",
+            "currency": "RUB",
+            "amount": "1",
+            "amount_unit": "упаковка",
+            "vat": "included",
+            "vat_rate": "0.22",
+            "supplier": "ООО \"КОМПЛЕКС ТЕНДЕР\"",
+            "supplier_inn": "5402083888",
+            "delivery": "unknown",
+            "delivery_cost": null,
+            "delivery_free_from": null,
+            "delivery_note": null,
+            "price_date": "2026-07-10",
+            "characteristics": {
+              "Количество листов в упаковке": "≥ 500 Штука",
+              "Масса бумаги площадью 1м2": "≥ 80 и < 90 Грамм",
+              "Формат листа, мм": "640 х 900",
+              "Формат бумаги": "Листовая",
+              "Плотность бумаги максимальная, г/куб.см": "≤0,85",
+              "Цветность": "Белая",
+              "Плотность бумаги минимальная, г/куб.см": "≥0,80"
+            }
+          },
+          "base_price": null,
+          "vat": null,
+          "indexation": null,
+          "delivery": null,
+          "normalized_price": null,
+          "comparison": [
+            {
+              "name": "Формат листов",
+              "required": "А4",
+              "offered": "640 х 900",
+              "essential": true,
+              "ok": false
+            },
+            {
+              "name": "Плотность листа бумаги",
+              "required": "65",
+              "offered": null,
+              "essential": true,
+              "ok": null
+            },
+            {
+              "name": "Вид бумаги",
+              "required": "офсет",
+              "offered": "офсет",
+              "essential": true,
+              "ok": true
+            },
+            {
+              "name": "Белизна",
+              "required": "142-148",
+              "offered": null,
+              "essential": false,
+              "ok": null
+            },
+            {
+              "name": "Количество листов в упаковке",
+              "required": "500",
+              "offered": "≥ 500 Штука",
+              "essential": true,
+              "ok": true
+            },
+            {
+              "name": "Яркость бумаги",
+              "required": "102-105",
+              "offered": null,
+              "essential": false,
+              "ok": null
+            }
+          ],
+          "reason": "Нельзя перевести упаковка в пачка",
+          "exclusion": "unit_mismatch",
+          "original": null,
+          "user_marks": []
+        },
+        {
+          "label": "3.3",
+          "caption": "ЕИС, контракт № 1771003381426000090",
+          "offer": {
+            "id": "b77b7d61b735",
+            "source_id": "eis",
+            "source_name": "ЕИС : реестр контрактов",
+            "level": 1,
+            "url": "https://zakupki.gov.ru/epz/contract/contractCard/payment-info-and-target-of-order.html?reestrNumber=1771003381426000090",
+            "retrieved_at": "2026-11-14T13:40:51.540997Z",
+            "title": "2. Бумага офсетная. Товарный знак: Отсутствует",
+            "price": "40.00",
+            "currency": "RUB",
+            "amount": "1",
+            "amount_unit": "упаковка",
+            "vat": "exempt",
+            "vat_rate": null,
+            "supplier": "САМАРЕЦ ЮЛИАНА ВЛАДИМИРОВНА",
+            "supplier_inn": "773372157480",
+            "delivery": "unknown",
+            "delivery_cost": null,
+            "delivery_free_from": null,
+            "delivery_note": null,
+            "price_date": "2026-10-13",
+            "characteristics": {}
+          },
+          "base_price": null,
+          "vat": null,
+          "indexation": null,
+          "delivery": null,
+          "normalized_price": null,
+          "comparison": [
+            {
+              "name": "Формат листов",
+              "required": "А4",
+              "offered": null,
+              "essential": true,
+              "ok": null
+            },
+            {
+              "name": "Плотность листа бумаги",
+              "required": "65",
+              "offered": null,
+              "essential": true,
+              "ok": null
+            },
+            {
+              "name": "Вид бумаги",
+              "required": "офсет",
+              "offered": null,
+              "essential": true,
+              "ok": null
+            },
+            {
+              "name": "Белизна",
+              "required": "142-148",
+              "offered": null,
+              "essential": false,
+              "ok": null
+            },
+            {
+              "name": "Количество листов в упаковке",
+              "required": "500",
+              "offered": null,
+              "essential": true,
+              "ok": null
+            },
+            {
+              "name": "Яркость бумаги",
+              "required": "102-105",
+              "offered": null,
+              "essential": false,
+              "ok": null
+            }
+          ],
+          "reason": "Нельзя перевести упаковка в пачка",
+          "exclusion": "unit_mismatch",
+          "original": null,
+          "user_marks": []
+        },
+        {
+          "label": "3.4",
+          "caption": "Производители и дистрибьюторы: Бумага офсетная Универсальная 92% 65г А4 200л",
+          "offer": {
+            "id": "ad3528f2053a",
+            "source_id": "web_suppliers",
+            "source_name": "Производители и дистрибьюторы",
+            "level": 1,
+            "url": "https://finsib.com/catalog/view/7195657f-934b-11dc-b7f0-000e0ca46c81",
+            "retrieved_at": "2026-11-14T13:40:58.469856Z",
+            "title": "Бумага офсетная Универсальная 92% 65г А4 200л",
+            "price": "161.70",
+            "currency": "RUB",
+            "amount": "1",
+            "amount_unit": "пачка",
+            "vat": "unknown",
+            "vat_rate": null,
+            "supplier": null,
+            "supplier_inn": null,
+            "delivery": "unknown",
+            "delivery_cost": null,
+            "delivery_free_from": "3000.00",
+            "delivery_note": "Бесплатная доставка по Новосибирску осуществляется только от суммы покупки 3 000 ₽.",
+            "price_date": null,
+            "characteristics": {
+              "Формат листов": "А4",
+              "Плотность листа бумаги": "65 г/м",
+              "Вид бумаги": "офсет",
+              "Количество листов в упаковке": "200"
+            }
+          },
+          "base_price": "161.70",
+          "vat": {
+            "status": "unknown",
+            "factor": "1",
+            "note": "НДС на странице не указан"
+          },
+          "indexation": {
+            "status": "not_needed",
+            "factor": "1",
+            "note": "Дата цены неизвестна; цена считается текущей"
+          },
+          "delivery": {
+            "status": "included",
+            "added_per_unit": "0.00",
+            "note": "Бесплатно от 3000 ₽ со страницы; заказ по ТЗ 8085.00 ₽; Бесплатная доставка по Новосибирску осуществляется только от суммы покупки 3 000 ₽."
+          },
+          "normalized_price": "161.70",
+          "comparison": [
+            {
+              "name": "Формат листов",
+              "required": "А4",
+              "offered": "А4",
+              "essential": true,
+              "ok": true
+            },
+            {
+              "name": "Плотность листа бумаги",
+              "required": "65",
+              "offered": "65 г/м",
+              "essential": true,
+              "ok": true
+            },
+            {
+              "name": "Вид бумаги",
+              "required": "офсет",
+              "offered": "офсет",
+              "essential": true,
+              "ok": true
+            },
+            {
+              "name": "Белизна",
+              "required": "142-148",
+              "offered": null,
+              "essential": false,
+              "ok": null
+            },
+            {
+              "name": "Количество листов в упаковке",
+              "required": "500",
+              "offered": "200",
+              "essential": true,
+              "ok": false
+            },
+            {
+              "name": "Яркость бумаги",
+              "required": "102-105",
+              "offered": null,
+              "essential": false,
+              "ok": null
+            }
+          ],
+          "reason": "Не соответствует: Количество листов в упаковке",
+          "exclusion": "incomparable",
+          "original": null,
+          "user_marks": []
+        },
+        {
+          "label": "3.5",
+          "caption": "Производители и дистрибьюторы: БУМАГА Д/КСЕРОКСА А4 500Л СВЕТОКОПИ",
+          "offer": {
+            "id": "8b672aa29878",
+            "source_id": "web_suppliers",
+            "source_name": "Производители и дистрибьюторы",
+            "level": 1,
+            "url": "https://www.helmi-opt.ru/catalog/?c=shop&category=1890103&clear=1",
+            "retrieved_at": "2026-11-14T13:40:59.084837Z",
+            "title": "БУМАГА Д/КСЕРОКСА А4 500Л СВЕТОКОПИ",
+            "price": "445.00",
+            "currency": "RUB",
+            "amount": "5",
+            "amount_unit": "шт",
+            "vat": "included",
+            "vat_rate": null,
+            "supplier": null,
+            "supplier_inn": null,
+            "delivery": "unknown",
+            "delivery_cost": null,
+            "delivery_free_from": null,
+            "delivery_note": null,
+            "price_date": null,
+            "characteristics": {
+              "Формат листов": "А4",
+              "Количество листов в упаковке": "500"
+            }
+          },
+          "base_price": null,
+          "vat": null,
+          "indexation": null,
+          "delivery": null,
+          "normalized_price": null,
+          "comparison": [
+            {
+              "name": "Формат листов",
+              "required": "А4",
+              "offered": "А4",
+              "essential": true,
+              "ok": true
+            },
+            {
+              "name": "Плотность листа бумаги",
+              "required": "65",
+              "offered": null,
+              "essential": true,
+              "ok": null
+            },
+            {
+              "name": "Вид бумаги",
+              "required": "офсет",
+              "offered": null,
+              "essential": true,
+              "ok": null
+            },
+            {
+              "name": "Белизна",
+              "required": "142-148",
+              "offered": null,
+              "essential": false,
+              "ok": null
+            },
+            {
+              "name": "Количество листов в упаковке",
+              "required": "500",
+              "offered": "500",
+              "essential": true,
+              "ok": true
+            },
+            {
+              "name": "Яркость бумаги",
+              "required": "102-105",
+              "offered": null,
+              "essential": false,
+              "ok": null
+            }
+          ],
+          "reason": "Нельзя перевести шт в пачка",
+          "exclusion": "unit_mismatch",
+          "original": null,
+          "user_marks": []
+        }
+      ],
+      "stats": {
+        "n": 1,
+        "min": "663.80",
+        "max": "663.80",
+        "mean": "663.80",
+        "std": "0.00",
+        "cv": "0.0000",
+        "outlier_rule": "Отклонение от медианы более 50.0 %",
+        "median": "663.80",
+        "lower_bound": "331.90",
+        "upper_bound": "995.70"
+      },
+      "unit_price": null,
+      "reference_price": "663.80",
+      "total": null,
+      "assumptions": [
+        "Уровень 2 подключён: на уровне 1 найдено 1 цен"
+      ],
+      "spread_hints": [],
+      "skipped_pages": [
+        {
+          "url": "https://zakupki.gov.ru/epz/contract/contractCard/common-info.html?reestrNumber=2561201756025000275",
+          "source_id": "eis",
+          "reason": "Источник недоступен: ошибка сети, таймаут или ограничение запросов"
+        },
+        {
+          "url": "https://zakupki.gov.ru/epz/contract/contractCard/common-info.html?reestrNumber=1720213076722000023",
+          "source_id": "eis",
+          "reason": "Источник недоступен: ошибка сети, таймаут или ограничение запросов"
+        },
+        {
+          "url": "https://zakupki.gov.ru/epz/contract/contractCard/common-info.html?reestrNumber=1770420620126000015",
+          "source_id": "eis",
+          "reason": "Источник недоступен: ошибка сети, таймаут или ограничение запросов"
+        },
+        {
+          "url": "https://zakupki.gov.ru/epz/contract/contractCard/common-info.html?reestrNumber=1682901004026000030",
+          "source_id": "eis",
+          "reason": "Источник недоступен: ошибка сети, таймаут или ограничение запросов"
+        },
+        {
+          "url": "https://zakupki.gov.ru/epz/contract/contractCard/payment-info-and-target-of-order.html?reestrNumber=2222119522426000008",
+          "source_id": "eis",
+          "reason": "Ограничение проверки ЕИС: неустоек не проверено"
+        },
+        {
+          "url": "https://zakupki.gov.ru/epz/contract/contractCard/payment-info-and-target-of-order.html?reestrNumber=3900201617926000007",
+          "source_id": "eis",
+          "reason": "На странице не найдено предложений по позиции ТЗ"
+        },
+        {
+          "url": "https://zakupki.gov.ru/epz/contract/contractCard/payment-info-and-target-of-order.html?reestrNumber=1665901436624000038",
+          "source_id": "eis",
+          "reason": "На странице не найдено предложений по позиции ТЗ"
+        },
+        {
+          "url": "https://ural.toys/catalog/bumaga-pischaya/",
+          "source_id": "web_suppliers",
+          "reason": "Источник требует входа или проверки капчи"
+        },
+        {
+          "url": "https://deloks.ru/katalog/kategoriya/bumaga-dlya-pishushchikh-mashin/filter/vid_bumagi-is-xml_ofset/apply/",
+          "source_id": "web_suppliers",
+          "reason": "Источник требует входа или проверки капчи"
+        },
+        {
+          "url": "https://www.kanctovarish.com/catalog/bumazhnaya_produktsiya_dlya_ofisa/bumaga_dlya_orgtekhniki/bumaga_pischaya_i_gazetnaya/",
+          "source_id": "web_suppliers",
+          "reason": "Источник недоступен: ошибка сети, таймаут или ограничение запросов"
+        },
+        {
+          "url": "https://u-printer.ru/catalog/3060/",
+          "source_id": "web_suppliers",
+          "reason": "На странице не найдено предложений по позиции ТЗ"
+        },
+        {
+          "url": "https://a-class.by/catalog/51/paper_ofset_a4.html",
+          "source_id": "web_suppliers",
+          "reason": "На странице не найдено предложений по позиции ТЗ"
+        },
+        {
+          "url": "https://www.komus.ru/katalog/bumaga-i-bumazhnye-izdeliya/bumaga-dlya-ofisnoj-tekhniki/pischaya-bumaga/bumaga-pischaya-a4-65-g-kv-m-belizna-65-iso-500-listov-/p/2130690/",
+          "source_id": "web_shops",
+          "reason": "Источник недоступен: ошибка сети, таймаут или ограничение запросов"
+        },
+        {
+          "url": "https://www.komus.ru/katalog/bumaga-i-bumazhnye-izdeliya/bumaga-dlya-ofisnoj-tekhniki/pischaya-bumaga/bumaga-pischaya-a4-65-g-kv-m-belizna-65-iso-500-listov-/p/1977734/",
+          "source_id": "web_shops",
+          "reason": "Источник недоступен: ошибка сети, таймаут или ограничение запросов"
+        },
+        {
+          "url": "https://www.komus.ru/katalog/bumaga-i-bumazhnye-izdeliya/bumaga-dlya-ofisnoj-tekhniki/bumaga-pischaya/c/76/",
+          "source_id": "web_shops",
+          "reason": "Источник недоступен: ошибка сети, таймаут или ограничение запросов"
+        },
+        {
+          "url": "https://www.komus.ru/katalog/bumaga-i-bumazhnye-izdeliya/bumaga-dlya-ofisnoj-tekhniki/pischaya-bumaga/bumaga-pischaya-a4-65-g-kv-m-belizna-90-cie-500-listov-/p/2156664/",
+          "source_id": "web_shops",
+          "reason": "Источник недоступен: ошибка сети, таймаут или ограничение запросов"
+        },
+        {
+          "url": "https://www.komus.ru/medias/sys_master/root/h1c/h22/11537936941086/-Ballet-Premier-A-01-11-22.pdf?attachment=true",
+          "source_id": "web_shops",
+          "reason": "Источник недоступен: ошибка сети, таймаут или ограничение запросов"
+        },
+        {
+          "url": "https://www.komus.ru/news/obzory/vybiraem-ofisnuyu-bumagu-a4-vse-vazhnye-kharakteristiki/n/090420241624/",
+          "source_id": "web_shops",
+          "reason": "Источник недоступен: ошибка сети, таймаут или ограничение запросов"
+        },
+        {
+          "url": "https://www.komus.ru/katalog/bumaga-i-bumazhnye-izdeliya/bumaga-dlya-ofisnoj-tekhniki/formatnaya-bumaga/bumaga-formatnaya-belaya-dlya-ofisnoj-tekhniki/bumaga-ofisnaya-ilim-standart-a4-80-g-kv-m-marka-s-146-cie-500-listov-/p/2001915/",
+          "source_id": "web_shops",
+          "reason": "Источник недоступен: ошибка сети, таймаут или ограничение запросов"
+        },
+        {
+          "url": "https://www.komus.ru/katalog/bumaga-i-bumazhnye-izdeliya/bumaga-dlya-ofisnoj-tekhniki/formatnaya-bumaga/c/135000/f/1356=a4/",
+          "source_id": "web_shops",
+          "reason": "Источник недоступен: ошибка сети, таймаут или ограничение запросов"
+        }
+      ],
+      "excluded_by_user": false
+    }
+  ],
+  "sources": [
+    {
+      "source_id": "eis",
+      "name": "ЕИС : реестр контрактов",
+      "level": 1,
+      "position_index": 1,
+      "queries": [
+        "SvetoCopy",
+        "бумага для офисной техники"
+      ],
+      "status": "ok",
+      "error": "Источник недоступен: ошибка сети, таймаут или ограничение запросов",
+      "found": 5,
+      "at": "2026-11-14T13:40:45.484884Z"
+    },
+    {
+      "source_id": "web_suppliers",
+      "name": "Производители и дистрибьюторы",
+      "level": 1,
+      "position_index": 1,
+      "queries": [
+        "Бумага для офисной техники А4 SvetoCopy SvetoCopy НПАО Светогорский ЦБК А4 цена производитель дистрибьютор"
+      ],
+      "status": "ok",
+      "error": "Источник требует входа или проверки капчи",
+      "found": 6,
+      "at": "2026-11-14T13:40:45.486201Z"
+    },
+    {
+      "source_id": "eis",
+      "name": "ЕИС : реестр контрактов",
+      "level": 1,
+      "position_index": 2,
+      "queries": [
+        "SvetoCopy",
+        "бумага для офисной техники"
+      ],
+      "status": "ok",
+      "error": "Источник недоступен: ошибка сети, таймаут или ограничение запросов",
+      "found": 5,
+      "at": "2026-11-14T13:40:45.487486Z"
+    },
+    {
+      "source_id": "web_suppliers",
+      "name": "Производители и дистрибьюторы",
+      "level": 1,
+      "position_index": 2,
+      "queries": [
+        "Бумага для офисной техники А3 SvetoCopy SvetoCopy НПАО Светогорский ЦБК А3 цена производитель дистрибьютор"
+      ],
+      "status": "ok",
+      "error": "Источник требует входа или проверки капчи; Источник недоступен: ошибка сети, таймаут или ограничение запросов",
+      "found": 6,
+      "at": "2026-11-14T13:40:45.488694Z"
+    },
+    {
+      "source_id": "eis",
+      "name": "ЕИС : реестр контрактов",
+      "level": 1,
+      "position_index": 3,
+      "queries": [
+        "офсетная бумага",
+        "бумага для письма"
+      ],
+      "status": "ok",
+      "error": "Источник недоступен: ошибка сети, таймаут или ограничение запросов",
+      "found": 4,
+      "at": "2026-11-14T13:40:45.489908Z"
+    },
+    {
+      "source_id": "web_suppliers",
+      "name": "Производители и дистрибьюторы",
+      "level": 1,
+      "position_index": 3,
+      "queries": [
+        "Бумага писчая (офсетная) в листах А4 А4 65 офсет цена производитель дистрибьютор"
+      ],
+      "status": "ok",
+      "error": "Источник требует входа или проверки капчи; Источник недоступен: ошибка сети, таймаут или ограничение запросов",
+      "found": 5,
+      "at": "2026-11-14T13:40:45.490949Z"
+    },
+    {
+      "source_id": "web_shops",
+      "name": "Открытые магазины",
+      "level": 2,
+      "position_index": 3,
+      "queries": [
+        "Бумага писчая (офсетная) в листах А4 А4 65 офсет site:komus.ru"
+      ],
+      "status": "unavailable",
+      "error": "Источник недоступен: ошибка сети, таймаут или ограничение запросов",
+      "found": 0,
+      "at": "2026-11-14T13:41:41.970429Z"
+    }
+  ],
+  "questions": [
+    {
+      "id": "q1-1",
+      "position_index": 1,
+      "text": "Допустимы ли аналоги марки SvetoCopy для бумаги А4?",
+      "hint": null,
+      "options": [
+        "Нет, только SvetoCopy"
+      ],
+      "default_answer": "Нет, только SvetoCopy",
+      "answer": null
+    },
+    {
+      "id": "q2-1",
+      "position_index": 2,
+      "text": "Допустимы ли аналоги марки SvetoCopy для бумаги А3?",
+      "hint": null,
+      "options": [
+        "Нет, только SvetoCopy"
+      ],
+      "default_answer": "Нет, только SvetoCopy",
+      "answer": null
+    }
+  ],
+  "delivery_terms": "В течение 5 (пяти) рабочих дней с даты подписания Договора. Поставка товара по адресу: 141701, Московская обл., г. Долгопрудный, Институтский переулок, д. 7, с включением всех дорожных, транспортных и иных расходов.",
+  "delivery_extras": [
+    "разгрузка",
+    "занос в помещение 1 этажа"
+  ],
+  "total": null,
+  "total_justified": "820134.25",
+  "warnings": [
+    "Позиция 1 «Бумага для офисной техники А4 SvetoCopy»: НДС не подтверждён у 2 из 8 предложений : цена может быть занижена",
+    "Позиция 1 «Бумага для офисной техники А4 SvetoCopy»: доставка не подтверждена у 2 из 8 предложений : цена может быть занижена",
+    "Позиция 1 «Бумага для офисной техники А4 SvetoCopy»: для 1 цен прошлых периодов нет данных ИПЦ, индексация не применена",
+    "Позиция 2 «Бумага для офисной техники А3 SvetoCopy»: НДС не подтверждён у 2 из 3 предложений : цена может быть занижена",
+    "Позиция 2 «Бумага для офисной техники А3 SvetoCopy»: доставка не подтверждена у 2 из 3 предложений : цена может быть занижена",
+    "Позиция 3 «Бумага писчая (офсетная) в листах А4»: найдено 1 цен, обоснование недостаточно",
+    "Позиция 3 «Бумага писчая (офсетная) в листах А4»: не по всем контрактам удалось проверить отсутствие неустоек",
+    "Источник «ЕИС : реестр контрактов», позиция 1: Источник недоступен: ошибка сети, таймаут или ограничение запросов",
+    "Источник «Производители и дистрибьюторы», позиция 1: Источник требует входа или проверки капчи",
+    "Источник «ЕИС : реестр контрактов», позиция 2: Источник недоступен: ошибка сети, таймаут или ограничение запросов",
+    "Источник «Производители и дистрибьюторы», позиция 2: Источник требует входа или проверки капчи; Источник недоступен: ошибка сети, таймаут или ограничение запросов",
+    "Источник «ЕИС : реестр контрактов», позиция 3: Источник недоступен: ошибка сети, таймаут или ограничение запросов",
+    "Источник «Производители и дистрибьюторы», позиция 3: Источник требует входа или проверки капчи; Источник недоступен: ошибка сети, таймаут или ограничение запросов",
+    "Источник «Открытые магазины», позиция 3: Источник недоступен: ошибка сети, таймаут или ограничение запросов",
+    "Требования ТЗ при поставке (разгрузка, занос в помещение 1 этажа) в найденных ценах не отражены"
+  ],
+  "edits": [],
+  "rules": {
+    "min_prices": 3,
+    "cv_threshold": "0.33",
+    "iqr_k": "1.5",
+    "iqr_min_n": 5,
+    "median_max_deviation": "0.5",
+    "level2_trigger_min_prices": 3,
+    "level2_on_heterogeneous": true,
+    "vat_rate": "0.22",
+    "indexation_enabled": true,
+    "index_after_months": 6,
+    "spread_hint_min_gap": "0.15",
+    "marketplace_hosts": [
+      "market.yandex.ru",
+      "ozon.ru",
+      "wildberries.ru"
+    ],
+    "methodology_note": "Метод сопоставимых рыночных цен (анализа рынка). Формулы : по аналогии с Методическими рекомендациями, утверждёнными приказом Минэкономразвития России от 02.10.2013 № 567; для закупок по 44-ФЗ рекомендации применяются с учётом действующего законодательства, для закупок по 223-ФЗ : положения о закупке заказчика.",
+    "eis_years": 3,
+    "max_pages_per_source": 8,
+    "page_text_limit": 15000
+  },
+  "local_settings": []
+}

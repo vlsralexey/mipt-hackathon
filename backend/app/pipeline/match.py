@@ -102,13 +102,23 @@ async def compare(llm: LLM, position: Position, offer: Offer) -> list[CharCompar
     result = []
     for c in position.characteristics:
         found = by_name.get(c.name.casefold())
+        ok = found.ok if found and found.offered else None
+        if (
+            found
+            and found.offered
+            and c.name.casefold() in {"товарный знак", "торговая марка", "производитель", "модель"}
+            and " ".join(found.offered.casefold().split()) == " ".join(c.value.casefold().split())
+        ):
+            # Регистр не делает SvetoCopy и Svetocopy разными марками.
+            # Это только текстовое тождество, не угадывание аналогов/диапазонов.
+            ok = True
         result.append(
             CharComparison(
                 name=c.name,
                 required=c.value,
                 essential=c.essential,
                 offered=found.offered if found else None,
-                ok=found.ok if found and found.offered else None,
+                ok=ok,
             )
         )
     return result

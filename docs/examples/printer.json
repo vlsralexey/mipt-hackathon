@@ -1,0 +1,1354 @@
+{
+  "procurement_id": "p_9aad920c7b204d3398bc45933ef17c1e",
+  "version": 1,
+  "created_at": "2026-11-14T13:36:50.829061Z",
+  "title": "Поставка 3D принтера 3D CREATBOT D600 PRO",
+  "calc_date": "2026-11-14",
+  "methodology": "Метод сопоставимых рыночных цен (анализа рынка). Формулы : по аналогии с Методическими рекомендациями, утверждёнными приказом Минэкономразвития России от 02.10.2013 № 567; для закупок по 44-ФЗ рекомендации применяются с учётом действующего законодательства, для закупок по 223-ФЗ : положения о закупке заказчика.",
+  "cause": "Первый прогон",
+  "positions": [
+    {
+      "position": {
+        "index": 1,
+        "name": "3D принтер 3D CREATBOT D600 PRO",
+        "unit": "шт",
+        "quantity": "1",
+        "okpd2": "26.20.16.129",
+        "characteristics": [
+          {
+            "name": "Технология печати",
+            "value": "FDM (Fused Deposition Modeling)",
+            "unit": null,
+            "essential": true
+          },
+          {
+            "name": "Максимальный размер печати одним экструдером",
+            "value": "600x600x600",
+            "unit": "мм",
+            "essential": true
+          },
+          {
+            "name": "Максимальный размер печати двумя экструдерами",
+            "value": "540x600x600",
+            "unit": "мм",
+            "essential": true
+          },
+          {
+            "name": "Толщина слоя",
+            "value": "от 0,05 до 0,4",
+            "unit": "мм",
+            "essential": true
+          },
+          {
+            "name": "Диаметр используемой нити пластика",
+            "value": "1,75",
+            "unit": "мм",
+            "essential": true
+          },
+          {
+            "name": "Тип корпуса",
+            "value": "Закрытый",
+            "unit": null,
+            "essential": false
+          },
+          {
+            "name": "Поддерживаемые пластики",
+            "value": "PLA, ABS, Carbon Fiber, Wood, Nylon, PC, PETG, HIPS, PP, Flexible, TPU, PVA и другие",
+            "unit": null,
+            "essential": true
+          },
+          {
+            "name": "Диаметр сопел",
+            "value": "0.3/0.4/0.6/0.8/1.0",
+            "unit": "мм",
+            "essential": true
+          },
+          {
+            "name": "Материал рабочей платформы",
+            "value": "Алюминиевая платформа с адгезивной наклейкой Buildtak или стеклом",
+            "unit": null,
+            "essential": false
+          },
+          {
+            "name": "Поддержка форматов",
+            "value": "AMF, OBJ, STL",
+            "unit": null,
+            "essential": true
+          },
+          {
+            "name": "Максимальный нагрев рабочей платформы",
+            "value": "100",
+            "unit": "град",
+            "essential": true
+          },
+          {
+            "name": "Максимальный нагрев экструдера",
+            "value": "420",
+            "unit": "град",
+            "essential": true
+          },
+          {
+            "name": "Максимальный нагрев рабочей камеры",
+            "value": "70",
+            "unit": "град",
+            "essential": true
+          },
+          {
+            "name": "Максимальный нагрев отсека для сушки пластика",
+            "value": "65",
+            "unit": "град",
+            "essential": true
+          },
+          {
+            "name": "Оптимальная скорость печати",
+            "value": "45",
+            "unit": "мм/с",
+            "essential": true
+          },
+          {
+            "name": "Максимальная скорость печати",
+            "value": "120",
+            "unit": "мм/с",
+            "essential": true
+          },
+          {
+            "name": "Сенсорный дисплей",
+            "value": "4.3\"",
+            "unit": null,
+            "essential": true
+          },
+          {
+            "name": "Интерфейсы подключения",
+            "value": "USB",
+            "unit": null,
+            "essential": false
+          },
+          {
+            "name": "Точность позиционирования X/Y",
+            "value": "5.08",
+            "unit": "μm",
+            "essential": true
+          },
+          {
+            "name": "Точность позиционирования Z",
+            "value": "1.25",
+            "unit": "μm",
+            "essential": true
+          },
+          {
+            "name": "Габариты принтера без упаковки",
+            "value": "915x845x1085",
+            "unit": "мм",
+            "essential": false
+          },
+          {
+            "name": "Вес принтера без упаковки",
+            "value": "125",
+            "unit": "кг",
+            "essential": false
+          },
+          {
+            "name": "Электропитание",
+            "value": "230 В, 50 Гц",
+            "unit": null,
+            "essential": false
+          },
+          {
+            "name": "Номинальная мощность",
+            "value": "4900",
+            "unit": "Вт",
+            "essential": false
+          },
+          {
+            "name": "Страна происхождения",
+            "value": "Китай",
+            "unit": null,
+            "essential": false
+          },
+          {
+            "name": "Товарный знак",
+            "value": "CreatBot",
+            "unit": null,
+            "essential": true
+          },
+          {
+            "name": "Модель",
+            "value": "3D CREATBOT D600 PRO",
+            "unit": null,
+            "essential": true
+          }
+        ],
+        "basis": {
+          "unit": "шт",
+          "per_tz_unit": "1"
+        },
+        "search_terms": [
+          "CreatBot",
+          "3D принтер",
+          "3D CREATBOT D600 PRO"
+        ]
+      },
+      "status": "insufficient",
+      "levels_used": [
+        1,
+        2
+      ],
+      "included": [],
+      "excluded": [
+        {
+          "label": "1.1",
+          "caption": "ЕИС, контракт № 2695017214325000018",
+          "offer": {
+            "id": "d1441fef5f46",
+            "source_id": "eis",
+            "source_name": "ЕИС : реестр контрактов",
+            "level": 1,
+            "url": "https://zakupki.gov.ru/epz/contract/contractCard/payment-info-and-target-of-order.html?reestrNumber=2695017214325000018",
+            "retrieved_at": "2026-11-14T13:35:55.115907Z",
+            "title": "1. 3D-принтер FDM. Товарный знак: CREATBOT",
+            "price": "2625000.00",
+            "currency": "RUB",
+            "amount": "1",
+            "amount_unit": "шт",
+            "vat": "included",
+            "vat_rate": "0.05",
+            "supplier": "ООО \"КОМПЛЕКТУЮ\"",
+            "supplier_inn": "1657079619",
+            "delivery": "unknown",
+            "delivery_cost": null,
+            "delivery_free_from": null,
+            "delivery_note": null,
+            "price_date": "2025-08-12",
+            "characteristics": {
+              "Калибровка платформы": "Автоматическая",
+              "Наличие системы контроля наличия пластика": "Да",
+              "Область печати по оси Z": "> 200 Миллиметр",
+              "Тип совместимого с 3D-принтером пластика": "PLA",
+              "Область печати по оси X": "> 200 Миллиметр",
+              "Минимальная толщина слоя": "≥ 0,05 Миллиметр",
+              "Максимальная скорость печати, см3/ч": "< 100",
+              "Скорость перемещения печатающей головки, мм/с": "≥ 80",
+              "Максимальная температура печатающей головки": "≥ 410 Градус Цельсия",
+              "Область печати по оси Y": "> 200 Миллиметр",
+              "Интерфейс подключения": "USB Flash",
+              "Максимальная температура платформы для печати": "< 150 Градус Цельсия",
+              "Тип системы контроля высоты первого слоя": "Автоматический",
+              "Наличие HEPA фильтра": "Да",
+              "Наличие системы контроля платформы печати": "Да",
+              "Тип управления принтером": "Панель управления с дисплеем на корпусе устройства",
+              "Наличие закрытого корпуса": "Да",
+              "Диаметр сопла": "≥ 0,5 Миллиметр"
+            }
+          },
+          "base_price": "2625000.00",
+          "vat": {
+            "status": "included",
+            "factor": "1",
+            "note": "НДС включён по данным страницы"
+          },
+          "indexation": {
+            "status": "no_data",
+            "factor": "1",
+            "note": "Индексация за 2025-09 : 2026-10; использовано месяцев: 0; нет данных ИПЦ за: 2025-09, 2025-10, 2025-11, 2025-12, 2026-01, 2026-02, 2026-03, 2026-04, 2026-05, 2026-06, 2026-07, 2026-08, 2026-09, 2026-10"
+          },
+          "delivery": {
+            "status": "included",
+            "added_per_unit": "0.00",
+            "note": "Допущение: цена контракта по 44-ФЗ, как правило, включает доставку до заказчика"
+          },
+          "normalized_price": "2625000.00",
+          "comparison": [
+            {
+              "name": "Технология печати",
+              "required": "FDM (Fused Deposition Modeling)",
+              "offered": "FDM",
+              "essential": true,
+              "ok": true
+            },
+            {
+              "name": "Максимальный размер печати одним экструдером",
+              "required": "600x600x600",
+              "offered": null,
+              "essential": true,
+              "ok": null
+            },
+            {
+              "name": "Максимальный размер печати двумя экструдерами",
+              "required": "540x600x600",
+              "offered": null,
+              "essential": true,
+              "ok": null
+            },
+            {
+              "name": "Толщина слоя",
+              "required": "от 0,05 до 0,4",
+              "offered": "≥ 0,05 Миллиметр",
+              "essential": true,
+              "ok": true
+            },
+            {
+              "name": "Диаметр используемой нити пластика",
+              "required": "1,75",
+              "offered": null,
+              "essential": true,
+              "ok": null
+            },
+            {
+              "name": "Тип корпуса",
+              "required": "Закрытый",
+              "offered": "Да",
+              "essential": false,
+              "ok": true
+            },
+            {
+              "name": "Поддерживаемые пластики",
+              "required": "PLA, ABS, Carbon Fiber, Wood, Nylon, PC, PETG, HIPS, PP, Flexible, TPU, PVA и другие",
+              "offered": "PLA",
+              "essential": true,
+              "ok": false
+            },
+            {
+              "name": "Диаметр сопел",
+              "required": "0.3/0.4/0.6/0.8/1.0",
+              "offered": "≥ 0,5 Миллиметр",
+              "essential": true,
+              "ok": false
+            },
+            {
+              "name": "Материал рабочей платформы",
+              "required": "Алюминиевая платформа с адгезивной наклейкой Buildtak или стеклом",
+              "offered": null,
+              "essential": false,
+              "ok": null
+            },
+            {
+              "name": "Поддержка форматов",
+              "required": "AMF, OBJ, STL",
+              "offered": null,
+              "essential": true,
+              "ok": null
+            },
+            {
+              "name": "Максимальный нагрев рабочей платформы",
+              "required": "100",
+              "offered": "< 150 Градус Цельсия",
+              "essential": true,
+              "ok": true
+            },
+            {
+              "name": "Максимальный нагрев экструдера",
+              "required": "420",
+              "offered": "≥ 410 Градус Цельсия",
+              "essential": true,
+              "ok": true
+            },
+            {
+              "name": "Максимальный нагрев рабочей камеры",
+              "required": "70",
+              "offered": null,
+              "essential": true,
+              "ok": null
+            },
+            {
+              "name": "Максимальный нагрев отсека для сушки пластика",
+              "required": "65",
+              "offered": null,
+              "essential": true,
+              "ok": null
+            },
+            {
+              "name": "Оптимальная скорость печати",
+              "required": "45",
+              "offered": null,
+              "essential": true,
+              "ok": null
+            },
+            {
+              "name": "Максимальная скорость печати",
+              "required": "120",
+              "offered": "< 100",
+              "essential": true,
+              "ok": null
+            },
+            {
+              "name": "Сенсорный дисплей",
+              "required": "4.3\"",
+              "offered": "Панель управления с дисплеем на корпусе устройства",
+              "essential": true,
+              "ok": true
+            },
+            {
+              "name": "Интерфейсы подключения",
+              "required": "USB",
+              "offered": "USB Flash",
+              "essential": false,
+              "ok": false
+            },
+            {
+              "name": "Точность позиционирования X/Y",
+              "required": "5.08",
+              "offered": null,
+              "essential": true,
+              "ok": null
+            },
+            {
+              "name": "Точность позиционирования Z",
+              "required": "1.25",
+              "offered": null,
+              "essential": true,
+              "ok": null
+            },
+            {
+              "name": "Габариты принтера без упаковки",
+              "required": "915x845x1085",
+              "offered": null,
+              "essential": false,
+              "ok": null
+            },
+            {
+              "name": "Вес принтера без упаковки",
+              "required": "125",
+              "offered": null,
+              "essential": false,
+              "ok": null
+            },
+            {
+              "name": "Электропитание",
+              "required": "230 В, 50 Гц",
+              "offered": null,
+              "essential": false,
+              "ok": null
+            },
+            {
+              "name": "Номинальная мощность",
+              "required": "4900",
+              "offered": null,
+              "essential": false,
+              "ok": null
+            },
+            {
+              "name": "Страна происхождения",
+              "required": "Китай",
+              "offered": null,
+              "essential": false,
+              "ok": null
+            },
+            {
+              "name": "Товарный знак",
+              "required": "CreatBot",
+              "offered": "CREATBOT",
+              "essential": true,
+              "ok": true
+            },
+            {
+              "name": "Модель",
+              "required": "3D CREATBOT D600 PRO",
+              "offered": null,
+              "essential": true,
+              "ok": null
+            }
+          ],
+          "reason": "Не соответствует: Поддерживаемые пластики, Диаметр сопел",
+          "exclusion": "incomparable",
+          "original": null,
+          "user_marks": []
+        },
+        {
+          "label": "1.2",
+          "caption": "ЕИС, контракт № 1781204352224000023",
+          "offer": {
+            "id": "bc1afe9e27fd",
+            "source_id": "eis",
+            "source_name": "ЕИС : реестр контрактов",
+            "level": 1,
+            "url": "https://zakupki.gov.ru/epz/contract/contractCard/payment-info-and-target-of-order.html?reestrNumber=1781204352224000023",
+            "retrieved_at": "2026-11-14T13:35:56.532898Z",
+            "title": "6. 3Д принтер. CreatBot",
+            "price": "3812999.97",
+            "currency": "RUB",
+            "amount": "1",
+            "amount_unit": "шт",
+            "vat": "exempt",
+            "vat_rate": null,
+            "supplier": "ОБЩЕСТВО С ОГРАНИЧЕННОЙ ОТВЕТСТВЕННОСТЬЮ «АЙ-ФОРС»",
+            "supplier_inn": "7816692486",
+            "delivery": "unknown",
+            "delivery_cost": null,
+            "delivery_free_from": null,
+            "delivery_note": null,
+            "price_date": "2024-06-04",
+            "characteristics": {
+              "Страна происхождения": "Китайская Народная Республика",
+              "Товарный знак": "CreatBot",
+              "Модель": "3D CREATBOT D600 PRO"
+            }
+          },
+          "base_price": "3812999.97",
+          "vat": {
+            "status": "exempt",
+            "factor": "1",
+            "note": "НДС не облагается : цена конечная"
+          },
+          "indexation": {
+            "status": "no_data",
+            "factor": "1",
+            "note": "Индексация за 2024-07 : 2026-10; использовано месяцев: 0; нет данных ИПЦ за: 2024-07, 2024-08, 2024-09, 2024-10, 2024-11, 2024-12, 2025-01, 2025-02, 2025-03, 2025-04, 2025-05, 2025-06, 2025-07, 2025-08, 2025-09, 2025-10, 2025-11, 2025-12, 2026-01, 2026-02, 2026-03, 2026-04, 2026-05, 2026-06, 2026-07, 2026-08, 2026-09, 2026-10"
+          },
+          "delivery": {
+            "status": "included",
+            "added_per_unit": "0.00",
+            "note": "Допущение: цена контракта по 44-ФЗ, как правило, включает доставку до заказчика"
+          },
+          "normalized_price": "3812999.97",
+          "comparison": [
+            {
+              "name": "Технология печати",
+              "required": "FDM (Fused Deposition Modeling)",
+              "offered": null,
+              "essential": true,
+              "ok": null
+            },
+            {
+              "name": "Максимальный размер печати одним экструдером",
+              "required": "600x600x600",
+              "offered": null,
+              "essential": true,
+              "ok": null
+            },
+            {
+              "name": "Максимальный размер печати двумя экструдерами",
+              "required": "540x600x600",
+              "offered": null,
+              "essential": true,
+              "ok": null
+            },
+            {
+              "name": "Толщина слоя",
+              "required": "от 0,05 до 0,4",
+              "offered": null,
+              "essential": true,
+              "ok": null
+            },
+            {
+              "name": "Диаметр используемой нити пластика",
+              "required": "1,75",
+              "offered": null,
+              "essential": true,
+              "ok": null
+            },
+            {
+              "name": "Тип корпуса",
+              "required": "Закрытый",
+              "offered": null,
+              "essential": false,
+              "ok": null
+            },
+            {
+              "name": "Поддерживаемые пластики",
+              "required": "PLA, ABS, Carbon Fiber, Wood, Nylon, PC, PETG, HIPS, PP, Flexible, TPU, PVA и другие",
+              "offered": null,
+              "essential": true,
+              "ok": null
+            },
+            {
+              "name": "Диаметр сопел",
+              "required": "0.3/0.4/0.6/0.8/1.0",
+              "offered": null,
+              "essential": true,
+              "ok": null
+            },
+            {
+              "name": "Материал рабочей платформы",
+              "required": "Алюминиевая платформа с адгезивной наклейкой Buildtak или стеклом",
+              "offered": null,
+              "essential": false,
+              "ok": null
+            },
+            {
+              "name": "Поддержка форматов",
+              "required": "AMF, OBJ, STL",
+              "offered": null,
+              "essential": true,
+              "ok": null
+            },
+            {
+              "name": "Максимальный нагрев рабочей платформы",
+              "required": "100",
+              "offered": null,
+              "essential": true,
+              "ok": null
+            },
+            {
+              "name": "Максимальный нагрев экструдера",
+              "required": "420",
+              "offered": null,
+              "essential": true,
+              "ok": null
+            },
+            {
+              "name": "Максимальный нагрев рабочей камеры",
+              "required": "70",
+              "offered": null,
+              "essential": true,
+              "ok": null
+            },
+            {
+              "name": "Максимальный нагрев отсека для сушки пластика",
+              "required": "65",
+              "offered": null,
+              "essential": true,
+              "ok": null
+            },
+            {
+              "name": "Оптимальная скорость печати",
+              "required": "45",
+              "offered": null,
+              "essential": true,
+              "ok": null
+            },
+            {
+              "name": "Максимальная скорость печати",
+              "required": "120",
+              "offered": null,
+              "essential": true,
+              "ok": null
+            },
+            {
+              "name": "Сенсорный дисплей",
+              "required": "4.3\"",
+              "offered": null,
+              "essential": true,
+              "ok": null
+            },
+            {
+              "name": "Интерфейсы подключения",
+              "required": "USB",
+              "offered": null,
+              "essential": false,
+              "ok": null
+            },
+            {
+              "name": "Точность позиционирования X/Y",
+              "required": "5.08",
+              "offered": null,
+              "essential": true,
+              "ok": null
+            },
+            {
+              "name": "Точность позиционирования Z",
+              "required": "1.25",
+              "offered": null,
+              "essential": true,
+              "ok": null
+            },
+            {
+              "name": "Габариты принтера без упаковки",
+              "required": "915x845x1085",
+              "offered": null,
+              "essential": false,
+              "ok": null
+            },
+            {
+              "name": "Вес принтера без упаковки",
+              "required": "125",
+              "offered": null,
+              "essential": false,
+              "ok": null
+            },
+            {
+              "name": "Электропитание",
+              "required": "230 В, 50 Гц",
+              "offered": null,
+              "essential": false,
+              "ok": null
+            },
+            {
+              "name": "Номинальная мощность",
+              "required": "4900",
+              "offered": null,
+              "essential": false,
+              "ok": null
+            },
+            {
+              "name": "Страна происхождения",
+              "required": "Китай",
+              "offered": "Китайская Народная Республика",
+              "essential": false,
+              "ok": true
+            },
+            {
+              "name": "Товарный знак",
+              "required": "CreatBot",
+              "offered": "CreatBot",
+              "essential": true,
+              "ok": true
+            },
+            {
+              "name": "Модель",
+              "required": "3D CREATBOT D600 PRO",
+              "offered": "3D CREATBOT D600 PRO",
+              "essential": true,
+              "ok": true
+            }
+          ],
+          "reason": "Аномальная цена: Отклонение от медианы более 50.0 %",
+          "exclusion": "anomalous_price",
+          "original": null,
+          "user_marks": []
+        },
+        {
+          "label": "1.3",
+          "caption": "ЕИС, контракт № 1373100030824000070",
+          "offer": {
+            "id": "7753e326aaaa",
+            "source_id": "eis",
+            "source_name": "ЕИС : реестр контрактов",
+            "level": 1,
+            "url": "https://zakupki.gov.ru/epz/contract/contractCard/payment-info-and-target-of-order.html?reestrNumber=1373100030824000070",
+            "retrieved_at": "2026-11-14T13:35:57.957913Z",
+            "title": "1. 3D-принтер FDM. CreatBot",
+            "price": "1472307.00",
+            "currency": "RUB",
+            "amount": "1",
+            "amount_unit": "шт",
+            "vat": "included",
+            "vat_rate": "0.2",
+            "supplier": "ООО \"ОФИСНАЯ ТЕХНИКА ДЖЕТКОМ\"",
+            "supplier_inn": "7716589527",
+            "delivery": "unknown",
+            "delivery_cost": null,
+            "delivery_free_from": null,
+            "delivery_note": null,
+            "price_date": "2024-11-05",
+            "characteristics": {
+              "Интерфейс подключения": "USB Flash",
+              "Тип совместимого с 3D-принтером пластика": "ABS ; PA ; PLA ; PETG ; ASA ; PC ; PPS ; TPU",
+              "Скорость перемещения печатающей головки, мм/с": "≥ 80",
+              "Максимальная скорость печати, см3/ч": "≥ 100",
+              "Область печати по оси X": "> 200 Миллиметр",
+              "Область печати по оси Y": "> 200 Миллиметр",
+              "Область печати по оси Z": "> 200 Миллиметр",
+              "Наличие системы вентиляции внутреннего пространства корпуса": "Нет",
+              "Наличие функции встроенного режима сушки": "Да",
+              "Наличие функции встроенной настройки печати": "Да",
+              "Наличие системы контроля платформы печати": "Да",
+              "Наличие функции удаленного управления принтером": "Да",
+              "Максимальная температура печатающей головки": "≥ 410 Градус Цельсия",
+              "Максимальная температура платформы для печати": "< 150 Градус Цельсия",
+              "Тип управления принтером": "Панель управления с дисплеем на корпусе устройства",
+              "Наличие HEPA фильтра": "Да",
+              "Наличие системы контроля наличия пластика": "Да",
+              "Тип платформы для печати": "Подогреваемая съемная на магнитах, фиксируемая на платформе",
+              "Наличие контроля доступа к принтеру": "Нет",
+              "Минимальная толщина слоя": "≥ 0,01 и < 0,05 Миллиметр",
+              "Калибровка платформы": "Автоматическая",
+              "Охлаждение зоны печати": "Одностороннее",
+              "Количество сопел на печатающей головке": "2Штука",
+              "Наличие функции продолжения печати после отключения питания": "Да",
+              "Диаметр сопла": "≥ 0,3 и < 0,5 Миллиметр",
+              "Формат файлов для печати": "GCODE",
+              "Наличие закрытого корпуса": "Да",
+              "Тип системы контроля высоты первого слоя": "Автоматический"
+            }
+          },
+          "base_price": "1472307.00",
+          "vat": {
+            "status": "included",
+            "factor": "1",
+            "note": "НДС включён по данным страницы"
+          },
+          "indexation": {
+            "status": "no_data",
+            "factor": "1",
+            "note": "Индексация за 2024-12 : 2026-10; использовано месяцев: 0; нет данных ИПЦ за: 2024-12, 2025-01, 2025-02, 2025-03, 2025-04, 2025-05, 2025-06, 2025-07, 2025-08, 2025-09, 2025-10, 2025-11, 2025-12, 2026-01, 2026-02, 2026-03, 2026-04, 2026-05, 2026-06, 2026-07, 2026-08, 2026-09, 2026-10"
+          },
+          "delivery": {
+            "status": "included",
+            "added_per_unit": "0.00",
+            "note": "Допущение: цена контракта по 44-ФЗ, как правило, включает доставку до заказчика"
+          },
+          "normalized_price": "1472307.00",
+          "comparison": [
+            {
+              "name": "Технология печати",
+              "required": "FDM (Fused Deposition Modeling)",
+              "offered": null,
+              "essential": true,
+              "ok": null
+            },
+            {
+              "name": "Максимальный размер печати одним экструдером",
+              "required": "600x600x600",
+              "offered": "Область печати по оси X: > 200 Миллиметр, Область печати по оси Y: > 200 Миллиметр, Область печати по оси Z: > 200 Миллиметр",
+              "essential": true,
+              "ok": true
+            },
+            {
+              "name": "Максимальный размер печати двумя экструдерами",
+              "required": "540x600x600",
+              "offered": null,
+              "essential": true,
+              "ok": null
+            },
+            {
+              "name": "Толщина слоя",
+              "required": "от 0,05 до 0,4",
+              "offered": "≥ 0,01 и < 0,05 Миллиметр",
+              "essential": true,
+              "ok": false
+            },
+            {
+              "name": "Диаметр используемой нити пластика",
+              "required": "1,75",
+              "offered": null,
+              "essential": true,
+              "ok": null
+            },
+            {
+              "name": "Тип корпуса",
+              "required": "Закрытый",
+              "offered": "Наличие закрытого корпуса: Да",
+              "essential": false,
+              "ok": true
+            },
+            {
+              "name": "Поддерживаемые пластики",
+              "required": "PLA, ABS, Carbon Fiber, Wood, Nylon, PC, PETG, HIPS, PP, Flexible, TPU, PVA и другие",
+              "offered": "ABS ; PA ; PLA ; PETG ; ASA ; PC ; PPS ; TPU",
+              "essential": true,
+              "ok": false
+            },
+            {
+              "name": "Диаметр сопел",
+              "required": "0.3/0.4/0.6/0.8/1.0",
+              "offered": "≥ 0,3 и < 0,5 Миллиметр",
+              "essential": true,
+              "ok": true
+            },
+            {
+              "name": "Материал рабочей платформы",
+              "required": "Алюминиевая платформа с адгезивной наклейкой Buildtak или стеклом",
+              "offered": null,
+              "essential": false,
+              "ok": null
+            },
+            {
+              "name": "Поддержка форматов",
+              "required": "AMF, OBJ, STL",
+              "offered": "GCODE",
+              "essential": true,
+              "ok": false
+            },
+            {
+              "name": "Максимальный нагрев рабочей платформы",
+              "required": "100",
+              "offered": "< 150 Градус Цельсия",
+              "essential": true,
+              "ok": true
+            },
+            {
+              "name": "Максимальный нагрев экструдера",
+              "required": "420",
+              "offered": "≥ 410 Градус Цельсия",
+              "essential": true,
+              "ok": true
+            },
+            {
+              "name": "Максимальный нагрев рабочей камеры",
+              "required": "70",
+              "offered": null,
+              "essential": true,
+              "ok": null
+            },
+            {
+              "name": "Максимальный нагрев отсека для сушки пластика",
+              "required": "65",
+              "offered": null,
+              "essential": true,
+              "ok": null
+            },
+            {
+              "name": "Оптимальная скорость печати",
+              "required": "45",
+              "offered": "Скорость перемещения печатающей головки, мм/с: ≥ 80",
+              "essential": true,
+              "ok": false
+            },
+            {
+              "name": "Максимальная скорость печати",
+              "required": "120",
+              "offered": "Максимальная скорость печати, см3/ч: ≥ 100",
+              "essential": true,
+              "ok": null
+            },
+            {
+              "name": "Сенсорный дисплей",
+              "required": "4.3\"",
+              "offered": "Панель управления с дисплеем на корпусе устройства",
+              "essential": true,
+              "ok": true
+            },
+            {
+              "name": "Интерфейсы подключения",
+              "required": "USB",
+              "offered": "USB Flash",
+              "essential": false,
+              "ok": false
+            },
+            {
+              "name": "Точность позиционирования X/Y",
+              "required": "5.08",
+              "offered": null,
+              "essential": true,
+              "ok": null
+            },
+            {
+              "name": "Точность позиционирования Z",
+              "required": "1.25",
+              "offered": null,
+              "essential": true,
+              "ok": null
+            },
+            {
+              "name": "Габариты принтера без упаковки",
+              "required": "915x845x1085",
+              "offered": null,
+              "essential": false,
+              "ok": null
+            },
+            {
+              "name": "Вес принтера без упаковки",
+              "required": "125",
+              "offered": null,
+              "essential": false,
+              "ok": null
+            },
+            {
+              "name": "Электропитание",
+              "required": "230 В, 50 Гц",
+              "offered": null,
+              "essential": false,
+              "ok": null
+            },
+            {
+              "name": "Номинальная мощность",
+              "required": "4900",
+              "offered": null,
+              "essential": false,
+              "ok": null
+            },
+            {
+              "name": "Страна происхождения",
+              "required": "Китай",
+              "offered": null,
+              "essential": false,
+              "ok": null
+            },
+            {
+              "name": "Товарный знак",
+              "required": "CreatBot",
+              "offered": null,
+              "essential": true,
+              "ok": null
+            },
+            {
+              "name": "Модель",
+              "required": "3D CREATBOT D600 PRO",
+              "offered": null,
+              "essential": true,
+              "ok": null
+            }
+          ],
+          "reason": "Не соответствует: Толщина слоя, Поддерживаемые пластики, Поддержка форматов, Оптимальная скорость печати",
+          "exclusion": "incomparable",
+          "original": null,
+          "user_marks": []
+        },
+        {
+          "label": "1.4",
+          "caption": "Производители и дистрибьюторы: 3D принтер CreatBot D600 Pro",
+          "offer": {
+            "id": "d0bfb4ab3a30",
+            "source_id": "web_suppliers",
+            "source_name": "Производители и дистрибьюторы",
+            "level": 1,
+            "url": "https://lider-3d.ru/catalog/3d_printery/3d_printer_creatbot_d600_pro/",
+            "retrieved_at": "2026-11-14T13:35:57.561892Z",
+            "title": "3D принтер CreatBot D600 Pro",
+            "price": "1250000.00",
+            "currency": "RUB",
+            "amount": "1",
+            "amount_unit": "шт",
+            "vat": "unknown",
+            "vat_rate": null,
+            "supplier": null,
+            "supplier_inn": null,
+            "delivery": "unknown",
+            "delivery_cost": null,
+            "delivery_free_from": null,
+            "delivery_note": null,
+            "price_date": null,
+            "characteristics": {
+              "Технология печати": "FDM / FFF",
+              "Область построения": "600х600х600 мм",
+              "Закрытый корпус": "Да",
+              "Подогрев рабочей камеры": "До 70 °С",
+              "Подогрев печатной платформы": "До 100 °С",
+              "Материал платформы": "Боросиликатное стекло с покрытием BuildTak",
+              "Тип экструдеров": "Цельнометаллические директ-экструдера",
+              "Максимальная температура экструдера 1": "260 °С",
+              "Максимальная температура экструдера 2": "420 °С",
+              "Поддерживаемые материалы": "PLA, ABS, Carbon Fiber, Nylon, PC, PP, TPU, угленаполненный полиамид, полиэфирэфиркетон и другие",
+              "Точность позиционирования": "4-5 раз выше массовых FDM/FFF",
+              "Корпус": "Металлический, листы 3 мм, высокая жёсткость",
+              "Система фильтрации": "HEPA",
+              "Экстренная остановка": "Есть"
+            }
+          },
+          "base_price": "1250000.00",
+          "vat": {
+            "status": "unknown",
+            "factor": "1",
+            "note": "НДС на странице не указан"
+          },
+          "indexation": {
+            "status": "not_needed",
+            "factor": "1",
+            "note": "Дата цены неизвестна; цена считается текущей"
+          },
+          "delivery": {
+            "status": "unknown",
+            "added_per_unit": "0.00",
+            "note": "Стоимость доставки не указана на странице"
+          },
+          "normalized_price": "1250000.00",
+          "comparison": [
+            {
+              "name": "Технология печати",
+              "required": "FDM (Fused Deposition Modeling)",
+              "offered": "FDM / FFF",
+              "essential": true,
+              "ok": true
+            },
+            {
+              "name": "Максимальный размер печати одним экструдером",
+              "required": "600x600x600",
+              "offered": "600х600х600 мм",
+              "essential": true,
+              "ok": true
+            },
+            {
+              "name": "Максимальный размер печати двумя экструдерами",
+              "required": "540x600x600",
+              "offered": null,
+              "essential": true,
+              "ok": null
+            },
+            {
+              "name": "Толщина слоя",
+              "required": "от 0,05 до 0,4",
+              "offered": null,
+              "essential": true,
+              "ok": null
+            },
+            {
+              "name": "Диаметр используемой нити пластика",
+              "required": "1,75",
+              "offered": null,
+              "essential": true,
+              "ok": null
+            },
+            {
+              "name": "Тип корпуса",
+              "required": "Закрытый",
+              "offered": "Да",
+              "essential": false,
+              "ok": true
+            },
+            {
+              "name": "Поддерживаемые пластики",
+              "required": "PLA, ABS, Carbon Fiber, Wood, Nylon, PC, PETG, HIPS, PP, Flexible, TPU, PVA и другие",
+              "offered": "PLA, ABS, Carbon Fiber, Nylon, PC, PP, TPU, угленаполненный полиамид, полиэфирэфиркетон и другие",
+              "essential": true,
+              "ok": true
+            },
+            {
+              "name": "Диаметр сопел",
+              "required": "0.3/0.4/0.6/0.8/1.0",
+              "offered": null,
+              "essential": true,
+              "ok": null
+            },
+            {
+              "name": "Материал рабочей платформы",
+              "required": "Алюминиевая платформа с адгезивной наклейкой Buildtak или стеклом",
+              "offered": "Боросиликатное стекло с покрытием BuildTak",
+              "essential": false,
+              "ok": true
+            },
+            {
+              "name": "Поддержка форматов",
+              "required": "AMF, OBJ, STL",
+              "offered": null,
+              "essential": true,
+              "ok": null
+            },
+            {
+              "name": "Максимальный нагрев рабочей платформы",
+              "required": "100",
+              "offered": "До 100 °С",
+              "essential": true,
+              "ok": true
+            },
+            {
+              "name": "Максимальный нагрев экструдера",
+              "required": "420",
+              "offered": "260 °С и 420 °С",
+              "essential": true,
+              "ok": true
+            },
+            {
+              "name": "Максимальный нагрев рабочей камеры",
+              "required": "70",
+              "offered": "До 70 °С",
+              "essential": true,
+              "ok": true
+            },
+            {
+              "name": "Максимальный нагрев отсека для сушки пластика",
+              "required": "65",
+              "offered": null,
+              "essential": true,
+              "ok": null
+            },
+            {
+              "name": "Оптимальная скорость печати",
+              "required": "45",
+              "offered": null,
+              "essential": true,
+              "ok": null
+            },
+            {
+              "name": "Максимальная скорость печати",
+              "required": "120",
+              "offered": null,
+              "essential": true,
+              "ok": null
+            },
+            {
+              "name": "Сенсорный дисплей",
+              "required": "4.3\"",
+              "offered": null,
+              "essential": true,
+              "ok": null
+            },
+            {
+              "name": "Интерфейсы подключения",
+              "required": "USB",
+              "offered": null,
+              "essential": false,
+              "ok": null
+            },
+            {
+              "name": "Точность позиционирования X/Y",
+              "required": "5.08",
+              "offered": "4-5 раз выше массовых FDM/FFF",
+              "essential": true,
+              "ok": null
+            },
+            {
+              "name": "Точность позиционирования Z",
+              "required": "1.25",
+              "offered": null,
+              "essential": true,
+              "ok": null
+            },
+            {
+              "name": "Габариты принтера без упаковки",
+              "required": "915x845x1085",
+              "offered": null,
+              "essential": false,
+              "ok": null
+            },
+            {
+              "name": "Вес принтера без упаковки",
+              "required": "125",
+              "offered": null,
+              "essential": false,
+              "ok": null
+            },
+            {
+              "name": "Электропитание",
+              "required": "230 В, 50 Гц",
+              "offered": null,
+              "essential": false,
+              "ok": null
+            },
+            {
+              "name": "Номинальная мощность",
+              "required": "4900",
+              "offered": null,
+              "essential": false,
+              "ok": null
+            },
+            {
+              "name": "Страна происхождения",
+              "required": "Китай",
+              "offered": null,
+              "essential": false,
+              "ok": null
+            },
+            {
+              "name": "Товарный знак",
+              "required": "CreatBot",
+              "offered": null,
+              "essential": true,
+              "ok": null
+            },
+            {
+              "name": "Модель",
+              "required": "3D CREATBOT D600 PRO",
+              "offered": "CreatBot D600 Pro",
+              "essential": true,
+              "ok": true
+            }
+          ],
+          "reason": "Аномальная цена: Отклонение от медианы более 50.0 %",
+          "exclusion": "anomalous_price",
+          "original": null,
+          "user_marks": []
+        }
+      ],
+      "stats": null,
+      "unit_price": null,
+      "reference_price": null,
+      "total": null,
+      "assumptions": [
+        "Уровень 2 подключён: на уровне 1 найдено 0 цен",
+        "Принято по умолчанию: Нет, только CreatBot"
+      ],
+      "spread_hints": [],
+      "skipped_pages": [
+        {
+          "url": "https://3dtool.ru/product/3d_printer_creatbot_d600_pro/",
+          "source_id": "web_suppliers",
+          "reason": "Источник требует входа или проверки капчи"
+        },
+        {
+          "url": "https://3dprint54.ru/printery-3d/creatbot-d600-pro.html",
+          "source_id": "web_suppliers",
+          "reason": "Источник требует входа или проверки капчи"
+        },
+        {
+          "url": "https://www.komus.ru/katalog/tekhnika/ofisnaya-tekhnika/printery-i-mfu/3d-printery-skanery-i-raskhodnye-materialy/3d-printery/3d-printery-plastikovye/3d-printer-creatbot-f1000/p/1622375/",
+          "source_id": "web_shops",
+          "reason": "Не удалось обработать источник: изменился формат страницы или ответа"
+        },
+        {
+          "url": "https://www.komus.ru/katalog/tekhnika/ofisnaya-tekhnika/printery-i-mfu/3d-printery-skanery-i-raskhodnye-materialy/3d-printery/c/4567986/f/5532=professionalnye/",
+          "source_id": "web_shops",
+          "reason": "Источник недоступен: ошибка сети, таймаут или ограничение запросов"
+        },
+        {
+          "url": "https://www.komus.ru/katalog/tekhnika/ofisnaya-tekhnika/printery-i-mfu/3d-printery-skanery-i-raskhodnye-materialy/3d-printery/c/4567986/f/3531=kitaj/",
+          "source_id": "web_shops",
+          "reason": "Источник недоступен: ошибка сети, таймаут или ограничение запросов"
+        }
+      ],
+      "excluded_by_user": false
+    }
+  ],
+  "sources": [
+    {
+      "source_id": "eis",
+      "name": "ЕИС : реестр контрактов",
+      "level": 1,
+      "position_index": 1,
+      "queries": [
+        "CreatBot",
+        "3D принтер",
+        "3D CREATBOT D600 PRO"
+      ],
+      "status": "ok",
+      "error": null,
+      "found": 3,
+      "at": "2026-11-14T13:35:50.008583Z"
+    },
+    {
+      "source_id": "web_suppliers",
+      "name": "Производители и дистрибьюторы",
+      "level": 1,
+      "position_index": 1,
+      "queries": [
+        "3D принтер 3D CREATBOT D600 PRO FDM (Fused Deposition Modeling) 600x600x600 540x600x600 цена производитель дистрибьютор"
+      ],
+      "status": "ok",
+      "error": "Источник требует входа или проверки капчи",
+      "found": 1,
+      "at": "2026-11-14T13:35:50.010461Z"
+    },
+    {
+      "source_id": "web_shops",
+      "name": "Открытые магазины",
+      "level": 2,
+      "position_index": 1,
+      "queries": [
+        "3D принтер 3D CREATBOT D600 PRO FDM (Fused Deposition Modeling) 600x600x600 540x600x600 site:komus.ru"
+      ],
+      "status": "error",
+      "error": "Не удалось обработать источник: изменился формат страницы или ответа; Источник недоступен: ошибка сети, таймаут или ограничение запросов",
+      "found": 0,
+      "at": "2026-11-14T13:36:39.147505Z"
+    }
+  ],
+  "questions": [
+    {
+      "id": "q1-1",
+      "position_index": 1,
+      "text": "Принимаете ли вы аналоги торговой марки CreatBot?",
+      "hint": null,
+      "options": [
+        "Нет, только CreatBot",
+        "Да, принимаю аналоги"
+      ],
+      "default_answer": "Нет, только CreatBot",
+      "answer": null
+    }
+  ],
+  "delivery_terms": "Поставка товара должна осуществляться до места его установки - Московская область, г. Долгопрудный, Научный пер., дом 4. Срок поставки: В течение 45 календарных дней с даты заключения Договора.",
+  "delivery_extras": [
+    "Включены все дорожные, транспортные и иные расходы"
+  ],
+  "total": null,
+  "total_justified": null,
+  "warnings": [
+    "Позиция 1 «3D принтер 3D CREATBOT D600 PRO»: найдено 0 цен, обоснование недостаточно",
+    "Источник «Производители и дистрибьюторы», позиция 1: Источник требует входа или проверки капчи",
+    "Источник «Открытые магазины», позиция 1: Не удалось обработать источник: изменился формат страницы или ответа; Источник недоступен: ошибка сети, таймаут или ограничение запросов",
+    "Требования ТЗ при поставке (Включены все дорожные, транспортные и иные расходы) в найденных ценах не отражены"
+  ],
+  "edits": [],
+  "rules": {
+    "min_prices": 3,
+    "cv_threshold": "0.33",
+    "iqr_k": "1.5",
+    "iqr_min_n": 5,
+    "median_max_deviation": "0.5",
+    "level2_trigger_min_prices": 3,
+    "level2_on_heterogeneous": true,
+    "vat_rate": "0.22",
+    "indexation_enabled": true,
+    "index_after_months": 6,
+    "spread_hint_min_gap": "0.15",
+    "marketplace_hosts": [
+      "market.yandex.ru",
+      "ozon.ru",
+      "wildberries.ru"
+    ],
+    "methodology_note": "Метод сопоставимых рыночных цен (анализа рынка). Формулы : по аналогии с Методическими рекомендациями, утверждёнными приказом Минэкономразвития России от 02.10.2013 № 567; для закупок по 44-ФЗ рекомендации применяются с учётом действующего законодательства, для закупок по 223-ФЗ : положения о закупке заказчика.",
+    "eis_years": 3,
+    "max_pages_per_source": 3,
+    "page_text_limit": 15000
+  },
+  "local_settings": []
+}

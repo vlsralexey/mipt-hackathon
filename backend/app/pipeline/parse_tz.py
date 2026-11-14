@@ -78,9 +78,34 @@ async def parse_tz(llm: LLM, tz_text: str) -> ParsedTZ:
                     default_answer=default,
                 )
             )
+    positions = [_units(p, pack_basis=True) for p in raw.positions]
+    for position in positions:
+        if position.unit == "шт" and position.basis.unit in {"мкг", "мг", "г", "мл", "л"}:
+            existing = [q for q in questions if q.position_index == position.index]
+            if any(
+                any(
+                    word in q.text.casefold()
+                    for word in ("единиц", "фасов", "массу", position.basis.unit)
+                )
+                for q in existing
+            ):
+                continue
+            counts[position.index] += 1
+            default = f"За одну единицу ТЗ: {position.basis.per_tz_unit:g} {position.basis.unit}"
+            questions.append(
+                Question(
+                    id=f"q{position.index}-{counts[position.index]}",
+                    position_index=position.index,
+                    text="Какую массу или объём принять за одну единицу ТЗ при сравнении цен?",
+                    hint="Фасовки поставщиков могут отличаться "
+                    "от массы или объёма в одной штуке ТЗ.",
+                    options=[default, "Уточнить фасовку одной единицы ТЗ"],
+                    default_answer=default,
+                )
+            )
     return ParsedTZ(
         title=raw.title,
-        positions=[_units(p, pack_basis=True) for p in raw.positions],
+        positions=positions,
         questions=questions,
         delivery_terms=raw.delivery_terms,
         delivery_extras=raw.delivery_extras,

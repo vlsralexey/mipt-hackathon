@@ -1,0 +1,1477 @@
+{
+  "procurement_id": "p_76d6a2ae28214ab287624dcd7daf7231",
+  "version": 1,
+  "created_at": "2026-11-14T13:42:10.467043Z",
+  "title": "Поставка цитокинов",
+  "calc_date": "2026-11-14",
+  "methodology": "Метод сопоставимых рыночных цен (анализа рынка). Формулы : по аналогии с Методическими рекомендациями, утверждёнными приказом Минэкономразвития России от 02.10.2013 № 567; для закупок по 44-ФЗ рекомендации применяются с учётом действующего законодательства, для закупок по 223-ФЗ : положения о закупке заказчика.",
+  "cause": "Первый прогон",
+  "positions": [
+    {
+      "position": {
+        "index": 1,
+        "name": "rhTGFbeta1 Трансформирующий фактор роста бета 1 человека, рекомбинантный белок",
+        "unit": "шт",
+        "quantity": "2",
+        "okpd2": "20.59.51.120",
+        "characteristics": [
+          {
+            "name": "Клеточная линия",
+            "value": "CHO",
+            "unit": null,
+            "essential": true
+          },
+          {
+            "name": "Уровень эндотоксина, LAL-test",
+            "value": "менее 0,1",
+            "unit": "EU/1 мкг белка",
+            "essential": true
+          },
+          {
+            "name": "Чистота, в соответствии с электрофорезом в ПААГ",
+            "value": "более 97",
+            "unit": "%",
+            "essential": true
+          },
+          {
+            "name": "Биологическая активность, ED50",
+            "value": "более 1 и менее 1,6",
+            "unit": "нг/мл",
+            "essential": true
+          },
+          {
+            "name": "Общий вес 1 шт.",
+            "value": "не менее 10",
+            "unit": "мкг",
+            "essential": true
+          }
+        ],
+        "basis": {
+          "unit": "мкг",
+          "per_tz_unit": "10"
+        },
+        "search_terms": [
+          "rhTGFbeta1",
+          "трансформирующий фактор роста бета 1",
+          "цитокины"
+        ]
+      },
+      "status": "insufficient",
+      "levels_used": [
+        1,
+        2
+      ],
+      "included": [],
+      "excluded": [
+        {
+          "label": "1.1",
+          "caption": "ЕИС, контракт № 1732500169826000069",
+          "offer": {
+            "id": "556fd1fb1c82",
+            "source_id": "eis",
+            "source_name": "ЕИС : реестр контрактов",
+            "level": 1,
+            "url": "https://zakupki.gov.ru/epz/contract/contractCard/payment-info-and-target-of-order.html?reestrNumber=1732500169826000069",
+            "retrieved_at": "2026-11-14T13:40:53.867914Z",
+            "title": "8. Набор к человеческому трансформирующему фактору роста бета-1 (TGF-β). Товарный знак: Отсутствует",
+            "price": "37500.00",
+            "currency": "RUB",
+            "amount": "1",
+            "amount_unit": "упаковка",
+            "vat": "included",
+            "vat_rate": "0.22",
+            "supplier": "ООО \"ДИАВАБ\"",
+            "supplier_inn": "7801285079",
+            "delivery": "unknown",
+            "delivery_cost": null,
+            "delivery_free_from": null,
+            "delivery_note": null,
+            "price_date": null,
+            "characteristics": {
+              "Клеточная линия": "CHO",
+              "Уровень эндотоксина, LAL-test": "менее 0,1 EU/1 мкг белка",
+              "Чистота, в соответствии с электрофорезом в ПААГ": "более 97 %",
+              "Биологическая активность, ED50": "более 1 и менее 1,6 нг/мл",
+              "Общий вес 1 шт.": "не менее 10 мкг"
+            }
+          },
+          "base_price": null,
+          "vat": null,
+          "indexation": null,
+          "delivery": null,
+          "normalized_price": null,
+          "comparison": [
+            {
+              "name": "Клеточная линия",
+              "required": "CHO",
+              "offered": "CHO",
+              "essential": true,
+              "ok": true
+            },
+            {
+              "name": "Уровень эндотоксина, LAL-test",
+              "required": "менее 0,1",
+              "offered": "менее 0,1 EU/1 мкг белка",
+              "essential": true,
+              "ok": true
+            },
+            {
+              "name": "Чистота, в соответствии с электрофорезом в ПААГ",
+              "required": "более 97",
+              "offered": "более 97 %",
+              "essential": true,
+              "ok": true
+            },
+            {
+              "name": "Биологическая активность, ED50",
+              "required": "более 1 и менее 1,6",
+              "offered": "более 1 и менее 1,6 нг/мл",
+              "essential": true,
+              "ok": true
+            },
+            {
+              "name": "Общий вес 1 шт.",
+              "required": "не менее 10",
+              "offered": "не менее 10 мкг",
+              "essential": true,
+              "ok": true
+            }
+          ],
+          "reason": "Нельзя перевести упаковка в мкг",
+          "exclusion": "unit_mismatch",
+          "original": null,
+          "user_marks": []
+        },
+        {
+          "label": "1.2",
+          "caption": "Производители и дистрибьюторы: Фактор роста трансформирующий бета-1 рекомбинантный человеческий (TGF‑β1), 10 мкг, EastMab, Кат. №: Y04201.50мкг",
+          "offer": {
+            "id": "4e0dbfde5f4a",
+            "source_id": "web_suppliers",
+            "source_name": "Производители и дистрибьюторы",
+            "level": 1,
+            "url": "https://paneco.ru/products/faktor-rosta-50-mkg-eastmab",
+            "retrieved_at": "2026-11-14T13:40:53.562624Z",
+            "title": "Фактор роста трансформирующий бета-1 рекомбинантный человеческий (TGF‑β1), 10 мкг, EastMab, Кат. №: Y04201.50мкг",
+            "price": "19035.00",
+            "currency": "RUB",
+            "amount": "1",
+            "amount_unit": "шт",
+            "vat": "included",
+            "vat_rate": "0.22",
+            "supplier": null,
+            "supplier_inn": null,
+            "delivery": "unknown",
+            "delivery_cost": null,
+            "delivery_free_from": null,
+            "delivery_note": null,
+            "price_date": null,
+            "characteristics": {
+              "Фасовка": "1 шт.",
+              "Чистота": "≥95%",
+              "pH": "7-8",
+              "Клеточная линия": "CHO"
+            }
+          },
+          "base_price": null,
+          "vat": null,
+          "indexation": null,
+          "delivery": null,
+          "normalized_price": null,
+          "comparison": [
+            {
+              "name": "Клеточная линия",
+              "required": "CHO",
+              "offered": "CHO",
+              "essential": true,
+              "ok": true
+            },
+            {
+              "name": "Уровень эндотоксина, LAL-test",
+              "required": "менее 0,1",
+              "offered": null,
+              "essential": true,
+              "ok": null
+            },
+            {
+              "name": "Чистота, в соответствии с электрофорезом в ПААГ",
+              "required": "более 97",
+              "offered": "≥95%",
+              "essential": true,
+              "ok": true
+            },
+            {
+              "name": "Биологическая активность, ED50",
+              "required": "более 1 и менее 1,6",
+              "offered": null,
+              "essential": true,
+              "ok": null
+            },
+            {
+              "name": "Общий вес 1 шт.",
+              "required": "не менее 10",
+              "offered": "10 мкг",
+              "essential": true,
+              "ok": true
+            }
+          ],
+          "reason": "Нельзя перевести шт в мкг",
+          "exclusion": "unit_mismatch",
+          "original": null,
+          "user_marks": []
+        }
+      ],
+      "stats": null,
+      "unit_price": null,
+      "reference_price": null,
+      "total": null,
+      "assumptions": [
+        "Уровень 2 подключён: на уровне 1 найдено 0 цен",
+        "Принято по умолчанию: За одну единицу ТЗ: 10 мкг"
+      ],
+      "spread_hints": [],
+      "skipped_pages": [
+        {
+          "url": "https://zakupki.gov.ru/epz/contract/contractCard/common-info.html?reestrNumber=2780410487726000543",
+          "source_id": "eis",
+          "reason": "Источник недоступен: ошибка сети, таймаут или ограничение запросов"
+        },
+        {
+          "url": "https://zakupki.gov.ru/epz/contract/contractCard/common-info.html?reestrNumber=1770403012425000836",
+          "source_id": "eis",
+          "reason": "Источник недоступен: ошибка сети, таймаут или ограничение запросов"
+        },
+        {
+          "url": "https://www.abcam.com/en-us/products/proteins-peptides/recombinant-human-tgf-beta-1-protein-active-ab50038",
+          "source_id": "web_suppliers",
+          "reason": "rhTGFbeta1 Трансформирующий фактор роста бета 1 человека, рекомбинантный белок CHO cells endotoxin < 1 EU/µg purity >98%: цена не указана или не распознана"
+        },
+        {
+          "url": "https://www.eastmab.com/application2/637.html",
+          "source_id": "web_suppliers",
+          "reason": "rhTGFbeta1 Трансформирующий фактор роста бета 1 человека, рекомбинантный белок (код Y04201N, 50μg/1mg): цена не указана или не распознана"
+        },
+        {
+          "url": "https://www.komus.ru/katalog/otraslevye-predlozheniya/meditsina/diagnosticheskie-testy/testy-na-virusy-i-zabolevaniya/test-ekspress-onkomarker-rea-rak-tolstoj-kishki-imbian/p/2017210/",
+          "source_id": "web_shops",
+          "reason": "Источник недоступен: ошибка сети, таймаут или ограничение запросов"
+        },
+        {
+          "url": "https://www.komus.ru/katalog/otraslevye-predlozheniya/meditsina/diagnosticheskie-testy/testy-na-virusy-i-zabolevaniya-prochie/test-na-vyyavlenie-prokaltsitonina-ikha-rapid-bio-20-shtuk-v-upakovke-/p/1968281/",
+          "source_id": "web_shops",
+          "reason": "Источник недоступен: ошибка сети, таймаут или ограничение запросов"
+        },
+        {
+          "url": "https://www.komus.ru/news/statichnye-stranitsy/meditsinskie-raskhodnye-materialy/n/543555/",
+          "source_id": "web_shops",
+          "reason": "Источник недоступен: ошибка сети, таймаут или ограничение запросов"
+        }
+      ],
+      "excluded_by_user": false
+    },
+    {
+      "position": {
+        "index": 2,
+        "name": "rhIL-15, Интерлейкин-15 человека, рекомбинантный белок",
+        "unit": "шт",
+        "quantity": "1",
+        "okpd2": "20.59.51.120",
+        "characteristics": [
+          {
+            "name": "Клеточная линия",
+            "value": "CHO",
+            "unit": null,
+            "essential": true
+          },
+          {
+            "name": "Уровень эндотоксина, LAL-test",
+            "value": "менее 0,1",
+            "unit": "EU/1 мкг белка",
+            "essential": true
+          },
+          {
+            "name": "Чистота, в соответствии с электрофорезом в ПААГ",
+            "value": "более 97",
+            "unit": "%",
+            "essential": true
+          },
+          {
+            "name": "Биологическая активность, ED50",
+            "value": "более 2,5 и менее 3,8",
+            "unit": "нг/мл",
+            "essential": true
+          },
+          {
+            "name": "Общий вес 1 шт.",
+            "value": "не менее 10",
+            "unit": "мкг",
+            "essential": true
+          }
+        ],
+        "basis": {
+          "unit": "мкг",
+          "per_tz_unit": "10"
+        },
+        "search_terms": [
+          "rhIL-15",
+          "интерлейкин-15",
+          "цитокины"
+        ]
+      },
+      "status": "insufficient",
+      "levels_used": [
+        1,
+        2
+      ],
+      "included": [],
+      "excluded": [],
+      "stats": null,
+      "unit_price": null,
+      "reference_price": null,
+      "total": null,
+      "assumptions": [
+        "Уровень 2 подключён: на уровне 1 найдено 0 цен",
+        "Принято по умолчанию: За одну единицу ТЗ: 10 мкг"
+      ],
+      "spread_hints": [],
+      "skipped_pages": [
+        {
+          "url": "https://zakupki.gov.ru/epz/contract/contractCard/common-info.html?reestrNumber=1771202031325000110",
+          "source_id": "eis",
+          "reason": "Источник недоступен: ошибка сети, таймаут или ограничение запросов"
+        },
+        {
+          "url": "https://zakupki.gov.ru/epz/contract/contractCard/common-info.html?reestrNumber=1772843475025000880",
+          "source_id": "eis",
+          "reason": "Источник недоступен: ошибка сети, таймаут или ограничение запросов"
+        },
+        {
+          "url": "https://zakupki.gov.ru/epz/contract/contractCard/common-info.html?reestrNumber=1772407516223001333",
+          "source_id": "eis",
+          "reason": "Источник недоступен: ошибка сети, таймаут или ограничение запросов"
+        },
+        {
+          "url": "https://www.yeasenbio.com/ru/products/90113",
+          "source_id": "web_suppliers",
+          "reason": "Источник недоступен: ошибка сети, таймаут или ограничение запросов"
+        },
+        {
+          "url": "https://www.eastmabbio.com/interleukins/1103.html",
+          "source_id": "web_suppliers",
+          "reason": "rhIL-15, Интерлейкин-15 человека, рекомбинантный белок, Cat# Y02701, 50μg: цена не указана или не распознана"
+        },
+        {
+          "url": "https://www.invivogen.com/cytokines-human-il-15-recombinant-protein",
+          "source_id": "web_suppliers",
+          "reason": "rhIL-15, Интерлейкин-15 человека, рекомбинантный белок (Cat.code: rcyc-hil15): цена не указана или не распознана"
+        },
+        {
+          "url": "https://www.komus.ru/katalog/otraslevye-predlozheniya/meditsina/diagnosticheskie-testy/testy-na-virusy-i-zabolevaniya-prochie/test-na-vyyavlenie-vich-na-antigen-p24-i-antitela-k-vich-1-2-rapid-bio/p/2033386/",
+          "source_id": "web_shops",
+          "reason": "Источник недоступен: ошибка сети, таймаут или ограничение запросов"
+        },
+        {
+          "url": "https://www.komus.ru/katalog/otraslevye-predlozheniya/meditsina/diagnosticheskie-testy/testy-na-virusy-i-zabolevaniya-prochie/test-na-vyyavlenie-prokaltsitonina-ikha-rapid-bio-20-shtuk-v-upakovke-/p/1968281/",
+          "source_id": "web_shops",
+          "reason": "Источник недоступен: ошибка сети, таймаут или ограничение запросов"
+        },
+        {
+          "url": "https://www.komus.ru/katalog/otraslevye-predlozheniya/meditsina/diagnosticheskie-testy/testy-na-virusy-i-zabolevaniya/test-ekspress-onkomarker-rea-rak-tolstoj-kishki-imbian/p/2017210/",
+          "source_id": "web_shops",
+          "reason": "Источник недоступен: ошибка сети, таймаут или ограничение запросов"
+        }
+      ],
+      "excluded_by_user": false
+    },
+    {
+      "position": {
+        "index": 3,
+        "name": "rhIL-7, Интерлейкин-7 человека, рекомбинантный белок",
+        "unit": "шт",
+        "quantity": "1",
+        "okpd2": "20.59.51.120",
+        "characteristics": [
+          {
+            "name": "Клеточная линия",
+            "value": "CHO",
+            "unit": null,
+            "essential": true
+          },
+          {
+            "name": "Уровень эндотоксина, LAL-test",
+            "value": "менее 0,1",
+            "unit": "EU/1 мкг белка",
+            "essential": true
+          },
+          {
+            "name": "Чистота, в соответствии с электрофорезом в ПААГ",
+            "value": "более 97",
+            "unit": "%",
+            "essential": true
+          },
+          {
+            "name": "Биологическая активность, ED50",
+            "value": "более 0,07 и менее 0,5",
+            "unit": "нг/мл",
+            "essential": true
+          },
+          {
+            "name": "Общий вес 1 шт.",
+            "value": "не менее 10",
+            "unit": "мкг",
+            "essential": true
+          }
+        ],
+        "basis": {
+          "unit": "мкг",
+          "per_tz_unit": "10"
+        },
+        "search_terms": [
+          "rhIL-7",
+          "интерлейкин-7",
+          "цитокины"
+        ]
+      },
+      "status": "insufficient",
+      "levels_used": [
+        1,
+        2
+      ],
+      "included": [
+        {
+          "label": "3.1",
+          "caption": "Производители и дистрибьюторы: Интерлейкин 7 человека, рекомбинантный белок, rhIL-7, Россия PSG240-10 10 мкг",
+          "offer": {
+            "id": "32b2db1578a3",
+            "source_id": "web_suppliers",
+            "source_name": "Производители и дистрибьюторы",
+            "level": 1,
+            "url": "https://www.dia-m.ru/catalog/reactive/rostovye-faktory-i-tsitokiny/interleykin-7-cheloveka-rekombinantnyy-belok-rhil-7/",
+            "retrieved_at": "2026-11-14T13:40:56.116517Z",
+            "title": "Интерлейкин 7 человека, рекомбинантный белок, rhIL-7, Россия PSG240-10 10 мкг",
+            "price": "33573.00",
+            "currency": "RUB",
+            "amount": "10",
+            "amount_unit": "мкг",
+            "vat": "unknown",
+            "vat_rate": null,
+            "supplier": null,
+            "supplier_inn": null,
+            "delivery": "unknown",
+            "delivery_cost": null,
+            "delivery_free_from": null,
+            "delivery_note": "Доставка по Москве и Московской области осуществляется бесплатно, стоимость доставки в другие города не включена и рассчитывается отдельно.",
+            "price_date": null,
+            "characteristics": {
+              "Клеточная линия": "CHO",
+              "Уровень эндотоксина, LAL-test": "менее 0,1 EU/1 мкг белка",
+              "Чистота, в соответствии с электрофорезом в ПААГ": "более 98%",
+              "Биологическая активность, ED50": "более 0,07 и менее 0,5 нг/мл"
+            }
+          },
+          "base_price": "33573.00",
+          "vat": {
+            "status": "unknown",
+            "factor": "1",
+            "note": "НДС на странице не указан"
+          },
+          "indexation": {
+            "status": "not_needed",
+            "factor": "1",
+            "note": "Дата цены неизвестна; цена считается текущей"
+          },
+          "delivery": {
+            "status": "unknown",
+            "added_per_unit": "0.00",
+            "note": "Стоимость доставки не указана на странице; Доставка по Москве и Московской области осуществляется бесплатно, стоимость доставки в другие города не включена и рассчитывается отдельно."
+          },
+          "normalized_price": "33573.00",
+          "comparison": [
+            {
+              "name": "Клеточная линия",
+              "required": "CHO",
+              "offered": "CHO",
+              "essential": true,
+              "ok": true
+            },
+            {
+              "name": "Уровень эндотоксина, LAL-test",
+              "required": "менее 0,1",
+              "offered": "менее 0,1 EU/1 мкг белка",
+              "essential": true,
+              "ok": true
+            },
+            {
+              "name": "Чистота, в соответствии с электрофорезом в ПААГ",
+              "required": "более 97",
+              "offered": "более 98%",
+              "essential": true,
+              "ok": true
+            },
+            {
+              "name": "Биологическая активность, ED50",
+              "required": "более 0,07 и менее 0,5",
+              "offered": "более 0,07 и менее 0,5 нг/мл",
+              "essential": true,
+              "ok": true
+            },
+            {
+              "name": "Общий вес 1 шт.",
+              "required": "не менее 10",
+              "offered": "10 мкг",
+              "essential": true,
+              "ok": true
+            }
+          ],
+          "reason": "Совпадают: Клеточная линия, Уровень эндотоксина, LAL-test, Чистота, в соответствии с электрофорезом в ПААГ, Биологическая активность, ED50, Общий вес 1 шт.",
+          "exclusion": null,
+          "original": null,
+          "user_marks": []
+        }
+      ],
+      "excluded": [
+        {
+          "label": "3.2",
+          "caption": "ЕИС, контракт № 1771202031325000110",
+          "offer": {
+            "id": "a97ca32a66eb",
+            "source_id": "eis",
+            "source_name": "ЕИС : реестр контрактов",
+            "level": 1,
+            "url": "https://zakupki.gov.ru/epz/contract/contractCard/payment-info-and-target-of-order.html?reestrNumber=1771202031325000110",
+            "retrieved_at": "2026-11-14T13:40:54.273211Z",
+            "title": "2. rhIL-7, интерлейкин-7 человека, рекомбинантный белок. Товарный знак: отсутствует",
+            "price": "82867.97",
+            "currency": "RUB",
+            "amount": "1",
+            "amount_unit": "шт",
+            "vat": "exempt",
+            "vat_rate": null,
+            "supplier": "ОБЩЕСТВО С ОГРАНИЧЕННОЙ ОТВЕТСТВЕННОСТЬЮ \"САЙСТОРЛАБ\"",
+            "supplier_inn": "7731333664",
+            "delivery": "unknown",
+            "delivery_cost": null,
+            "delivery_free_from": null,
+            "delivery_note": null,
+            "price_date": "2025-08-26",
+            "characteristics": {
+              "Страна происхождения": "Российская Федерация (643)"
+            }
+          },
+          "base_price": null,
+          "vat": null,
+          "indexation": null,
+          "delivery": null,
+          "normalized_price": null,
+          "comparison": [
+            {
+              "name": "Клеточная линия",
+              "required": "CHO",
+              "offered": null,
+              "essential": true,
+              "ok": null
+            },
+            {
+              "name": "Уровень эндотоксина, LAL-test",
+              "required": "менее 0,1",
+              "offered": null,
+              "essential": true,
+              "ok": null
+            },
+            {
+              "name": "Чистота, в соответствии с электрофорезом в ПААГ",
+              "required": "более 97",
+              "offered": null,
+              "essential": true,
+              "ok": null
+            },
+            {
+              "name": "Биологическая активность, ED50",
+              "required": "более 0,07 и менее 0,5",
+              "offered": null,
+              "essential": true,
+              "ok": null
+            },
+            {
+              "name": "Общий вес 1 шт.",
+              "required": "не менее 10",
+              "offered": null,
+              "essential": true,
+              "ok": null
+            }
+          ],
+          "reason": "Нельзя перевести шт в мкг",
+          "exclusion": "unit_mismatch",
+          "original": null,
+          "user_marks": []
+        }
+      ],
+      "stats": {
+        "n": 1,
+        "min": "33573.00",
+        "max": "33573.00",
+        "mean": "33573.00",
+        "std": "0.00",
+        "cv": "0.0000",
+        "outlier_rule": "Отклонение от медианы более 50.0 %",
+        "median": "33573.00",
+        "lower_bound": "16786.50",
+        "upper_bound": "50359.50"
+      },
+      "unit_price": null,
+      "reference_price": "33573.00",
+      "total": null,
+      "assumptions": [
+        "Уровень 2 подключён: на уровне 1 найдено 1 цен",
+        "Принято по умолчанию: За одну единицу ТЗ: 10 мкг"
+      ],
+      "spread_hints": [],
+      "skipped_pages": [
+        {
+          "url": "https://zakupki.gov.ru/epz/contract/contractCard/common-info.html?reestrNumber=1782100763325000354",
+          "source_id": "eis",
+          "reason": "Источник недоступен: ошибка сети, таймаут или ограничение запросов"
+        },
+        {
+          "url": "https://zakupki.gov.ru/epz/contract/contractCard/common-info.html?reestrNumber=1772407516225000745",
+          "source_id": "eis",
+          "reason": "Источник недоступен: ошибка сети, таймаут или ограничение запросов"
+        },
+        {
+          "url": "https://www.eastmabbio.com/interleukins/1100.html",
+          "source_id": "web_suppliers",
+          "reason": "rhIL-7, Интерлейкин-7 человека, рекомбинантный белок, Cat# Y02401, 50μg: цена не указана или не распознана"
+        },
+        {
+          "url": "https://www.invivogen.com/cytokines-human-il-7-recombinant-protein",
+          "source_id": "web_suppliers",
+          "reason": "На странице не найдено предложений по позиции ТЗ"
+        },
+        {
+          "url": "https://www.komus.ru/katalog/otraslevye-predlozheniya/meditsina/diagnosticheskie-testy/testy-na-virusy-i-zabolevaniya/test-ekspress-onkomarker-rea-rak-tolstoj-kishki-imbian/p/2017210/",
+          "source_id": "web_shops",
+          "reason": "Источник недоступен: ошибка сети, таймаут или ограничение запросов"
+        },
+        {
+          "url": "https://www.komus.ru/katalog/otraslevye-predlozheniya/meditsina/diagnosticheskie-testy/testy-na-koronavirus/test-na-antigen-covid-19-leccurate/p/1432672/",
+          "source_id": "web_shops",
+          "reason": "Источник недоступен: ошибка сети, таймаут или ограничение запросов"
+        },
+        {
+          "url": "https://www.komus.ru/news/statichnye-stranitsy/vrach-infektsionist/n/1405050/",
+          "source_id": "web_shops",
+          "reason": "Источник недоступен: ошибка сети, таймаут или ограничение запросов"
+        }
+      ],
+      "excluded_by_user": false
+    },
+    {
+      "position": {
+        "index": 4,
+        "name": "rhIL-2, Интерлейкин-2 человека, рекомбинантный белок",
+        "unit": "шт",
+        "quantity": "2",
+        "okpd2": "20.59.51.120",
+        "characteristics": [
+          {
+            "name": "Клеточная линия",
+            "value": "CHO",
+            "unit": null,
+            "essential": true
+          },
+          {
+            "name": "Уровень эндотоксина, LAL-test",
+            "value": "менее 0,1",
+            "unit": "EU/1 мкг белка",
+            "essential": true
+          },
+          {
+            "name": "Чистота, в соответствии с электрофорезом в ПААГ",
+            "value": "более 95",
+            "unit": "%",
+            "essential": true
+          },
+          {
+            "name": "Молекулярный вес",
+            "value": "15",
+            "unit": "кДа",
+            "essential": true
+          },
+          {
+            "name": "Общий вес 1 шт.",
+            "value": "не менее 100",
+            "unit": "мкг",
+            "essential": true
+          }
+        ],
+        "basis": {
+          "unit": "мкг",
+          "per_tz_unit": "100"
+        },
+        "search_terms": [
+          "rhIL-2",
+          "интерлейкин-2",
+          "цитокины"
+        ]
+      },
+      "status": "insufficient",
+      "levels_used": [
+        1,
+        2
+      ],
+      "included": [
+        {
+          "label": "4.1",
+          "caption": "Производители и дистрибьюторы: Интерлейкин 2 человека, рекомбинантный (rhIL-2) 10 мкг (PSG210-10)",
+          "offer": {
+            "id": "1009467d8eb6",
+            "source_id": "web_suppliers",
+            "source_name": "Производители и дистрибьюторы",
+            "level": 1,
+            "url": "https://shop.helicon.ru/catalog/reagents/reagents-and-kits/cell-culturing/growth-factors-and-cytokines/interleykin-2-cheloveka-rekombinantnyy-rhil-2/",
+            "retrieved_at": "2026-11-14T13:41:33.791945Z",
+            "title": "Интерлейкин 2 человека, рекомбинантный (rhIL-2) 10 мкг (PSG210-10)",
+            "price": "22808.00",
+            "currency": "RUB",
+            "amount": "10",
+            "amount_unit": "мкг",
+            "vat": "included",
+            "vat_rate": null,
+            "supplier": "ООО \"СайСторЛаб\"",
+            "supplier_inn": null,
+            "delivery": "unknown",
+            "delivery_cost": null,
+            "delivery_free_from": null,
+            "delivery_note": null,
+            "price_date": null,
+            "characteristics": {
+              "Клеточная линия": "CHO",
+              "Чистота": "более 98 %",
+              "Уровень эндотоксина, LAL-test": "менее 0.1 EU на 1 мкг белка",
+              "Молекулярный вес": "около 16 кДа",
+              "Форма": "лиофилизат"
+            }
+          },
+          "base_price": "228080.00",
+          "vat": {
+            "status": "included",
+            "factor": "1",
+            "note": "НДС включён по данным страницы"
+          },
+          "indexation": {
+            "status": "not_needed",
+            "factor": "1",
+            "note": "Дата цены неизвестна; цена считается текущей"
+          },
+          "delivery": {
+            "status": "unknown",
+            "added_per_unit": "0.00",
+            "note": "Стоимость доставки не указана на странице"
+          },
+          "normalized_price": "228080.00",
+          "comparison": [
+            {
+              "name": "Клеточная линия",
+              "required": "CHO",
+              "offered": "CHO",
+              "essential": true,
+              "ok": true
+            },
+            {
+              "name": "Уровень эндотоксина, LAL-test",
+              "required": "менее 0,1",
+              "offered": "менее 0.1 EU на 1 мкг белка",
+              "essential": true,
+              "ok": true
+            },
+            {
+              "name": "Чистота, в соответствии с электрофорезом в ПААГ",
+              "required": "более 95",
+              "offered": "более 98 %",
+              "essential": true,
+              "ok": true
+            },
+            {
+              "name": "Молекулярный вес",
+              "required": "15",
+              "offered": "около 16 кДа",
+              "essential": true,
+              "ok": true
+            },
+            {
+              "name": "Общий вес 1 шт.",
+              "required": "не менее 100",
+              "offered": null,
+              "essential": true,
+              "ok": null
+            }
+          ],
+          "reason": "Совпадают: Клеточная линия, Уровень эндотоксина, LAL-test, Чистота, в соответствии с электрофорезом в ПААГ, Молекулярный вес",
+          "exclusion": null,
+          "original": null,
+          "user_marks": []
+        }
+      ],
+      "excluded": [],
+      "stats": {
+        "n": 1,
+        "min": "228080.00",
+        "max": "228080.00",
+        "mean": "228080.00",
+        "std": "0.00",
+        "cv": "0.0000",
+        "outlier_rule": "Отклонение от медианы более 50.0 %",
+        "median": "228080.00",
+        "lower_bound": "114040.00",
+        "upper_bound": "342120.00"
+      },
+      "unit_price": null,
+      "reference_price": "228080.00",
+      "total": null,
+      "assumptions": [
+        "Уровень 2 подключён: на уровне 1 найдено 1 цен",
+        "Принято по умолчанию: За одну единицу ТЗ: 100 мкг"
+      ],
+      "spread_hints": [],
+      "skipped_pages": [
+        {
+          "url": "https://www.yeasenbio.com/ru/products/90267",
+          "source_id": "web_suppliers",
+          "reason": "Источник недоступен: ошибка сети, таймаут или ограничение запросов"
+        },
+        {
+          "url": "https://immunservice.com/en/produkt/recombinant-human-interleukin-2-rhil-2/",
+          "source_id": "web_suppliers",
+          "reason": "На странице не найдено предложений по позиции ТЗ"
+        },
+        {
+          "url": "https://www.komus.ru/katalog/otraslevye-predlozheniya/meditsina/diagnosticheskie-testy/testy-na-virusy-i-zabolevaniya-prochie/test-na-vyyavlenie-prokaltsitonina-ikha-rapid-bio-20-shtuk-v-upakovke-/p/1968281/",
+          "source_id": "web_shops",
+          "reason": "Источник недоступен: ошибка сети, таймаут или ограничение запросов"
+        },
+        {
+          "url": "https://www.komus.ru/katalog/otraslevye-predlozheniya/meditsina/diagnosticheskie-testy/testy-na-koronavirus/test-na-antigen-covid-19-leccurate/p/1432672/",
+          "source_id": "web_shops",
+          "reason": "Источник недоступен: ошибка сети, таймаут или ограничение запросов"
+        },
+        {
+          "url": "https://www.komus.ru/katalog/otraslevye-predlozheniya/meditsina/diagnosticheskie-testy/testy-na-virusy-i-zabolevaniya-prochie/test-ekspress-na-vyyavlenie-vich-1-2-imbian/p/1938030/",
+          "source_id": "web_shops",
+          "reason": "Источник недоступен: ошибка сети, таймаут или ограничение запросов"
+        }
+      ],
+      "excluded_by_user": false
+    },
+    {
+      "position": {
+        "index": 5,
+        "name": "rhIL-21, Интерлейкин-21 человека, рекомбинантный белок",
+        "unit": "шт",
+        "quantity": "1",
+        "okpd2": "20.59.51.120",
+        "characteristics": [
+          {
+            "name": "Клеточная линия",
+            "value": "CHO",
+            "unit": null,
+            "essential": true
+          },
+          {
+            "name": "Уровень эндотоксина, LAL-test",
+            "value": "менее 0,1",
+            "unit": "EU/1 мкг белка",
+            "essential": true
+          },
+          {
+            "name": "Чистота, в соответствии с электрофорезом в ПААГ",
+            "value": "более 98",
+            "unit": "%",
+            "essential": true
+          },
+          {
+            "name": "Биологическая активность, ED50",
+            "value": "более 0,1 и менее 0,6",
+            "unit": "нг/мл",
+            "essential": true
+          },
+          {
+            "name": "Общий вес 1 шт.",
+            "value": "не менее 100",
+            "unit": "мкг",
+            "essential": true
+          }
+        ],
+        "basis": {
+          "unit": "мкг",
+          "per_tz_unit": "100"
+        },
+        "search_terms": [
+          "rhIL-21",
+          "интерлейкин-21",
+          "цитокины"
+        ]
+      },
+      "status": "insufficient",
+      "levels_used": [
+        1,
+        2
+      ],
+      "included": [
+        {
+          "label": "5.1",
+          "caption": "Производители и дистрибьюторы: rhIL-21, интерлейкин 21 человека, рекомбинантный белок, фасовка 100 мкг, Кат. № PSG260-100",
+          "offer": {
+            "id": "58f4a6050944",
+            "source_id": "web_suppliers",
+            "source_name": "Производители и дистрибьюторы",
+            "level": 1,
+            "url": "http://sci-store.ru/rostovye-faktory-i-citokiny/human-IL-21-recombinant-protein.html",
+            "retrieved_at": "2026-11-14T13:41:44.227469Z",
+            "title": "rhIL-21, интерлейкин 21 человека, рекомбинантный белок, фасовка 100 мкг, Кат. № PSG260-100",
+            "price": "151500.00",
+            "currency": "RUB",
+            "amount": "100",
+            "amount_unit": "мкг",
+            "vat": "unknown",
+            "vat_rate": null,
+            "supplier": null,
+            "supplier_inn": null,
+            "delivery": "unknown",
+            "delivery_cost": null,
+            "delivery_free_from": null,
+            "delivery_note": null,
+            "price_date": null,
+            "characteristics": {
+              "Клеточная линия": "CHO",
+              "Чистота": ">97% по электрофорезу в ПААГ с Coomassie Brilliant Blue",
+              "Уровень эндотоксина": "<0.1 EU на 1 мкг белка LAL-тест"
+            }
+          },
+          "base_price": "151500.00",
+          "vat": {
+            "status": "unknown",
+            "factor": "1",
+            "note": "НДС на странице не указан"
+          },
+          "indexation": {
+            "status": "not_needed",
+            "factor": "1",
+            "note": "Дата цены неизвестна; цена считается текущей"
+          },
+          "delivery": {
+            "status": "unknown",
+            "added_per_unit": "0.00",
+            "note": "Стоимость доставки не указана на странице"
+          },
+          "normalized_price": "151500.00",
+          "comparison": [
+            {
+              "name": "Клеточная линия",
+              "required": "CHO",
+              "offered": "CHO",
+              "essential": true,
+              "ok": true
+            },
+            {
+              "name": "Уровень эндотоксина, LAL-test",
+              "required": "менее 0,1",
+              "offered": "<0.1 EU на 1 мкг белка LAL-тест",
+              "essential": true,
+              "ok": true
+            },
+            {
+              "name": "Чистота, в соответствии с электрофорезом в ПААГ",
+              "required": "более 98",
+              "offered": ">97% по электрофорезу в ПААГ с Coomassie Brilliant Blue",
+              "essential": true,
+              "ok": true
+            },
+            {
+              "name": "Биологическая активность, ED50",
+              "required": "более 0,1 и менее 0,6",
+              "offered": null,
+              "essential": true,
+              "ok": null
+            },
+            {
+              "name": "Общий вес 1 шт.",
+              "required": "не менее 100",
+              "offered": "100 мкг",
+              "essential": true,
+              "ok": true
+            }
+          ],
+          "reason": "Совпадают: Клеточная линия, Уровень эндотоксина, LAL-test, Чистота, в соответствии с электрофорезом в ПААГ, Общий вес 1 шт.",
+          "exclusion": null,
+          "original": null,
+          "user_marks": []
+        }
+      ],
+      "excluded": [
+        {
+          "label": "5.2",
+          "caption": "Производители и дистрибьюторы: rhIL-21, интерлейкин 21 человека, рекомбинантный белок, фасовка 10 мкг, Кат. № PSG260-10",
+          "offer": {
+            "id": "67e70057ae48",
+            "source_id": "web_suppliers",
+            "source_name": "Производители и дистрибьюторы",
+            "level": 1,
+            "url": "http://sci-store.ru/rostovye-faktory-i-citokiny/human-IL-21-recombinant-protein.html",
+            "retrieved_at": "2026-11-14T13:41:44.227469Z",
+            "title": "rhIL-21, интерлейкин 21 человека, рекомбинантный белок, фасовка 10 мкг, Кат. № PSG260-10",
+            "price": "24000.00",
+            "currency": "RUB",
+            "amount": "10",
+            "amount_unit": "мкг",
+            "vat": "unknown",
+            "vat_rate": null,
+            "supplier": null,
+            "supplier_inn": null,
+            "delivery": "unknown",
+            "delivery_cost": null,
+            "delivery_free_from": null,
+            "delivery_note": null,
+            "price_date": null,
+            "characteristics": {
+              "Клеточная линия": "CHO",
+              "Чистота": ">97% по электрофорезу в ПААГ с Coomassie Brilliant Blue",
+              "Уровень эндотоксина": "<0.1 EU на 1 мкг белка LAL-тест"
+            }
+          },
+          "base_price": "240000.00",
+          "vat": {
+            "status": "unknown",
+            "factor": "1",
+            "note": "НДС на странице не указан"
+          },
+          "indexation": {
+            "status": "not_needed",
+            "factor": "1",
+            "note": "Дата цены неизвестна; цена считается текущей"
+          },
+          "delivery": {
+            "status": "unknown",
+            "added_per_unit": "0.00",
+            "note": "Стоимость доставки не указана на странице"
+          },
+          "normalized_price": "240000.00",
+          "comparison": [
+            {
+              "name": "Клеточная линия",
+              "required": "CHO",
+              "offered": "CHO",
+              "essential": true,
+              "ok": true
+            },
+            {
+              "name": "Уровень эндотоксина, LAL-test",
+              "required": "менее 0,1",
+              "offered": "<0.1 EU на 1 мкг белка LAL-тест",
+              "essential": true,
+              "ok": true
+            },
+            {
+              "name": "Чистота, в соответствии с электрофорезом в ПААГ",
+              "required": "более 98",
+              "offered": ">97% по электрофорезу в ПААГ с Coomassie Brilliant Blue",
+              "essential": true,
+              "ok": true
+            },
+            {
+              "name": "Биологическая активность, ED50",
+              "required": "более 0,1 и менее 0,6",
+              "offered": null,
+              "essential": true,
+              "ok": null
+            },
+            {
+              "name": "Общий вес 1 шт.",
+              "required": "не менее 100",
+              "offered": "10 мкг",
+              "essential": true,
+              "ok": false
+            }
+          ],
+          "reason": "Не соответствует: Общий вес 1 шт.",
+          "exclusion": "incomparable",
+          "original": null,
+          "user_marks": []
+        }
+      ],
+      "stats": {
+        "n": 1,
+        "min": "151500.00",
+        "max": "151500.00",
+        "mean": "151500.00",
+        "std": "0.00",
+        "cv": "0.0000",
+        "outlier_rule": "Отклонение от медианы более 50.0 %",
+        "median": "151500.00",
+        "lower_bound": "75750.00",
+        "upper_bound": "227250.00"
+      },
+      "unit_price": null,
+      "reference_price": "151500.00",
+      "total": null,
+      "assumptions": [
+        "Уровень 2 подключён: на уровне 1 найдено 1 цен",
+        "Принято по умолчанию: За одну единицу ТЗ: 100 мкг"
+      ],
+      "spread_hints": [],
+      "skipped_pages": [
+        {
+          "url": "https://www.abmole.cn/products/recombinant-human-il-21.html",
+          "source_id": "web_suppliers",
+          "reason": "Источник недоступен: ошибка сети, таймаут или ограничение запросов"
+        },
+        {
+          "url": "https://www.biocrestsci.com/product/recombinant-human-interleukin-21-il21-protein-bic-8414e/",
+          "source_id": "web_suppliers",
+          "reason": "rhIL-21, Интерлейкин-21 человека, рекомбинантный белок BIC-8414E: цена не указана или не распознана"
+        },
+        {
+          "url": "https://www.komus.ru/katalog/otraslevye-predlozheniya/meditsina/diagnosticheskie-testy/testy-na-virusy-i-zabolevaniya/test-ekspress-onkomarker-rea-rak-tolstoj-kishki-imbian/p/2017210/",
+          "source_id": "web_shops",
+          "reason": "Источник недоступен: ошибка сети, таймаут или ограничение запросов"
+        },
+        {
+          "url": "https://www.komus.ru/katalog/otraslevye-predlozheniya/meditsina/diagnosticheskie-testy/testy-na-virusy-i-zabolevaniya-prochie/test-na-vyyavlenie-prokaltsitonina-ikha-rapid-bio-20-shtuk-v-upakovke-/p/1968281/",
+          "source_id": "web_shops",
+          "reason": "Источник недоступен: ошибка сети, таймаут или ограничение запросов"
+        },
+        {
+          "url": "https://www.komus.ru/trademarks/Rapid+Bio/t/11676/",
+          "source_id": "web_shops",
+          "reason": "Источник недоступен: ошибка сети, таймаут или ограничение запросов"
+        }
+      ],
+      "excluded_by_user": false
+    }
+  ],
+  "sources": [
+    {
+      "source_id": "eis",
+      "name": "ЕИС : реестр контрактов",
+      "level": 1,
+      "position_index": 1,
+      "queries": [
+        "rhTGFbeta1",
+        "трансформирующий фактор роста бета 1",
+        "цитокины"
+      ],
+      "status": "ok",
+      "error": "Не удалось обработать источник: изменился формат страницы или ответа; Источник недоступен: ошибка сети, таймаут или ограничение запросов",
+      "found": 1,
+      "at": "2026-11-14T13:40:46.972897Z"
+    },
+    {
+      "source_id": "web_suppliers",
+      "name": "Производители и дистрибьюторы",
+      "level": 1,
+      "position_index": 1,
+      "queries": [
+        "rhTGFbeta1 Трансформирующий фактор роста бета 1 человека, рекомбинантный белок CHO менее 0,1 более 97 цена производитель дистрибьютор"
+      ],
+      "status": "ok",
+      "error": null,
+      "found": 3,
+      "at": "2026-11-14T13:40:46.974135Z"
+    },
+    {
+      "source_id": "web_shops",
+      "name": "Открытые магазины",
+      "level": 2,
+      "position_index": 1,
+      "queries": [
+        "rhTGFbeta1 Трансформирующий фактор роста бета 1 человека, рекомбинантный белок CHO менее 0,1 более 97 site:komus.ru"
+      ],
+      "status": "unavailable",
+      "error": "Источник недоступен: ошибка сети, таймаут или ограничение запросов",
+      "found": 0,
+      "at": "2026-11-14T13:41:21.201867Z"
+    },
+    {
+      "source_id": "eis",
+      "name": "ЕИС : реестр контрактов",
+      "level": 1,
+      "position_index": 2,
+      "queries": [
+        "rhIL-15",
+        "интерлейкин-15",
+        "цитокины"
+      ],
+      "status": "unavailable",
+      "error": "Источник недоступен: ошибка сети, таймаут или ограничение запросов",
+      "found": 0,
+      "at": "2026-11-14T13:40:46.975302Z"
+    },
+    {
+      "source_id": "web_suppliers",
+      "name": "Производители и дистрибьюторы",
+      "level": 1,
+      "position_index": 2,
+      "queries": [
+        "rhIL-15, Интерлейкин-15 человека, рекомбинантный белок CHO менее 0,1 более 97 цена производитель дистрибьютор"
+      ],
+      "status": "ok",
+      "error": "Источник недоступен: ошибка сети, таймаут или ограничение запросов",
+      "found": 2,
+      "at": "2026-11-14T13:40:46.976608Z"
+    },
+    {
+      "source_id": "web_shops",
+      "name": "Открытые магазины",
+      "level": 2,
+      "position_index": 2,
+      "queries": [
+        "rhIL-15, Интерлейкин-15 человека, рекомбинантный белок CHO менее 0,1 более 97 site:komus.ru"
+      ],
+      "status": "unavailable",
+      "error": "Источник недоступен: ошибка сети, таймаут или ограничение запросов",
+      "found": 0,
+      "at": "2026-11-14T13:41:21.395342Z"
+    },
+    {
+      "source_id": "eis",
+      "name": "ЕИС : реестр контрактов",
+      "level": 1,
+      "position_index": 3,
+      "queries": [
+        "rhIL-7",
+        "интерлейкин-7",
+        "цитокины"
+      ],
+      "status": "ok",
+      "error": "Источник недоступен: ошибка сети, таймаут или ограничение запросов",
+      "found": 1,
+      "at": "2026-11-14T13:40:46.977821Z"
+    },
+    {
+      "source_id": "web_suppliers",
+      "name": "Производители и дистрибьюторы",
+      "level": 1,
+      "position_index": 3,
+      "queries": [
+        "rhIL-7, Интерлейкин-7 человека, рекомбинантный белок CHO менее 0,1 более 97 цена производитель дистрибьютор"
+      ],
+      "status": "ok",
+      "error": null,
+      "found": 3,
+      "at": "2026-11-14T13:40:46.978810Z"
+    },
+    {
+      "source_id": "web_shops",
+      "name": "Открытые магазины",
+      "level": 2,
+      "position_index": 3,
+      "queries": [
+        "rhIL-7, Интерлейкин-7 человека, рекомбинантный белок CHO менее 0,1 более 97 site:komus.ru"
+      ],
+      "status": "unavailable",
+      "error": "Источник недоступен: ошибка сети, таймаут или ограничение запросов",
+      "found": 0,
+      "at": "2026-11-14T13:41:15.222335Z"
+    },
+    {
+      "source_id": "eis",
+      "name": "ЕИС : реестр контрактов",
+      "level": 1,
+      "position_index": 4,
+      "queries": [
+        "rhIL-2",
+        "интерлейкин-2",
+        "цитокины"
+      ],
+      "status": "unavailable",
+      "error": "Источник недоступен: ошибка сети, таймаут или ограничение запросов",
+      "found": 0,
+      "at": "2026-11-14T13:41:28.107378Z"
+    },
+    {
+      "source_id": "web_suppliers",
+      "name": "Производители и дистрибьюторы",
+      "level": 1,
+      "position_index": 4,
+      "queries": [
+        "rhIL-2, Интерлейкин-2 человека, рекомбинантный белок CHO менее 0,1 более 95 цена производитель дистрибьютор"
+      ],
+      "status": "ok",
+      "error": "Источник недоступен: ошибка сети, таймаут или ограничение запросов",
+      "found": 2,
+      "at": "2026-11-14T13:41:28.109819Z"
+    },
+    {
+      "source_id": "web_shops",
+      "name": "Открытые магазины",
+      "level": 2,
+      "position_index": 4,
+      "queries": [
+        "rhIL-2, Интерлейкин-2 человека, рекомбинантный белок CHO менее 0,1 более 95 site:komus.ru"
+      ],
+      "status": "unavailable",
+      "error": "Источник недоступен: ошибка сети, таймаут или ограничение запросов",
+      "found": 0,
+      "at": "2026-11-14T13:41:43.018382Z"
+    },
+    {
+      "source_id": "eis",
+      "name": "ЕИС : реестр контрактов",
+      "level": 1,
+      "position_index": 5,
+      "queries": [
+        "rhIL-21",
+        "интерлейкин-21",
+        "цитокины"
+      ],
+      "status": "unavailable",
+      "error": "Источник недоступен: ошибка сети, таймаут или ограничение запросов",
+      "found": 0,
+      "at": "2026-11-14T13:41:33.345905Z"
+    },
+    {
+      "source_id": "web_suppliers",
+      "name": "Производители и дистрибьюторы",
+      "level": 1,
+      "position_index": 5,
+      "queries": [
+        "rhIL-21, Интерлейкин-21 человека, рекомбинантный белок CHO менее 0,1 более 98 цена производитель дистрибьютор"
+      ],
+      "status": "ok",
+      "error": "Источник недоступен: ошибка сети, таймаут или ограничение запросов",
+      "found": 2,
+      "at": "2026-11-14T13:41:33.347111Z"
+    },
+    {
+      "source_id": "web_shops",
+      "name": "Открытые магазины",
+      "level": 2,
+      "position_index": 5,
+      "queries": [
+        "rhIL-21, Интерлейкин-21 человека, рекомбинантный белок CHO менее 0,1 более 98 site:komus.ru"
+      ],
+      "status": "unavailable",
+      "error": "Источник недоступен: ошибка сети, таймаут или ограничение запросов",
+      "found": 0,
+      "at": "2026-11-14T13:41:55.237693Z"
+    }
+  ],
+  "questions": [
+    {
+      "id": "q1-1",
+      "position_index": 1,
+      "text": "Какую массу или объём принять за одну единицу ТЗ при сравнении цен?",
+      "hint": "Фасовки поставщиков могут отличаться от массы или объёма в одной штуке ТЗ.",
+      "options": [
+        "За одну единицу ТЗ: 10 мкг",
+        "Уточнить фасовку одной единицы ТЗ"
+      ],
+      "default_answer": "За одну единицу ТЗ: 10 мкг",
+      "answer": null
+    },
+    {
+      "id": "q2-1",
+      "position_index": 2,
+      "text": "Какую массу или объём принять за одну единицу ТЗ при сравнении цен?",
+      "hint": "Фасовки поставщиков могут отличаться от массы или объёма в одной штуке ТЗ.",
+      "options": [
+        "За одну единицу ТЗ: 10 мкг",
+        "Уточнить фасовку одной единицы ТЗ"
+      ],
+      "default_answer": "За одну единицу ТЗ: 10 мкг",
+      "answer": null
+    },
+    {
+      "id": "q3-1",
+      "position_index": 3,
+      "text": "Какую массу или объём принять за одну единицу ТЗ при сравнении цен?",
+      "hint": "Фасовки поставщиков могут отличаться от массы или объёма в одной штуке ТЗ.",
+      "options": [
+        "За одну единицу ТЗ: 10 мкг",
+        "Уточнить фасовку одной единицы ТЗ"
+      ],
+      "default_answer": "За одну единицу ТЗ: 10 мкг",
+      "answer": null
+    },
+    {
+      "id": "q4-1",
+      "position_index": 4,
+      "text": "Какую массу или объём принять за одну единицу ТЗ при сравнении цен?",
+      "hint": "Фасовки поставщиков могут отличаться от массы или объёма в одной штуке ТЗ.",
+      "options": [
+        "За одну единицу ТЗ: 100 мкг",
+        "Уточнить фасовку одной единицы ТЗ"
+      ],
+      "default_answer": "За одну единицу ТЗ: 100 мкг",
+      "answer": null
+    },
+    {
+      "id": "q5-1",
+      "position_index": 5,
+      "text": "Какую массу или объём принять за одну единицу ТЗ при сравнении цен?",
+      "hint": "Фасовки поставщиков могут отличаться от массы или объёма в одной штуке ТЗ.",
+      "options": [
+        "За одну единицу ТЗ: 100 мкг",
+        "Уточнить фасовку одной единицы ТЗ"
+      ],
+      "default_answer": "За одну единицу ТЗ: 100 мкг",
+      "answer": null
+    }
+  ],
+  "delivery_terms": "в течение 7 (Семи) рабочих дней с даты подписания Договора",
+  "delivery_extras": [
+    "доставка входит в стоимость договора",
+    "доставка по адресу: Московская область, г. Долгопрудный, Институтский переулок, д. 9, стр. 7, ком. 017"
+  ],
+  "total": null,
+  "total_justified": null,
+  "warnings": [
+    "Позиция 1 «rhTGFbeta1 Трансформирующий фактор роста бета 1 человека, рекомбинантный белок»: найдено 0 цен, обоснование недостаточно",
+    "Позиция 2 «rhIL-15, Интерлейкин-15 человека, рекомбинантный белок»: найдено 0 цен, обоснование недостаточно",
+    "Позиция 3 «rhIL-7, Интерлейкин-7 человека, рекомбинантный белок»: найдено 1 цен, обоснование недостаточно",
+    "Позиция 3 «rhIL-7, Интерлейкин-7 человека, рекомбинантный белок»: НДС не подтверждён у 1 из 1 предложений : цена может быть занижена",
+    "Позиция 3 «rhIL-7, Интерлейкин-7 человека, рекомбинантный белок»: доставка не подтверждена у 1 из 1 предложений : цена может быть занижена",
+    "Позиция 4 «rhIL-2, Интерлейкин-2 человека, рекомбинантный белок»: найдено 1 цен, обоснование недостаточно",
+    "Позиция 4 «rhIL-2, Интерлейкин-2 человека, рекомбинантный белок»: доставка не подтверждена у 1 из 1 предложений : цена может быть занижена",
+    "Позиция 5 «rhIL-21, Интерлейкин-21 человека, рекомбинантный белок»: найдено 1 цен, обоснование недостаточно",
+    "Позиция 5 «rhIL-21, Интерлейкин-21 человека, рекомбинантный белок»: НДС не подтверждён у 1 из 1 предложений : цена может быть занижена",
+    "Позиция 5 «rhIL-21, Интерлейкин-21 человека, рекомбинантный белок»: доставка не подтверждена у 1 из 1 предложений : цена может быть занижена",
+    "Источник «ЕИС : реестр контрактов», позиция 1: Не удалось обработать источник: изменился формат страницы или ответа; Источник недоступен: ошибка сети, таймаут или ограничение запросов",
+    "Источник «Открытые магазины», позиция 1: Источник недоступен: ошибка сети, таймаут или ограничение запросов",
+    "Источник «ЕИС : реестр контрактов», позиция 2: Источник недоступен: ошибка сети, таймаут или ограничение запросов",
+    "Источник «Производители и дистрибьюторы», позиция 2: Источник недоступен: ошибка сети, таймаут или ограничение запросов",
+    "Источник «Открытые магазины», позиция 2: Источник недоступен: ошибка сети, таймаут или ограничение запросов",
+    "Источник «ЕИС : реестр контрактов», позиция 3: Источник недоступен: ошибка сети, таймаут или ограничение запросов",
+    "Источник «Открытые магазины», позиция 3: Источник недоступен: ошибка сети, таймаут или ограничение запросов",
+    "Источник «ЕИС : реестр контрактов», позиция 4: Источник недоступен: ошибка сети, таймаут или ограничение запросов",
+    "Источник «Производители и дистрибьюторы», позиция 4: Источник недоступен: ошибка сети, таймаут или ограничение запросов",
+    "Источник «Открытые магазины», позиция 4: Источник недоступен: ошибка сети, таймаут или ограничение запросов",
+    "Источник «ЕИС : реестр контрактов», позиция 5: Источник недоступен: ошибка сети, таймаут или ограничение запросов",
+    "Источник «Производители и дистрибьюторы», позиция 5: Источник недоступен: ошибка сети, таймаут или ограничение запросов",
+    "Источник «Открытые магазины», позиция 5: Источник недоступен: ошибка сети, таймаут или ограничение запросов",
+    "Требования ТЗ при поставке (доставка входит в стоимость договора, доставка по адресу: Московская область, г. Долгопрудный, Институтский переулок, д. 9, стр. 7, ком. 017) в найденных ценах не отражены"
+  ],
+  "edits": [],
+  "rules": {
+    "min_prices": 3,
+    "cv_threshold": "0.33",
+    "iqr_k": "1.5",
+    "iqr_min_n": 5,
+    "median_max_deviation": "0.5",
+    "level2_trigger_min_prices": 3,
+    "level2_on_heterogeneous": true,
+    "vat_rate": "0.22",
+    "indexation_enabled": true,
+    "index_after_months": 6,
+    "spread_hint_min_gap": "0.15",
+    "marketplace_hosts": [
+      "market.yandex.ru",
+      "ozon.ru",
+      "wildberries.ru"
+    ],
+    "methodology_note": "Метод сопоставимых рыночных цен (анализа рынка). Формулы : по аналогии с Методическими рекомендациями, утверждёнными приказом Минэкономразвития России от 02.10.2013 № 567; для закупок по 44-ФЗ рекомендации применяются с учётом действующего законодательства, для закупок по 223-ФЗ : положения о закупке заказчика.",
+    "eis_years": 3,
+    "max_pages_per_source": 3,
+    "page_text_limit": 15000
+  },
+  "local_settings": []
+}

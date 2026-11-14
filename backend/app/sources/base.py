@@ -43,9 +43,11 @@ class SourceAdapter(Protocol):
 
 
 def source_error(exc: Exception) -> tuple[str, str]:
-    from app.llm.client import LLMError
+    from app.llm.client import LLMAuthError, LLMError
     from app.sources.fetch import NeedsLogin
 
+    if isinstance(exc, LLMAuthError):
+        raise exc
     if isinstance(exc, NeedsLogin):
         return "needs_login", "Источник требует входа или проверки капчи"
     if isinstance(exc, httpx.RequestError) or (

@@ -6,7 +6,7 @@ from uuid import uuid4
 
 from app.config import CalculationSnapshot, policy_for
 from app.events import Emit, Event, noop_emit
-from app.llm.client import LLM, LLMError
+from app.llm.client import LLM, LLMAuthError, LLMError
 from app.models import (
     CharComparison,
     DomainModel,
@@ -23,6 +23,7 @@ from app.pipeline.extract import extract_offers
 from app.pipeline.match import compare
 from app.pipeline.report import build_position, build_report, effective_position
 from app.sources.base import SourceAdapter, SourceResult, source_error
+from app.tasks import gather_cancel
 
 
 class ResearchResult(DomainModel):
@@ -91,7 +92,7 @@ async def research_position(
             )
         )
         sources = adapters.get(number, [])
-        results = await asyncio.gather(*(search(a) for a in sources))
+        results = await gather_cancel(*(search(a) for a in sources))
         for adapter, result in zip(sources, results, strict=True):
             run.sources.append(result.run)
             run.skipped_pages.extend(result.skipped)
@@ -121,6 +122,8 @@ async def research_position(
                 for offer in offers:
                     try:
                         comparison = await compare(llm, position, offer)
+                    except LLMAuthError:
+                        raise
                     except LLMError as exc:
                         comparison = [
                             CharComparison(
@@ -185,7 +188,7 @@ async def run_research(
                 position, adapters, llm, snapshot, emit, procurement_id=procurement_id, edits=edits
             )
 
-    runs = await asyncio.gather(*(one(p) for p in parsed.positions))
+    runs = await gather_cancel(*(one(p) for p in parsed.positions))
     report = build_report(
         snapshot,
         parsed,
