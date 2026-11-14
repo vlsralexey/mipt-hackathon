@@ -24,7 +24,7 @@ function infinity(x: number, y: number, s = 1) {
 
 function LeftDoodles() {
   return (
-    <svg className={`${styles.cluster} ${styles.left}`} viewBox="0 0 380 290" aria-hidden="true">
+    <svg className={`${styles.cluster} ${styles.left}`} viewBox="0 0 380 390" aria-hidden="true">
       {/* Молекула: кольцо из шести атомов и боковые цепочки */}
       <path d="M 58 80 L 98 58 L 136 82 L 134 124 L 94 146 L 56 122 Z" />
       <path d="M 98 58 L 102 20 M 136 82 L 176 72 M 134 124 L 160 158 M 56 122 L 24 142 M 58 80 L 24 62" />
@@ -55,6 +55,16 @@ function LeftDoodles() {
       <circle cx="32" cy="276" r="5" className={styles.solid} />
       <circle cx="196" cy="266" r="4" className={styles.solid} />
       <circle cx="352" cy="122" r="3.5" className={styles.solid} />
+
+      {/* Теорема Пифагора внизу: левая группа заканчивается на той же высоте, что правая */}
+      <text x="40" y="350" transform="rotate(-5 40 350)">
+        a<tspan dy="-16" className={styles.sup}>2</tspan>
+        <tspan dy="16"> + b</tspan>
+        <tspan dy="-16" className={styles.sup}>2</tspan>
+        <tspan dy="16"> = c</tspan>
+        <tspan dy="-16" className={styles.sup}>2</tspan>
+      </text>
+      <circle cx="262" cy="372" r="4" className={styles.solid} />
     </svg>
   )
 }
