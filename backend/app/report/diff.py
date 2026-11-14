@@ -2,6 +2,7 @@
 
 from app.models import Change, OfferMove, PositionChange, Report, RuleChange, VersionDiff
 from app.p1.configuration_helpers import TITLES, display
+from app.presentation import public_text
 
 
 def version_diff(before: Report | None, after: Report) -> VersionDiff:
@@ -59,6 +60,6 @@ def version_diff(before: Report | None, after: Report) -> VersionDiff:
                 after=display(key, value),
             )
             for key, value in after.rules.items()
-            if before is not None and before.rules.get(key) != value
+            if before is not None and public_text(before.rules.get(key)) != public_text(value)
         ],
     )

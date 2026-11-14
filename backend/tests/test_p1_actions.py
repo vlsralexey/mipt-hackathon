@@ -392,3 +392,21 @@ async def test_filter_and_rule_warnings_and_mass_include_explanation(tmp_path, m
         await accept.commit()
         with pytest.raises(ActionError, match="условием или настройкой"):
             await Turn(service, pid, None, {}).include("o0", "верни")
+
+
+async def test_punctuation_roundtrip_does_not_create_false_methodology_diff(tmp_path, monkeypatch):
+    async with api(tmp_path, monkeypatch) as (client, service, llm, _):
+        pid = await ready(client, service)
+        _, proposal = await proposal_turn(service, llm, pid)
+        assert proposal["diff"]["rules_changed"] == []
+        turn = Turn(service, pid, None, {})
+        await turn.exclude("o0", "б/у", "other")
+        await turn.commit()
+        card = [
+            message for message in service.repo.list_messages(pid) if message.kind == "version"
+        ][-1]
+        assert card.data.diff.rules_changed == []
+        assert (
+            service.repo.get_report(pid).rules["methodology_note"]
+            == service.repo.get_report(pid, 1).rules["methodology_note"]
+        )
