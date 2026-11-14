@@ -1,6 +1,8 @@
 """Разница версий: числа и перемещения строк определяет код."""
 
-from app.models import Change, OfferMove, PositionChange, Report, VersionDiff
+from app.models import Change, OfferMove, PositionChange, Report, RuleChange, VersionDiff
+from app.p1.configuration_helpers import TITLES, display
+from app.presentation import public_text
 
 
 def version_diff(before: Report | None, after: Report) -> VersionDiff:
@@ -50,4 +52,14 @@ def version_diff(before: Report | None, after: Report) -> VersionDiff:
         offers_moved=moved,
         edits_added=sorted(new_ids - old_ids),
         edits_cancelled=sorted(old_ids - new_ids),
+        rules_changed=[
+            RuleChange(
+                key=key,
+                title=TITLES.get(key, key),
+                before=display(key, (before.rules if before else {}).get(key)),
+                after=display(key, value),
+            )
+            for key, value in after.rules.items()
+            if before is not None and public_text(before.rules.get(key)) != public_text(value)
+        ],
     )

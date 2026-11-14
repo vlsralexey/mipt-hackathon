@@ -1,5 +1,9 @@
 import type {
   ApiErrorBody,
+  Config,
+  ConfigChange,
+  LocalSettings,
+  VersionDiff,
   Edit,
   Message,
   OpenRouterModel,
@@ -56,6 +60,18 @@ export interface NewProcurementInput {
 }
 
 export const api = {
+  checkSettings: () => request<{ ok: boolean; detail: string | null }>('/settings/check', json('POST', {})),
+  getConfig: () => request<Config>('/config'),
+  getConfigChanges: () => request<ConfigChange[]>('/config/changes'),
+  getConfigMessages: () => request<Message[]>('/config/messages'),
+  sendConfigMessage: (text: string) => request<Message>('/config/messages', json('POST', { text })),
+  resolveConfigProposal: (id: string, action: 'apply' | 'reject') => request<unknown>(`/config/proposals/${id}/${action}`, json('POST', {})),
+  cancelConfigChange: (id: string) => request<unknown>(`/config/changes/${id}/cancel`, json('POST', {})),
+  getLocalSettings: (id: string) => request<LocalSettings>(`/procurements/${id}/settings`),
+  rebaseSettings: (id: string) => request<unknown>(`/procurements/${id}/settings/rebase`, json('POST', {})),
+  resolveProposal: (pid: string, id: string, action: 'apply' | 'reject') => request<unknown>(`/procurements/${pid}/proposals/${id}/${action}`, json('POST', {})),
+  skipSource: (pid: string, source: string) => request<unknown>(`/procurements/${pid}/sources/${source}/skip`, json('POST', {})),
+  getVersionDiff: (id: string, a: number, b: number) => request<VersionDiff>(`/procurements/${id}/reports/${a}/diff/${b}`),
   getSettings: () => request<Settings>('/settings'),
   listModels: () => request<OpenRouterModel[]>('/settings/models'),
   putSettings: (patch: { openrouter_api_key?: string; model?: string }) =>

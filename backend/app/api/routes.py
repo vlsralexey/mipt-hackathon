@@ -147,7 +147,8 @@ async def answer(pid: str, qid: str, body: AnswerInput, service: Dep):
     state = service.require(pid)
     if state["parsed"] is None or qid not in {q.id for q in state["parsed"].questions}:
         raise ActionError("Вопрос не найден", 404)
-    service.require_key()
+    if not service.deterministic_answer(pid, qid, body.answer.strip()):
+        service.require_key()
     await service.enqueue(pid, "answer", {"question_id": qid, "answer": body.answer.strip()})
     return {}
 

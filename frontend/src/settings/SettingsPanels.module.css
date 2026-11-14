@@ -1,0 +1,22 @@
+.section { padding: 20px; }
+.section h2 { font-size: var(--t-lg); margin: 0 0 8px; }
+.section h3 { font-size: var(--t-md); margin: 24px 0 12px; }
+.section p { margin: 8px 0; font-size: var(--t-sm); color: var(--muted); max-width: 70ch; }
+.section button { padding: 7px 12px; border: 1px solid var(--line-strong); border-radius: var(--r-sm); background: var(--raised); font-size: var(--t-sm); }
+.section button:hover:not(:disabled) { border-color: var(--accent); }
+.section button:disabled { opacity: .5; cursor: default; }
+.values { margin: 0; }
+.values > div { display: grid; grid-template-columns: minmax(100px, 1fr) minmax(120px, 1fr); gap: 16px; padding: 12px 0; border-bottom: 1px solid var(--line); font-size: var(--t-sm); }
+.values dt { font-weight: 500; }
+.values dd { margin: 0; overflow-wrap: anywhere; }
+.values small { display: block; color: var(--muted); margin: 4px 0; }
+.warning { background: var(--warn-wash); padding: 12px; border-radius: var(--r-sm); }
+.warning h3 { margin-top: 0; }
+.error, .section .error { color: var(--cut); }
+.chat { display: grid; gap: 16px; padding: 12px 0; }
+.message { font-size: var(--t-sm); }
+.user { padding: 10px 14px; background: var(--second); border-radius: var(--r-md); }
+.history { list-style: none; padding: 0; }
+.history li { padding: 14px 0; border-bottom: 1px solid var(--line); font-size: var(--t-sm); }
+.history time { display: block; color: var(--muted); font-size: var(--t-xs); }
+.history button { margin-top: 8px; }

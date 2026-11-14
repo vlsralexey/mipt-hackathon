@@ -15,10 +15,11 @@ interface ChatProps {
   /** Версия, открытая в панели отчёта: по ней агент понимает, о какой таблице речь. */
   viewingVersion: number | null
   onOpenVersion: (version: number) => void
+  onOpenBrowser?: () => void
 }
 
 /** Чат с агентом: история, ответы по SSE, всплывающие вопросы и поле ввода. */
-export function Chat({ procurement, viewingVersion, onOpenVersion }: ChatProps) {
+export function Chat({ procurement, viewingVersion, onOpenVersion, onOpenBrowser }: ChatProps) {
   const { id } = procurement
   useProcurementEvents(id)
   const queryClient = useQueryClient()
@@ -62,7 +63,13 @@ export function Chat({ procurement, viewingVersion, onOpenVersion }: ChatProps) 
   }
 
   return (
-    <ChatContext.Provider value={{ procurementId: id, openVersion: onOpenVersion }}>
+    <ChatContext.Provider value={{
+      procurementId: id,
+      openVersion: onOpenVersion,
+      openBrowser: onOpenBrowser,
+      questions: procurement.messages.flatMap((m) => m.kind === 'question' ? [m.data] : []),
+      positions: procurement.messages.flatMap((m) => m.kind === 'tz_summary' ? m.data.positions : []),
+    }}>
       <Thread messages={procurement.messages} hiddenIds={hiddenIds} agentBusy={procurement.agent_busy} />
       <div className={styles.composer}>
         {popup && popup.kind === 'question' && (
@@ -72,7 +79,10 @@ export function Chat({ procurement, viewingVersion, onOpenVersion }: ChatProps) 
               key={popup.id}
               question={popup.data}
               onClose={() => markHandled(popup.id)}
-              onAnswered={() => markHandled(popup.id)}
+              onAnswered={(ids) => setHandled((prev) => new Set([
+                ...prev,
+                ...procurement.messages.filter((m) => m.kind === 'question' && ids.includes(m.data.id)).map((m) => m.id),
+              ]))}
             />
           </div>
         )}

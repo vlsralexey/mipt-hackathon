@@ -34,6 +34,7 @@ export function VersionCard({ data }: { data: VersionCardData }) {
           <b>Версия {data.version}</b>
           {diff.from_version !== null && <span className={styles.versionCause}>{data.cause}</span>}
         </div>
+        <div className={styles.versionActions}>
         <button type="button" className={`${styles.btn} ${styles.ghost}`} onClick={() => openVersion(data.version)}>
           Открыть
         </button>
@@ -42,13 +43,16 @@ export function VersionCard({ data }: { data: VersionCardData }) {
             type="button"
             className={`${styles.btn} ${styles.ghost}`}
             disabled={cancel.isPending}
+            title="Отменить изменения, внесённые этой версией. Отчёт пересчитается в новой версии."
             onClick={() => cancel.mutate()}
           >
-            Отменить
+            {cancel.isPending ? 'Отмена правок…' : 'Отменить правки версии'}
           </button>
         )}
+        </div>
       </div>
 
+      {data.cancellable && <p className={styles.hint}>Отмена убирает правки этой версии и создаёт новый отчёт. История сохранится.</p>}
       <ul className={styles.lines}>
         {!empty(diff.total) && (
           <li>

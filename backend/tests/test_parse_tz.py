@@ -80,9 +80,60 @@ async def test_missing_brand_question_is_added_without_weakening_requirement():
     assert parsed.positions[0].characteristics[0].essential
 
 
+async def test_repeated_sveto_copy_analog_questions_are_one_decision():
+    pos = paper_position(
+        characteristics=[{"name": "Товарный знак", "value": "SvetoCopy", "essential": True}]
+    )
+    parsed = await parse_tz(
+        FakeLLM(
+            [
+                raw_tz(
+                    positions=[pos.model_dump(mode="json")],
+                    questions=[
+                        question(text="Допускается ли замена бумаги SvetoCopy на аналоги?"),
+                        question(text="Учитывать эквиваленты SvetoCopy?"),
+                        question(text="Какая фасовка?"),
+                    ],
+                )
+            ]
+        ),
+        "ТЗ",
+    )
+    assert [q.id for q in parsed.questions] == ["q1-1", "q1-2"]
+    assert parsed.questions[1].text == "Какая фасовка?"
+    llm = FakeLLM()
+    result = await apply_answer(llm, pos, parsed.questions[0], "Да")
+    assert not result.characteristics[0].essential and not llm.calls
+
+
 async def test_mass_inside_piece_has_question_even_if_model_omits_it():
     pos = paper_position(name="Реагент", unit="шт", basis={"unit": "мкг", "per_tz_unit": "10"})
     parsed = await parse_tz(FakeLLM([raw_tz(positions=[pos.model_dump(mode="json")])]), "ТЗ")
     assert len(parsed.questions) == 1
     assert "10 мкг" in parsed.questions[0].default_answer
     assert parsed.positions[0].basis.per_tz_unit == 10
+
+
+async def test_standard_printer_analog_button_does_not_call_model():
+    from app.models import Question
+
+    pos = paper_position(
+        characteristics=[
+            {"name": "Модель", "value": "D600 PRO", "essential": True},
+            {"name": "Высота печати", "value": "600", "unit": "мм", "essential": True},
+        ]
+    )
+    q = Question(
+        id="q1",
+        position_index=1,
+        text="Учитывать аналоги D600 PRO?",
+        options=["Нет, только D600 PRO", "Да, учитывать аналоги"],
+        default_answer="Нет, только D600 PRO",
+    )
+    llm = FakeLLM()
+    result = await apply_answer(llm, pos, q, "Да, учитывать аналоги")
+    assert not result.characteristics[0].essential
+    assert result.characteristics[1].essential and pos.characteristics[0].essential
+    assert not llm.calls
+    default = await apply_answer(llm, pos, q, q.default_answer)
+    assert default == pos and default is not pos and not llm.calls

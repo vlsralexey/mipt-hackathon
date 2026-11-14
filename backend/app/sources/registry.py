@@ -11,6 +11,7 @@ def build_adapters(
     search: WebSearch,
     http: httpx.AsyncClient,
     local_settings: dict[str, dict] | None = None,
+    fetcher=None,
 ) -> dict[int, list[SourceAdapter]]:
     """Локальные enabled/sites накладываются на копии общего конфига."""
     result: dict[int, list[SourceAdapter]] = {1: [], 2: []}
@@ -31,6 +32,10 @@ def build_adapters(
             data["params"]["sites"] = sites
         cfg = SourceConfig.model_validate(data)
         if cfg.enabled:
-            adapter = EisSource(cfg, http) if cfg.type == "eis" else WebSource(cfg, search, http)
+            adapter = (
+                EisSource(cfg, http)
+                if cfg.type == "eis"
+                else WebSource(cfg, search, http, fetcher=fetcher)
+            )
             result[cfg.level].append(adapter)
     return result

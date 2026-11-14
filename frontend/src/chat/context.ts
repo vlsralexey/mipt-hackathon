@@ -1,7 +1,11 @@
 import { createContext, useContext } from 'react'
+import type { Question } from '../api/types'
 
 interface ChatContextValue {
   procurementId: string
+  questions?: Question[]
+  positions?: { index: number; name: string }[]
+  openBrowser?: () => void
   /** Открыть версию отчёта в правой панели. */
   openVersion: (version: number) => void
 }

@@ -43,11 +43,14 @@ class SourceAdapter(Protocol):
 
 
 def source_error(exc: Exception) -> tuple[str, str]:
+    from app.browser.manager import SourceSkipped
     from app.llm.client import LLMAuthError, LLMError
     from app.sources.fetch import NeedsLogin
 
     if isinstance(exc, LLMAuthError):
         raise exc
+    if isinstance(exc, SourceSkipped):
+        return "skipped", str(exc)
     if isinstance(exc, NeedsLogin):
         return "needs_login", "Источник требует входа или проверки капчи"
     if isinstance(exc, httpx.RequestError) or (
@@ -56,7 +59,7 @@ def source_error(exc: Exception) -> tuple[str, str]:
     ):
         return "unavailable", "Источник недоступен: ошибка сети, таймаут или ограничение запросов"
     if isinstance(exc, httpx.HTTPStatusError) and exc.response.status_code in (401, 403):
-        return "needs_login", "Источник ограничил доступ к странице"
+        return "unavailable", "Источник ограничил доступ к странице"
     if isinstance(exc, LLMError):
         return "error", str(exc)
     return "error", "Не удалось обработать источник: изменился формат страницы или ответа"

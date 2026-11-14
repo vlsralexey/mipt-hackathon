@@ -1,3 +1,8 @@
+import { useMutation, useQueryClient } from '@tanstack/react-query'
+import { api } from '../../api/client'
+import { DiffSummary } from '../../report/DiffSummary'
+import { useChat } from '../context'
+import { procurementKey } from '../useProcurementEvents'
 import { Link } from 'react-router'
 import type { ErrorData, Proposal, SourceBlocked } from '../../api/types'
 import { Icon } from '../../components/Icon'
@@ -18,21 +23,39 @@ export function ErrorCard({ text, data }: { text: string | null; data: ErrorData
   )
 }
 
-/** Заготовка P1: карточка подтверждения без кнопок. Кнопки — этап 7. */
+/** Предварительный расчёт применяется только явным действием пользователя. */
+export function ProposalActions({ text, data, resolve, showVersion = true }: { text: string | null; data: Proposal; showVersion?: boolean; resolve: (action: 'apply' | 'reject') => Promise<unknown> }) {
+  const action = useMutation({ mutationFn: (value: 'apply' | 'reject') => resolve(value) })
+  return <div className={styles.ask}>
+    <div className={styles.q}>{text ?? data.text}</div>
+    <DiffSummary diff={data.diff} showVersion={showVersion} />
+    {data.status === 'pending' && !action.isSuccess ? <div className={styles.actions}>
+      <button type="button" className={styles.btn} disabled={action.isPending} onClick={() => action.mutate('apply')}>{action.isPending && action.variables === 'apply' ? 'Применяем…' : 'Применить изменения'}</button>
+      <button type="button" className={styles.btn} disabled={action.isPending} onClick={() => action.mutate('reject')}>Отклонить</button>
+    </div> : <p className={styles.hint} role="status">{data.status === 'expired' ? 'Предложение устарело. Попросите агента подготовить новое.' : data.status === 'rejected' || action.variables === 'reject' ? 'Предложение отклонено' : 'Изменения приняты'}</p>}
+    {action.isError && <p className={styles.error} role="alert">{action.error.message}</p>}
+  </div>
+}
 export function ProposalCard({ text, data }: { text: string | null; data: Proposal }) {
-  return (
-    <div className={styles.ask}>
-      <div className={styles.q}>{text ?? data.text}</div>
-    </div>
-  )
+  const { procurementId } = useChat()
+  const client = useQueryClient()
+  return <ProposalActions text={text} data={data} resolve={async (action) => {
+    const result = await api.resolveProposal(procurementId, data.id, action)
+    await client.invalidateQueries({ queryKey: procurementKey(procurementId) })
+    return result
+  }} />
 }
 
-/** Заготовка P1: источнику нужна капча или вход. Кнопки и браузер — этап 7. */
 export function SourceBlockedCard({ text, data }: { text: string | null; data: SourceBlocked }) {
-  return (
-    <div className={styles.note}>
-      <Icon name="alert" />
-      <p>{text ?? `${data.name} просит подтвердить, что вы не робот.`}</p>
-    </div>
-  )
+  const { procurementId, openBrowser } = useChat()
+  const skip = useMutation({ mutationFn: () => api.skipSource(procurementId, data.source_id) })
+  return <div className={styles.note}>
+    <Icon name="alert" />
+    <p>{text ?? `${data.name} просит ${data.reason === 'login' ? 'войти на сайт' : 'подтвердить, что вы не робот'}.`}</p>
+    {data.status === 'waiting' && !skip.isSuccess ? <div className={styles.actions}>
+      <button type="button" className={styles.btn} onClick={() => openBrowser?.()}>Открыть браузер</button>
+      <button type="button" className={styles.btn} disabled={skip.isPending} onClick={() => skip.mutate()}>{skip.isPending ? 'Пропускаем…' : 'Пропустить источник'}</button>
+    </div> : <p className={styles.hint}>{data.status === 'resolved' ? 'Проверка пройдена' : 'Источник пропущен'}</p>}
+    {skip.isError && <p className={styles.error} role="alert">{skip.error.message}</p>}
+  </div>
 }

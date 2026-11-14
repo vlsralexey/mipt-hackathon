@@ -185,3 +185,10 @@
 @media (prefers-reduced-motion: reduce) {
   .moreChev, .howChev, .docx { transition: none; }
 }
+.diffSummary { font-size: var(--t-sm); color: var(--muted); }
+.diffSummary p { margin: 6px 0; }
+.comparison { padding: 12px 20px; border-bottom: 1px solid var(--line); font-size: var(--t-sm); }
+.comparison summary { cursor: pointer; color: var(--accent-ink); }
+.compareControls { display: flex; flex-wrap: wrap; gap: 16px; padding: 12px 0; }
+.compareControls label { display: flex; gap: 8px; align-items: center; }
+.compareControls select { padding: 6px; border: 1px solid var(--line-strong); border-radius: var(--r-sm); background: var(--raised); font: inherit; }

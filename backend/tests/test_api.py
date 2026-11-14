@@ -6,13 +6,67 @@ from fakes import FakeLLM, paper_position
 from httpx import ASGITransport, AsyncClient
 from test_research import stored
 
-from app.api.models import Procurement
+from app.api.models import Procurement, QuestionMessage
 from app.api.routes import event_stream
 from app.config import Settings
 from app.events import Event
 from app.llm.client import LLMAuthError
 from app.main import create_app
 from app.models import ParsedTZ
+from app.store.repo import new_id, now
+
+
+async def test_answer_closes_legacy_duplicate_questions_and_cancel_restores_them(
+    tmp_path, monkeypatch
+):
+    position = paper_position(
+        characteristics=[{"name": "Товарный знак", "value": "SvetoCopy", "essential": True}]
+    )
+    raw = {
+        "title": "Бумага",
+        "positions": [position.model_dump(mode="json")],
+        "questions": [
+            {
+                "position_index": 1,
+                "text": "Допускается ли замена бумаги SvetoCopy на аналоги?",
+                "options": ["Нет, только SvetoCopy", "Да"],
+                "default_answer": "Нет, только SvetoCopy",
+            }
+        ],
+    }
+    async with api(tmp_path, monkeypatch, llm=FakeLLM([raw])) as (client, service, llm, _):
+        pid = await ready(client, service)
+        # Имитируем закупку, сохранённую до исправления дедупликации вопросов.
+        parsed = service.require(pid)["parsed"]
+        duplicate = parsed.questions[0].model_copy(
+            update={"id": "q1-2", "text": "Учитывать эквиваленты SvetoCopy?"}
+        )
+        parsed.questions.append(duplicate)
+        service.repo.update(pid, parsed_json=parsed.model_dump_json())
+        await service.message(
+            pid, QuestionMessage(id=new_id("m"), role="agent", created_at=now(), data=duplicate)
+        )
+        response = await client.post(
+            f"/api/procurements/{pid}/questions/q1-1/answer", json={"answer": "Да"}
+        )
+        assert response.status_code == 202
+        await idle(service, pid)
+        messages = [m for m in service.repo.list_messages(pid) if m.kind == "question"]
+        assert len(messages) == 2 and all(m.data.answer == "Да" for m in messages)
+        report = service.repo.get_report(pid)
+        assert all(q.answer == "Да" for q in report.questions)
+        assert not report.positions[0].position.characteristics[0].essential
+        assert len(llm.calls) == 1  # Разбор ТЗ; ответ кнопкой без нового LLM-запроса.
+        edit_ids = [e.id for e in service.repo.edits(pid) if e.status == "active"]
+        response = await client.post(
+            f"/api/procurements/{pid}/edits/cancel", json={"edit_ids": edit_ids}
+        )
+        assert response.status_code == 202
+        await idle(service, pid)
+        assert all(q.answer is None for q in service.repo.get_report(pid).questions)
+        assert all(
+            m.data.answer is None for m in service.repo.list_messages(pid) if m.kind == "question"
+        )
 
 
 def call(name, **args):

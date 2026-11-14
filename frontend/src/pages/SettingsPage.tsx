@@ -1,5 +1,6 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { useEffect, useState, type FormEvent } from 'react'
+import { GlobalSettingsPanel } from '../settings/GlobalSettingsPanel'
 import { api } from '../api/client'
 import type { Settings } from '../api/types'
 import { Icon } from '../components/Icon'
@@ -9,6 +10,7 @@ import styles from './SettingsPage.module.css'
 /** Ключ и модель сохраняются на сервере; сохранённый ключ никогда не загружается в форму. */
 export function SettingsPage() {
   const goBack = useGoBack()
+  const [showConfig, setShowConfig] = useState(false)
 
   // Esc закрывает страницу, если его не обработали раньше (например, список или поле)
   useEffect(() => {
@@ -28,6 +30,7 @@ export function SettingsPage() {
         <div className={styles.column}>
           <h1>Настройки</h1>
           <SettingsContent />
+          <details className={styles.extended} onToggle={(e) => setShowConfig(e.currentTarget.open)}><summary>Источники, правила и агент настроек</summary>{showConfig && <GlobalSettingsPanel />}</details>
         </div>
       </div>
     </div>
@@ -66,6 +69,7 @@ function SettingsForm({ settings }: { settings: Settings }) {
       setModel(updated.model)
     },
   })
+  const check = useMutation({ mutationFn: api.checkSettings })
   const changed = key.trim() !== '' || model.trim() !== settings.model
   const keyStatus = settings.key_source === 'settings'
     ? 'Ключ сохранён в настройках.'
@@ -94,6 +98,11 @@ function SettingsForm({ settings }: { settings: Settings }) {
           <button className={styles.secondary} type="button" disabled={save.isPending}
             onClick={() => save.mutate({ openrouter_api_key: '' })}>Удалить сохранённый ключ</button>
         )}
+      </div>
+      <div className={styles.actions}>
+        <button type="button" className={styles.secondary} disabled={!settings.has_api_key || check.isPending || save.isPending} onClick={() => check.mutate()}>{check.isPending ? 'Проверка…' : 'Проверить сохранённый ключ'}</button>
+        {check.data && <p role="status">{check.data.detail ?? (check.data.ok ? 'Ключ работает' : 'Проверка не пройдена')}</p>}
+        {check.isError && <p className={styles.error} role="alert">{check.error.message}</p>}
       </div>
       <div className={styles.field}>
         <label htmlFor="model">Модель</label>
