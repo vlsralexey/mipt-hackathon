@@ -1,0 +1,34 @@
+- id: eis
+  name: ЕИС — реестр контрактов
+  level: 1
+  type: eis
+  enabled: true
+  params: {}
+  vat_default: included
+  vat_note: 'Допущение: цена контракта конечная, включает НДС, если поставщик его платит'
+  price_final: true
+  delivery:
+    included: true
+    note: 'Допущение: цена контракта по 44-ФЗ, как правило, включает доставку до заказчика'
+- id: web_suppliers
+  name: Производители и дистрибьюторы
+  level: 1
+  type: web
+  enabled: true
+  params:
+    query_suffix: цена производитель дистрибьютор
+  vat_default: unknown
+- id: web_shops
+  name: Открытые магазины
+  level: 2
+  type: web
+  enabled: true
+  params:
+    sites: [komus.ru, vseinstrumenti.ru, market.yandex.ru, ozon.ru]
+  vat_default: included
+  vat_note: 'Допущение: розничные цены указаны с НДС; явные условия страницы имеют приоритет'
+  # 14.11.2026: универсальный порог для юрлиц по всей МО не подтверждён.
+  # https://www.komus.ru/delivery/ — страница недоступна при проверке.
+  # https://www.vseinstrumenti.ru/legal/user-agreement/ — доставка по тарифам.
+  # Не переносим частные акции или условия самовывоза на доставку всех товаров.
+  site_delivery: {}

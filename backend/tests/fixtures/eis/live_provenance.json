@@ -1,0 +1,12 @@
+{
+  "number": "2610300092726000086",
+  "at": "2026-11-14T11:41:17.267382+00:00",
+  "common": "https://zakupki.gov.ru/epz/contract/contractCard/common-info.html?reestrNumber=2610300092726000086",
+  "payment": "https://zakupki.gov.ru/epz/contract/contractCard/payment-info-and-target-of-order.html?reestrNumber=2610300092726000086",
+  "process": "https://zakupki.gov.ru/epz/contract/contractCard/process-info.html?reestrNumber=2610300092726000086&contractInfoId=112637856",
+  "ktru": "https://zakupki.gov.ru/epz/contract/contractCard/ktru-characteristics.html?contractSubjectId=845235105",
+  "common_sha256_original": "58f81122022c453202bf444b0658658307016b14b1192b2d39582961ee7b82a1",
+  "payment_sha256_original": "e37ed3d3d12030ab24dc519afcc1b48ecafe7666a91b18ec5d751c3a53ec4b25",
+  "process_sha256_original": "92646451b415bb118e5015c53f63b7efc87364149d2e2a76334921512d3cea73",
+  "ktru_sha256_original": "b77fc3f8a50c599036664a36955cb5dc4df935d4e9d104c14e5db36070dd07dc"
+}
