@@ -19,7 +19,7 @@
 | Сессия | Задачи | Результат | Нужно заранее |
 |---|---|---|---|
 | 1 | 1–5 | Каркас, Docker, нормализация и расчёт, извлечение текста ТЗ, клиент OpenRouter | — (всё на тестах) |
-| 2 | 6–10 | Разбор ТЗ, источники (ЕИС, веб), сопоставление, каскад | Ключ OpenRouter; HTML выдачи ЕИС и карточки контракта для фикстур Task 8 (сохранить из обычного браузера, если ЕИС не открывается из окружения агента) |
+| 2 | 6–10 | Разбор ТЗ, источники (ЕИС, веб), сопоставление, каскад | Ключ OpenRouter; HTML страниц ЕИС для фикстур Task 8 — выдача и 4 вкладки контракта (сохранить из обычного браузера, если ЕИС не открывается из окружения агента) |
 | 3 | 11–15 | Хранилище, API + `docs/api.md`, чат-агент, DOCX, CLI, README, живые прогоны | Ключ OpenRouter |
 
 Запуск сессии:
@@ -61,6 +61,8 @@ docs/superpowers/plans/2026-11-13-nmck-backend-p0.md (спека: docs/superpowe
 7. **Двойное начисление НДС** — `exempt` («НДС не облагается», УСН) и `included` никогда не умножаются; поправка только при явном «без НДС»/«+ НДС» на странице. Тест в Task 3.
 8. **Индексация без данных** — нет месяца в `cpi.yaml` → считается по имеющимся месяцам с пометкой в `note`, без падения и без выдуманных индексов. Числа в `cpi.yaml` — только с сайта Росстата. Тест в Task 3.
 9. **Отбор по поставщику не съедает маркетплейс** — десять продавцов Ozon без названия продавца остаются десятью предложениями, а не одним. Тест в Task 3.
+10. **ЕИС «Без НДС» не облагается сверху** — у источника с `price_final` поправка ×1,22 невозможна, даже если LLM извлекла `excluded`. Тест в Task 3.
+11. **ЕИС не теряет подходящие контракты** — нет фильтра по ОКПД2 из ТЗ, единица «пач» = «пачка», характеристики строки берутся со страницы «Все характеристики ТРУ», контракты с неустойками отброшены кодом с причиной в отчёте. Тесты в Task 2 и Task 8.
 
 ---
 
@@ -118,7 +120,7 @@ docs/api.md
 - Produces (`app/models.py`, все — pydantic `BaseModel`, деньги/количества — `Decimal`):
   - `Characteristic(name: str, value: str, unit: str | None, essential: bool)`
   - `Basis(unit: str, per_tz_unit: Decimal)` — единица сравнения и сколько её в одной единице ТЗ
-  - `Position(index: int, name: str, unit: str, quantity: Decimal, okpd2: str | None, characteristics: list[Characteristic], basis: Basis)`
+  - `Position(index: int, name: str, unit: str, quantity: Decimal, okpd2: str | None, characteristics: list[Characteristic], basis: Basis, search_terms: list[str] = [])` — `okpd2` — как в ТЗ, только для отчёта: в фильтр поиска не идёт (в ЕИС ОКПД2 у той же бумаги другой, спека 5.4.1); `search_terms` — короткие поисковые запросы для реестров (Task 6)
   - `Question(id: str, position_index: int, text: str, default_answer: str, answer: str | None = None)`
   - `Offer(id: str, source_id: str, source_name: str, level: int, url: str, retrieved_at: datetime, title: str, price: Decimal, currency: str = "RUB", amount: Decimal, amount_unit: str, vat: Literal["included","excluded","exempt","unknown"], vat_rate: Decimal | None = None, supplier: str | None = None, supplier_inn: str | None = None, delivery: Literal["included","separate","unknown"], delivery_cost: Decimal | None, delivery_free_from: Decimal | None = None, delivery_note: str | None = None, price_date: date | None, characteristics: dict[str, str])` — все поля доставки — только то, что написано на странице: `included` = доставка бесплатна/включена без условий; `delivery_free_from` = порог бесплатной доставки; `separate` + `delivery_cost` = явная сумма; `delivery_note` = цитата условия со страницы; `vat`: `excluded` = цена без НДС, налог начисляется сверху; `exempt` = «НДС не облагается» (конечная цена); `vat_rate` — ставка со страницы долей (`0.22`), если указана
   - `VatResolution(status: Literal["included","added","exempt","unknown"], factor: Decimal = Decimal(1), note: str)` — решение кода по НДС
@@ -132,7 +134,7 @@ docs/api.md
   - `SourceRun(source_id: str, name: str, level: int, queries: list[str], status: Literal["ok","empty","unavailable","error"], error: str | None, found: int, at: datetime)`
   - `PositionReport(position: Position, levels_used: list[int], included: list[OfferEntry], excluded: list[OfferEntry], stats: Stats | None, unit_price: Decimal | None, reference_price: Decimal | None, total: Decimal | None, status: Literal["ok","insufficient","heterogeneous"], assumptions: list[str], skipped_pages: list[SkippedPage], spread_hints: list[str] = [], overrides: dict[str, Literal["include","exclude"]] = {})`
   - `Report(procurement_id: str, version: int, created_at: datetime, calc_date: date, methodology: str, cause: str, positions: list[PositionReport], sources: list[SourceRun], questions: list[Question], delivery_terms: str | None = None, delivery_extras: list[str] = [], total: Decimal | None, warnings: list[str])` — `delivery_terms`/`delivery_extras` — требования ТЗ к поставке (из `ParsedTZ`, Task 6); `calc_date` — дата, на которую индексируются цены; `methodology` — `rules.methodology_note`
-- Produces (`app/config.py`): `Rules` (pydantic) с полями и значениями по умолчанию `min_prices=3, cv_threshold=Decimal("0.33"), iqr_k=Decimal("1.5"), iqr_min_n=5, median_max_deviation=Decimal("0.5"), level2_trigger_min_prices=3, level2_on_heterogeneous=True, vat_rate=Decimal("0.22"), indexation_enabled=True, index_after_months=6, spread_hint_min_gap=Decimal("0.15"), marketplace_hosts=["market.yandex.ru","ozon.ru","wildberries.ru"], methodology_note="Метод сопоставимых рыночных цен (анализа рынка). Формулы — по аналогии с Методическими рекомендациями, утверждёнными приказом Минэкономразвития России от 02.10.2013 № 567 (обязательны для закупок по 44-ФЗ; при закупках по 223-ФЗ применяется положение о закупке заказчика).", eis_years=3, max_pages_per_source=8, page_text_limit=15000`; `DeliveryPolicy(included: bool = False, free_from: Decimal | None = None, note: str | None = None)` — условия доставки источника для юрлиц в Московской области (заполняются, только если условие действительно действует для МО; `note` — откуда взято); `SourceConfig(id, name, level: int, type: Literal["eis","web"], enabled: bool, params: dict, vat_default: Literal["included","unknown"] = "unknown", vat_note: str | None = None, delivery: DeliveryPolicy = DeliveryPolicy(), site_delivery: dict[str, DeliveryPolicy] = {})` — `site_delivery` по домену для источников с несколькими сайтами; `policy_for(cfg: SourceConfig, url: str) -> DeliveryPolicy` — по хосту URL без `www.` из `site_delivery`, иначе `cfg.delivery`; `load_rules(path) -> Rules`; `load_cpi(path) -> dict[str, Decimal]` — ключ `"YYYY-MM"`, значение — ИПЦ в % к предыдущему месяцу (нет файла → пустой словарь); `load_sources(path) -> list[SourceConfig]`; `Settings` (env: `OPENROUTER_API_KEY`, `OPENROUTER_MODEL`, `DATA_DIR=/data`, `CONFIG_DIR`).
+- Produces (`app/config.py`): `Rules` (pydantic) с полями и значениями по умолчанию `min_prices=3, cv_threshold=Decimal("0.33"), iqr_k=Decimal("1.5"), iqr_min_n=5, median_max_deviation=Decimal("0.5"), level2_trigger_min_prices=3, level2_on_heterogeneous=True, vat_rate=Decimal("0.22"), indexation_enabled=True, index_after_months=6, spread_hint_min_gap=Decimal("0.15"), marketplace_hosts=["market.yandex.ru","ozon.ru","wildberries.ru"], methodology_note="Метод сопоставимых рыночных цен (анализа рынка). Формулы — по аналогии с Методическими рекомендациями, утверждёнными приказом Минэкономразвития России от 02.10.2013 № 567 (обязательны для закупок по 44-ФЗ; при закупках по 223-ФЗ применяется положение о закупке заказчика).", eis_years=3, max_pages_per_source=8, page_text_limit=15000`; `DeliveryPolicy(included: bool = False, free_from: Decimal | None = None, note: str | None = None)` — условия доставки источника для юрлиц в Московской области (заполняются, только если условие действительно действует для МО; `note` — откуда взято); `SourceConfig(id, name, level: int, type: Literal["eis","web"], enabled: bool, params: dict, vat_default: Literal["included","unknown"] = "unknown", vat_note: str | None = None, price_final: bool = False, delivery: DeliveryPolicy = DeliveryPolicy(), site_delivery: dict[str, DeliveryPolicy] = {})` — `site_delivery` по домену для источников с несколькими сайтами; `price_final` — цена источника всегда конечная, НДС сверху не начисляется никогда (ЕИС: «Без НДС» = поставщик не платит налог); `policy_for(cfg: SourceConfig, url: str) -> DeliveryPolicy` — по хосту URL без `www.` из `site_delivery`, иначе `cfg.delivery`; `load_rules(path) -> Rules`; `load_cpi(path) -> dict[str, Decimal]` — ключ `"YYYY-MM"`, значение — ИПЦ в % к предыдущему месяцу (нет файла → пустой словарь); `load_sources(path) -> list[SourceConfig]`; `Settings` (env: `OPENROUTER_API_KEY`, `OPENROUTER_MODEL`, `DATA_DIR=/data`, `CONFIG_DIR`).
 
 - [ ] **Step 1: Написать тесты**
 
@@ -155,6 +157,10 @@ def test_eis_delivery_included_by_default():
     eis = next(s for s in load_sources(Path("config/sources.yaml")) if s.id == "eis")
     assert eis.delivery.included and eis.delivery.note
 
+def test_eis_price_is_final():
+    eis = next(s for s in load_sources(Path("config/sources.yaml")) if s.id == "eis")
+    assert eis.price_final
+
 def test_eis_and_shops_vat_included_by_default():
     srcs = {s.id: s for s in load_sources(Path("config/sources.yaml"))}
     assert srcs["eis"].vat_default == "included" and srcs["web_shops"].vat_default == "included"
@@ -172,7 +178,7 @@ def test_policy_for_matches_site_without_www():
 ```
 
 - [ ] **Step 2: `cd backend && pytest -q` — FAIL (нет модулей)**
-- [ ] **Step 3: Реализовать модели, конфиг, YAML.** `sources.yaml`: `eis` (level 1, type eis, `delivery: {included: true, note: "Допущение: цена контракта по 44-ФЗ, как правило, включает доставку до заказчика"}`); `web_suppliers` (level 1, type web, `params.query_suffix: "цена производитель дистрибьютор"`); `web_shops` (level 2, type web, `params.sites: [komus.ru, vseinstrumenti.ru, market.yandex.ru, ozon.ru]`, `site_delivery` — для Комус и ВсеИнструменты порог бесплатной доставки юрлицам по МО со страниц условий доставки этих сайтов, `note` = URL страницы условий; если порог не удалось найти или он не для МО — не заполнять, чисел не выдумывать). У `eis` — `vat_default: included`, `vat_note: "Допущение: цена контракта — конечная, включает НДС, если поставщик его платит"`; у `web_shops` — `vat_default: included`, `vat_note: "Розничные цены на сайте указаны с НДС"`; у `web_suppliers` — `unknown`. `rules.yaml` — значения по умолчанию из Interfaces; ставку `vat_rate` сверить с действующей на дату реализации. `cpi.yaml` — месячные ИПЦ Росстата (все товары и услуги, РФ, % к предыдущему месяцу) за последние `eis_years` лет плюс запас, в шапке файла — URL страницы Росстата и дата выгрузки; если данные получить не удалось — оставить файл пустым с комментарием, чисел не выдумывать. `main.py` — `FastAPI()` с `GET /api/health → {"status":"ok"}`.
+- [ ] **Step 3: Реализовать модели, конфиг, YAML.** `sources.yaml`: `eis` (level 1, type eis, `delivery: {included: true, note: "Допущение: цена контракта по 44-ФЗ, как правило, включает доставку до заказчика"}`); `web_suppliers` (level 1, type web, `params.query_suffix: "цена производитель дистрибьютор"`); `web_shops` (level 2, type web, `params.sites: [komus.ru, vseinstrumenti.ru, market.yandex.ru, ozon.ru]`, `site_delivery` — для Комус и ВсеИнструменты порог бесплатной доставки юрлицам по МО со страниц условий доставки этих сайтов, `note` = URL страницы условий; если порог не удалось найти или он не для МО — не заполнять, чисел не выдумывать). У `eis` — `vat_default: included`, `vat_note: "Допущение: цена контракта — конечная, включает НДС, если поставщик его платит"`, `price_final: true`; у `web_shops` — `vat_default: included`, `vat_note: "Розничные цены на сайте указаны с НДС"`; у `web_suppliers` — `unknown`. `rules.yaml` — значения по умолчанию из Interfaces; ставку `vat_rate` сверить с действующей на дату реализации. `cpi.yaml` — месячные ИПЦ Росстата (все товары и услуги, РФ, % к предыдущему месяцу) за последние `eis_years` лет плюс запас, в шапке файла — URL страницы Росстата и дата выгрузки; если данные получить не удалось — оставить файл пустым с комментарием, чисел не выдумывать. `main.py` — `FastAPI()` с `GET /api/health → {"status":"ok"}`.
 - [ ] **Step 4: Dockerfile + compose.** Образ `python:3.12-slim`, `pip install .`, `CMD uvicorn app.main:app --host 0.0.0.0 --port 8000`. Compose: сервис `backend`, порт `8000:8000`, том `nmck-data:/data`, `env_file: .env`. `.env.example` с `OPENROUTER_API_KEY=`, `OPENROUTER_MODEL=`. README — заголовки разделов из критериев (требования, запуск/остановка, переменные, внешние сервисы, архитектура, use cases), заполняются в Task 15.
 - [ ] **Step 5: Проверить:** `pytest -q` — PASS; `docker compose up -d --build && curl -s localhost:8000/api/health` → `{"status":"ok"}`; `docker compose down`.
 - [ ] **Step 6: Commit** `feat: каркас бэкенда, модели отчёта, конфиг, Docker`
@@ -187,7 +193,7 @@ def test_policy_for_matches_site_without_www():
 
 **Interfaces:**
 - Produces: `parse_price(s: str) -> Decimal` (ValueError, если числа нет); `canonical_unit(u: str) -> str`; `convert(amount: Decimal, from_unit: str, to_unit: str) -> Decimal` (raises `UnitMismatch(ValueError)`).
-- Таблица: масса (база мкг): мкг/µg/ug/mcg=1, мг/mg=1000, г/гр/g=10⁶, кг/kg=10⁹; объём (база мл): мл/ml=1, л/l=1000; счётные `шт`(шт./штука/pcs/ед/ед.) — только сами с собой; любые прочие (`пачка`, `упаковка`, `рулон`, `услуга`, `час`, `м2`/`м²`) — равны только сами себе после нормализации (нижний регистр, без точек и пробелов по краям).
+- Таблица: масса (база мкг): мкг/µg/ug/mcg=1, мг/mg=1000, г/гр/g=10⁶, кг/kg=10⁹; объём (база мл): мл/ml=1, л/l=1000; счётные `шт`(шт./штука/pcs/ед/ед.) — только сами с собой; `пачка` (пачка/пачки/пачек/пач/пач.) — только сама с собой (в ЕИС единица пишется «пач», без синонима все цены ЕИС уйдут в `unit_mismatch`); любые прочие (`пачка`, `упаковка`, `рулон`, `услуга`, `час`, `м2`/`м²`) — равны только сами себе после нормализации (нижний регистр, без точек и пробелов по краям).
 
 - [ ] **Step 1: Тесты**
 
@@ -195,6 +201,7 @@ def test_policy_for_matches_site_without_www():
 @pytest.mark.parametrize("s,expected", [
     ("1 290,50 ₽", Decimal("1290.50")), ("12 990 руб.", Decimal("12990")),
     ("1290.5", Decimal("1290.5")), ("от 3 450 ₽", Decimal("3450")), ("15 000", Decimal("15000")),
+    ("3 140,80333333333", Decimal("3140.80333333333")),  # цена за ед. в ЕИС бывает с длинной дробью
 ])
 def test_parse_price(s, expected): assert parse_price(s) == expected
 
@@ -204,6 +211,7 @@ def test_parse_price_on_request_raises():
 def test_convert_mass(): assert convert(Decimal("0.05"), "мг", "мкг") == Decimal("50")
 def test_convert_alias(): assert convert(Decimal("25"), "µg", "мкг") == Decimal("25")
 def test_convert_same_custom_unit(): assert convert(Decimal("5"), "Пачка.", "пачка") == Decimal("5")
+def test_convert_eis_pack_alias(): assert convert(Decimal("650"), "пач", "пачка") == Decimal("650")
 def test_convert_mismatch():
     with pytest.raises(UnitMismatch): convert(Decimal("1"), "мл", "мкг")
 ```
@@ -232,17 +240,18 @@ def test_convert_mismatch():
     4. `policy.included` → `included`, основание — `policy.note`;
     5. `policy.free_from` задан и `order_sum ≥` него → `included`, основание — условия источника и сумма заказа;
     6. иначе → `unknown`, `added_per_unit = 0`, `note` = «Стоимость доставки не указана на странице» (+ `delivery_note`, если есть).
-  - `resolve_vat(offer: Offer, vat_default: str, vat_note: str | None, rules: Rules) -> VatResolution` — первое сработавшее:
+  - `resolve_vat(offer: Offer, vat_default: str, vat_note: str | None, rules: Rules, price_final: bool = False) -> VatResolution` — первое сработавшее:
     1. `offer.vat == "included"` → `included`, factor 1, основание — страница;
     2. `offer.vat == "exempt"` → `exempt`, factor 1, «НДС не облагается — цена конечная»;
-    3. `offer.vat == "excluded"` → `added`, `factor = 1 + (offer.vat_rate or rules.vat_rate)`, в `note` — ставка и откуда она (страница / настройки);
-    4. `vat_default == "included"` → `included`, основание — `vat_note`;
-    5. иначе → `unknown`, factor 1, «НДС на странице не указан».
+    3. `offer.vat == "excluded"` и `price_final` → `exempt`, factor 1, «Цена контракта конечная; «Без НДС» — поставщик не платит НДС»;
+    4. `offer.vat == "excluded"` → `added`, `factor = 1 + (offer.vat_rate or rules.vat_rate)`, в `note` — ставка и откуда она (страница / настройки);
+    5. `vat_default == "included"` → `included`, основание — `vat_note`;
+    6. иначе → `unknown`, factor 1, «НДС на странице не указан».
   - `index_price(price_date: date | None, calc_date: date, cpi: dict[str, Decimal], rules: Rules) -> IndexResolution` — `age = (calc.year − price.year) × 12 + calc.month − price.month`; если `not rules.indexation_enabled`, `price_date is None` или `age ≤ rules.index_after_months` → `not_needed`; иначе месяцы от следующего за месяцем цены до месяца перед `calc_date` включительно: `factor = (100 + Σ(cpi[m] − 100)) / 100` по месяцам, которые есть в `cpi`, округление до 0.0001; в `note` — период, число месяцев и, если каких-то месяцев нет, «нет данных ИПЦ за: …»; если нет ни одного месяца → `no_data`, factor 1.
   - `adjusted_price(base: Decimal, vat: VatResolution, idx: IndexResolution, delivery: DeliveryResolution) -> Decimal` = `round(base × vat.factor × idx.factor, 0.01) + delivery.added_per_unit` — расчётная цена предложения. Порог бесплатной доставки в `resolve_delivery` сравнивается с `base × quantity` (без поправок).
   - `supplier_key(offer: Offer, rules: Rules) -> str | None` — `supplier_inn` (только цифры) → нормализованное `supplier` (casefold, без кавычек и форм ООО/АО/ПАО/ЗАО/ИП, схлопнутые пробелы) → хост URL без `www.`, если `offer.source_id != "eis"` и хост не входит в `rules.marketplace_hosts` → иначе `None`.
   - `pick_per_supplier(entries: list[OfferEntry], rules: Rules) -> tuple[list[OfferEntry], list[tuple[OfferEntry, OfferEntry]]]` — (оставленные, [(отброшенное, оставленное вместо него)]); в группе с одним ключом остаётся запись с самой поздней датой (`price_date`, иначе дата `retrieved_at`), при равенстве — с меньшей `normalized_price`, затем по `offer.id`; записи без ключа остаются все. Порядок оставленных — как на входе.
-  - `diagnose_spread(entries: list[OfferEntry], rules: Rules) -> list[str]` — подсказки для неоднородной выборки. Признаки по порядку: источник (`offer.source_id == "eis"` / остальные, подпись «цены ЕИС» / «цены остальных источников»), НДС (`vat.status == "unknown"` / остальные), индексация (`indexation.status == "applied"` / остальные), доставка (`delivery.status == "unknown"` / остальные). Для признака, где обе группы не пусты: `gap = (hi − lo) / hi` по средним; если `gap ≥ rules.spread_hint_min_gap` → строка «<группа с меньшим средним> в среднем на X % ниже <другой> (N против M предложений)». Сортировка по `gap` по убыванию, не больше 3 строк. Выборку не меняет.
+  - `diagnose_spread(entries: list[OfferEntry], rules: Rules) -> list[str]` — подсказки для неоднородной выборки. Признаки по порядку: источник (`offer.source_id == "eis"` / остальные, подпись «цены ЕИС» / «цены остальных источников»), НДС (`vat.status == "unknown"` / остальные), НДС у поставщика (`vat.status == "exempt"` / остальные, подпись «цены поставщиков без НДС» / «цены с НДС»), индексация (`indexation.status == "applied"` / остальные), доставка (`delivery.status == "unknown"` / остальные). Для признака, где обе группы не пусты: `gap = (hi − lo) / hi` по средним; если `gap ≥ rules.spread_hint_min_gap` → строка «<группа с меньшим средним> в среднем на X % ниже <другой> (N против M предложений)». Сортировка по `gap` по убыванию, не больше 3 строк. Выборку не меняет.
   - `find_outliers(prices: list[Decimal], rules: Rules) -> tuple[set[int], str]` — индексы выбросов и человекочитаемое описание правила.
   - `compute_stats(prices: list[Decimal], rule_text: str) -> Stats` (std с n−1; при n=1 std=0; cv до 0.0001).
   - `CalcResult(stats: Stats | None, unit_price: Decimal | None, reference_price: Decimal | None, status: str)`; `calculate(prices: list[Decimal], rules: Rules) -> CalcResult` — вызывается уже по ценам без выбросов.
@@ -331,6 +340,10 @@ def test_vat_exempt_and_included_not_multiplied():
     for vat in ("exempt", "included"):
         assert resolve_vat(offer(price="100", amount="1", unit="шт", vat=vat), "unknown", None, Rules()).factor == 1
 
+def test_vat_excluded_not_added_when_price_final():   # ЕИС: «Ставка НДС: Без НДС» — 291,40 ₽ не превращается в 355,51 ₽
+    v = resolve_vat(offer(price="291.40", amount="1", unit="пачка", vat="excluded"), "included", "ЕИС", Rules(), price_final=True)
+    assert v.status == "exempt" and v.factor == 1
+
 def test_vat_unknown_falls_to_source_default():
     o = offer(price="100", amount="1", unit="шт", vat="unknown")
     assert resolve_vat(o, "included", "ЕИС", Rules()).status == "included"
@@ -386,6 +399,11 @@ def test_diagnose_spread_points_at_source_gap():
 def test_diagnose_spread_silent_when_groups_close():
     es = [entry(price="100", source_id="eis"), entry(price="105", source_id="web_shops")]
     assert diagnose_spread(es, Rules()) == []
+
+def test_diagnose_spread_points_at_vat_exempt_suppliers():   # entry(vat=...) задаёт vat.status
+    es = [entry(price=p, source_id="eis", vat="exempt") for p in ("100", "100")] + \
+         [entry(price=p, source_id="eis", vat="included") for p in ("130", "130")]
+    assert any("без НДС" in h and "2 против 2" in h for h in diagnose_spread(es, Rules()))
 ```
 
 `offer(...)` и `entry(...)` — хелперы в `tests/fakes.py`; `entry` строит `OfferEntry` с `normalized_price = base_price = price` и нейтральными поправками.
@@ -471,6 +489,8 @@ async def test_auth_error(respx_mock):
 - Consumes: `LLM`, `Position`, `Question`, `Basis`.
 - Produces: `ParsedTZ(title: str, positions: list[Position], questions: list[Question], delivery_terms: str | None = None, delivery_extras: list[str] = [])` — `delivery_terms` — краткое требование ТЗ к поставке («до адреса заказчика, все расходы включены в цену»), `delivery_extras` — дополнительные работы при поставке, которые обычно не входят в цену магазина (например `["разгрузка", "занос в помещение 1 этажа"]`, `["доставка до места установки"]`); `async def parse_tz(llm: LLM, tz_text: str) -> ParsedTZ`; `async def apply_answer(llm: LLM, position: Position, question: Question, answer: str) -> Position`.
 - Промпт фиксирует: существенные характеристики = влияющие на цену/сопоставимость (модель, формат, плотность, масса, чистота, …), прочие — `essential=false`; `basis` — единица сравнения цены (для «шт. не менее 10 мкг» → `{unit:"мкг", per_tz_unit:10}`; для пачек → `{unit:"пачка", per_tz_unit:1}`); вопрос задаётся только при реальной неоднозначности, всегда с `default_answer`, который уже отражён в позиции. `Question.id` = `q{position_index}-{n}`.
+- Марка/товарный знак, названные в ТЗ без «или эквивалент», — существенная характеристика «Товарный знак»; по такой позиции задаётся вопрос «Учитывать аналоги без марки <X> с теми же характеристиками?» с `default_answer` «Нет, только <X>». Характеристики, которые источники почти никогда не публикуют и которые следуют из существенных (толщина при заданных марке и плотности, ГОСТ, страна происхождения), — `essential=false`.
+- `search_terms` — 1–3 коротких запроса для поиска по реестрам: марка/модель (если есть) и родовое название товара, как оно звучит в каталогах и КТРУ («SvetoCopy», «бумага для офисной техники»; «бумага офсетная», «бумага писчая»). Без формата, плотности и количества: в ЕИС они не сужают выдачу, их проверяет сопоставление (спека 5.4.1).
 
 - [ ] **Step 1: Тесты**
 
@@ -479,6 +499,7 @@ async def test_parse_tz_builds_positions():
     llm = FakeLLM([{"title": "Бумага", "positions": [paper_pos_json()], "questions": []}])
     r = await parse_tz(llm, "текст")
     assert r.positions[0].quantity == Decimal(2500) and r.positions[0].basis.unit == "пачка"
+    assert r.positions[0].search_terms  # paper_pos_json() содержит search_terms
 
 async def test_parse_tz_question_ids_and_defaults():
     llm = FakeLLM([{"title": "Цитокины", "positions": [cyto_pos_json()],
@@ -506,7 +527,7 @@ async def test_parse_real_cytokines():  # запускается только с
 **Interfaces:**
 - Produces:
   - `CandidatePage(url: str, title: str, text: str, retrieved_at: datetime)`
-  - `SourceResult(pages: list[CandidatePage], run: SourceRun)`
+  - `SourceResult(pages: list[CandidatePage], run: SourceRun, skipped: list[SkippedPage] = [])` — `skipped` — страницы, которые источник отбросил по своему правилу (ЕИС: контракт с неустойками), с причиной для отчёта
   - `class SourceAdapter(Protocol)`: атрибуты `id: str, name: str, level: int, cfg: SourceConfig` (`cfg` нужен для `policy_for` при решении по доставке); `async def search(self, position: Position, rules: Rules) -> SourceResult` — **никогда не бросает**: любые ошибки → `run.status` `unavailable` (сеть/таймаут/5xx) или `error` (прочее) с текстом в `run.error`; 0 страниц → `empty`.
   - `async def fetch_page(http: httpx.AsyncClient, url: str, limit: int) -> CandidatePage` — таймаут 20 с, 2 повтора на сетевые/5xx, браузерный User-Agent, HTML → текст через selectolax (без script/style), обрезка до `limit`.
   - `class WebSearch(Protocol)`: `async def search(self, query: str, max_results: int) -> list[tuple[str, str]]` (url, title). Реализация `OpenRouterWebSearch(api_key, model)` — запрос к `/chat/completions` с `plugins=[{"id":"web","max_results":N}]`, URL берутся из `choices[0].message.annotations` типа `url_citation`.
@@ -538,23 +559,52 @@ async def test_web_source_site_queries():
 
 ### Task 8: Адаптер ЕИС (реестр контрактов)
 
+Устройство адаптера опирается на ручной поиск по ТЗ на бумагу (спека 5.4.1). Цена берётся из строки контракта, а не из цены всего контракта. Полные характеристики строки открываются отдельной ссылкой. ОКПД2 из ТЗ не фильтрует, неустойки проверяет код.
+
 **Files:**
-- Create: `backend/app/sources/eis.py`, `backend/app/sources/registry.py`; фикстуры `backend/tests/fixtures/eis_search.html`, `backend/tests/fixtures/eis_contract.html`
+- Create: `backend/app/sources/eis.py`, `backend/app/sources/registry.py`; фикстуры `backend/tests/fixtures/eis_search.html`, `eis_common.html`, `eis_payment.html`, `eis_ktru.html`, `eis_process.html`, `eis_process_penalty.html`
 - Test: `backend/tests/test_eis.py`, `backend/tests/test_registry.py`
 
 **Interfaces:**
-- Consumes: `fetch_page`, `SourceAdapter`, `SourceResult`.
+- Consumes: `fetch_page`, `SourceAdapter`, `SourceResult`, `SkippedPage`.
 - Produces:
-  - `EisSource(cfg: SourceConfig, http: httpx.AsyncClient)`: поиск по `https://zakupki.gov.ru/epz/contract/search/results.html` (ключевые слова = название позиции; фильтр 44-ФЗ, стадия «исполнение завершено», дата заключения за последние `rules.eis_years` лет; ОКПД2 позиции, если есть). `parse_search_results(html: str) -> list[str]` — абсолютные URL карточек контрактов. Для каждого контракта загружается страница с перечнем объектов закупки (товары, ед., цена за ед.) и отдаётся как `CandidatePage`; цены из неё извлекает общий `extract_offers` (Task 9), поэтому изменение вёрстки карточки не ломает адаптер. В текст `CandidatePage` обязательно попадают дата заключения контракта, наименование и ИНН поставщика (из карточки контракта) — из них `extract_offers` заполняет `price_date`, `supplier`, `supplier_inn`.
+  - `EisSource(cfg: SourceConfig, http: httpx.AsyncClient)`.
+    - **Поиск:** `https://zakupki.gov.ru/epz/contract/search/results.html`, по одному запросу на каждый элемент `position.search_terms` (пусто → `[position.name]`). Параметры, подтверждённые в реальной сессии: `searchString=<запрос>`, `morphology=on` (словоформы; строгий `strictEqual=true` для «офсетная» не нашёл ничего), `fz44=on`, `contractStageList_1=on&contractStageList=1` (исполнение завершено), `sortBy=UPDATE_DATE`, `sortDirection=false`, `pageNumber=1`, `recordsPerPage=_50`. Параметр даты заключения (последние `rules.eis_years` лет) взять из адресной строки на Step 1. URL собирает `search_url(term: str, rules: Rules) -> str`. **ОКПД2 в фильтр не ставить:** в ТЗ у SvetoCopy 17.12.14.160, а в подходящих контрактах — 17.12.14.110.
+    - `parse_search_results(html: str) -> list[str]` — реестровые номера контрактов (`reestrNumber` из ссылок `contractCard/common-info.html?reestrNumber=…`) в порядке выдачи. Номера по всем запросам дедуплицируются, берётся не больше `rules.max_pages_per_source` контрактов.
+    - **Контракт** — до 4 запросов (не больше 2 параллельно):
+      1. `contractCard/common-info.html?reestrNumber=N` — дата заключения, поставщик и ИНН, место поставки, ссылка на вкладку исполнения;
+      2. `contractCard/payment-info-and-target-of-order.html?reestrNumber=N` (без `contractInfoId` открывается) — строки «Объекты закупки»: наименование, товарный знак, ОКПД2/КТРУ, количество и единица («пач»), цена за единицу, «Ставка НДС: 22% / Без НДС»;
+      3. `contractCard/ktru-characteristics.html?contractSubjectId=…` для каждой строки, где есть ссылка «Все характеристики ТРУ», не больше 10 строк. Без этого в тексте нет плотности, белизны и марки;
+      4. `contractCard/process-info.html?…` (ссылка с вкладки 1) — **неустойки**. `penalties(html) -> bool | None` (код, selectolax): находит таблицу с заголовком столбца, содержащим «НЕУСТОЙКИ», и возвращает `True`, если хоть одна ячейка этого столбца не «Нет». Если таблица не найдена — `None`.
+    - Если `penalties is True` — `CandidatePage` не создаётся, в `SourceResult.skipped` добавляется `SkippedPage(url, "eis", "По контракту начислены неустойки (штрафы, пени) — по условиям кейса не используется")`. Если `None` — страница остаётся, в её текст добавляется строка «Сведения о неустойках не найдены».
+    - Один `CandidatePage` на контракт: `url` — вкладка 2 (на неё ведёт ссылка в отчёте); `text` — склейка текстов вкладок 1 и 2 и характеристик строк из 3 с подписью «Строка K: …». Цены извлекает общий `extract_offers` (Task 9), поэтому изменение вёрстки карточки не ломает адаптер. В тексте обязательно есть дата заключения, наименование и ИНН поставщика, ставка НДС каждой строки.
+    - Ошибка загрузки вкладок 3–4 не роняет контракт: страница отдаётся без них. Ошибка вкладки 2 — контракт пропускается.
   - `build_adapters(sources: list[SourceConfig], search: WebSearch, http: httpx.AsyncClient) -> dict[int, list[SourceAdapter]]` — только `enabled`, по уровням.
 
-- [ ] **Step 1: Сохранить реальные страницы.** Открыть поиск ЕИС по «бумага SvetoCopy» с фильтрами выше, сохранить HTML выдачи и одной карточки контракта (вкладка с объектами закупки) в фикстуры. Точные параметры URL и путь вкладки взять из адресной строки браузера и записать константами в `eis.py`.
+- [ ] **Step 1: Сохранить реальные страницы.** ЕИС открывается из обычного браузера на машине с российским IP. Открыть поиск по «SvetoCopy» с фильтрами выше и сохранить HTML выдачи. Затем сохранить вкладки контракта **2610300092726000086** (SvetoCopy А4, 650 пач. × 291,40 ₽, «Без НДС», неустоек нет): «Общая информация», «Платежи и объекты закупки», «Все характеристики ТРУ» по строке 1, «Исполнение (расторжение) контракта». `eis_process_penalty.html` — копия `eis_process.html`, где в графе «Неустойки» вместо «Нет» стоит сумма. Точные параметры URL (в том числе дату заключения) взять из адресной строки и записать константами в `eis.py`.
 - [ ] **Step 2: Тесты**
 
 ```python
-def test_parse_search_results_returns_contract_urls():
-    urls = parse_search_results((FIX / "eis_search.html").read_text())
-    assert urls and all(u.startswith("https://zakupki.gov.ru/epz/contract/") for u in urls)
+def test_parse_search_results_returns_reestr_numbers():
+    nums = parse_search_results((FIX / "eis_search.html").read_text())
+    assert nums and all(n.isdigit() and len(n) == 19 for n in nums)
+
+async def test_contract_page_has_line_vat_supplier_and_full_characteristics(respx_mock):
+    mock_eis_contract(respx_mock, process="eis_process.html")   # отдаёт 4 вкладки из фикстур
+    r = await EisSource(cfg_eis(), httpx.AsyncClient()).search(paper_position(search_terms=["SvetoCopy"]), Rules())
+    t = r.pages[0].text
+    assert "291,40" in t and "Без НДС" in t and "19.10.2026" in t and "051205954080" in t
+    assert "Белизна по CIE 146" in t and "80Грамм" in t        # пришло со страницы «Все характеристики ТРУ»
+    assert "payment-info-and-target-of-order" in r.pages[0].url
+
+async def test_contract_with_penalties_is_skipped(respx_mock):
+    mock_eis_contract(respx_mock, process="eis_process_penalty.html")
+    r = await EisSource(cfg_eis(), httpx.AsyncClient()).search(paper_position(search_terms=["SvetoCopy"]), Rules())
+    assert r.pages == [] and "неустойки" in r.skipped[0].reason
+
+def test_search_url_has_no_okpd2_filter():
+    url = search_url("SvetoCopy", Rules())
+    assert "fz44=on" in url and "contractStageList=1" in url and "okpd" not in url.lower()
 
 async def test_eis_unavailable_is_status_not_exception(respx_mock):
     respx_mock.get(url__startswith="https://zakupki.gov.ru").mock(side_effect=httpx.ConnectTimeout("t"))
@@ -567,7 +617,7 @@ def test_registry_groups_by_level():
 ```
 
 - [ ] **Step 3: FAIL** → **Step 4: Реализовать** → **Step 5: PASS**
-- [ ] **Step 6: Commit** `feat: адаптер ЕИС и реестр источников`
+- [ ] **Step 6: Commit** `feat: адаптер ЕИС (строки контракта, характеристики КТРУ, проверка неустоек) и реестр источников`
 
 ---
 
@@ -581,7 +631,7 @@ def test_registry_groups_by_level():
 - Consumes: `LLM`, `parse_price`, `CandidatePage`, `Position`, `Offer`, `CharComparison`.
 - Produces:
   - `ExtractFailure(page: CandidatePage, reason: str)`
-  - `async def extract_offers(llm: LLM, position: Position, page: CandidatePage, source: SourceAdapter) -> tuple[list[Offer], list[ExtractFailure]]` — LLM возвращает строки (`price`, `amount`, `amount_unit`, `vat`, `vat_rate`, `supplier`, `supplier_inn`, `delivery`, `delivery_cost`, `delivery_free_from`, `delivery_note`, `price_date`, `title`, `characteristics`) только для предложений, относящихся к позиции; промпт `EXTRACT_SYSTEM` требует брать условия доставки только из текста страницы (`included` — только при явном «бесплатная доставка»/«доставка включена» без условий; порог — в `delivery_free_from`; `separate` — только при явной сумме; во всех прочих случаях `unknown`, ничего не угадывать); НДС — так же только из текста: `included` при «с НДС»/«в т. ч. НДС», `excluded` при «без НДС»/«+ НДС»/«цена без учёта НДС», `exempt` при «НДС не облагается», иначе `unknown`; `vat_rate` — только если ставка написана; `supplier`/`supplier_inn` — продавец или поставщик, если он назван на странице (для маркетплейса — продавец, не площадка), иначе `null`; `price_date` — дата контракта или дата цены со страницы, иначе `null`; код парсит числа (непарсимые `delivery_cost`/`delivery_free_from` → `None`, при этом `separate` без суммы становится `unknown`; `vat_rate` приводится к доле: `22`/`22%` → `0.22`, вне диапазона 0–0.3 → `None`; `supplier_inn` — только 10 или 12 цифр, иначе `None`); непарсимая цена → `ExtractFailure` с причиной «цена не указана или не распознана»; `LLMFormatError` → один `ExtractFailure` на страницу. `Offer.id` = sha1(url + title + price)[:12]; `retrieved_at` = `page.retrieved_at`.
+  - `async def extract_offers(llm: LLM, position: Position, page: CandidatePage, source: SourceAdapter) -> tuple[list[Offer], list[ExtractFailure]]` — LLM возвращает строки (`price`, `amount`, `amount_unit`, `vat`, `vat_rate`, `supplier`, `supplier_inn`, `delivery`, `delivery_cost`, `delivery_free_from`, `delivery_note`, `price_date`, `title`, `characteristics`) только для предложений, относящихся к позиции; промпт `EXTRACT_SYSTEM` требует брать условия доставки только из текста страницы (`included` — только при явном «бесплатная доставка»/«доставка включена» без условий; порог — в `delivery_free_from`; `separate` — только при явной сумме; во всех прочих случаях `unknown`, ничего не угадывать); НДС — так же только из текста: `included` при «с НДС»/«в т. ч. НДС», `excluded` при «без НДС»/«+ НДС»/«цена без учёта НДС», `exempt` при «НДС не облагается»; в строке контракта ЕИС «Ставка НДС: N%» → `included` с `vat_rate`, «Ставка НДС: Без НДС» → `exempt`; иначе `unknown`; `vat_rate` — только если ставка написана; одна строка объекта закупки = одно предложение, строки другого формата/вида бумаги в том же контракте не берутся; `supplier`/`supplier_inn` — продавец или поставщик, если он назван на странице (для маркетплейса — продавец, не площадка), иначе `null`; `price_date` — дата контракта или дата цены со страницы, иначе `null`; код парсит числа (непарсимые `delivery_cost`/`delivery_free_from` → `None`, при этом `separate` без суммы становится `unknown`; `vat_rate` приводится к доле: `22`/`22%` → `0.22`, вне диапазона 0–0.3 → `None`; `supplier_inn` — только 10 или 12 цифр, иначе `None`); непарсимая цена → `ExtractFailure` с причиной «цена не указана или не распознана»; `LLMFormatError` → один `ExtractFailure` на страницу. `Offer.id` = sha1(url + title + price)[:12]; `retrieved_at` = `page.retrieved_at`.
   - `async def compare(llm: LLM, position: Position, offer: Offer) -> list[CharComparison]` — LLM сравнивает каждую характеристику позиции; `ok=None`, если в предложении нет данных.
   - `decide(comparison: list[CharComparison]) -> tuple[ExclusionReason | None, str]` — **код**: если какая-то essential имеет `ok is False` → `("incomparable", "Не соответствует: <имена>")`; если ни одна essential не подтверждена (`ok is True`) → `("insufficient_data", "Недостаточно данных о существенных характеристиках")`; иначе `(None, "Совпадают: <имена подтверждённых essential>")`.
   - `dedupe(offers: list[Offer]) -> tuple[list[Offer], list[Offer]]` — (уникальные, дубли); дубль = совпал канонический URL (нижний регистр хоста, без query/fragment и завершающего `/`) **или** совпали `(source_id, title.casefold(), price)`.
@@ -630,9 +680,9 @@ async def test_extract_bad_json_becomes_failure():
 - Produces:
   - `events.py`: `Event(type: Literal["progress","question","report","error","message"], data: dict)`; `Emit = Callable[[Event], Awaitable[None]]`; `async def noop_emit(e)`.
   - `async def research_position(position: Position, adapters: dict[int, list[SourceAdapter]], llm: LLM, rules: Rules, emit: Emit, calc_date: date | None = None, cpi: dict[str, Decimal] = {}) -> tuple[PositionReport, list[SourceRun]]`:
-    1. уровень 1: адаптеры параллельно (`asyncio.gather`), извлечение, дедуп (дубли → `duplicate`), сравнение+`decide` (исключение с типом и причиной из `decide`), нормализация и доставка — для **всех** недублей, включая исключённые `decide`, чтобы `recalculate_position` мог вернуть их без сети (`base_price = normalize_price(...)` → `resolve_vat(offer, cfg.vat_default, cfg.vat_note, rules)` → `index_price(offer.price_date, calc_date, cpi, rules)` → `resolve_delivery(offer, policy_for(adapter.cfg, offer.url), base_price, position.quantity)` → `normalized_price = adjusted_price(...)`; `UnitMismatch` → исключение `unit_mismatch`, поправки `None`), затем `pick_per_supplier` по включённым (отброшенные → `same_supplier`, причина «Повторная цена поставщика <название>; в расчёт взята более свежая: <url оставленного>»), затем `find_outliers` (выбросы → `anomalous_price` с текстом правила);
+    1. уровень 1: адаптеры параллельно (`asyncio.gather`), извлечение, дедуп (дубли → `duplicate`), сравнение+`decide` (исключение с типом и причиной из `decide`), нормализация и доставка — для **всех** недублей, включая исключённые `decide`, чтобы `recalculate_position` мог вернуть их без сети (`base_price = normalize_price(...)` → `resolve_vat(offer, cfg.vat_default, cfg.vat_note, rules, cfg.price_final)` → `index_price(offer.price_date, calc_date, cpi, rules)` → `resolve_delivery(offer, policy_for(adapter.cfg, offer.url), base_price, position.quantity)` → `normalized_price = adjusted_price(...)`; `UnitMismatch` → исключение `unit_mismatch`, поправки `None`), затем `pick_per_supplier` по включённым (отброшенные → `same_supplier`, причина «Повторная цена поставщика <название>; в расчёт взята более свежая: <url оставленного>»), затем `find_outliers` (выбросы → `anomalous_price` с текстом правила);
     2. если включённых < `rules.level2_trigger_min_prices` **или** (`rules.level2_on_heterogeneous` и `calculate(...)` по уровню 1 даёт `heterogeneous`) — то же для уровня 2, затем отбор по поставщику, выбросы и расчёт по объединённой выборке (всё пересчитывается заново по объединению); причина подключения уровня 2 пишется в `assumptions` («Уровень 2 подключён: на уровне 1 найдено K цен» / «…: выборка уровня 1 неоднородна, CV = X %»);
-    3. `calculate` → `unit_price`, `total = unit_price × quantity` (округл. 0.01); при статусе `heterogeneous` — `spread_hints = diagnose_spread(included, rules)`; в `assumptions` — «Проиндексировано цен: M (ИПЦ Росстата, порог N мес.)», если M > 0; `ExtractFailure` → `skipped_pages` (предложение без цены не создаётся).
+    3. `calculate` → `unit_price`, `total = unit_price × quantity` (округл. 0.01); при статусе `heterogeneous` — `spread_hints = diagnose_spread(included, rules)`; в `assumptions` — «Проиндексировано цен: M (ИПЦ Росстата, порог N мес.)», если M > 0; `ExtractFailure` → `skipped_pages` (предложение без цены не создаётся); `SourceResult.skipped` тоже попадает в `skipped_pages`.
     4. `emit(progress)` на старте каждого источника и уровня.
   - `calc_date=None` → сегодняшняя дата.
   - `recalculate_position(pr: PositionReport, rules: Rules) -> PositionReport` — без сети и LLM: заново применяет `overrides` (`exclude` → `user_excluded`; `include` → возвращает в выборку предложение, исключённое как `incomparable`/`insufficient_data`/`same_supplier`; возвращённое вручную предложение в отборе по поставщику не участвует), отбор по поставщику, выбросы, расчёт и `spread_hints`. Сохранённые поправки (`vat`, `indexation`, `delivery`) не пересчитываются — та же версия данных даёт ту же цену.
