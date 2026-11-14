@@ -3,9 +3,9 @@
 .cluster {
   position: absolute;
   top: 16px;
-  /* По ширине свободного места сбоку, но не мельче --min: верхняя часть может
+  /* По ширине свободного места сбоку, но не мельче 300 px: верхняя часть может
      заходить внутрь, выше заголовка, нижняя рисуется так, чтобы не задеть поле */
-  width: clamp(var(--min), calc((100% - var(--chat-width)) / 2 - 40px), var(--max));
+  width: clamp(300px, calc((100% - var(--chat-width)) / 2 - 24px), 480px);
   height: auto;
   overflow: visible;
   pointer-events: none;
@@ -21,8 +21,8 @@
 }
 /* Толщина линий не зависит от масштаба рисунка */
 .cluster * { vector-effect: non-scaling-stroke; }
-.left { left: 20px; --min: 260px; --max: 300px; }
-.right { right: 20px; --min: 320px; --max: 380px; }
+.left { left: 20px; }
+.right { right: 20px; }
 
 @container new-purchase (max-width: 1080px) {
   .cluster { display: none; }
@@ -33,9 +33,9 @@
   stroke: none;
   font-family: 'Caveat', cursive;
   font-weight: 500;
-  font-size: 36px;
+  font-size: 44px;
 }
-.cluster .sup { font-size: 24px; }
-.cluster .label { font-size: 28px; }
+.cluster .sup { font-size: 28px; }
+.cluster .label { font-size: 30px; }
 .node { fill: var(--paper); }
 .solid { fill: currentColor; stroke: none; }
