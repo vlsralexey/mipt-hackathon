@@ -9,7 +9,7 @@ interface QuestionPopupProps {
   /** Закрыли крестиком или Esc без ответа: вопрос остаётся в ленте. */
   onClose: () => void
   /** Ответили кнопкой. */
-  onAnswered: () => void
+  onAnswered: (questionIds: string[]) => void
 }
 
 /**

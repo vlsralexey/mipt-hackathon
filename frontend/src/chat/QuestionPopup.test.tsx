@@ -37,6 +37,45 @@ async function open() {
 }
 
 describe('всплывающий вопрос', () => {
+  function analog(n: number): Message {
+    const message = question(n)
+    if (message.kind !== 'question') throw new Error('Expected question')
+    return { ...message, data: { ...message.data, position_index: n, text: 'Допускается ли замена бумаги SvetoCopy на аналоги?' } }
+  }
+
+  it('показывает позицию и по явному выбору отвечает сразу на одинаковые вопросы А4 и А3', async () => {
+    const user = userEvent.setup()
+    const answer = vi.spyOn(api, 'answerQuestion')
+    await open()
+    db.addMessage(exampleId(), analog(1))
+    db.addMessage(exampleId(), analog(2))
+    const dialog = await screen.findByRole('dialog')
+    expect(within(dialog).getByText(/^Позиция 1:/)).toBeInTheDocument()
+    const batch = within(dialog).getByRole('checkbox', { name: /Применить ответ также/ })
+    expect(batch).not.toBeChecked()
+    expect(batch.closest('label')).toHaveTextContent('Позиция 2:')
+    await user.click(batch)
+    await user.click(within(dialog).getByRole('button', { name: 'Нет' }))
+    await waitFor(() => expect(screen.queryByRole('dialog')).not.toBeInTheDocument())
+    expect(answer).toHaveBeenCalledWith(exampleId(), 'q2-1', 'Нет')
+    expect(answer).toHaveBeenCalledWith(exampleId(), 'q2-2', 'Нет')
+    const messages = db.procurements.get(exampleId())!.messages
+    expect(messages.filter((m) => m.kind === 'question' && m.data.answer === 'Нет')).toHaveLength(2)
+  })
+
+  it('без выбора общего ответа сохраняет отдельные решения для разных позиций', async () => {
+    const user = userEvent.setup()
+    const answer = vi.spyOn(api, 'answerQuestion')
+    await open()
+    db.addMessage(exampleId(), analog(1))
+    db.addMessage(exampleId(), analog(2))
+    const dialog = await screen.findByRole('dialog')
+    await user.click(within(dialog).getByRole('button', { name: 'Да' }))
+    await waitFor(() => expect(within(screen.getByRole('dialog')).getByText(/^Позиция 2:/)).toBeInTheDocument())
+    expect(answer).toHaveBeenCalledWith(exampleId(), 'q2-1', 'Да')
+    expect(answer).not.toHaveBeenCalledWith(exampleId(), 'q2-2', expect.anything())
+  })
+
   it('новый вопрос всплывает окошком с кнопками и не дублируется в ленте', async () => {
     await open()
     db.addMessage(exampleId(), question(1))
