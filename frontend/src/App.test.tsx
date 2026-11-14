@@ -17,6 +17,9 @@ describe('оболочка', () => {
     expect(within(nav).getByRole('link', { name: /Новая закупка/ })).toHaveAttribute('href', '/new')
     expect(within(nav).getByRole('link', { name: /Настройки/ })).toHaveAttribute('href', '/settings')
     expect(screen.getByRole('heading', { name: 'Выберите закупку' })).toBeInTheDocument()
+    // цвет один, оранжевый: переключателя тем в навигации нет
+    expect(within(nav).queryByRole('group', { name: 'Цветовая тема' })).not.toBeInTheDocument()
+    expect(document.documentElement.dataset.theme).toBeUndefined()
   })
 
   it('открывает закупку по клику: заголовок чата, активный пункт, вкладки панели', async () => {
