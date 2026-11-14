@@ -1,23 +1,25 @@
-/* Стартовый экран: заголовок, поле и подсказка стоят по одной центральной оси
-   в свободном пространстве, а внизу, на краю окна, стоит главное здание МФТИ. */
+/* Стартовый экран: заголовок, поле и подсказка стоят по одной центральной оси,
+   под ними главное здание МФТИ. Свободное место делится поровну: над формой,
+   между формой и зданием, под зданием. */
 .page {
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: space-evenly;
+  gap: 32px;
   min-width: 0;
   min-height: 0;
   overflow-y: auto;
-  padding: 24px 32px 0;
+  padding: 24px 32px;
 }
 .stack {
-  flex: 1 0 auto;
+  flex: none;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   gap: 24px;
   width: 100%;
-  padding-bottom: 32px;
 }
 /* Высота привязана к окну: на низком экране здание ниже и не наезжает на поле ввода */
 .building {
