@@ -16,6 +16,7 @@ COPY pyproject.toml uv.lock ./
 RUN uv sync --frozen --no-dev --no-install-project
 
 COPY app ./app
+COPY config ./config
 RUN uv sync --frozen --no-dev --no-editable \
     && groupadd --gid 10001 nmck \
     && useradd --uid 10001 --gid nmck --no-create-home nmck \

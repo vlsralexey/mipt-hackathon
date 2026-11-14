@@ -25,6 +25,7 @@ node_modules/
 
 # Локальные данные приложения
 /data/
+/ya-browser-eis/
 *.sqlite
 *.sqlite3
 *.db

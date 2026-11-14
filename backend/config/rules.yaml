@@ -1,0 +1,17 @@
+# Проверено 14.11.2026: https://www.nalog.gov.ru/new2026/ (основная ставка НДС 22%).
+# Методические допущения проекта описаны в docs/backend-core.md.
+min_prices: 3
+cv_threshold: '0.33'
+iqr_k: '1.5'
+iqr_min_n: 5
+median_max_deviation: '0.5'
+level2_trigger_min_prices: 3
+level2_on_heterogeneous: true
+vat_rate: '0.22'
+indexation_enabled: true
+index_after_months: 6
+spread_hint_min_gap: '0.15'
+marketplace_hosts: [market.yandex.ru, ozon.ru, wildberries.ru]
+eis_years: 3
+max_pages_per_source: 8
+page_text_limit: 15000
