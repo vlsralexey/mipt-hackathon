@@ -3,7 +3,6 @@ import { Link, NavLink } from 'react-router'
 import { api } from '../api/client'
 import { Icon } from '../components/Icon'
 import { navSubtitle } from '../nav-subtitle'
-import { ThemeSwitch } from './ThemeSwitch'
 import styles from './Nav.module.css'
 
 export function Nav() {
@@ -44,7 +43,6 @@ export function Nav() {
         })}
       </div>
 
-      <ThemeSwitch />
       <NavLink
         to="/settings"
         className={styles.link}

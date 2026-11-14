@@ -5,7 +5,6 @@ import { BrowserRouter } from 'react-router'
 import App from './App.tsx'
 import './styles/tokens.css'
 import './styles/global.css'
-import { applyTheme, loadTheme } from './theme'
 
 // Пока бэкенд не готов, в разработке отвечают моки из docs/api-examples.
 // Отключить: VITE_MOCKS=off npm run dev.
@@ -15,8 +14,6 @@ async function enableMocks() {
     await worker.start({ onUnhandledFrame: 'bypass', quiet: true })
   }
 }
-
-applyTheme(loadTheme())
 
 const queryClient = new QueryClient({
   defaultOptions: { queries: { retry: false, refetchOnWindowFocus: false } },
