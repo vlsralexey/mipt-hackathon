@@ -1,0 +1,67 @@
+.wrap { max-width: var(--chat-width); margin: 0 auto; width: 100%; }
+.composer {
+  background: var(--second);
+  border-radius: var(--r-lg);
+  padding: 12px 10px 10px 18px;
+  outline: 2px solid transparent;
+  transition: outline-color 0.15s ease-out;
+}
+.composer:focus-within, .dragging { outline-color: var(--accent); }
+.composer textarea {
+  width: 100%;
+  border: 0;
+  resize: none;
+  outline: none;
+  background: none;
+  font: inherit;
+  color: var(--ink);
+  min-height: 44px;
+  caret-color: var(--accent);
+}
+.composer textarea::placeholder { color: var(--muted); }
+.composer textarea:disabled { opacity: 0.6; }
+
+.attach {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: var(--raised);
+  border: 1px solid var(--line);
+  border-radius: var(--r-md);
+  padding: 8px 6px 8px 10px;
+  margin: 0 8px 8px 0;
+}
+.attach > svg { color: var(--muted); }
+.attachText { flex: 1; min-width: 0; }
+.attachName {
+  display: block;
+  font-size: var(--t-sm);
+  font-weight: 500;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.attachSize { font-size: var(--t-xs); color: var(--muted); }
+
+.row { display: flex; align-items: center; gap: 6px; }
+.spacer { flex: 1; }
+.iconBtn {
+  width: 34px;
+  height: 34px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  border: 0;
+  background: none;
+  color: var(--muted);
+}
+.iconBtn:hover:not(:disabled) { background: var(--accent-wash); color: var(--accent-ink); }
+.iconBtn:disabled { opacity: 0.45; cursor: default; }
+.send { background: var(--accent); color: var(--on-accent); }
+.send:hover:not(:disabled) { background: var(--accent-hover); color: var(--on-accent); }
+
+.error { margin: 8px 18px 0; font-size: var(--t-sm); color: var(--cut); }
+
+@media (prefers-reduced-motion: reduce) {
+  .composer { transition: none; }
+}

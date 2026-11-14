@@ -1,0 +1,66 @@
+/* Дизайн-токены. Раскладка и роли — из design/main-screen.html; палитра и шкала
+   шрифтов пересмотрены 14 ноября 2026 по отзыву: мелко, бледно, плохо читается.
+   Смена акцента — правка трёх строк (--accent, --accent-ink, --accent-hover). */
+:root {
+  /* Поверхности: фон страницы чуть тёплый (--paper), приподнятые элементы чисто белые
+     (--raised: кнопки-пилюли, всплывающий вопрос, карточка файла), второй цвет темнее фона */
+  --paper: #fdfaf7;
+  --raised: #ffffff;
+  --second: #f5f0eb;
+
+  /* Акцент: тёмный оранжевый. Белый текст на нём — 4,5 : 1.
+     Для текста и значков на светлом фоне и на подложке акцента — более тёмный --accent-ink (6,2 : 1). */
+  --accent: #d64200;
+  --accent-hover: #b83800;
+  --accent-ink: #b33300;
+  --on-accent: #ffffff;
+  --link: var(--accent-ink);
+  --data: var(--accent);
+
+  /* Текст: тёплый почти чёрный; второстепенный — не светлее 7 : 1 на белом */
+  --ink: #1d1a17;
+  --muted: #5b544e;
+
+  --line: color-mix(in srgb, var(--ink) 10%, var(--paper));
+  --line-strong: color-mix(in srgb, var(--ink) 20%, var(--paper));
+  --hover: color-mix(in srgb, var(--ink) 5%, var(--second));
+  --accent-wash: color-mix(in srgb, var(--accent) 11%, var(--paper));
+  --data-wash: color-mix(in srgb, var(--data) 13%, var(--paper));
+
+  --nav-bg: var(--paper);
+  --nav-ink: var(--ink);
+  --nav-muted: var(--muted);
+  --nav-hover: color-mix(in srgb, var(--second) 70%, var(--paper));
+  --nav-active: var(--accent-wash);
+
+  /* Предупреждение — жёлто-коричневое, чтобы не путать с оранжевым акцентом */
+  --warn: #7a5000;
+  --warn-wash: #fcf1d2;
+  --cut: #b3261e;
+
+  --font: 'Golos Text', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  /* Шкала в rem: масштаб браузера (Ctrl и +/-) растягивает весь интерфейс одинаково.
+     При 16 px в браузере: самый мелкий 15, второстепенный 17, основной 18. */
+  --t-xs: 0.9375rem;
+  --t-sm: 1.0625rem;
+  --t-md: 1.125rem;
+  --t-lg: 1.375rem;
+  --t-xl: 2rem;
+  --t-total: 2.75rem;
+  /* Ширина колонки чата и поля ввода: около 60 знаков в строке */
+  --chat-width: 660px;
+  --r-sm: 8px;
+  --r-md: 12px;
+  --r-lg: 18px;
+}
+
+/* Вишнёвая тема: белый на акценте 7,4 : 1, акцент как текст на подложке 6,4 : 1.
+   Красный «выброс» (--cut) близок по оттенку, поэтому исключённое всегда ещё и зачёркнуто или пустое. */
+:root[data-theme='cherry'] {
+  --accent: #a3213f;
+  --accent-hover: #861a33;
+  --accent-ink: #a3213f;
+  --paper: #fdf9f9;
+  --second: #f6f0f0;
+  --muted: #5b5254;
+}

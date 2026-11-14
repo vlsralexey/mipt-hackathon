@@ -1,6 +1,6 @@
 UV ?= uv
 
-.PHONY: setup dev test lint format check docker-up docker-down
+.PHONY: setup dev test lint format check docker-up docker-down frontend-setup frontend-dev frontend-check
 
 setup:
 	$(UV) sync --project backend --locked
@@ -26,3 +26,15 @@ docker-up:
 
 docker-down:
 	docker compose down
+
+frontend-setup:
+	npm ci --prefix frontend
+
+frontend-dev:
+	npm run dev --prefix frontend
+
+frontend-check:
+	npm run lint --prefix frontend
+	npm run typecheck --prefix frontend
+	npm test --prefix frontend
+	npm run build --prefix frontend

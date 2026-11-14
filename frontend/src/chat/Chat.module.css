@@ -1,0 +1,3 @@
+.composer { position: relative; flex: none; padding: 8px 24px 20px; }
+/* Окно стоит над полем ввода, в той же колонке, что поле и лента */
+.popupSlot { position: absolute; left: 24px; right: 24px; bottom: 100%; max-width: var(--chat-width); margin: 0 auto 8px; }
