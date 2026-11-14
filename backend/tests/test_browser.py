@@ -3,12 +3,15 @@
 import asyncio
 from types import SimpleNamespace
 
+import httpx
 import pytest
 from fastapi.testclient import TestClient
 
 from app.browser.manager import BrowserManager, SourceSkipped, Tab
 from app.config import Settings, SourceConfig
 from app.main import create_app
+from app.sources.base import source_error
+from app.sources.fetch import html_text
 
 
 class Input:
@@ -35,6 +38,13 @@ class Page:
 
     async def content(self):
         return self.html
+
+    def locator(self, selector):
+        class Widgets:
+            async def count(self):
+                return 0
+
+        return Widgets()
 
     async def goto(self, url, **kwargs):
         self.url = url
@@ -97,7 +107,8 @@ async def test_captcha_wait_resumes_and_skip_unblocks_every_tab():
     assert tab.blocked and tab.status == "waiting"
     await manager.command("p1", "alice", dict(type="resume", tab_id="t1"))
     await task
-    assert events == ["waiting", "resolved"] and not tab.blocked
+    # Возврат управления ещё не подтверждает, что проверка пройдена.
+    assert events == ["waiting"] and not tab.blocked
     task = asyncio.create_task(manager._blocked(tab, "captcha"))
     await asyncio.sleep(0)
     await manager.skip("p1", "web")
@@ -132,6 +143,85 @@ async def test_rendered_page_is_extracted_after_captcha_and_has_source_url(monke
     assert tab.status == "reading"
     frame = await manager.frame(tab)
     assert frame["tab_id"] == tab.id and frame["data"] == "anBlZy1ieXRlcw=="
+
+
+@pytest.mark.parametrize("status", [403, 429, 503])
+async def test_http_block_without_captcha_does_not_wait_for_user(monkeypatch, status):
+    manager = BrowserManager()
+    page = Page("<title>Доступ ограничен</title><body>Повторите позже</body>")
+    tab = add(manager, page=page)
+
+    async def fake_tab(*args):
+        return tab
+
+    async def goto(*args, **kwargs):
+        return SimpleNamespace(status=status)
+
+    monkeypatch.setattr(manager, "_tab", fake_tab)
+    page.goto = goto
+    cfg = SourceConfig(id="web", name="Магазин", level=2, type="web")
+    with pytest.raises(httpx.HTTPStatusError) as exc:
+        await manager.fetch("p1", cfg, 1, page.url, 1000)
+    assert source_error(exc.value)[0] == "unavailable"
+    assert not tab.blocked and not tab.skipped
+
+
+async def test_premature_resume_keeps_captcha_available_until_verified(monkeypatch):
+    events = []
+
+    async def callback(tab, reason, status):
+        events.append(status)
+
+    manager = BrowserManager(callback, wait_seconds=1)
+    page = Page("<title>Captcha</title><body>Подтвердите, что вы не робот</body>")
+    tab = add(manager, page=page)
+
+    async def fake_tab(*args):
+        return tab
+
+    monkeypatch.setattr(manager, "_tab", fake_tab)
+    cfg = SourceConfig(id="web", name="Магазин", level=2, type="web")
+    task = asyncio.create_task(manager.fetch("p1", cfg, 1, page.url, 1000))
+    while not tab.blocked:
+        await asyncio.sleep(0)
+    await manager.command("p1", "alice", dict(type="resume", tab_id="t1"))
+    while len(events) < 2:
+        await asyncio.sleep(0)
+    assert events == ["waiting", "waiting"] and not task.done() and not tab.skipped
+    page.html = "<title>Товар</title><body>Цена 100 рублей</body>"
+    await manager.command("p1", "alice", dict(type="resume", tab_id="t1"))
+    assert (await task).text == "Цена 100 рублей"
+    assert events[-1] == "resolved" and len(page.navigations) == 1
+
+
+def test_background_captcha_tokens_do_not_block_product_extraction():
+    title, text = html_text(
+        "<title>Бумага</title><body>Цена 100 рублей"
+        '<input type="hidden" name="smartcaptcha-token">'
+        '<iframe src="https://captcha.example.org/invisible"></iframe></body>'
+    )
+    assert title == "Бумага" and "100" in text
+
+
+async def test_yandex_visible_challenge_detected_but_hidden_widget_ignored():
+    class Widgets:
+        visible = False
+
+        async def count(self):
+            return 1
+
+        def nth(self, index):
+            return self
+
+        async def is_visible(self):
+            return self.visible
+
+    widgets = Widgets()
+    page = SimpleNamespace(locator=lambda selector: widgets)
+    manager = BrowserManager()
+    assert not await manager._captcha(page, "Магазин")
+    widgets.visible = True
+    assert await manager._captcha(page, "Ой!")
 
 
 async def test_fetch_rejects_private_url_before_opening_browser():

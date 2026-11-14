@@ -17,6 +17,18 @@ class NeedsLogin(ValueError):
     pass
 
 
+def captcha_title(title: str) -> bool:
+    return bool(
+        re.search(
+            r"captcha|капча|проверка (?:браузера|безопасности)|"
+            r"(?:подтвердите|докажите|verify).{0,30}(?:робот|human)|"
+            r"вы не робот|are you (?:a )?robot|just a moment",
+            title,
+            re.I,
+        )
+    )
+
+
 def public_url(url: str) -> str:
     parts = urlsplit(url)
     host = (parts.hostname or "").lower().rstrip(".")
@@ -40,13 +52,15 @@ def public_url(url: str) -> str:
     return url
 
 
-def html_text(html: str, limit: int | None = None) -> tuple[str, str]:
+def html_text(
+    html: str, limit: int | None = None, *, check_captcha: bool = True
+) -> tuple[str, str]:
     tree = HTMLParser(html)
     title = tree.css_first("title")
     title_text = title.text(strip=True) if title else ""
-    if re.search(r"captcha|капча|проверка (?:браузера|безопасности)", title_text, re.I) or tree.css(
-        'input[name*="captcha"], iframe[src*="captcha"]'
-    ):
+    # Токены и iframe reCAPTCHA/SmartCaptcha встроены и в обычные карточки.
+    # В браузере видимость активной проверки проверяется отдельно.
+    if check_captcha and captcha_title(title_text):
         raise NeedsLogin("Источник требует проверки капчи")
     for node in tree.css("script, style, noscript, svg, header, footer, nav, .header, .footer"):
         node.decompose()

@@ -11,8 +11,10 @@ from datetime import UTC, datetime
 from urllib.parse import urlsplit
 from uuid import uuid4
 
+import httpx
+
 from app.sources.base import CandidatePage
-from app.sources.fetch import MAX_BODY, NeedsLogin, html_text, public_url
+from app.sources.fetch import MAX_BODY, NeedsLogin, captcha_title, html_text, public_url
 
 WIDTH, HEIGHT = 1280, 800
 
@@ -54,7 +56,7 @@ class Tab:
 
 
 class BrowserManager:
-    def __init__(self, on_blocked=None, *, wait_seconds=120):
+    def __init__(self, on_blocked=None, *, wait_seconds=300):
         self.on_blocked = on_blocked
         self.wait_seconds = wait_seconds
         self.tabs = {}
@@ -106,6 +108,8 @@ class BrowserManager:
                 context = await self._browser.new_context(
                     viewport={"width": WIDTH, "height": HEIGHT},
                     accept_downloads=False,
+                    locale="ru-RU",
+                    timezone_id="Europe/Moscow",
                     service_workers="block",
                 )
                 context.set_default_timeout(10000)
@@ -170,24 +174,37 @@ class BrowserManager:
         self.keys[key] = tab.id
         return tab
 
-    async def _blocked(self, tab, reason):
+    async def _blocked(self, tab, reason, *, deadline=None):
         tab.blocked, tab.status = True, "waiting"
         tab.action = "Жду проверки капчи или входа"
         tab.resume.clear()
         if self.on_blocked:
             await self.on_blocked(tab, reason, "waiting")
         try:
-            await asyncio.wait_for(tab.resume.wait(), self.wait_seconds)
+            remaining = self.wait_seconds if deadline is None else deadline - time.monotonic()
+            await asyncio.wait_for(tab.resume.wait(), max(0, remaining))
         except TimeoutError:
             tab.skipped = True
         finally:
             tab.blocked = False
             tab.owner = None
-        status = "skipped" if tab.skipped else "resolved"
-        if self.on_blocked:
-            await self.on_blocked(tab, reason, status)
+        if tab.skipped and self.on_blocked:
+            await self.on_blocked(tab, reason, "skipped")
         if tab.skipped:
             raise SourceSkipped("Источник пропущен: проверка не завершена")
+
+    async def _captcha(self, page, title):
+        if captcha_title(title):
+            return True
+        # Только видимые элементы самой проверки, не фоновые токены/iframe.
+        widgets = page.locator(
+            '.CheckboxCaptcha, .AdvancedCaptcha, form[action*="checkcaptcha"], '
+            'iframe[src*="recaptcha"][src*="bframe"], iframe[src*="hcaptcha"][title*="challenge"]'
+        )
+        for i in range(await widgets.count()):
+            if await widgets.nth(i).is_visible():
+                return True
+        return False
 
     async def fetch(self, pid, cfg, index, url, limit):
         public_url(url)
@@ -206,7 +223,9 @@ class BrowserManager:
                     await tab.page.wait_for_load_state("networkidle", timeout=2500)
                 except Exception:
                     pass
-                for attempt in range(2):
+                deadline = time.monotonic() + self.wait_seconds
+                challenged = False
+                while True:
                     if tab.skipped or (pid, cfg.id) in self.skipped:
                         raise SourceSkipped("Источник пропущен пользователем")
                     if tab.owner:
@@ -217,19 +236,28 @@ class BrowserManager:
                     if len(html.encode()) > MAX_BODY:
                         raise ValueError("Страница превышает допустимый объём")
                     try:
-                        if attempt == 0 and response and response.status in (401, 403, 429):
-                            raise NeedsLogin("Источник ограничил доступ")
-                        title, text = html_text(html, limit)
+                        title, text = html_text(html, limit, check_captcha=False)
+                        if await self._captcha(tab.page, title):
+                            raise NeedsLogin("Источник требует проверки капчи")
+                        if not challenged and response and response.status >= 400:
+                            raise httpx.HTTPStatusError(
+                                "Источник ограничил доступ или вернул ошибку",
+                                request=httpx.Request("GET", tab.page.url),
+                                response=httpx.Response(response.status),
+                            )
                         if not text.strip():
                             raise ValueError("Страница пуста")
                         break
                     except NeedsLogin:
-                        if attempt:
-                            tab.skipped = True
-                            if self.on_blocked:
-                                await self.on_blocked(tab, "captcha", "skipped")
-                            raise SourceSkipped("Проверка капчи или входа не завершена") from None
-                        await self._blocked(tab, "captcha")
+                        challenged = True
+                        await self._blocked(tab, "captcha", deadline=deadline)
+                        # После клика отправка формы/редирект может ещё выполняться.
+                        try:
+                            await tab.page.wait_for_load_state("networkidle", timeout=2500)
+                        except Exception:
+                            pass
+                if challenged and self.on_blocked:
+                    await self.on_blocked(tab, "captcha", "resolved")
                 tab.title, tab.status, tab.action = (
                     title,
                     "reading",
@@ -347,7 +375,9 @@ class BrowserManager:
 
     async def frame(self, tab):
         tab.title = (await tab.page.title())[:300]
-        data = await tab.page.screenshot(type="jpeg", quality=65, timeout=4000)
+        data = await tab.page.screenshot(
+            type="jpeg", quality=90 if tab.blocked or tab.owner else 65, timeout=4000
+        )
         return dict(
             type="frame",
             tab_id=tab.id,

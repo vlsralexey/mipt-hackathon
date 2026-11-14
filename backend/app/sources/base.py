@@ -59,7 +59,7 @@ def source_error(exc: Exception) -> tuple[str, str]:
     ):
         return "unavailable", "Источник недоступен: ошибка сети, таймаут или ограничение запросов"
     if isinstance(exc, httpx.HTTPStatusError) and exc.response.status_code in (401, 403):
-        return "needs_login", "Источник ограничил доступ к странице"
+        return "unavailable", "Источник ограничил доступ к странице"
     if isinstance(exc, LLMError):
         return "error", str(exc)
     return "error", "Не удалось обработать источник: изменился формат страницы или ответа"
