@@ -80,6 +80,32 @@ async def test_missing_brand_question_is_added_without_weakening_requirement():
     assert parsed.positions[0].characteristics[0].essential
 
 
+async def test_repeated_sveto_copy_analog_questions_are_one_decision():
+    pos = paper_position(
+        characteristics=[{"name": "Товарный знак", "value": "SvetoCopy", "essential": True}]
+    )
+    parsed = await parse_tz(
+        FakeLLM(
+            [
+                raw_tz(
+                    positions=[pos.model_dump(mode="json")],
+                    questions=[
+                        question(text="Допускается ли замена бумаги SvetoCopy на аналоги?"),
+                        question(text="Учитывать эквиваленты SvetoCopy?"),
+                        question(text="Какая фасовка?"),
+                    ],
+                )
+            ]
+        ),
+        "ТЗ",
+    )
+    assert [q.id for q in parsed.questions] == ["q1-1", "q1-2"]
+    assert parsed.questions[1].text == "Какая фасовка?"
+    llm = FakeLLM()
+    result = await apply_answer(llm, pos, parsed.questions[0], "Да")
+    assert not result.characteristics[0].essential and not llm.calls
+
+
 async def test_mass_inside_piece_has_question_even_if_model_omits_it():
     pos = paper_position(name="Реагент", unit="шт", basis={"unit": "мкг", "per_tz_unit": "10"})
     parsed = await parse_tz(FakeLLM([raw_tz(positions=[pos.model_dump(mode="json")])]), "ТЗ")

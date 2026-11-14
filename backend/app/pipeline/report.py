@@ -38,6 +38,7 @@ from app.pipeline.normalize import (
     resolve_delivery,
     resolve_vat,
 )
+from app.pipeline.parse_tz import same_question
 from app.units import UnitMismatch
 
 
@@ -342,8 +343,13 @@ def build_report(
     questions = [q.model_copy(deep=True) for q in parsed_tz.questions]
     for edit in effective:
         if edit.kind == "answer_question":
+            answered = next((q for q in questions if q.id == edit.payload.question_id), None)
             for q in questions:
-                if q.id == edit.payload.question_id and q.position_index == edit.position_index:
+                if (
+                    answered is not None
+                    and same_question(q, answered)
+                    and q.position_index == edit.position_index
+                ):
                     q.answer = edit.payload.answer
     valid_effective = [
         e

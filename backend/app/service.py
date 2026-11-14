@@ -29,7 +29,7 @@ from app.config import CalculationSnapshot, SourceConfig, load_cpi, load_rules, 
 from app.events import Event, EventBus
 from app.llm.client import LLMAuthError, LLMError, LLMFormatError, OpenRouterLLM
 from app.p1.configuration_helpers import effective_snapshot
-from app.pipeline.parse_tz import parse_tz
+from app.pipeline.parse_tz import parse_tz, same_question
 from app.pipeline.report import build_report, effective_position
 from app.pipeline.research import research_position
 from app.report.diff import version_diff
@@ -352,7 +352,10 @@ class Service:
                     if (
                         edit.kind == "answer_question"
                         and edit.status == "active"
-                        and edit.target == msg.data.id
+                        and any(
+                            q.id == edit.target and same_question(q, original)
+                            for q in state["parsed"].questions
+                        )
                     ):
                         answer = edit.payload.answer
                 if msg.data.answer != answer:

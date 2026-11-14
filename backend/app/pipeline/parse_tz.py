@@ -10,6 +10,18 @@ from app.llm.structured import complete_model
 from app.models import DomainModel, ParsedTZ, Position, Question
 from app.units import canonical_unit
 
+BRAND_FIELDS = {"товарный знак", "производитель", "модель", "марка", "бренд"}
+
+
+def asks_about_analogs(text: str) -> bool:
+    return any(word in text.casefold() for word in ("аналог", "эквивалент"))
+
+
+def same_question(left: Question, right: Question) -> bool:
+    return left.position_index == right.position_index and (
+        left.id == right.id or asks_about_analogs(left.text) and asks_about_analogs(right.text)
+    )
+
 
 class RawQuestion(DomainModel):
     position_index: int = Field(ge=1)
@@ -48,6 +60,17 @@ async def parse_tz(llm: LLM, tz_text: str) -> ParsedTZ:
     for q in raw.questions:
         if q.position_index not in indices or q.default_answer not in q.options:
             raise LLMFormatError("Некорректная позиция или ответ по умолчанию в вопросе")
+        # Модель может сформулировать одно решение о замене марки несколько раз.
+        if any(
+            existing.position_index == q.position_index
+            and (
+                existing.text.strip().casefold() == q.text.strip().casefold()
+                or asks_about_analogs(existing.text)
+                and asks_about_analogs(q.text)
+            )
+            for existing in questions
+        ):
+            continue
         counts[q.position_index] += 1
         questions.append(
             Question(id=f"q{q.position_index}-{counts[q.position_index]}", **q.model_dump())
@@ -57,14 +80,12 @@ async def parse_tz(llm: LLM, tz_text: str) -> ParsedTZ:
             c.value
             for c in position.characteristics
             if c.essential
-            and c.name.casefold() in ("товарный знак", "производитель", "модель")
+            and c.name.casefold() in BRAND_FIELDS
             and c.value.strip().casefold() not in ("отсутствует", "не указан")
         ]
         for brand in brands:
             if any(
-                q.position_index == position.index
-                and any(word in q.text.casefold() for word in ("аналог", "эквивалент"))
-                for q in questions
+                q.position_index == position.index and asks_about_analogs(q.text) for q in questions
             ):
                 break
             counts[position.index] += 1
@@ -116,28 +137,17 @@ def button_answer(position: Position, question: Question, answer: str) -> Positi
     """Известные варианты применяем без очередного сетевого запроса к модели."""
     if answer == question.default_answer:
         return position.model_copy(deep=True)
-    text = question.text.casefold()
-    if answer not in question.options or not any(w in text for w in ("аналог", "эквивалент")):
+    if answer not in question.options or not asks_about_analogs(question.text):
         return None
     normalized = answer.strip().casefold()
     if not normalized.startswith(("да", "нет")):
         return None
-    brands = [
-        c
-        for c in position.characteristics
-        if c.name.casefold() in {"товарный знак", "производитель", "модель", "марка", "бренд"}
-    ]
+    brands = [c for c in position.characteristics if c.name.casefold() in BRAND_FIELDS]
     if not brands:
         return None
     result = position.model_copy(deep=True)
     for characteristic in result.characteristics:
-        if characteristic.name.casefold() in {
-            "товарный знак",
-            "производитель",
-            "модель",
-            "марка",
-            "бренд",
-        }:
+        if characteristic.name.casefold() in BRAND_FIELDS:
             characteristic.essential = normalized.startswith("нет")
     return result
 
