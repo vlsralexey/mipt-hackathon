@@ -1,0 +1,43 @@
+# Секреты и окружение
+.env
+.env.*
+!.env.example
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+*.egg-info/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+dist/
+build/
+
+# Node / фронтенд
+node_modules/
+.vite/
+.next/
+*.tsbuildinfo
+
+# Локальные данные приложения
+/data/
+*.sqlite
+*.sqlite3
+*.db
+
+# Инструменты ИИ: локальные настройки, кэши и скачиваемые бинарники
+.claude/settings.local.json
+.impeccable/
+.claude/skills/impeccable/scripts/bin/
+
+# Редакторы и ОС
+.vscode/
+.idea/
+*.swp
+.DS_Store
+Thumbs.db
+~$*.docx
