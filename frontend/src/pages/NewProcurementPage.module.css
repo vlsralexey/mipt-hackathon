@@ -24,14 +24,15 @@
   /* Отступ сверху больше нижнего: форма стоит чуть ниже середины свободного места */
   padding: clamp(24px, 6vh, 64px) 0 24px;
 }
-/* Здание почти во всю ширину, но не выше половины окна, чтобы не упираться в поле.
+/* Здание стоит над нижним краем, не выше 44 % окна, чтобы не упираться в поле.
    Полупрозрачное: это пейзаж, главными остаются форма и кнопки. */
 .building {
   display: block;
   flex: none;
-  width: min(94%, 1240px);
+  width: min(80%, 1040px);
   height: auto;
-  max-height: 52vh;
+  max-height: 44vh;
+  margin-bottom: clamp(32px, 8vh, 80px);
   object-fit: contain;
   object-position: bottom;
   opacity: 0.55;

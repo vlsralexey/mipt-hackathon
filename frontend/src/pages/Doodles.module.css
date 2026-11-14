@@ -1,10 +1,11 @@
-/* Зарисовки занимают свободное место по бокам формы и держат от неё отступ.
+/* Зарисовки стоят в верхних углах и занимают свободное место по бокам формы.
    Когда места сбоку мало, они скрываются, а не наезжают на поле ввода. */
 .cluster {
   position: absolute;
-  top: 20px;
-  /* Не шире свободного места сбоку и не выше половины окна, чтобы не задеть здание */
-  width: min(240px, calc((100% - var(--chat-width)) / 2 - 52px), 26vh);
+  top: 16px;
+  /* По ширине свободного места сбоку, но не мельче --min: верхняя часть может
+     заходить внутрь, выше заголовка, нижняя рисуется так, чтобы не задеть поле */
+  width: clamp(var(--min), calc((100% - var(--chat-width)) / 2 - 40px), var(--max));
   height: auto;
   overflow: visible;
   pointer-events: none;
@@ -20,10 +21,10 @@
 }
 /* Толщина линий не зависит от масштаба рисунка */
 .cluster * { vector-effect: non-scaling-stroke; }
-.left { right: calc(50% + var(--chat-width) / 2 + 32px); }
-.right { left: calc(50% + var(--chat-width) / 2 + 32px); }
+.left { left: 20px; --min: 260px; --max: 300px; }
+.right { right: 20px; --min: 320px; --max: 380px; }
 
-@container new-purchase (max-width: 1000px) {
+@container new-purchase (max-width: 1080px) {
   .cluster { display: none; }
 }
 
